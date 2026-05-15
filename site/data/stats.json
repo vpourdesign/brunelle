@@ -1,36 +1,23 @@
 {
-  "total": 26,
-  "avgPrice": 789512,
-  "totalValue": 20527300,
+  "total": 10,
+  "avgPrice": 759930,
+  "totalValue": 7599300,
   "byCity": {
-    "Laurentides": 6,
-    "Saint-Adolphe-d’Howard": 3,
-    "Blainville": 4,
-    "Saint-Eustache": 2,
-    "Morin-Heights": 2,
-    "Sainte-Thérèse": 1,
-    "Saint-Sauveur/Laurentides": 3,
-    "Mirabel": 1,
-    "Montréal": 1,
-    "Laval": 1,
-    "Mont-Tremblant": 1,
-    "Sainte-Anne-des-Plaines": 1
+    "Laurentides": 2,
+    "Saint-Eustache": 5,
+    "Blainville": 3
   },
   "byType": {
-    "Propriété de prestige": 5,
-    "Propriété": 3,
-    "Maison unifamiliale": 5,
-    "Maison de ville": 2,
-    "Condo": 5,
-    "Terrain": 3,
-    "Chalet / Villégiature": 1,
-    "Plex": 2
+    "Terrain": 1,
+    "Maison unifamiliale": 4,
+    "Chalet / Villégiature": 4,
+    "Propriété de prestige": 1
   },
   "priceRanges": {
-    "<300k": 3,
-    "300-500k": 6,
-    "500-800k": 8,
-    "800k-1.5M": 8,
-    ">1.5M": 1
+    "<300k": 0,
+    "300-500k": 0,
+    "500-800k": 6,
+    "800k-1.5M": 4,
+    ">1.5M": 0
   }
 }
