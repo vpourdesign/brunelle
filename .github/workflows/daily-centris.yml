@@ -2,10 +2,8 @@ name: Daily Centris ingest
 
 on:
   schedule:
-    # 8:00 AM Montréal = 12:00 UTC (EDT, été) / 13:00 UTC (EST, hiver)
-    # On met 12:00 UTC : ça tombe à 8:00 l'été, 7:00 l'hiver. Acceptable.
     - cron: '0 12 * * *'
-  workflow_dispatch: # permet de le lancer manuellement depuis GitHub
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -28,15 +26,17 @@ jobs:
         run: node scripts/fetch-centris.mjs
 
       - name: Build site
-        run: node build.mjs
+        run: |
+          rm -rf site/nos-proprietes site/data
+          node build.mjs
 
-      - name: Commit updated data + site
+      - name: Commit updated site
         run: |
           git config user.name "centris-bot"
           git config user.email "bot@alainbrunelle.com"
-          git add site/data site/nos-proprietes
+          git add site/
           if git diff --cached --quiet; then
-            echo "No property changes today"
+            echo "No site changes today"
           else
             git commit -m "data: daily Centris refresh $(date -u +%Y-%m-%d)"
             git push
