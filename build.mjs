@@ -607,6 +607,10 @@ fs.writeFileSync(path.join(SITE,'assets','site.js'), JS);
 
 // --- Copy photos/videos/brand ---
 function copyDir(from, to){
+  if (!fs.existsSync(from)) {
+    console.log(`(skip) ${from} introuvable — non copié`);
+    return;
+  }
   fs.mkdirSync(to,{recursive:true});
   for (const f of fs.readdirSync(from)) {
     const s = path.join(from,f), d = path.join(to,f);
