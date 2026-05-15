@@ -1,0 +1,34 @@
+{
+  "total": 19,
+  "avgPrice": 860626,
+  "totalValue": 16351900,
+  "byCity": {
+    "Saint-Adolphe-d’Howard": 3,
+    "Blainville": 3,
+    "Saint-Eustache": 2,
+    "Morin-Heights": 1,
+    "Sainte-Thérèse": 1,
+    "Saint-Sauveur/Laurentides": 4,
+    "Montréal": 1,
+    "Mont-Tremblant": 1,
+    "Laval": 1,
+    "Mirabel": 1,
+    "Sainte-Anne-des-Plaines": 1
+  },
+  "byType": {
+    "Propriété": 3,
+    "Maison unifamiliale": 4,
+    "Maison de ville": 2,
+    "Condo": 4,
+    "Propriété de prestige": 2,
+    "Terrain": 2,
+    "Plex": 2
+  },
+  "priceRanges": {
+    "<300k": 3,
+    "300-500k": 5,
+    "500-800k": 4,
+    "800k-1.5M": 6,
+    ">1.5M": 1
+  }
+}

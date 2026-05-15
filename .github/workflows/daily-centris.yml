@@ -1,0 +1,43 @@
+name: Daily Centris ingest
+
+on:
+  schedule:
+    # 8:00 AM Montréal = 12:00 UTC (EDT, été) / 13:00 UTC (EST, hiver)
+    # On met 12:00 UTC : ça tombe à 8:00 l'été, 7:00 l'hiver. Acceptable.
+    - cron: '0 12 * * *'
+  workflow_dispatch: # permet de le lancer manuellement depuis GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch Centris zip
+        env:
+          DRIVEHQ_USER: ${{ secrets.DRIVEHQ_USER }}
+          DRIVEHQ_PASS: ${{ secrets.DRIVEHQ_PASS }}
+          DRIVEHQ_WEBDAV_URL: ${{ secrets.DRIVEHQ_WEBDAV_URL }}
+        run: node scripts/fetch-centris.mjs
+
+      - name: Build site
+        run: node build.mjs
+
+      - name: Commit updated data + site
+        run: |
+          git config user.name "centris-bot"
+          git config user.email "bot@alainbrunelle.com"
+          git add site/data site/nos-proprietes
+          if git diff --cached --quiet; then
+            echo "No property changes today"
+          else
+            git commit -m "data: daily Centris refresh $(date -u +%Y-%m-%d)"
+            git push
+          fi

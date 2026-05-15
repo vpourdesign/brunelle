@@ -1,0 +1,12 @@
+node_modules
+_centris
+_tmp.zip
+*.zip
+.DS_Store
+.env
+.env.local
+.vercel
+
+# Videos — too heavy for Git, hosted ailleurs (à configurer)
+videos/
+site/videos/

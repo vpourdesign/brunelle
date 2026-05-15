@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculatrices hypothécaires — paiement, capacité, rendement plex | Alain Brunelle</title>
+<meta name="description" content="Trois calculatrices gratuites : paiement hypothécaire mensuel, capacité d'emprunt (ABD/ATD) et rendement d'un plex. Résultats instantanés.">
+<link rel="canonical" href="https://alainbrunelle.com/acheter/calculatrices/">
+<meta property="og:title" content="Calculatrices hypothécaires — paiement, capacité, rendement plex | Alain Brunelle">
+<meta property="og:description" content="Trois calculatrices gratuites : paiement hypothécaire mensuel, capacité d'emprunt (ABD/ATD) et rendement d'un plex. Résultats instantanés.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.calc-grid{display:grid;gap:var(--gap);grid-template-columns:1fr}
+.calc{padding:clamp(1.8rem,3.5vw,2.8rem)}
+.calc h2{color:inherit;font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:-.02em}
+.calc-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem 2rem;margin-bottom:2rem}
+.calc-form label{display:flex;flex-direction:column;gap:.5rem;font-size:.9rem;font-weight:500;color:var(--ink-2)}
+.calc-form.dark label{color:rgba(255,255,255,.9)}
+.calc-form label span{font-weight:400;font-variant-numeric:tabular-nums;color:var(--blue)}
+.calc-form.dark label span{color:#fff}
+.calc-form input[type=range]{width:100%;accent-color:var(--blue)}
+.calc-form.dark input[type=range]{accent-color:#fff}
+.calc-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;padding-top:1.5rem;border-top:1px solid rgba(15,40,85,.12)}
+.calc.blue-block:not(.soft) .calc-out{border-top-color:rgba(255,255,255,.14)}
+.calc-out .k{font-size:clamp(1.6rem,2.6vw,2.2rem);font-weight:400;letter-spacing:-.025em;color:var(--blue);font-variant-numeric:tabular-nums}
+.calc.blue-block:not(.soft) .calc-out .k{color:#fff}
+.calc-out .kl{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-top:.3rem}
+</style>
+
+</head>
+<body class="">
+<header class="nav">
+  <a class="brand" href="/" aria-label="Alain Brunelle"><img src="/brand_assets/logo.png" alt="Alain Brunelle" height="64"></a>
+  <nav class="nav-links">
+    <a class="nav-item" href="/">Accueil</a><a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><a class="nav-item" href="/vendre/evaluation-gratuite/">Vendre</a><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><a class="nav-item" href="/blog/">Blog</a><a class="nav-item" href="/a-propos/">À propos</a><a class="nav-item" href="/rendez-vous/">Rendez-vous</a>
+  </nav>
+  <a class="nav-cta" href="/rendez-vous/">Prendre rendez-vous</a>
+  <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+</header>
+<main>
+
+<section class="page-head container">
+  <div class="eyebrow">Outils gratuits</div>
+  <h1>Calculatrices immobilières.</h1>
+  <p class="lead">Paiement hypothécaire, capacité d'emprunt et rendement d'un plex — calcul instantané, sans courriel demandé.</p>
+</section>
+
+<section class="container">
+  <div class="calc-grid">
+    <!-- 1. Paiement hypothécaire -->
+    <div class="calc blue-block soft">
+      <div class="eye" style="color:var(--blue-2)">Calculatrice 1</div>
+      <h2 style="margin:.6rem 0 1.5rem">Paiement hypothécaire mensuel.</h2>
+      <div class="calc-form">
+        <label>Prix d'achat <span data-out="m-price">500 000 $</span>
+          <input type="range" id="m-price-i" min="100000" max="2500000" step="10000" value="500000">
+        </label>
+        <label>Mise de fonds <span data-out="m-down">20 %</span>
+          <input type="range" id="m-down-i" min="5" max="50" step="1" value="20">
+        </label>
+        <label>Taux (%) <span data-out="m-rate">5,25 %</span>
+          <input type="range" id="m-rate-i" min="2" max="10" step="0.05" value="5.25">
+        </label>
+        <label>Amortissement <span data-out="m-years">25 ans</span>
+          <input type="range" id="m-years-i" min="5" max="30" step="1" value="25">
+        </label>
+      </div>
+      <div class="calc-out">
+        <div><div class="k" id="m-payment">—</div><div class="kl">Paiement / mois</div></div>
+        <div><div class="k" id="m-loan">—</div><div class="kl">Montant emprunté</div></div>
+        <div><div class="k" id="m-interest">—</div><div class="kl">Intérêts totaux</div></div>
+      </div>
+    </div>
+
+    <!-- 2. Capacité d'emprunt -->
+    <div class="calc blue-block">
+      <div class="eye" style="color:rgba(255,255,255,.6)">Calculatrice 2</div>
+      <h2 style="color:#fff;margin:.6rem 0 1.5rem">Capacité d'emprunt (ABD / ATD).</h2>
+      <div class="calc-form dark">
+        <label>Revenu annuel brut ménage <span data-out="c-income">100 000 $</span>
+          <input type="range" id="c-income-i" min="30000" max="400000" step="5000" value="100000">
+        </label>
+        <label>Mise de fonds disponible <span data-out="c-down">50 000 $</span>
+          <input type="range" id="c-down-i" min="0" max="500000" step="5000" value="50000">
+        </label>
+        <label>Dettes mensuelles (auto, cartes…) <span data-out="c-debt">500 $</span>
+          <input type="range" id="c-debt-i" min="0" max="5000" step="50" value="500">
+        </label>
+        <label>Taux (%) <span data-out="c-rate">5,25 %</span>
+          <input type="range" id="c-rate-i" min="2" max="10" step="0.05" value="5.25">
+        </label>
+      </div>
+      <div class="calc-out">
+        <div><div class="k" id="c-max">—</div><div class="kl">Prix maximum</div></div>
+        <div><div class="k" id="c-abd">—</div><div class="kl">Ratio ABD</div></div>
+        <div><div class="k" id="c-atd">—</div><div class="kl">Ratio ATD</div></div>
+      </div>
+    </div>
+
+    <!-- 3. Rendement plex -->
+    <div class="calc blue-block soft">
+      <div class="eye" style="color:var(--blue-2)">Calculatrice 3</div>
+      <h2 style="margin:.6rem 0 1.5rem">Rendement d'un plex.</h2>
+      <div class="calc-form">
+        <label>Prix d'achat <span data-out="p-price">650 000 $</span>
+          <input type="range" id="p-price-i" min="200000" max="3000000" step="10000" value="650000">
+        </label>
+        <label>Revenus locatifs bruts / mois <span data-out="p-rent">4 200 $</span>
+          <input type="range" id="p-rent-i" min="500" max="20000" step="100" value="4200">
+        </label>
+        <label>Dépenses annuelles (taxes, assurance, entretien) <span data-out="p-exp">12 000 $</span>
+          <input type="range" id="p-exp-i" min="0" max="50000" step="500" value="12000">
+        </label>
+        <label>Mise de fonds (%) <span data-out="p-dp">20 %</span>
+          <input type="range" id="p-dp-i" min="15" max="50" step="1" value="20">
+        </label>
+      </div>
+      <div class="calc-out">
+        <div><div class="k" id="p-caprate">—</div><div class="kl">Taux de capitalisation</div></div>
+        <div><div class="k" id="p-cashflow">—</div><div class="kl">Cashflow annuel</div></div>
+        <div><div class="k" id="p-coc">—</div><div class="kl">Rendement sur mise de fonds</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="cta-band">
+    <h2>Besoin d'un avis pro sur votre capacité réelle ?</h2>
+    <a class="btn" href="/rendez-vous/">Parler à Alain</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  const fmt = n => new Intl.NumberFormat('fr-CA',{maximumFractionDigits:0}).format(Math.round(n))+' $';
+  const fmtPct = n => (n).toFixed(1).replace('.',',')+' %';
+  const bind = (id,fn)=>{const el=document.getElementById(id); if(el)el.addEventListener('input',fn); return el;};
+  const val = id => parseFloat(document.getElementById(id).value);
+  const set = (sel,txt)=>{const e=document.querySelector('[data-out="'+sel+'"]'); if(e)e.textContent=txt;};
+  const put = (id,txt)=>{const e=document.getElementById(id); if(e)e.textContent=txt;};
+
+  // 1. Mortgage payment (formule standard, capitalisation semestrielle canadienne)
+  function calcMortgage(){
+    const price=val('m-price-i'), down=val('m-down-i')/100, rate=val('m-rate-i')/100, years=val('m-years-i');
+    set('m-price', fmt(price)); set('m-down', down*100+' %'); set('m-rate', rate*100+' %'.replace('.',','));
+    set('m-years', years+' ans');
+    const loan=price*(1-down);
+    // Canadian semi-annual compounding: effective monthly rate
+    const r=Math.pow(1+rate/2,2/12)-1;
+    const n=years*12;
+    const pmt=loan*r/(1-Math.pow(1+r,-n));
+    put('m-loan', fmt(loan));
+    put('m-payment', fmt(pmt));
+    put('m-interest', fmt(pmt*n - loan));
+  }
+  ['m-price-i','m-down-i','m-rate-i','m-years-i'].forEach(id=>bind(id,calcMortgage));
+  calcMortgage();
+
+  // 2. Borrowing capacity (ABD 32 %, ATD 40 %, stress-test +2 %)
+  function calcCapacity(){
+    const income=val('c-income-i'), down=val('c-down-i'), debt=val('c-debt-i'), rate=val('c-rate-i')/100;
+    set('c-income', fmt(income)); set('c-down', fmt(down)); set('c-debt', fmt(debt));
+    set('c-rate', (rate*100).toFixed(2).replace('.',',')+' %');
+    const stressRate=Math.max(rate+0.02, 0.0525);
+    const monthlyIncome=income/12;
+    const taxes=250, heating=150; // estimation mensuelle Rive-Nord
+    // ABD cap: housing <= 32 % of gross income
+    const maxHousingABD=monthlyIncome*0.32 - taxes - heating;
+    // ATD cap: housing + debts <= 40 %
+    const maxHousingATD=monthlyIncome*0.40 - taxes - heating - debt;
+    const maxPayment=Math.max(0, Math.min(maxHousingABD, maxHousingATD));
+    const r=Math.pow(1+stressRate/2,2/12)-1;
+    const n=25*12;
+    const maxLoan=maxPayment*(1-Math.pow(1+r,-n))/r;
+    const maxPrice=maxLoan+down;
+    put('c-max', fmt(Math.max(0,maxPrice)));
+    put('c-abd', '32 %');
+    put('c-atd', '40 %');
+  }
+  ['c-income-i','c-down-i','c-debt-i','c-rate-i'].forEach(id=>bind(id,calcCapacity));
+  calcCapacity();
+
+  // 3. Plex yield
+  function calcPlex(){
+    const price=val('p-price-i'), rent=val('p-rent-i'), exp=val('p-exp-i'), dp=val('p-dp-i')/100;
+    set('p-price', fmt(price)); set('p-rent', fmt(rent)); set('p-exp', fmt(exp));
+    set('p-dp', (dp*100)+' %');
+    const gross=rent*12;
+    const noi=gross-exp;
+    const capRate=noi/price*100;
+    // Mortgage payment on (1-dp) portion at 5.25 %, 25 yrs
+    const loan=price*(1-dp);
+    const r=Math.pow(1+0.0525/2,2/12)-1, n=25*12;
+    const pmt=loan*r/(1-Math.pow(1+r,-n));
+    const cashflow=noi-pmt*12;
+    const coc=(cashflow/(price*dp))*100;
+    put('p-caprate', fmtPct(capRate));
+    put('p-cashflow', fmt(cashflow));
+    put('p-coc', fmtPct(coc));
+  }
+  ['p-price-i','p-rent-i','p-exp-i','p-dp-i'].forEach(id=>bind(id,calcPlex));
+  calcPlex();
+})();
+</script>
+
+</main>
+<footer class="footer">
+  <div class="f-grid">
+    <div>
+      <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
+      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+    </div>
+    <div>
+      <h4>Territoires</h4>
+      <ul>
+        <li><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
+        <li><a href="/courtier-immobilier/blainville/">Blainville</a></li>
+        <li><a href="/courtier-immobilier/rosemere/">Rosemère</a></li>
+        <li><a href="/courtier-immobilier/lorraine/">Lorraine</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a></li>
+        <li><a href="/acheter/premier-acheteur/">Premier acheteur</a></li>
+        <li><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a></li>
+        <li><a href="/acheter/calculatrices/">Calculatrices</a></li>
+        <li><a href="/marche-immobilier/statistiques-blainville/">Statistiques marché</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul class="f-contact">
+        <li><a href="tel:4504305555">450.430.5555</a></li>
+        <li><a href="mailto:alain@alainbrunelle.com">alain@alainbrunelle.com</a></li>
+        <li>RE/MAX CRYSTAL<br>Sainte-Thérèse, QC</li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Alain Brunelle — Courtier immobilier résidentiel · Permis OACIQ</span>
+    <span class="f-legal"><a href="/a-propos/">À propos</a> · <a href="/contact/">Contact</a> · <a href="/performance/">Performance</a></span>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier | Alain Brunelle</title>
+<meta name="description" content="Le meilleur courtier immobilier de Sainte-Thérèse décode le marché 2026 : prix rue par rue, comparatif des 3 secteurs, outils de calcul interactifs. 29 ans d'expérience, 2 000 transactions.">
+<link rel="canonical" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/">
+<meta property="og:title" content="Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier | Alain Brunelle">
+<meta property="og:description" content="Le meilleur courtier immobilier de Sainte-Thérèse décode le marché 2026 : prix rue par rue, comparatif des 3 secteurs, outils de calcul interactifs. 29 ans d'expérience, 2 000 transactions.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+    .a-hero{position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:clamp(420px,55vw,640px);margin-bottom:3rem}
+    .a-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .a-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,22,40,.15) 0%,rgba(11,22,40,.85) 100%)}
+    .a-hero-inner{position:relative;z-index:2;color:#fff;padding:clamp(1.8rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:flex-end;min-height:inherit}
+    .a-hero .eye{color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:500;margin-bottom:1.2rem}
+    .a-hero h1{color:#fff;font-size:clamp(2rem,4vw,3.4rem);font-weight:400;letter-spacing:-.025em;line-height:1.08;max-width:28ch;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .a-hero .meta{margin-top:1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.85rem;color:rgba(255,255,255,.8)}
+    .a-lead{font-size:clamp(1.15rem,1.8vw,1.35rem);font-weight:300;color:var(--ink-2);max-width:62ch;line-height:1.6;margin-bottom:3rem}
+    .a-lead strong{font-weight:500;color:var(--ink)}
+    .a-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:3rem}
+    .a-summary .card{background:var(--surface);border-radius:var(--radius);padding:1.4rem;border-left:3px solid var(--blue)}
+    .a-summary .n{font-size:clamp(1.6rem,2.4vw,2rem);font-weight:400;letter-spacing:-.025em;color:var(--blue);font-variant-numeric:tabular-nums}
+    .a-summary .l{font-size:.82rem;color:var(--ink-2);margin-top:.35rem;line-height:1.4}
+    .a-body{max-width:760px;margin:0 auto}
+    .a-body h2{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:400;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--ink)}
+    .a-body h3{font-size:1.2rem;font-weight:500;margin:2rem 0 .6rem}
+    .a-body p{color:var(--ink-2);line-height:1.75;font-size:1.02rem}
+    .a-body p strong{color:var(--ink);font-weight:500}
+    .a-body ul{color:var(--ink-2);line-height:1.8;padding-left:1.2rem}
+    .a-figure{margin:2.5rem -2rem;border-radius:var(--radius-lg);overflow:hidden;position:relative}
+    .a-figure img{width:100%;display:block}
+    .a-figure figcaption{position:absolute;bottom:1.2rem;left:1.4rem;right:1.4rem;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:.8rem 1.2rem;border-radius:14px;font-size:.85rem;color:var(--ink);font-weight:400}
+    @media(max-width:820px){.a-figure{margin:2.5rem 0}}
+    .sector-tbl{width:100%;border-collapse:separate;border-spacing:0;margin:1.5rem 0 2rem;font-size:.95rem;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+    .sector-tbl th,.sector-tbl td{padding:.95rem 1rem;text-align:left;border-bottom:1px solid var(--line)}
+    .sector-tbl thead th{background:var(--ink);color:#fff;font-weight:500;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+    .sector-tbl tbody tr{transition:background .2s var(--ease);cursor:pointer}
+    .sector-tbl tbody tr:hover,.sector-tbl tbody tr.active{background:var(--blue-soft)}
+    .sector-tbl td strong{color:var(--blue);font-weight:500}
+    .sector-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+    .sector-tbl tbody tr:last-child td{border-bottom:0}
+    .chart-card{background:var(--surface);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0 2.5rem;border:1px solid var(--line)}
+    .chart-card h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500;margin-bottom:1.2rem}
+    .quiz{background:var(--blue);color:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,3.5vw,2.8rem);margin:2.5rem -2rem;position:relative;overflow:hidden}
+    .quiz::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 260px at 85% 0%,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
+    .quiz>*{position:relative}
+    .quiz .eye{color:rgba(255,255,255,.65)}
+    .quiz h3{color:#fff;font-size:clamp(1.4rem,2.4vw,1.8rem);font-weight:400;letter-spacing:-.02em;margin:.5rem 0 1.5rem}
+    .quiz-fields{display:grid;gap:1.4rem;margin-bottom:1.5rem}
+    .quiz-fields label{display:block;font-size:.85rem;color:rgba(255,255,255,.85);margin-bottom:.5rem;font-weight:500}
+    .quiz-fields .row{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .quiz-fields input[type=range]{width:100%;accent-color:#fff;margin-top:.3rem}
+    .quiz-fields .v{font-variant-numeric:tabular-nums;color:#fff;font-weight:500}
+    .quiz-out{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}
+    .quiz-out .verdict{font-size:clamp(1.2rem,2vw,1.5rem);font-weight:400;letter-spacing:-.015em;line-height:1.3}
+    .quiz-out .delta{font-size:2rem;font-weight:400;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-align:right}
+    .quiz-out .delta.pos{color:#9fe5b5}
+    .quiz-out .delta.neg{color:#ff9fb0}
+    @media(max-width:820px){.quiz{margin:2.5rem 0}.quiz-out{grid-template-columns:1fr}}
+    .timeline{margin:2rem 0 3rem;border-left:2px solid var(--blue-soft);padding-left:1.6rem}
+    .timeline-item{margin-bottom:1.5rem;position:relative}
+    .timeline-item::before{content:"";position:absolute;left:-1.78rem;top:.4rem;width:12px;height:12px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px var(--blue)}
+    .timeline-item .year{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:500}
+    .timeline-item .t{font-size:1.05rem;margin-top:.2rem;color:var(--ink)}
+    .timeline-item .t strong{color:var(--blue);font-weight:500}
+    .pullquote{border-left:3px solid var(--blue);padding:1rem 0 1rem 1.5rem;margin:2.5rem 0;font-family:'Jost';font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:300;letter-spacing:-.01em;color:var(--ink);line-height:1.4}
+    .pullquote cite{display:block;margin-top:.8rem;font-size:.85rem;color:var(--muted);font-style:normal;text-transform:uppercase;letter-spacing:.06em}
+    .a-cta{background:var(--ink);color:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);margin:3rem 0;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+    .a-cta h3{color:#fff;margin:0;font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:400;letter-spacing:-.02em;max-width:22ch}
+    .a-cta .btn{background:#fff;color:var(--ink);padding:1rem 1.8rem;border-radius:999px;font-weight:500;white-space:nowrap;transition:transform .3s var(--ease)}
+    .a-cta .btn:hover{transform:translateY(-2px);color:var(--ink)}
+    @media(max-width:720px){.a-cta{grid-template-columns:1fr}}
+    .a-footer-meta{padding:2rem;background:var(--surface);border-radius:var(--radius);margin:3rem 0 2rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center}
+    .a-footer-meta img{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#eef2f8}
+    .a-footer-meta .who{font-weight:500}
+    .a-footer-meta .who-sub{font-size:.88rem;color:var(--muted);margin-top:.2rem}
+  </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier","author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://alainbrunelle.com/a-propos/"},"image":"https://alainbrunelle.com/photos/stetherese1.jpg","datePublished":"2026-04-23","dateModified":"2026-04-24","publisher":{"@type":"Organization","name":"Alain Brunelle — RE/MAX CRYSTAL"},"mainEntityOfPage":"https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"}</script>
+</head>
+<body class="">
+<header class="nav">
+  <a class="brand" href="/" aria-label="Alain Brunelle"><img src="/brand_assets/logo.png" alt="Alain Brunelle" height="64"></a>
+  <nav class="nav-links">
+    <a class="nav-item" href="/">Accueil</a><a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><a class="nav-item" href="/vendre/evaluation-gratuite/">Vendre</a><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><a class="nav-item" href="/blog/">Blog</a><a class="nav-item" href="/a-propos/">À propos</a><a class="nav-item" href="/rendez-vous/">Rendez-vous</a>
+  </nav>
+  <a class="nav-cta" href="/rendez-vous/">Prendre rendez-vous</a>
+  <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+</header>
+<main>
+
+<article class="container" style="padding-top:2rem">
+  <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.5rem"><a href="/">Accueil</a> › <a href="/blog/">Blog</a> › <span>Radioscopie Sainte-Thérèse</span></div>
+
+  <figure class="a-hero">
+    <img src="/photos/stetherese1.jpg" alt="Sainte-Thérèse, Rive-Nord — vue d'ensemble" loading="eager">
+    <div class="a-hero-inner">
+      <div class="eye">Analyse de marché · Sainte-Thérèse · 2026</div>
+      <h1>Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier.</h1>
+      <div class="meta">
+        <span>Par <strong>Alain Brunelle</strong>, courtier immobilier résidentiel</span>
+        <span>· 12 min de lecture · Mis à jour avril 2026</span>
+      </div>
+    </div>
+  </figure>
+
+  <div class="a-body">
+    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a les mains dans les transactions depuis 29 ans. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger. C'est l'analyse que <strong>le meilleur courtier immobilier de la Rive-Nord</strong> utilise chaque matin avant de positionner un prix.</p>
+
+    <div class="a-summary">
+      <div class="card"><div class="n">582 k$</div><div class="l">Prix médian 2026 (unifamiliale)</div></div>
+      <div class="card"><div class="n">+5,2 %</div><div class="l">Progression YoY</div></div>
+      <div class="card"><div class="n">31 j</div><div class="l">Délai médian de vente</div></div>
+      <div class="card"><div class="n">99,1 %</div><div class="l">Ratio vendu / demandé</div></div>
+    </div>
+
+    <h2>1. Le marché en un coup d'œil — 5 ans de Sainte-Thérèse</h2>
+    <p>Depuis 2021, le prix médian d'une unifamiliale à Sainte-Thérèse a progressé de <strong>38,6 %</strong>, malgré le resserrement hypothécaire de 2023. La trajectoire n'a rien d'un plateau — c'est une montée disciplinée, portée par deux moteurs : la rareté foncière dans le Vieux-Village et la demande continue des jeunes familles qui fuient les prix de Laval.</p>
+
+    <div class="chart-card">
+      <h4>Prix médian unifamiliale — Sainte-Thérèse 2021 → 2026</h4>
+      <div class="chart" id="chart-5y"></div>
+    </div>
+
+    <h2>2. Les trois secteurs — décryptés</h2>
+    <p>Sainte-Thérèse n'est pas <em>une</em> ville, c'est <strong>trois marchés distincts</strong>. Un triplex du Vieux-Village ne se vend pas comme un bungalow de l'En-Bas. Voici le comparatif que j'utilise, mis à jour à partir de mes dernières inscriptions et des transactions APCIQ 2026.</p>
+
+    <table class="sector-tbl" id="sector-table">
+      <thead><tr><th>Secteur</th><th class="num">Prix médian</th><th class="num">Délai (j)</th><th class="num">Ratio V/D</th><th class="num">Inventaire</th></tr></thead>
+      <tbody>
+        <tr data-s="vieux"><td><strong>Vieux-Village</strong><br><span style="font-size:.82rem;color:var(--muted)">Cœur historique, cachet, condos neufs</span></td><td class="num">624 000 $</td><td class="num">24</td><td class="num">100,3 %</td><td class="num">Très faible</td></tr>
+        <tr data-s="haut"><td><strong>En-Haut</strong><br><span style="font-size:.82rem;color:var(--muted)">Familial, cottages 1990-2010, parcs</span></td><td class="num">575 000 $</td><td class="num">32</td><td class="num">98,9 %</td><td class="num">Équilibré</td></tr>
+        <tr data-s="bas"><td><strong>En-Bas</strong><br><span style="font-size:.82rem;color:var(--muted)">Accessible, bungalows, primo-accédants</span></td><td class="num">498 000 $</td><td class="num">38</td><td class="num">98,2 %</td><td class="num">Plus élevé</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.85rem;color:var(--muted);margin-top:-.5rem">Cliquez une ligne pour faire monter le graphique correspondant ci-dessous.</p>
+
+    <div class="chart-card">
+      <h4 id="chart-sector-title">Volume de ventes — les 3 secteurs (12 derniers mois)</h4>
+      <div class="chart" id="chart-sector"></div>
+    </div>
+
+    <figure class="a-figure">
+      <img src="/photos/stetherese2.jpg" alt="Vieux Sainte-Thérèse — architecture historique" loading="lazy">
+      <figcaption>Le Vieux-Village : 12 % des inscriptions, 31 % de la valeur transactée en 2026.</figcaption>
+    </figure>
+
+    <h2>3. Votre propriété est-elle bien positionnée ? (outil interactif)</h2>
+    <p>Le piège classique d'une mise en marché à Sainte-Thérèse : positionner le prix en se comparant à la municipalité voisine plutôt qu'à sa propre rue. Le résultat — <strong>+ 13 jours d'attente, − 2,4 % sur le prix final</strong>. Voici l'outil rapide que j'utilise pour estimer l'écart entre votre prix cible et la réalité du secteur.</p>
+
+    <div class="quiz">
+      <div class="eye" style="text-transform:uppercase;letter-spacing:.18em;font-size:.72rem">Outil 1 · Positionnement de prix</div>
+      <h3>Mon prix cible est-il aligné avec mon secteur ?</h3>
+      <div class="quiz-fields">
+        <div>
+          <div class="row"><label>Secteur de votre propriété</label></div>
+          <select id="q-sector" style="width:100%;padding:.8rem 1rem;border-radius:12px;border:0;background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:1rem">
+            <option value="vieux">Vieux-Village</option>
+            <option value="haut" selected>Sainte-Thérèse-en-Haut</option>
+            <option value="bas">Sainte-Thérèse-en-Bas</option>
+          </select>
+        </div>
+        <div>
+          <div class="row"><label>Superficie habitable (pi²)</label><span class="v" id="q-area-v">1 800 pi²</span></div>
+          <input type="range" id="q-area" min="800" max="4000" step="50" value="1800">
+        </div>
+        <div>
+          <div class="row"><label>Année de construction</label><span class="v" id="q-year-v">1995</span></div>
+          <input type="range" id="q-year" min="1900" max="2026" step="1" value="1995">
+        </div>
+        <div>
+          <div class="row"><label>Prix cible</label><span class="v" id="q-price-v">620 000 $</span></div>
+          <input type="range" id="q-price" min="300000" max="1500000" step="5000" value="620000">
+        </div>
+      </div>
+      <div class="quiz-out">
+        <div class="verdict" id="q-verdict">Saisissez vos paramètres —</div>
+        <div class="delta" id="q-delta">—</div>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.65);margin-top:1.2rem">Estimation indicative basée sur les médianes 2026. Pour une évaluation précise rue par rue, réservez une analyse comparative gratuite.</p>
+    </div>
+
+    <h2>4. Pourquoi Alain Brunelle à Sainte-Thérèse ?</h2>
+    <p>On peut être <strong>un</strong> courtier à Sainte-Thérèse. Être <strong>le</strong> courtier de Sainte-Thérèse, c'est autre chose. Voici le dossier, honnêtement.</p>
+
+    <div class="timeline">
+      <div class="timeline-item"><div class="year">1997</div><div class="t">Premières inscriptions dans <strong>l'En-Bas</strong> — les bungalows post-guerre. 37 transactions la première année.</div></div>
+      <div class="timeline-item"><div class="year">2004</div><div class="t">Ouverture du bureau <strong>RE/MAX CRYSTAL</strong> — devient point de référence pour le Vieux-Village.</div></div>
+      <div class="timeline-item"><div class="year">2012</div><div class="t">Spécialisation <strong>plex et condos neufs</strong> au moment où Sainte-Thérèse densifie son cœur.</div></div>
+      <div class="timeline-item"><div class="year">2018</div><div class="t">Top 1 % RE/MAX Québec — 7 années consécutives jusqu'à aujourd'hui.</div></div>
+      <div class="timeline-item"><div class="year">2026</div><div class="t"><strong>2 000+ transactions</strong> cumulées sur la Rive-Nord. Ratio vendu/demandé moyen : <strong>99,2 %</strong> (vs 97,1 % marché).</div></div>
+    </div>
+
+    <p>Concrètement, qu'est-ce que ça change pour vous ? Trois choses tangibles :</p>
+    <ul>
+      <li><strong>Réseau acheteur qualifié</strong> — 12 400 contacts Rive-Nord, segmentés par budget, typologie, secteur ciblé. Une inscription diffusée à ce réseau <em>avant</em> la mise sur Centris.</li>
+      <li><strong>Photographie et vidéo 4K incluses</strong> — drone, visite virtuelle, brochure imprimée. Zéro frais additionnel, pas de surclassement à payer.</li>
+      <li><strong>Analyse comparative rue par rue</strong> — je ne compare pas votre maison à « Sainte-Thérèse » en général, je la compare à votre côté de rue, sur les 24 derniers mois.</li>
+    </ul>
+
+    <div class="pullquote">« Un bon courtier vous donne un prix. Le meilleur courtier immobilier vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 29 ans de Sainte-Thérèse</cite></div>
+
+    <h2>5. Ce que je surveille en ce moment — avril 2026</h2>
+    <p>La saisonnalité de Sainte-Thérèse est sous-estimée. Contrairement à Blainville, le pic de vente est <strong>début mai</strong>, pas fin avril. Raison principale : le Vieux-Village attire beaucoup d'acheteurs de Laval et Montréal qui visitent après la semaine de relâche de Pâques.</p>
+    <ul>
+      <li><strong>Inventaire condos neufs</strong> en baisse : 3 projets livrés, rien de nouveau annoncé pour 2026-2027 dans le Vieux-Village → pression haussière à 18 mois.</li>
+      <li><strong>Demande primo-accédants</strong> en En-Bas : forte, mais plafonnée par le stress test à ~5,25 %. Cap estimé à 520 k$ pour un ménage médian.</li>
+      <li><strong>Fenêtre vendeur</strong> optimale : 28 avril — 20 juin. Au-delà, pression baissière mesurée historiquement à -1,8 % par mois.</li>
+    </ul>
+
+    <div class="a-cta">
+      <h3>Votre propriété à Sainte-Thérèse mérite l'analyse la plus fine de son marché.</h3>
+      <a class="btn" href="/rendez-vous/">Prendre rendez-vous avec Alain</a>
+    </div>
+
+    <h2>6. FAQ — Sainte-Thérèse en 2026</h2>
+    <h3>Qui est le meilleur courtier immobilier à Sainte-Thérèse ?</h3>
+    <p>Difficile d'être objectif en étant le courtier concerné — mais les faits parlent : 29 ans sur le territoire, 2 000+ transactions, Top 1 % RE/MAX Québec 7 années consécutives, ratio vendu/demandé de 99,2 %. La question plus utile : <em>qui est le meilleur courtier immobilier pour votre propriété spécifique ?</em> C'est exactement ce que je détermine en 30 minutes d'analyse gratuite.</p>
+
+    <h3>Quel est le prix moyen d'une maison à Sainte-Thérèse ?</h3>
+    <p>582 000 $ en prix médian unifamiliale 2026. Mais <strong>la médiane ne vend rien</strong> : ce qui vend, c'est le prix juste de votre rue, avec votre année de construction, vos rénovations. Écart possible : ± 80 000 $ selon le secteur.</p>
+
+    <h3>Sainte-Thérèse ou Blainville ?</h3>
+    <p>Sainte-Thérèse offre un cachet Vieux-Village introuvable à Blainville, avec un ticket d'entrée inférieur de 12 %. Blainville offre des lots plus grands et des écoles mieux notées statistiquement. Pour les familles avec enfants jeunes, Blainville. Pour les acheteurs plus jeunes ou urbains, Sainte-Thérèse.</p>
+
+    <h3>Combien de temps pour vendre à Sainte-Thérèse ?</h3>
+    <p>Médiane secteur : 31 jours. Sur mes listings spécifiquement : <strong>24 jours</strong> en moyenne 2026. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
+
+    <div class="a-footer-meta">
+      <img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle">
+      <div>
+        <div class="who">Alain Brunelle</div>
+        <div class="who-sub">Courtier immobilier résidentiel · RE/MAX CRYSTAL · Sainte-Thérèse, Blainville et Rive-Nord</div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script>
+(function(){
+  // Chart 1 — 5-year median prices
+  const y5 = [['2021','420 000 $',420],['2022','478 000 $',478],['2023','512 000 $',512],['2024','538 000 $',538],['2025','562 000 $',562],['2026','582 000 $',582]];
+  const max5 = Math.max(...y5.map(r=>r[2]));
+  document.getElementById('chart-5y').innerHTML = y5.map(([y,l,v])=>
+    '<div class="bar-row"><span class="label">'+y+'</span><div class="bar"><span style="width:'+((v/max5)*100)+'%"></span></div><span class="val">'+l+'</span></div>'
+  ).join('');
+
+  // Sector volumes
+  const sectorVol = {
+    vieux: {name:'Vieux-Village', data:[['Condos',38],['Unifam.',14],['Plex',19]]},
+    haut:  {name:'Sainte-Thérèse-en-Haut', data:[['Cottages',52],['Jumelés',28],['Condos',9]]},
+    bas:   {name:'Sainte-Thérèse-en-Bas', data:[['Bungalows',41],['Cottages',17],['Plex',8]]}
+  };
+  function renderSectorChart(key){
+    const s=sectorVol[key];
+    document.getElementById('chart-sector-title').textContent = 'Répartition des ventes — '+s.name;
+    const max=Math.max(...s.data.map(d=>d[1]));
+    document.getElementById('chart-sector').innerHTML = s.data.map(([l,v])=>
+      '<div class="bar-row"><span class="label">'+l+'</span><div class="bar"><span style="width:'+((v/max)*100)+'%"></span></div><span class="val">'+v+'</span></div>'
+    ).join('');
+  }
+  renderSectorChart('haut');
+  document.querySelectorAll('#sector-table tbody tr').forEach(tr=>{
+    tr.addEventListener('click',()=>{
+      document.querySelectorAll('#sector-table tbody tr').forEach(x=>x.classList.remove('active'));
+      tr.classList.add('active');
+      renderSectorChart(tr.dataset.s);
+    });
+  });
+  document.querySelector('#sector-table tbody tr[data-s=haut]').classList.add('active');
+
+  // Quiz — price positioning
+  const fmt = n=>new Intl.NumberFormat('fr-CA',{maximumFractionDigits:0}).format(Math.round(n))+' $';
+  const medPpf = { vieux:345, haut:298, bas:258 };
+  const update = ()=>{
+    const sec = document.getElementById('q-sector').value;
+    const area = +document.getElementById('q-area').value;
+    const year = +document.getElementById('q-year').value;
+    const price = +document.getElementById('q-price').value;
+    document.getElementById('q-area-v').textContent = area.toLocaleString('fr-CA')+' pi²';
+    document.getElementById('q-year-v').textContent = year;
+    document.getElementById('q-price-v').textContent = fmt(price);
+    let est = medPpf[sec]*area;
+    // Age adjustment
+    const age = 2026-year;
+    if (age<5) est*=1.08;
+    else if (age<15) est*=1.02;
+    else if (age<30) est*=1.00;
+    else if (age<50) est*=0.93;
+    else est*=0.88;
+    const delta = price - est;
+    const pct = delta/est*100;
+    const el = document.getElementById('q-delta');
+    const v = document.getElementById('q-verdict');
+    el.textContent = (delta>=0?'+':'')+fmt(delta).replace(' $','')+' $';
+    el.classList.remove('pos','neg');
+    if (Math.abs(pct)<3){ v.textContent='Excellent — votre prix est aligné avec le secteur.'; el.classList.add('pos'); }
+    else if (pct>=3 && pct<8){ v.textContent='Léger sur-prix — envisageable si biens très haut de gamme.'; el.classList.add('neg'); }
+    else if (pct>=8){ v.textContent='Sur-prix marqué — risque de délai de vente allongé.'; el.classList.add('neg'); }
+    else if (pct<=-3 && pct>-8){ v.textContent='Sous-évalué — vous laissez de l\'argent sur la table.'; el.classList.add('pos'); }
+    else { v.textContent='Fortement sous-évalué — réservez une analyse avant de publier.'; el.classList.add('pos'); }
+  };
+  ['q-sector','q-area','q-year','q-price'].forEach(id=>document.getElementById(id).addEventListener('input',update));
+  update();
+})();
+</script>
+
+</main>
+<footer class="footer">
+  <div class="f-grid">
+    <div>
+      <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
+      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+    </div>
+    <div>
+      <h4>Territoires</h4>
+      <ul>
+        <li><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
+        <li><a href="/courtier-immobilier/blainville/">Blainville</a></li>
+        <li><a href="/courtier-immobilier/rosemere/">Rosemère</a></li>
+        <li><a href="/courtier-immobilier/lorraine/">Lorraine</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a></li>
+        <li><a href="/acheter/premier-acheteur/">Premier acheteur</a></li>
+        <li><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a></li>
+        <li><a href="/acheter/calculatrices/">Calculatrices</a></li>
+        <li><a href="/marche-immobilier/statistiques-blainville/">Statistiques marché</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul class="f-contact">
+        <li><a href="tel:4504305555">450.430.5555</a></li>
+        <li><a href="mailto:alain@alainbrunelle.com">alain@alainbrunelle.com</a></li>
+        <li>RE/MAX CRYSTAL<br>Sainte-Thérèse, QC</li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Alain Brunelle — Courtier immobilier résidentiel · Permis OACIQ</span>
+    <span class="f-legal"><a href="/a-propos/">À propos</a> · <a href="/contact/">Contact</a> · <a href="/performance/">Performance</a></span>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
