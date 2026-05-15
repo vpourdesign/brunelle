@@ -7,7 +7,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
 const CENTRIS = path.join(ROOT, '_centris');
 const SITE = path.join(ROOT, 'site');
-const BROKER_NO = '111464'; // Maxime Beaulac → simule Alain Brunelle
+// Fallback courtier (Maxime Beaulac) — utilisé tant qu'Alain Brunelle
+// n'est pas encore présent dans MEMBRES.TXT (Centris ajoutera son fiche
+// quand il sera connecté au flux DDF).
+const FALLBACK_BROKER_NO = '111464';
+const TARGET_BROKER = { firstName: 'Alain', lastName: 'Brunelle' };
 
 // Google Calendar Appointment Schedule — remplace par ton URL complète
 // (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
@@ -56,6 +60,26 @@ const TYPE_LABEL = code => {
 };
 
 console.log('Reading Centris…');
+const membres = read('MEMBRES.TXT');
+
+// Normalize a string : lowercase + remove diacritics
+const norm = (s) => (s || '').toString().toLowerCase()
+  .normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+
+// Auto-detect Alain Brunelle's NO_MEMBRE from MEMBRES.TXT.
+// col 0: NO_MEMBRE · col 4: NOM · col 5: PRENOM
+function detectBroker() {
+  const target = { f: norm(TARGET_BROKER.firstName), l: norm(TARGET_BROKER.lastName) };
+  const hit = membres.find(r => norm(r[5]) === target.f && norm(r[4]) === target.l);
+  if (hit) {
+    console.log(`✓ Alain Brunelle détecté → NO_MEMBRE=${hit[0]}`);
+    return hit[0];
+  }
+  console.log(`⚠ Alain Brunelle absent de MEMBRES.TXT → fallback sur Maxime Beaulac (${FALLBACK_BROKER_NO})`);
+  return FALLBACK_BROKER_NO;
+}
+const BROKER_NO = detectBroker();
+
 const inscr = read('INSCRIPTIONS.TXT');
 const photos = read('PHOTOS.TXT');
 const addenda = read('ADDENDA.TXT');
