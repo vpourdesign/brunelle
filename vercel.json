@@ -1,7 +1,8 @@
 {
-  "buildCommand": null,
+  "buildCommand": "node build.mjs",
   "framework": null,
   "outputDirectory": "site",
+  "installCommand": "echo skip",
   "cleanUrls": true,
   "trailingSlash": true,
   "headers": [

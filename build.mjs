@@ -59,112 +59,136 @@ const TYPE_LABEL = code => {
   return 'Terrain';
 };
 
-console.log('Reading Centris…');
-const membres = read('MEMBRES.TXT');
-
 // Normalize a string : lowercase + remove diacritics
 const norm = (s) => (s || '').toString().toLowerCase()
   .normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
 
-// Auto-detect Alain Brunelle's NO_MEMBRE from MEMBRES.TXT.
-// col 0: NO_MEMBRE · col 4: NOM · col 5: PRENOM
-function detectBroker() {
-  const target = { f: norm(TARGET_BROKER.firstName), l: norm(TARGET_BROKER.lastName) };
-  const hit = membres.find(r => norm(r[5]) === target.f && norm(r[4]) === target.l);
-  if (hit) {
-    console.log(`✓ Alain Brunelle détecté → NO_MEMBRE=${hit[0]}`);
-    return hit[0];
+const slug = (s) => (s || '').toString().toLowerCase().normalize('NFD')
+  .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+// ── DATA LOADING — deux modes ──────────────────────────────────────────
+// Mode A : zip Centris frais présent dans _centris/ → ingestion complète + écrit site/data/*.json
+// Mode B : pas de _centris/ → on lit site/data/*.json (committé par le cron GitHub).
+//          Permet à Vercel de rebuilder le HTML après chaque push sans avoir besoin du zip.
+
+const HAS_CENTRIS = fs.existsSync(path.join(CENTRIS, 'INSCRIPTIONS.TXT'));
+let properties, stats;
+
+if (HAS_CENTRIS) {
+  console.log('Mode A · Reading Centris zip…');
+  const membres = read('MEMBRES.TXT');
+  ({ properties, stats } = ingestFromCentris(membres));
+  // Persist for next Vercel build
+  fs.mkdirSync(path.join(SITE, 'data'), { recursive: true });
+  fs.writeFileSync(path.join(SITE, 'data', 'properties.json'), JSON.stringify(properties, null, 2));
+  fs.writeFileSync(path.join(SITE, 'data', 'stats.json'), JSON.stringify(stats, null, 2));
+} else {
+  const propPath = path.join(SITE, 'data', 'properties.json');
+  const statPath = path.join(SITE, 'data', 'stats.json');
+  if (!fs.existsSync(propPath)) {
+    console.error('❌ Ni _centris/ ni site/data/properties.json — impossible de bâtir le site.');
+    process.exit(1);
   }
-  console.log(`⚠ Alain Brunelle absent de MEMBRES.TXT → fallback sur Maxime Beaulac (${FALLBACK_BROKER_NO})`);
-  return FALLBACK_BROKER_NO;
+  console.log('Mode B · Reading cached site/data/*.json (no Centris zip available)');
+  properties = JSON.parse(fs.readFileSync(propPath, 'utf8'));
+  stats = fs.existsSync(statPath) ? JSON.parse(fs.readFileSync(statPath, 'utf8')) : {};
 }
-const BROKER_NO = detectBroker();
 
-const inscr = read('INSCRIPTIONS.TXT');
-const photos = read('PHOTOS.TXT');
-const addenda = read('ADDENDA.TXT');
-const remarques = read('REMARQUES.TXT');
-const caracts = read('CARACTERISTIQUES.TXT');
-const pieces = read('PIECES_UNITES.TXT');
-const liens = read('LIENS_ADDITIONNELS.TXT');
-
-const photosByMls = {};
-for (const p of photos) { const m=p[0]; if(!m) continue; (photosByMls[m] ??= []).push({seq:+p[1], type:p[3], url:p[6]}); }
-for (const k of Object.keys(photosByMls)) photosByMls[k].sort((a,b)=>a.seq-b.seq);
-
-function groupText(rows) {
-  const o={}; for(const r of rows){const m=r[0],l=r[2],t=r[6]||''; if(!m)continue; const k=m+'|'+l;(o[k]??=[]).push({s:+r[1],n:+r[3],t});}
-  for(const k of Object.keys(o)){o[k].sort((a,b)=>(a.s-b.s)||(a.n-b.n)); o[k]=o[k].map(x=>x.t).join(' ').replace(/\s+/g,' ').trim();}
-  return o;
-}
-const addMap = groupText(addenda);
-const remMap = groupText(remarques);
-const caractsByMls = {};
-for (const c of caracts) { const m=c[0]; if(!m) continue; (caractsByMls[m] ??= []).push({code:c[1], value:c[2]}); }
-const piecesByMls = {};
-for (const p of pieces) { const m=p[0]; if(!m) continue; (piecesByMls[m] ??= []).push({etage:p[1], nom:p[2], niveau:p[3], dim:p[4], rev:p[5]}); }
-const linksByMls = {};
-for (const l of liens) { const m=l[0]; if(!m) continue; (linksByMls[m] ??= []).push({type:l[2], url:l[3]}); }
-
-const slug = s => (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-
-const myListings = inscr.filter(r => r[2]===BROKER_NO || r[4]===BROKER_NO);
-const properties = myListings.map(r => {
-  const mls = r[0], price = parseFloat(r[6])||0;
-  const typeCode = r[25];
-  const street = (r[27]||'').trim();
-  const cp = r[29] || '';
-  const city = cityFromCP(cp);
-  const yearBuilt = r[59] && /^\d{4}$/.test(r[59]) ? r[59] : (r[68] && /^\d{4}$/.test(r[68]) ? r[68] : '');
-  const areaTerrain = r[75] ? `${r[75]} ${r[76]||''}`.trim() : '';
-  const lat = parseFloat(r[144])||null, lon = parseFloat(r[145])||null;
-  const desc = addMap[mls+'|F'] || '';
-  const rem = remMap[mls+'|F'] || '';
-  const ph = photosByMls[mls] || [];
-  return {
-    mls,
-    price,
-    typeCode, typeLabel: TYPE_LABEL(typeCode),
-    street,
-    city,
-    postalCode: cp,
-    yearBuilt,
-    areaTerrain,
-    lat, lon,
-    descFr: desc, remFr: rem,
-    photos: ph,
-    features: caractsByMls[mls] || [],
-    rooms: piecesByMls[mls] || [],
-    links: linksByMls[mls] || [],
-    isCoBroker: r[2] !== BROKER_NO,
-    slug: `${mls}-${slug(street)}-${slug(city)}`
-  };
-}).filter(p => p.price > 0 && p.photos.length >= 3);
-
-console.log(`Loaded ${properties.length} active properties`);
-
-fs.mkdirSync(path.join(SITE,'data'), { recursive: true });
-fs.writeFileSync(path.join(SITE,'data','properties.json'), JSON.stringify(properties, null, 2));
-
-const stats = {
-  total: properties.length,
-  avgPrice: Math.round(properties.reduce((s,p)=>s+p.price,0) / Math.max(1,properties.length)),
-  totalValue: properties.reduce((s,p)=>s+p.price,0),
-  byCity: properties.reduce((a,p)=>{a[p.city]=(a[p.city]||0)+1;return a;},{}),
-  byType: properties.reduce((a,p)=>{a[p.typeLabel]=(a[p.typeLabel]||0)+1;return a;},{}),
-  priceRanges: (() => {
-    const ranges = {'<300k':0,'300-500k':0,'500-800k':0,'800k-1.5M':0,'>1.5M':0};
-    for (const p of properties) {
-      if (p.price<300000) ranges['<300k']++;
-      else if (p.price<500000) ranges['300-500k']++;
-      else if (p.price<800000) ranges['500-800k']++;
-      else if (p.price<1500000) ranges['800k-1.5M']++;
-      else ranges['>1.5M']++;
+function ingestFromCentris(membres) {
+  function detectBroker() {
+    const target = { f: norm(TARGET_BROKER.firstName), l: norm(TARGET_BROKER.lastName) };
+    const hit = membres.find(r => norm(r[5]) === target.f && norm(r[4]) === target.l);
+    if (hit) {
+      console.log(`✓ Alain Brunelle détecté → NO_MEMBRE=${hit[0]}`);
+      return hit[0];
     }
-    return ranges;
-  })()
-};
-fs.writeFileSync(path.join(SITE,'data','stats.json'), JSON.stringify(stats, null, 2));
+    console.log(`⚠ Alain Brunelle absent de MEMBRES.TXT → fallback Maxime Beaulac (${FALLBACK_BROKER_NO})`);
+    return FALLBACK_BROKER_NO;
+  }
+  const BROKER_NO = detectBroker();
+
+  const inscr = read('INSCRIPTIONS.TXT');
+  const photos = read('PHOTOS.TXT');
+  const addenda = read('ADDENDA.TXT');
+  const remarques = read('REMARQUES.TXT');
+  const caracts = read('CARACTERISTIQUES.TXT');
+  const pieces = read('PIECES_UNITES.TXT');
+  const liens = read('LIENS_ADDITIONNELS.TXT');
+
+  const photosByMls = {};
+  for (const p of photos) { const m=p[0]; if(!m) continue; (photosByMls[m] ??= []).push({seq:+p[1], type:p[3], url:p[6]}); }
+  for (const k of Object.keys(photosByMls)) photosByMls[k].sort((a,b)=>a.seq-b.seq);
+
+  function groupText(rows) {
+    const o={}; for(const r of rows){const m=r[0],l=r[2],t=r[6]||''; if(!m)continue; const k=m+'|'+l;(o[k]??=[]).push({s:+r[1],n:+r[3],t});}
+    for(const k of Object.keys(o)){o[k].sort((a,b)=>(a.s-b.s)||(a.n-b.n)); o[k]=o[k].map(x=>x.t).join(' ').replace(/\s+/g,' ').trim();}
+    return o;
+  }
+  const addMap = groupText(addenda);
+  const remMap = groupText(remarques);
+  const caractsByMls = {};
+  for (const c of caracts) { const m=c[0]; if(!m) continue; (caractsByMls[m] ??= []).push({code:c[1], value:c[2]}); }
+  const piecesByMls = {};
+  for (const p of pieces) { const m=p[0]; if(!m) continue; (piecesByMls[m] ??= []).push({etage:p[1], nom:p[2], niveau:p[3], dim:p[4], rev:p[5]}); }
+  const linksByMls = {};
+  for (const l of liens) { const m=l[0]; if(!m) continue; (linksByMls[m] ??= []).push({type:l[2], url:l[3]}); }
+
+  const myListings = inscr.filter(r => r[2]===BROKER_NO || r[4]===BROKER_NO);
+  const properties = myListings.map(r => {
+    const mls = r[0], price = parseFloat(r[6])||0;
+    const typeCode = r[25];
+    const street = (r[27]||'').trim();
+    const cp = r[29] || '';
+    const city = cityFromCP(cp);
+    const yearBuilt = r[59] && /^\d{4}$/.test(r[59]) ? r[59] : (r[68] && /^\d{4}$/.test(r[68]) ? r[68] : '');
+    const areaTerrain = r[75] ? `${r[75]} ${r[76]||''}`.trim() : '';
+    const lat = parseFloat(r[144])||null, lon = parseFloat(r[145])||null;
+    const desc = addMap[mls+'|F'] || '';
+    const rem = remMap[mls+'|F'] || '';
+    const ph = photosByMls[mls] || [];
+    return {
+      mls,
+      price,
+      typeCode, typeLabel: TYPE_LABEL(typeCode),
+      street,
+      city,
+      postalCode: cp,
+      yearBuilt,
+      areaTerrain,
+      lat, lon,
+      descFr: desc, remFr: rem,
+      photos: ph,
+      features: caractsByMls[mls] || [],
+      rooms: piecesByMls[mls] || [],
+      links: linksByMls[mls] || [],
+      isCoBroker: r[2] !== BROKER_NO,
+      slug: `${mls}-${slug(street)}-${slug(city)}`
+    };
+  }).filter(p => p.price > 0 && p.photos.length >= 3);
+
+  console.log(`Loaded ${properties.length} active properties`);
+
+  const stats = {
+    total: properties.length,
+    avgPrice: Math.round(properties.reduce((s,p)=>s+p.price,0) / Math.max(1,properties.length)),
+    totalValue: properties.reduce((s,p)=>s+p.price,0),
+    byCity: properties.reduce((a,p)=>{a[p.city]=(a[p.city]||0)+1;return a;},{}),
+    byType: properties.reduce((a,p)=>{a[p.typeLabel]=(a[p.typeLabel]||0)+1;return a;},{}),
+    priceRanges: (() => {
+      const ranges = {'<300k':0,'300-500k':0,'500-800k':0,'800k-1.5M':0,'>1.5M':0};
+      for (const p of properties) {
+        if (p.price<300000) ranges['<300k']++;
+        else if (p.price<500000) ranges['300-500k']++;
+        else if (p.price<800000) ranges['500-800k']++;
+        else if (p.price<1500000) ranges['800k-1.5M']++;
+        else ranges['>1.5M']++;
+      }
+      return ranges;
+    })()
+  };
+
+  return { properties, stats };
+}
 
 // --- Shared template ---
 const NAV = [
