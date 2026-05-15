@@ -11,24 +11,38 @@ if (!USER || !PASS || !BASE) {
   process.exit(1);
 }
 
-// Nom du zip du jour (America/Toronto → YYYYMMDD)
-const now = new Date();
-const tz = new Date(now.toLocaleString('en-US', { timeZone: 'America/Toronto' }));
-const yyyymmdd = `${tz.getFullYear()}${String(tz.getMonth()+1).padStart(2,'0')}${String(tz.getDate()).padStart(2,'0')}`;
-const fileName = `VPOURDESIGN${yyyymmdd}.zip`;
-const url = BASE.replace(/\/$/, '') + '/' + fileName;
+// Construit YYYYMMDD pour un Date donné dans le fuseau America/Toronto
+function ymd(d) {
+  const t = new Date(d.toLocaleString('en-US', { timeZone: 'America/Toronto' }));
+  return `${t.getFullYear()}${String(t.getMonth()+1).padStart(2,'0')}${String(t.getDate()).padStart(2,'0')}`;
+}
+
+const baseUrl = BASE.replace(/\/$/, '');
 const tmp = path.join(process.cwd(), '_tmp.zip');
 
-console.log(`Fetching ${url} …`);
-try {
-  execSync(`curl -fsSL --user "${USER}:${PASS}" -o "${tmp}" "${url}"`, { stdio: 'inherit' });
-} catch (e) {
-  // Fallback : zip de la veille (si le dépôt DriveHQ a du retard)
-  const y = new Date(tz); y.setDate(y.getDate()-1);
-  const yyyymmdd2 = `${y.getFullYear()}${String(y.getMonth()+1).padStart(2,'0')}${String(y.getDate()).padStart(2,'0')}`;
-  const fallback = BASE.replace(/\/$/, '') + '/' + `VPOURDESIGN${yyyymmdd2}.zip`;
-  console.log(`Today's zip missing, trying ${fallback} …`);
-  execSync(`curl -fsSL --user "${USER}:${PASS}" -o "${tmp}" "${fallback}"`, { stdio: 'inherit' });
+// Essaie le zip du jour, puis recule jour par jour jusqu'à 14 jours en arrière.
+const MAX_DAYS_BACK = 14;
+let fetched = false;
+const now = new Date();
+
+for (let offset = 0; offset <= MAX_DAYS_BACK; offset++) {
+  const d = new Date(now.getTime() - offset * 86400000);
+  const fileName = `VPOURDESIGN${ymd(d)}.zip`;
+  const url = `${baseUrl}/${fileName}`;
+  process.stdout.write(`Trying ${fileName} … `);
+  try {
+    execSync(`curl -fsSL --user "${USER}:${PASS}" -o "${tmp}" "${url}"`, { stdio: 'pipe' });
+    console.log(`✓ téléchargé (offset J-${offset})`);
+    fetched = true;
+    break;
+  } catch {
+    console.log('× non disponible');
+  }
+}
+
+if (!fetched) {
+  console.error(`Aucun zip VPOURDESIGN*.zip trouvé dans les ${MAX_DAYS_BACK} derniers jours.`);
+  process.exit(1);
 }
 
 // Extract
