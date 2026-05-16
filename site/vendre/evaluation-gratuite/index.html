@@ -3,18 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Évaluation gratuite · rapport complet en 48 h | Alain Brunelle</title>
-<meta name="description" content="Rapport d'évaluation gratuit en 48 h. Analyse comparative par quartier et typologie. Sans engagement.">
+<title>Évaluation gratuite de votre propriété — rapport en 48 h | Alain Brunelle</title>
+<meta name="description" content="Obtenez une évaluation gratuite et précise de votre propriété à Blainville, Sainte-Thérèse, Rosemère ou Lorraine. Rapport personnalisé livré sous 48 h.">
 <link rel="canonical" href="https://alainbrunelle.com/vendre/evaluation-gratuite/">
-<meta property="og:title" content="Évaluation gratuite · rapport complet en 48 h | Alain Brunelle">
-<meta property="og:description" content="Rapport d'évaluation gratuit en 48 h. Analyse comparative par quartier et typologie. Sans engagement.">
+<meta property="og:title" content="Évaluation gratuite de votre propriété — rapport en 48 h | Alain Brunelle">
+<meta property="og:description" content="Obtenez une évaluation gratuite et précise de votre propriété à Blainville, Sainte-Thérèse, Rosemère ou Lorraine. Rapport personnalisé livré sous 48 h.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-
+<style>
+    .eval-wrap{max-width:780px;margin:0 auto;padding-block:clamp(2rem,4vw,3rem)}
+    .eval-progress{display:flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;padding:0 .5rem}
+    .eval-step-dot{flex:1;height:4px;background:var(--line);border-radius:999px;position:relative;overflow:hidden;transition:background .4s var(--ease)}
+    .eval-step-dot.done{background:var(--blue)}
+    .eval-step-dot.active{background:linear-gradient(90deg,var(--blue) 0%,var(--blue) 100%);background-size:200% 100%;animation:eval-fill 1.5s var(--ease) forwards}
+    @keyframes eval-fill{from{background-position:100% 0}to{background-position:0 0}}
+    .eval-meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:500;margin-bottom:.6rem}
+    .eval-card{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line);position:relative;overflow:hidden;min-height:420px}
+    .eval-step{display:none;animation:eval-slide .5s var(--ease)}
+    .eval-step.active{display:block}
+    @keyframes eval-slide{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+    .eval-step h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;letter-spacing:-.025em;line-height:1.15;margin-bottom:.8rem;color:var(--ink)}
+    .eval-step .sub{color:var(--ink-2);font-size:1.02rem;line-height:1.6;margin-bottom:2rem;max-width:50ch}
+    .eval-field{position:relative;margin-bottom:1.5rem}
+    .eval-field label{display:block;font-size:.85rem;font-weight:500;color:var(--ink-2);margin-bottom:.5rem;letter-spacing:.01em}
+    .eval-field input[type=text],.eval-field input[type=email],.eval-field input[type=tel]{width:100%;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:14px;font-family:inherit;font-size:1rem;background:#fff;color:var(--ink);transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+    .eval-field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+    .eval-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);max-height:280px;overflow-y:auto;z-index:10;display:none}
+    .eval-suggestions.open{display:block}
+    .eval-suggestion{padding:.85rem 1.1rem;cursor:pointer;font-size:.95rem;border-bottom:1px solid var(--line);transition:background .2s var(--ease)}
+    .eval-suggestion:last-child{border-bottom:0}
+    .eval-suggestion:hover,.eval-suggestion.active{background:var(--blue-soft);color:var(--blue)}
+    .eval-suggestion .sec{display:block;font-size:.78rem;color:var(--muted);margin-top:.15rem}
+    .eval-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.7rem}
+    .eval-option{padding:1.2rem .9rem;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;font-size:1rem;color:var(--ink);transition:all .3s var(--ease-spring);position:relative}
+    .eval-option:hover{border-color:var(--blue);transform:translateY(-2px)}
+    .eval-option.selected{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:500;box-shadow:0 0 0 4px rgba(15,40,85,.08)}
+    .eval-option .ico{display:block;font-size:1.6rem;margin-bottom:.4rem;opacity:.7}
+    .eval-option.selected .ico{opacity:1}
+    .eval-option .desc{display:block;font-size:.78rem;color:var(--muted);margin-top:.2rem;font-weight:400}
+    .eval-option.selected .desc{color:var(--blue-2)}
+    .eval-actions{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+    .eval-btn{font-family:inherit;font-size:1rem;font-weight:500;padding:1rem 1.8rem;border-radius:999px;border:0;cursor:pointer;transition:transform .3s var(--ease-spring),background .3s var(--ease),box-shadow .3s var(--ease);display:inline-flex;align-items:center;gap:.6rem}
+    .eval-btn.primary{background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;box-shadow:0 4px 12px -2px rgba(11,22,40,.25)}
+    .eval-btn.primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px -4px rgba(15,40,85,.35)}
+    .eval-btn.primary:disabled{opacity:.4;cursor:not-allowed}
+    .eval-btn.ghost{background:transparent;color:var(--muted)}
+    .eval-btn.ghost:hover{color:var(--ink)}
+    .eval-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:540px){.eval-row{grid-template-columns:1fr}}
+    .eval-success{text-align:center;padding:2rem 1rem}
+    .eval-success .check{width:88px;height:88px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:2.4rem;margin:0 auto 1.6rem;animation:eval-pop .6s var(--ease-spring)}
+    @keyframes eval-pop{from{transform:scale(0)}to{transform:scale(1)}}
+    .eval-success h2{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:400;letter-spacing:-.02em;margin-bottom:.8rem}
+    .eval-success p{color:var(--ink-2);line-height:1.7;max-width:46ch;margin:0 auto 1.5rem}
+    .eval-success .recap{background:var(--surface);border-radius:14px;padding:1.5rem;margin:2rem 0;text-align:left;font-size:.92rem;line-height:1.7}
+    .eval-success .recap strong{color:var(--blue);font-weight:500}
+    .eval-hint{font-size:.8rem;color:var(--muted);margin-top:.7rem;font-style:italic}
+  </style>
 
 </head>
 <body class="">
@@ -29,33 +78,306 @@
 <main>
 
 <section class="page-head container">
-  <div class="eyebrow">Évaluation · Lead magnet</div>
-  <h1>Évaluation gratuite</h1>
-  <p class="lead">Connaître la valeur réelle de votre propriété — rapport complet en 48 h.</p>
+  <div class="eyebrow">Évaluation · 100% gratuite</div>
+  <h1>Combien vaut votre propriété en 2026 ?</h1>
+  <p class="lead">Répondez à 5 questions rapides. Je personnalise votre rapport et vous le livre par courriel en 48 h. Sans engagement.</p>
 </section>
+
 <section class="container">
-  <div class="two-col">
-    <article class="prose"><p>Le rapport d'évaluation que je produis s'appuie sur trois couches : les ventes comparables des 12 derniers mois à moins de 500 m, l'inventaire actif actuel dans votre typologie, et les tendances de prix saisonnières du secteur.</p>
-    <h2>Ce que vous recevez</h2>
-    <ul><li>Prix de mise en marché recommandé, avec fourchette basse/haute</li><li>Liste des 5 ventes comparables les plus pertinentes</li><li>Délai de vente attendu selon le positionnement</li><li>Recommandations de préparation (home staging, réno ciblées)</li></ul>
-    <h2>Comment ça fonctionne</h2>
-    <ol><li>Vous me contactez — formulaire ou téléphone.</li><li>Je visite la propriété (30-45 min).</li><li>Je livre le rapport sous 48 h, en personne ou par courriel.</li></ol></article>
-    <aside>
-      <div class="blue-block soft" style="padding:2rem">
-        <div class="eye" style="color:var(--blue-2)">Évaluation gratuite</div>
-        <h3 style="margin:.7rem 0 1rem">Connaître la valeur de votre propriété ?</h3>
-        <p style="color:var(--ink-2);font-size:.95rem;margin-bottom:1.5rem">Rapport comparatif complet en 48 h, fondé sur les ventes récentes du même quartier.</p>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>
+  <div class="eval-wrap">
+    <div class="eval-progress" aria-label="Progression">
+      <div class="eval-step-dot active" data-dot="1"></div>
+      <div class="eval-step-dot" data-dot="2"></div>
+      <div class="eval-step-dot" data-dot="3"></div>
+      <div class="eval-step-dot" data-dot="4"></div>
+      <div class="eval-step-dot" data-dot="5"></div>
+    </div>
+
+    <form class="eval-card" id="eval-form" onsubmit="return false">
+      <!-- ÉTAPE 1 — Adresse -->
+      <div class="eval-step active" data-step="1">
+        <div class="eval-meta">Étape 1 sur 5</div>
+        <h2>Quelle est l'adresse de votre propriété ?</h2>
+        <p class="sub">Commencez à taper — les suggestions s'affichent automatiquement.</p>
+        <div class="eval-field">
+          <label for="eval-addr">Adresse complète</label>
+          <input type="text" id="eval-addr" name="address" placeholder="ex. 245 rue Fontainebleau, Blainville" autocomplete="off" required>
+          <div class="eval-suggestions" id="eval-suggestions"></div>
+          <p class="eval-hint">📍 Suggestions powered by OpenStreetMap — vos données restent confidentielles.</p>
+        </div>
       </div>
-    </aside>
+
+      <!-- ÉTAPE 2 — Type & étages & sous-sol -->
+      <div class="eval-step" data-step="2">
+        <div class="eval-meta">Étape 2 sur 5</div>
+        <h2>Quelle est la configuration ?</h2>
+        <p class="sub">Le type et la structure influencent significativement la valeur.</p>
+        <div class="eval-field">
+          <label>Type de propriété</label>
+          <div class="eval-options" data-group="type">
+            <button type="button" class="eval-option" data-val="unifamiliale"><span class="ico">🏡</span>Unifamiliale</button>
+            <button type="button" class="eval-option" data-val="condo"><span class="ico">🏢</span>Condo</button>
+            <button type="button" class="eval-option" data-val="maison-ville"><span class="ico">🏘️</span>Maison de ville</button>
+            <button type="button" class="eval-option" data-val="plex"><span class="ico">🏬</span>Plex</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Nombre d'étages</label>
+          <div class="eval-options" data-group="etages">
+            <button type="button" class="eval-option" data-val="1">1 étage</button>
+            <button type="button" class="eval-option" data-val="1.5">1½</button>
+            <button type="button" class="eval-option" data-val="2">2 étages</button>
+            <button type="button" class="eval-option" data-val="3+">3+</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Sous-sol</label>
+          <div class="eval-options" data-group="soussol">
+            <button type="button" class="eval-option" data-val="fini">Fini</button>
+            <button type="button" class="eval-option" data-val="semi">Semi-fini</button>
+            <button type="button" class="eval-option" data-val="non-fini">Non fini</button>
+            <button type="button" class="eval-option" data-val="aucun">Aucun</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 — Chambres & salles de bain -->
+      <div class="eval-step" data-step="3">
+        <div class="eval-meta">Étape 3 sur 5</div>
+        <h2>Combien de pièces ?</h2>
+        <p class="sub">Critère majeur dans la comparaison avec les ventes récentes du secteur.</p>
+        <div class="eval-field">
+          <label>Chambres à coucher</label>
+          <div class="eval-options" data-group="chambres">
+            <button type="button" class="eval-option" data-val="1">1</button>
+            <button type="button" class="eval-option" data-val="2">2</button>
+            <button type="button" class="eval-option" data-val="3">3</button>
+            <button type="button" class="eval-option" data-val="4">4</button>
+            <button type="button" class="eval-option" data-val="5+">5 +</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Salles de bain complètes</label>
+          <div class="eval-options" data-group="sdb">
+            <button type="button" class="eval-option" data-val="1">1</button>
+            <button type="button" class="eval-option" data-val="2">2</button>
+            <button type="button" class="eval-option" data-val="3">3</button>
+            <button type="button" class="eval-option" data-val="4+">4 +</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 — Rénovations -->
+      <div class="eval-step" data-step="4">
+        <div class="eval-meta">Étape 4 sur 5</div>
+        <h2>État des rénovations</h2>
+        <p class="sub">Une cuisine refaite il y a 3 ans n'a pas la même valeur que celle de 1995.</p>
+        <div class="eval-field">
+          <label>Rénovations majeures les plus récentes (cuisine, salle de bain, toit, fenêtres)</label>
+          <div class="eval-options" data-group="renos" style="grid-template-columns:1fr">
+            <button type="button" class="eval-option" data-val="-5"><strong>Moins de 5 ans</strong><span class="desc">Cuisine, salle de bain ou toiture refaits récemment</span></button>
+            <button type="button" class="eval-option" data-val="5-10"><strong>5 à 10 ans</strong><span class="desc">Rénovations encore modernes mais commencent à dater</span></button>
+            <button type="button" class="eval-option" data-val="10-25"><strong>10 à 25 ans</strong><span class="desc">Rénovations à prévoir à moyen terme</span></button>
+            <button type="button" class="eval-option" data-val="25+"><strong>Plus de 25 ans</strong><span class="desc">Propriété à conserver ou à rénover</span></button>
+            <button type="button" class="eval-option" data-val="aucune"><strong>Aucune rénovation majeure</strong><span class="desc">Propriété à conserver ou à rénover entièrement</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 5 — Coordonnées -->
+      <div class="eval-step" data-step="5">
+        <div class="eval-meta">Étape 5 sur 5 — Dernière étape</div>
+        <h2>Où vous envoyer votre rapport ?</h2>
+        <p class="sub">Je le prépare personnellement et vous le livre en 48 h, sans engagement de votre part.</p>
+        <div class="eval-row">
+          <div class="eval-field">
+            <label for="eval-name">Nom complet</label>
+            <input type="text" id="eval-name" name="name" required>
+          </div>
+          <div class="eval-field">
+            <label for="eval-phone">Téléphone</label>
+            <input type="tel" id="eval-phone" name="phone" placeholder="450 000-0000">
+          </div>
+        </div>
+        <div class="eval-field">
+          <label for="eval-email">Courriel</label>
+          <input type="email" id="eval-email" name="email" required>
+          <p class="eval-hint">Promesse : aucun spam, aucune liste partagée. Vous pouvez vous désabonner en 1 clic.</p>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 6 — Succès (cachée) -->
+      <div class="eval-step" data-step="6">
+        <div class="eval-success">
+          <div class="check">✓</div>
+          <h2>Merci. Votre demande est reçue.</h2>
+          <p>Je prépare personnellement votre rapport d'évaluation. Vous recevrez par courriel dans les 48 h votre fourchette de prix, les 5 ventes comparables les plus pertinentes et mes recommandations de préparation.</p>
+          <div class="recap" id="eval-recap"></div>
+          <a class="eval-btn primary" href="/" style="text-decoration:none">Retour à l'accueil →</a>
+        </div>
+      </div>
+
+      <!-- Actions (cachées sur étape 6) -->
+      <div class="eval-actions" id="eval-actions">
+        <button type="button" class="eval-btn ghost" id="eval-back" style="visibility:hidden">← Retour</button>
+        <button type="button" class="eval-btn primary" id="eval-next" disabled>Continuer →</button>
+      </div>
+    </form>
   </div>
 </section>
-<section class="container">
-  <div class="cta-band">
-    <h2>Parlons de votre projet immobilier.</h2>
-    <a class="btn" href="/rendez-vous/">Prendre rendez-vous</a>
-  </div>
-</section>
+
+<script>
+(function(){
+  const TOTAL=5;
+  let current=1;
+  const answers={type:null,etages:null,soussol:null,chambres:null,sdb:null,renos:null,address:'',name:'',email:'',phone:''};
+  const $=s=>document.querySelector(s);
+  const $$=s=>document.querySelectorAll(s);
+  const stepEl=n=>$('.eval-step[data-step="'+n+'"]');
+  const dotEl=n=>$('.eval-step-dot[data-dot="'+n+'"]');
+
+  // Option button selection
+  $$('.eval-options').forEach(grp=>{
+    grp.addEventListener('click',e=>{
+      const btn=e.target.closest('.eval-option'); if(!btn)return;
+      const group=grp.dataset.group;
+      grp.querySelectorAll('.eval-option').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[group]=btn.dataset.val;
+      validate();
+    });
+  });
+
+  // Text inputs
+  ['eval-addr','eval-name','eval-email','eval-phone'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener('input',()=>{
+      if(id==='eval-addr')answers.address=el.value;
+      if(id==='eval-name')answers.name=el.value;
+      if(id==='eval-email')answers.email=el.value;
+      if(id==='eval-phone')answers.phone=el.value;
+      validate();
+    });
+  });
+
+  function isValid(step){
+    if(step===1)return answers.address.trim().length>=8;
+    if(step===2)return answers.type&&answers.etages&&answers.soussol;
+    if(step===3)return answers.chambres&&answers.sdb;
+    if(step===4)return answers.renos;
+    if(step===5)return answers.name.trim().length>=2 && /\S+@\S+\.\S+/.test(answers.email);
+    return false;
+  }
+  function validate(){
+    $('#eval-next').disabled=!isValid(current);
+  }
+
+  function go(n){
+    stepEl(current).classList.remove('active');
+    current=n;
+    stepEl(current).classList.add('active');
+    for(let i=1;i<=TOTAL;i++){
+      dotEl(i).classList.toggle('done',i<current);
+      dotEl(i).classList.toggle('active',i===current);
+    }
+    $('#eval-back').style.visibility=current===1?'hidden':'visible';
+    $('#eval-next').textContent=current===TOTAL?'Recevoir mon rapport →':'Continuer →';
+    if(current>TOTAL){finalize();return;}
+    validate();
+    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
+  }
+
+  $('#eval-next').addEventListener('click',()=>{
+    if(!isValid(current))return;
+    if(current===TOTAL){submit();return;}
+    go(current+1);
+  });
+  $('#eval-back').addEventListener('click',()=>{
+    if(current>1)go(current-1);
+  });
+
+  // Submit
+  function submit(){
+    // For now, no backend — show success state with summary.
+    // To wire backend later: POST answers to /api/evaluation or Formspree.
+    const labels={
+      type:{unifamiliale:'Unifamiliale',condo:'Condo','maison-ville':'Maison de ville',plex:'Plex'},
+      etages:{'1':'1 étage','1.5':'1½','2':'2 étages','3+':'3+ étages'},
+      soussol:{fini:'fini',semi:'semi-fini','non-fini':'non fini',aucun:'aucun sous-sol'},
+      renos:{'-5':'récentes (< 5 ans)','5-10':'5 à 10 ans','10-25':'10 à 25 ans','25+':'plus de 25 ans',aucune:'aucune'}
+    };
+    const recap='<strong>Récapitulatif</strong><br>'+
+      '📍 '+answers.address+'<br>'+
+      '🏡 '+(labels.type[answers.type]||answers.type)+' · '+(labels.etages[answers.etages]||answers.etages)+' · sous-sol '+(labels.soussol[answers.soussol]||answers.soussol)+'<br>'+
+      '🛏️ '+answers.chambres+' chambre(s) · '+answers.sdb+' salle(s) de bain<br>'+
+      '🔧 Rénovations : '+(labels.renos[answers.renos]||answers.renos);
+    $('#eval-recap').innerHTML=recap;
+    $('#eval-actions').style.display='none';
+    stepEl(current).classList.remove('active');
+    current=6;
+    stepEl(6).classList.add('active');
+    document.querySelectorAll('.eval-step-dot').forEach(d=>{d.classList.add('done');d.classList.remove('active');});
+    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
+  }
+
+  // Address autocomplete via Photon (OpenStreetMap) — gratuit, sans clé
+  const addrInput=$('#eval-addr');
+  const sugBox=$('#eval-suggestions');
+  let suggestions=[],activeIdx=-1,debounceTimer;
+
+  function renderSug(){
+    if(!suggestions.length){sugBox.classList.remove('open');return;}
+    sugBox.innerHTML=suggestions.map((s,i)=>'<div class="eval-suggestion'+(i===activeIdx?' active':'')+'" data-i="'+i+'">'+s.label+(s.sec?'<span class="sec">'+s.sec+'</span>':'')+'</div>').join('');
+    sugBox.classList.add('open');
+  }
+  async function fetchSug(q){
+    if(q.length<3){suggestions=[];renderSug();return;}
+    try{
+      // Bbox approximatif Rive-Nord + Laurentides QC
+      const url='https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=6&bbox=-75.5,45.4,-73.4,46.5';
+      const res=await fetch(url);
+      const data=await res.json();
+      suggestions=(data.features||[]).filter(f=>f.properties.country==='Canada').map(f=>{
+        const p=f.properties;
+        const label=[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||(p.name||'');
+        const sec=[p.city||p.town||p.village,p.state].filter(Boolean).join(', ');
+        return {label,sec};
+      }).filter(s=>s.label.length>0);
+    }catch{suggestions=[];}
+    activeIdx=-1;
+    renderSug();
+  }
+  addrInput.addEventListener('input',()=>{
+    clearTimeout(debounceTimer);
+    debounceTimer=setTimeout(()=>fetchSug(addrInput.value.trim()),250);
+  });
+  addrInput.addEventListener('keydown',e=>{
+    if(!suggestions.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,suggestions.length-1);renderSug();}
+    if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);renderSug();}
+    if(e.key==='Enter'&&activeIdx>=0){e.preventDefault();pick(activeIdx);}
+    if(e.key==='Escape'){suggestions=[];renderSug();}
+  });
+  function pick(i){
+    const s=suggestions[i];
+    addrInput.value=s.label+(s.sec?', '+s.sec:'');
+    answers.address=addrInput.value;
+    suggestions=[];renderSug();
+    validate();
+  }
+  sugBox.addEventListener('click',e=>{
+    const it=e.target.closest('.eval-suggestion');
+    if(it)pick(+it.dataset.i);
+  });
+  document.addEventListener('click',e=>{
+    if(!sugBox.contains(e.target)&&e.target!==addrInput){sugBox.classList.remove('open');}
+  });
+
+  // Init
+  validate();
+})();
+</script>
+
 </main>
 <footer class="footer">
   <div class="f-grid">
