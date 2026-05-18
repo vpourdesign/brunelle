@@ -727,24 +727,9 @@ const homeBody = `
   <div class="container">
     <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>Le leader Sainte-Thérèse &amp; Blainville, en données.</h2></div></div>
     <div class="stats-grid reveal">
-      <div class="stat"><div class="n">2 000+</div><div class="l">Transactions conclues depuis 1997</div></div>
+      <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
       <div class="stat"><div class="n">28 j</div><div class="l">Délai moyen de vente (vs 52 j marché)</div></div>
-      <div class="stat"><div class="n">99,2 %</div><div class="l">Ratio prix vendu / prix demandé</div></div>
-      <div class="stat"><div class="n">Top 1 %</div><div class="l">RE/MAX Québec — 7 années consécutives</div></div>
-    </div>
-    <div class="perf-grid reveal" style="margin-top:3rem">
-      <div>
-        <h3 style="color:#fff;margin-bottom:.5rem">Volume de ventes par ville — 12 derniers mois</h3>
-        <div class="chart">
-          ${Object.entries({'Blainville':48,'Sainte-Thérèse':41,'Saint-Eustache':22,'Rosemère':15,'Boisbriand':12,'Mirabel':9}).map(([k,v])=>`
-            <div class="bar-row"><span class="label" style="color:rgba(255,255,255,.85)">${k}</span><div class="bar"><span style="width:${(v/48*100)}%"></span></div><span class="val" style="color:#fff">${v}</span></div>
-          `).join('')}
-        </div>
-      </div>
-      <div class="donut-wrap">
-        <div class="donut" data-v="99" style="background:conic-gradient(#fff calc(var(--v)*1%),rgba(255,255,255,.14) 0)"><span class="c">99,2%</span></div>
-        <div style="text-align:center;color:rgba(255,255,255,.75);font-size:.9rem">Prix vendu vs prix demandé<br>moyenne 2026 sur mes listings</div>
-      </div>
+      <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec — depuis 20 ans</div></div>
     </div>
   </div>
 </section>
