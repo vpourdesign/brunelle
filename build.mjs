@@ -35,9 +35,10 @@ const read = n => parseCSV(new TextDecoder('windows-1252').decode(fs.readFileSyn
 const CP_CITY = {
   'J7Y':'Sainte-Thérèse','J7Z':'Sainte-Thérèse',
   'J7B':'Blainville','J7C':'Blainville','J6Z':'Blainville',
-  'J7E':'Saint-Eustache',
+  'J7E':'Saint-Eustache','J7P':'Saint-Eustache','J7R':'Saint-Eustache',
   'J7H':'Rosemère','J7G':'Rosemère',
-  'J7J':'Bois-des-Filion',
+  'J7J':'Bois-des-Filion','J6T':'Lorraine',
+  'J0N':'Sainte-Marthe-sur-le-Lac','J7T':'Deux-Montagnes','J7V':'Deux-Montagnes',
   'J7N':'Sainte-Anne-des-Plaines','J5N':'Sainte-Anne-des-Plaines',
   'J7A':'Mirabel','J7K':'Mirabel','J7L':'Mirabel',
   'J6J':'Laval','H7W':'Laval','H7N':'Laval',
@@ -45,6 +46,42 @@ const CP_CITY = {
   'H2G':'Montréal','H2X':'Montréal'
 };
 const cityFromCP = cp => CP_CITY[(cp||'').toUpperCase().slice(0,3)] || 'Laurentides';
+
+// Centris feature code → human label (catégorie + valeur)
+// Format : { CODE_CARAC: { name: 'Catégorie', vals: { CODE_VAL: 'Valeur lisible' } } }
+const FEAT = {
+  ALLE: { name: 'Allée', vals: { ASPH:'Asphaltée', PAVE:'Pavé uni', GRAV:'Gravier', POUS:'Poussière de roche', BETO:'Béton' } },
+  EAU:  { name: 'Approvisionnement eau', vals: { AMU:'Municipal', PUIT:'Puits artésien', SURF:'Eau de surface' } },
+  CHAU: { name: 'Système de chauffage', vals: { AIRP:'Air pulsé', PELC:'Plinthes électriques', RADI:'Radiateur', AIRC:'Convecteur', AIRR:'Air rayonnant', POEL:'Poêle', FOUR:'Fournaise' } },
+  ENER: { name: 'Énergie', vals: { ELEC:'Électricité', GAZN:'Gaz naturel', HUIL:'Mazout / Huile', BOIS:'Bois', PROP:'Propane', SOLA:'Solaire' } },
+  EQUI: { name: 'Équipement disponible', vals: { THEM:'Thermopompe', ECHA:'Échangeur d\'air', CENT:'Aspirateur central', ALAR:'Système d\'alarme', VENT:'Ventilation', GEOT:'Géothermie', INTE:'Intercom', PORT:'Porte de garage électrique' } },
+  FOND: { name: 'Fondation', vals: { BETO:'Béton coulé', BLOC:'Blocs de béton', PIER:'Pierres', POUT:'Sur poutres' } },
+  TOIT: { name: 'Toiture', vals: { BARD:'Bardeaux d\'asphalte', TOLE:'Tôle', MEMB:'Membrane élastomère', ARDO:'Ardoise', GOUD:'Goudron et gravier' } },
+  FENE: { name: 'Fenêtres', vals: { HYBR:'Hybride', ALUM:'Aluminium', PVC:'PVC', BOIS:'Bois', BATT:'À battant', GUIL:'À guillotine', COUL:'Coulissante' } },
+  GARA: { name: 'Garage', vals: { ATT:'Attenant', DET:'Détaché', INT:'Intégré', CHAU:'Chauffé', SIMP:'Simple', DOUB:'Double', TRIP:'Triple', QUAD:'Quadruple' } },
+  PISC: { name: 'Piscine', vals: { HT:'Hors-terre', CR:'Creusée', INT:'Intérieure', CHAU:'Chauffée', NORM:'Standard' } },
+  REV:  { name: 'Revêtement', vals: { BRIQ:'Brique', VINY:'Vinyle', PIER:'Pierre', BOIS:'Bois', CREP:'Crépi', ALUM:'Aluminium', FIBR:'Fibre de bois' } },
+  STAT: { name: 'Stationnement', vals: { ASPH:'Asphalte', INT:'Intérieur', EXT:'Extérieur', GAR:'Garage', PAVE:'Pavé uni' } },
+  PROX: { name: 'Proximité', vals: { AUTO:'Autoroute', GCPE:'Garderie / CPE', PARC:'Parc', PCYC:'Piste cyclable', PRIM:'École primaire', SEC:'École secondaire', CEGE:'Cégep', UNIV:'Université', HOPI:'Hôpital', REM:'Espace récréatif', TRSP:'Transport public', LACE:'Lac/cours d\'eau', SCKI:'Centre de ski', GOLF:'Golf' } },
+  PIEC: { name: 'Pièces', vals: {} },
+  PROP: { name: 'Type de propriété', vals: {} },
+  GENR: { name: 'Genre', vals: { DETA:'Détaché', JUME:'Jumelé', RANG:'En rangée' } },
+  STYL: { name: 'Style', vals: { COTT:'Cottage', BUNG:'Bungalow', SPLI:'Split-level', PALI:'Paliers multiples', PLAN:'Plain-pied' } },
+  ZONE: { name: 'Zonage', vals: { RES:'Résidentiel', AGR:'Agricole', COM:'Commercial', VILL:'Villégiature' } },
+  TERR: { name: 'Terrain', vals: { PLAT:'Plat', BOIS:'Boisé', LACE:'Bord de lac', CLOT:'Clôturé' } },
+  TOPO: { name: 'Topographie', vals: { PLAT:'Plat', ESC:'En pente' } },
+  SOUS: { name: 'Sous-sol', vals: { TOTA:'Totalement aménagé', PART:'Partiellement aménagé', NON:'Non aménagé', VIDE:'Vide sanitaire', AUC:'Aucun' } },
+  EGOU: { name: 'Égout', vals: { MUNI:'Municipal', FOSS:'Fosse septique', NON:'Aucun' } },
+  ARMC: { name: 'Armoires de cuisine', vals: { BOIS:'Bois', MELA:'Mélamine', STRA:'Stratifié', POLY:'Polyester', THER:'Thermoplastique' } },
+};
+
+function decodeFeature(f) {
+  const cat = FEAT[f.code];
+  if (!cat) return null; // skip unknown codes
+  const name = cat.name;
+  const value = cat.vals[f.value] || f.value;
+  return { name, value };
+}
 
 // Type code → label (non-exhaustive — best effort for demo)
 const TYPE_LABEL = code => {
@@ -137,7 +174,11 @@ function ingestFromCentris(membres) {
   const properties = myListings.map(r => {
     const mls = r[0], price = parseFloat(r[6])||0;
     const typeCode = r[25];
-    const street = (r[27]||'').trim();
+    const civic = (r[26]||'').trim();
+    const streetName = (r[27]||'').trim();
+    const unit = (r[28]||'').trim();
+    // Adresse type "3097 rue Laurin" (avec unité si dispo)
+    const street = [civic, streetName].filter(Boolean).join(' ') + (unit ? `, app. ${unit}` : '');
     const cp = r[29] || '';
     const city = cityFromCP(cp);
     const yearBuilt = r[59] && /^\d{4}$/.test(r[59]) ? r[59] : (r[68] && /^\d{4}$/.test(r[68]) ? r[68] : '');
@@ -564,8 +605,10 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .p-side .btn{display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem}
 .p-side .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .desc{font-size:1rem;line-height:1.75;color:var(--ink-2);max-width:62ch}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-top:1.5rem}
-.feature{background:var(--surface);padding:.8rem 1rem;border-radius:14px;font-size:.9rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.7rem;margin-top:1.5rem}
+.feature{background:var(--surface);padding:.85rem 1.1rem;border-radius:14px;font-size:.9rem;display:flex;flex-direction:column;gap:.2rem}
+.feature strong{font-weight:500;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.feature span{color:var(--ink);font-weight:400}
 .rooms-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.93rem}
 .rooms-table th,.rooms-table td{text-align:left;padding:.8rem .6rem;border-bottom:1px solid var(--line)}
 .rooms-table th{font-weight:500;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
@@ -947,7 +990,16 @@ function detailPage(p) {
   const mainPh = photos[0]?.url || '';
   const side = photos.slice(1,3);
   const total = p.photos.length;
-  const featMap = { 'ALLE':'Allée', 'EAU':'Approvisionnement eau', 'CHAU':'Chauffage', 'REV':'Revêtement', 'FOND':'Fondation', 'TOIT':'Toiture', 'FENE':'Fenêtres', 'GARA':'Garage', 'PISC':'Piscine', 'STAT':'Stationnement', 'CUIS':'Armoires cuisine' };
+  // Décode features Centris + regroupe par catégorie pour affichage propre
+  const featuresByCategory = {};
+  for (const f of p.features) {
+    const decoded = decodeFeature(f);
+    if (!decoded) continue;
+    (featuresByCategory[decoded.name] ??= []).push(decoded.value);
+  }
+  const featureRows = Object.entries(featuresByCategory)
+    .filter(([_, vals]) => vals.length > 0)
+    .map(([name, vals]) => `<div class="feature"><strong>${name}</strong><span>${[...new Set(vals)].join(', ')}</span></div>`);
   const jsonld = JSON.stringify({
     "@context":"https://schema.org","@type":"RealEstateListing",
     "name":`${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
@@ -981,10 +1033,10 @@ function detailPage(p) {
       </div>
       <h2 style="font-size:1.4rem;margin-bottom:1rem">Description</h2>
       <p class="desc">${p.descFr || p.remFr || 'Description à venir. Contactez Alain Brunelle pour une visite complète de cette propriété.'}</p>
-      ${p.features.length ? `
+      ${featureRows.length ? `
         <h2 style="font-size:1.4rem;margin-top:2.5rem;margin-bottom:.5rem">Caractéristiques</h2>
         <div class="features-grid">
-          ${p.features.slice(0,18).map(f=>`<div class="feature"><strong>${featMap[f.code]||f.code}</strong> · ${f.value}</div>`).join('')}
+          ${featureRows.join('')}
         </div>
       `:''}
       ${p.rooms.length ? `
