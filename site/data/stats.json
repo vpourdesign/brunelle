@@ -8,10 +8,11 @@
     "Blainville": 3
   },
   "byType": {
-    "Terrain": 1,
-    "Maison unifamiliale": 4,
-    "Chalet / Villégiature": 4,
-    "Propriété de prestige": 1
+    "Maison unifamiliale": 3,
+    "Plex": 1,
+    "Propriété": 3,
+    "Terrain": 2,
+    "Maison de ville": 1
   },
   "priceRanges": {
     "<300k": 0,
