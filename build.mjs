@@ -75,6 +75,43 @@ const FEAT = {
   ARMC: { name: 'Armoires de cuisine', vals: { BOIS:'Bois', MELA:'Mélamine', STRA:'Stratifié', POLY:'Polyester', THER:'Thermoplastique' } },
 };
 
+// Code pièce Centris → nom français
+const ROOM_NAME = {
+  HAL:'Hall d\'entrée', SAL:'Salon', SAM:'Salle à manger', SFM:'Salle familiale',
+  CUI:'Cuisine', CR:'Coin-repas', BUR:'Bureau', BIB:'Bibliothèque',
+  CAC:'Chambre', CCP:'Chambre principale', CC2:'Chambre secondaire',
+  SDB:'Salle de bains', SDE:'Salle d\'eau', SDL:'Salle de lavage',
+  RAN:'Rangement', VES:'Vestibule', GAR:'Garage', VER:'Véranda',
+  ATE:'Atelier', SEJ:'Séjour', SOL:'Solarium', SAU:'Sauna',
+  MEZ:'Mezzanine', LOG:'Loft', BOUD:'Boudoir', ENT:'Entrée'
+};
+// Niveau Centris → libellé
+const ROOM_LEVEL = {
+  '1':'1er niveau / RDC', '2':'2e niveau', '3':'3e niveau', '4':'4e niveau',
+  'RC':'Rez-de-chaussée', 'SS':'Sous-sol', 'SS1':'Sous-sol 1', 'SS2':'Sous-sol 2',
+  'GR':'Grenier', 'MEZ':'Mezzanine'
+};
+// Revêtement pièce
+const ROOM_REV = {
+  PFLO:'Plancher flottant', CERAM:'Céramique', BOIS:'Bois', BOIF:'Bois franc',
+  TAPI:'Tapis', VINY:'Vinyle', BETO:'Béton', LINO:'Linoléum',
+  MARB:'Marbre', GRES:'Grès cérame', LIEG:'Liège', ARDO:'Ardoise', CARP:'Carpette'
+};
+
+// "11.9x10.9 P" → "11'9\" × 10'9\" (pieds)"
+function fmtDim(raw) {
+  if (!raw) return '';
+  const m = raw.match(/^([\d.]+)\s*x\s*([\d.]+)\s*([A-Z]?)/i);
+  if (!m) return raw;
+  const conv = (decimal) => {
+    const f = Math.floor(parseFloat(decimal));
+    const inches = Math.round((parseFloat(decimal) - f) * 12);
+    return inches ? `${f}'${inches}"` : `${f}'`;
+  };
+  const unit = m[3] === 'M' ? ' m' : '';
+  return `${conv(m[1])} × ${conv(m[2])}${unit}`;
+}
+
 function decodeFeature(f) {
   const cat = FEAT[f.code];
   if (!cat) return null; // skip unknown codes
@@ -165,8 +202,20 @@ function ingestFromCentris(membres) {
   const remMap = groupText(remarques);
   const caractsByMls = {};
   for (const c of caracts) { const m=c[0]; if(!m) continue; (caractsByMls[m] ??= []).push({code:c[1], value:c[2]}); }
+  // PIECES_UNITES : 0=MLS, 1=NoUnité, 2=Seq, 3=CodePièce, 6=Niveau, 9=Dimensions, 11=Revêtement
   const piecesByMls = {};
-  for (const p of pieces) { const m=p[0]; if(!m) continue; (piecesByMls[m] ??= []).push({etage:p[1], nom:p[2], niveau:p[3], dim:p[4], rev:p[5]}); }
+  for (const p of pieces) {
+    const m = p[0]; if (!m) continue;
+    (piecesByMls[m] ??= []).push({
+      seq: +p[2] || 0,
+      code: p[3] || '',
+      level: p[6] || '',
+      dim: p[9] || '',
+      rev: p[11] || ''
+    });
+  }
+  // Trier par séquence
+  for (const k of Object.keys(piecesByMls)) piecesByMls[k].sort((a,b) => a.seq - b.seq);
   const linksByMls = {};
   for (const l of liens) { const m=l[0]; if(!m) continue; (linksByMls[m] ??= []).push({type:l[2], url:l[3]}); }
 
@@ -1043,7 +1092,13 @@ function detailPage(p) {
         <h2 style="font-size:1.4rem;margin-top:2.5rem;margin-bottom:.5rem">Pièces</h2>
         <table class="rooms-table">
           <thead><tr><th>Pièce</th><th>Niveau</th><th>Dimensions</th><th>Revêtement</th></tr></thead>
-          <tbody>${p.rooms.slice(0,15).map(r=>`<tr><td>${r.nom}</td><td>${r.niveau||'—'}</td><td>${r.dim||'—'}</td><td>${r.rev||'—'}</td></tr>`).join('')}</tbody>
+          <tbody>${p.rooms.slice(0,20).map(r=>{
+            const name = ROOM_NAME[r.code] || r.code || '—';
+            const level = ROOM_LEVEL[r.level] || r.level || '—';
+            const dim = fmtDim(r.dim) || '—';
+            const rev = ROOM_REV[r.rev] || r.rev || '—';
+            return `<tr><td>${name}</td><td>${level}</td><td>${dim}</td><td>${rev}</td></tr>`;
+          }).join('')}</tbody>
         </table>
       `:''}
     </div>
