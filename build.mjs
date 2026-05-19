@@ -34,7 +34,7 @@ const read = n => parseCSV(new TextDecoder('windows-1252').decode(fs.readFileSyn
 // Postal-code prefix → city (covers our data + broader Rive-Nord)
 const CP_CITY = {
   'J7Y':'Sainte-Thérèse','J7Z':'Sainte-Thérèse',
-  'J7B':'Blainville','J7C':'Blainville','J6Z':'Blainville',
+  'J7B':'Blainville','J7C':'Blainville','J6Z':'Lorraine',
   'J7E':'Saint-Eustache','J7P':'Saint-Eustache','J7R':'Saint-Eustache',
   'J7H':'Rosemère','J7G':'Rosemère',
   'J7J':'Bois-des-Filion','J6T':'Lorraine',
@@ -118,6 +118,19 @@ function decodeFeature(f) {
   const name = cat.name;
   const value = cat.vals[f.value] || f.value;
   return { name, value };
+}
+
+
+// Détecte le type de propriété à partir de la description Centris (descFr)
+function inferTypeFromDesc(desc) {
+  const d = (desc || '').toLowerCase();
+  if (/\b(condo|copropriété|appartement)\b/.test(d)) return 'Condo';
+  if (/\b(plex|duplex|triplex|quadruplex|quintuplex)\b/.test(d)) return 'Plex';
+  if (/\b(maison de ville|jumelé|en rangée|rangée)\b/.test(d)) return 'Maison de ville';
+  if (/\b(chalet|villégiature)\b/.test(d)) return 'Chalet / Villégiature';
+  if (/\b(terrain|lot|boisé)\b/.test(d) && !/\b(cottage|maison|bungalow)\b/.test(d)) return 'Terrain';
+  if (/\b(cottage|bungalow|unifamiliale|propriété|résidence)\b/.test(d)) return 'Maison unifamiliale';
+  return 'Propriété';
 }
 
 // Type code → label (non-exhaustive — best effort for demo)
@@ -222,12 +235,19 @@ function ingestFromCentris(membres) {
   const myListings = inscr.filter(r => r[2]===BROKER_NO || r[4]===BROKER_NO);
   const properties = myListings.map(r => {
     const mls = r[0], price = parseFloat(r[6])||0;
-    const typeCode = r[25];
-    const civic = (r[26]||'').trim();
+    // r[25] = NO_CIVIQUE (vérifié contre ADDENDA), r[26] = parfois suffixe ou unité
+    // r[27] = NOM_RUE, r[28] = unité/apt secondaire
+    const civic = (r[25]||'').trim();
+    const civicSuffix = (r[26]||'').trim();
     const streetName = (r[27]||'').trim();
     const unit = (r[28]||'').trim();
-    // Adresse type "3097 rue Laurin" (avec unité si dispo)
-    const street = [civic, streetName].filter(Boolean).join(' ') + (unit ? `, app. ${unit}` : '');
+    // Si streetName contient déjà le civic au début (ex: "17A Rue Labonté"), on l'utilise tel quel
+    const streetStartsWithCivic = civic && new RegExp('^' + civic + '\\b').test(streetName);
+    const street = streetStartsWithCivic
+      ? streetName + (unit ? `, app. ${unit}` : '')
+      : [civic + civicSuffix, streetName].filter(Boolean).join(' ') + (unit ? `, app. ${unit}` : '');
+    // Type de propriété — inféré de la description (r[25] n'est PAS un type code)
+    const typeCode = '';
     const cp = r[29] || '';
     const city = cityFromCP(cp);
     const yearBuilt = r[59] && /^\d{4}$/.test(r[59]) ? r[59] : (r[68] && /^\d{4}$/.test(r[68]) ? r[68] : '');
@@ -239,7 +259,7 @@ function ingestFromCentris(membres) {
     return {
       mls,
       price,
-      typeCode, typeLabel: TYPE_LABEL(typeCode),
+      typeCode, typeLabel: inferTypeFromDesc(desc),
       street,
       city,
       postalCode: cp,
