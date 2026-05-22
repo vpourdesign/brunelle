@@ -689,16 +689,89 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .filters button.active,.filters button:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
 
 /* Generic content page */
-.page-head{padding-block:clamp(3rem,6vw,5rem) clamp(2rem,4vw,3rem);border-bottom:1px solid var(--line)}
-.page-head .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--muted);margin-bottom:1rem}
-.page-head h1{max-width:20ch}
-.page-head .lead{max-width:60ch;margin-top:1.4rem;color:var(--ink-2);font-size:1.1rem;font-weight:300}
-.prose{max-width:70ch;font-size:1.02rem;line-height:1.75;color:var(--ink-2)}
-.prose h2{margin-top:2.5rem;margin-bottom:1rem;color:var(--ink)}
-.prose h3{margin-top:2rem;margin-bottom:.5rem;color:var(--ink)}
-.prose ul{padding-left:1.3rem}
-.prose li{margin-bottom:.5rem}
-.two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.page-head{padding-block:clamp(2.5rem,5vw,4rem) clamp(2rem,4vw,3rem);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-head::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 400px at 100% 0%,var(--blue-soft) 0%,transparent 60%);opacity:.55;pointer-events:none}
+.page-head>*{position:relative}
+.page-head .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:1rem;background:rgba(15,40,85,.06);padding:.4rem .9rem;border-radius:999px}
+.page-head h1{max-width:24ch;font-size:clamp(2.2rem,4.5vw,3.4rem)}
+.page-head .lead{max-width:62ch;margin-top:1.3rem;color:var(--ink-2);font-size:clamp(1.05rem,1.4vw,1.18rem);font-weight:300;line-height:1.55}
+.page-head-grid{display:grid;grid-template-columns:1fr .55fr;gap:clamp(1.5rem,4vw,3rem);align-items:end}
+.page-head-grid .ph-hero{aspect-ratio:5/4;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);position:relative}
+.page-head-grid .ph-hero img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.page-head-grid .ph-hero:hover img{transform:scale(1.04)}
+.page-head-grid .ph-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(11,22,40,.35) 100%);pointer-events:none}
+@media(max-width:820px){.page-head-grid{grid-template-columns:1fr}.page-head-grid .ph-hero{aspect-ratio:16/9}}
+
+.prose{max-width:72ch;font-size:1.02rem;line-height:1.75;color:var(--ink-2)}
+.prose>h2{margin-top:3rem;margin-bottom:1rem;color:var(--ink);font-size:clamp(1.5rem,2.4vw,1.9rem);font-weight:400;letter-spacing:-.02em;position:relative;padding-top:1.4rem}
+.prose>h2::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-hi));border-radius:99px}
+.prose>h2:first-child{margin-top:0;padding-top:0}
+.prose>h2:first-child::before{display:none}
+.prose>h3{margin-top:1.8rem;margin-bottom:.5rem;color:var(--ink);font-size:1.1rem;font-weight:500}
+.prose p strong{color:var(--ink);font-weight:500}
+.prose>ul,.prose>ol{padding-left:1.3rem;margin:1rem 0}
+.prose ul li,.prose ol li{margin-bottom:.5rem;padding-left:.3rem}
+.prose ul li::marker{color:var(--blue)}
+.prose ol li::marker{color:var(--blue);font-weight:500}
+.prose blockquote{margin:1.8rem 0;padding:1.1rem 1.4rem;border-left:3px solid var(--blue);background:var(--surface);border-radius:0 14px 14px 0;font-style:italic;color:var(--ink)}
+.prose blockquote cite{display:block;margin-top:.7rem;font-size:.82rem;color:var(--muted);font-style:normal;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.prose table{margin:1.5rem 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-xs);width:100%;border-collapse:separate;border-spacing:0}
+.prose table th{background:var(--ink);color:#fff;font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;padding:.85rem 1rem;text-align:left}
+.prose table td{padding:.85rem 1rem;border-bottom:1px solid var(--line);background:#fff;font-size:.93rem}
+.prose table tr:last-child td{border-bottom:0}
+.prose table tr:nth-child(even) td{background:var(--surface)}
+
+/* Step cards (numbered) */
+.steps{display:grid;gap:1.1rem;margin:2rem 0;counter-reset:s}
+.step{display:grid;grid-template-columns:auto 1fr;gap:1.3rem;background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.6rem clamp(1.1rem,2vw,1.8rem);position:relative;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .3s var(--ease);box-shadow:var(--shadow-xs);counter-increment:s}
+.step:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:transparent}
+.step::before{content:counter(s);background:linear-gradient(160deg,var(--blue) 0%,var(--blue-hi) 100%);color:#fff;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;font-weight:500;font-variant-numeric:tabular-nums;box-shadow:0 4px 12px -2px rgba(15,40,85,.25);flex-shrink:0}
+.step h3{margin:0 0 .4rem;font-size:1.12rem;font-weight:500;color:var(--ink);letter-spacing:-.005em}
+.step p{margin:0;color:var(--ink-2);line-height:1.65;font-size:.95rem}
+.step p + p{margin-top:.5rem}
+.step .meta{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.5rem;font-weight:500}
+@media(max-width:540px){.step{grid-template-columns:1fr;gap:.7rem;padding:1.3rem 1.1rem}.step::before{width:40px;height:40px;font-size:1.1rem;border-radius:12px}}
+
+/* Info boxes & callouts */
+.callout{display:grid;grid-template-columns:auto 1fr;gap:1rem;background:var(--blue-soft);border-radius:14px;padding:1.1rem 1.3rem;margin:1.5rem 0;border-left:3px solid var(--blue)}
+.callout.warn{background:#fdf3f1;border-left-color:#c8364a}
+.callout.success{background:#f0faf4;border-left-color:#0f8c5b}
+.callout .ico{font-size:1.3rem;line-height:1;flex-shrink:0;margin-top:.1rem}
+.callout p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.6}
+.callout p+p{margin-top:.4rem}
+.callout strong{color:var(--blue);font-weight:500}
+.callout.warn strong{color:#c8364a}
+.callout.success strong{color:#0f8c5b}
+
+/* Stat callouts inline */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin:1.5rem 0}
+.stat-mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.1rem;border-left:3px solid var(--blue);box-shadow:var(--shadow-xs)}
+.stat-mini .n{font-size:1.55rem;font-weight:400;letter-spacing:-.02em;color:var(--blue);font-variant-numeric:tabular-nums;line-height:1}
+.stat-mini .l{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:.35rem;line-height:1.3}
+
+/* Comparison grid */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.5rem 0}
+.compare-col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.4rem}
+.compare-col.good{border-top:3px solid #0f8c5b}
+.compare-col.bad{border-top:3px solid #c8364a}
+.compare-col h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 .7rem;font-weight:500}
+.compare-col.good h4{color:#0f8c5b}
+.compare-col.bad h4{color:#c8364a}
+.compare-col ul{margin:0;padding-left:1.1rem;color:var(--ink-2);font-size:.92rem;line-height:1.6}
+.compare-col li{margin-bottom:.4rem}
+@media(max-width:600px){.compare{grid-template-columns:1fr}}
+
+/* Image figures */
+.figure{margin:1.8rem 0;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--shadow-sm)}
+.figure img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.figure figcaption{position:absolute;left:1rem;bottom:1rem;right:1rem;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:.6rem .95rem;border-radius:10px;font-size:.83rem;color:var(--ink);max-width:fit-content}
+
+/* Section break */
+.break{display:flex;align-items:center;gap:1rem;margin:2.2rem 0 1.5rem}
+.break::before,.break::after{content:"";flex:1;height:1px;background:var(--line)}
+.break span{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:500}
+
+.two-col{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
 /* Neighborhood cards */
@@ -1148,29 +1221,42 @@ function detailPage(p) {
 for (const p of properties) writePage(`nos-proprietes/${p.slug}/index.html`, detailPage(p));
 
 // --- GENERIC CONTENT PAGE BUILDER ---
-function contentPage({ eyebrow, h1, lead, body, title, desc, canonical }) {
+function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg, sideBlock, ctaTitle }) {
+  const headInner = heroImg
+    ? `<div class="page-head-grid">
+        <div>
+          <div class="eyebrow">${eyebrow}</div>
+          <h1>${h1}</h1>
+          <p class="lead">${lead}</p>
+        </div>
+        <figure class="ph-hero"><img src="${heroImg}" alt="${h1}" loading="eager"></figure>
+      </div>`
+    : `<div class="eyebrow">${eyebrow}</div><h1>${h1}</h1><p class="lead">${lead}</p>`;
+
+  const aside = sideBlock || `
+      <div class="blue-block soft" style="padding:1.8rem">
+        <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Évaluation gratuite</div>
+        <h3 style="margin:.7rem 0 1rem;font-size:1.05rem;font-weight:500">Connaître la valeur de votre propriété ?</h3>
+        <p style="color:var(--ink-2);font-size:.92rem;margin-bottom:1.4rem;line-height:1.55">Rapport comparatif complet en 48 h, fondé sur les ventes récentes du même quartier.</p>
+        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Demander l'évaluation</a>
+      </div>
+      <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
+        <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0"><a href="tel:4504305555">450.430.5555</a></p>
+        <p style="font-size:.88rem;color:var(--ink-2);margin:0"><a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></p>
+      </div>`;
+
   const html = `
-<section class="page-head container">
-  <div class="eyebrow">${eyebrow}</div>
-  <h1>${h1}</h1>
-  <p class="lead">${lead}</p>
-</section>
-<section class="container">
+<section class="page-head container">${headInner}</section>
+<section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose">${body}</article>
-    <aside>
-      <div class="blue-block soft" style="padding:2rem">
-        <div class="eye" style="color:var(--blue-2)">Évaluation gratuite</div>
-        <h3 style="margin:.7rem 0 1rem">Connaître la valeur de votre propriété ?</h3>
-        <p style="color:var(--ink-2);font-size:.95rem;margin-bottom:1.5rem">Rapport comparatif complet en 48 h, fondé sur les ventes récentes du même quartier.</p>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>
-      </div>
-    </aside>
+    <aside style="position:sticky;top:100px">${aside}</aside>
   </div>
 </section>
 <section class="container">
   <div class="cta-band">
-    <h2>Parlons de votre projet immobilier.</h2>
+    <h2>${ctaTitle || 'Parlons de votre projet immobilier.'}</h2>
     <a class="btn" href="/rendez-vous/">Prendre rendez-vous</a>
   </div>
 </section>`;
@@ -1812,40 +1898,89 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
 
 // --- VENDRE / ACHETER / INVESTISSEUR ---
 const SUBPAGES = [
-  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 29 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas une opération mystérieuse — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la rigueur avec laquelle chacune de ces étapes est exécutée. Voici exactement comment ça fonctionne quand vous travaillez avec moi.</p>
+  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 33 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas mystérieux — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la <strong>rigueur d'exécution</strong> à chaque étape.</p>
 
-<h2>1. Évaluation et positionnement de prix</h2>
-<p>Tout commence ici. Une évaluation mal calibrée coûte en moyenne <strong>3,2 % du prix final</strong> selon les données APCIQ 2025 — sur une maison de 600 000 $, ça représente <strong>près de 20 000 $ laissés sur la table</strong>. Mon analyse comparative s'appuie sur trois couches : les ventes des 12 derniers mois à moins de 500 m, l'inventaire actif dans votre typologie, et les tendances saisonnières du secteur. <a href="/vendre/evaluation-gratuite/">Obtenez votre évaluation gratuite</a> — rapport livré sous 48 h.</p>
+<div class="stat-row">
+<div class="stat-mini"><div class="n">28 j</div><div class="l">délai médian de vente sur mes inscriptions</div></div>
+<div class="stat-mini"><div class="n">99,2 %</div><div class="l">ratio prix vendu / demandé</div></div>
+<div class="stat-mini"><div class="n">12 400</div><div class="l">contacts qualifiés Rive-Nord</div></div>
+</div>
 
-<h2>2. Préparation de la propriété</h2>
-<p>Désencombrement, peinture des zones-clés, home staging léger, photo professionnelle préparée. Un investissement moyen de 1 500 à 3 000 $ rapporte en moyenne 15 000 à 40 000 $ sur le prix de vente final. <a href="/vendre/preparer-sa-maison/">Voir la checklist détaillée</a>.</p>
+<h2>Le processus, en 7 étapes</h2>
+<div class="steps">
+<div class="step">
+<div>
+<h3>Évaluation et positionnement de prix</h3>
+<p>Mon analyse comparative s'appuie sur trois couches : ventes des 12 derniers mois à moins de 500 m, inventaire actif dans votre typologie, tendances saisonnières.</p>
+<p class="meta">Délai : 24-48 h</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Préparation de la propriété</h3>
+<p>Désencombrement, peinture des zones-clés, home staging léger. Investissement moyen 1 500-3 000 $, rendement 15 000-40 000 $ sur le prix final. <a href="/vendre/preparer-sa-maison/">Voir la checklist</a>.</p>
+<p class="meta">Durée : 1-3 semaines</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Photographie et création de la mise en marché</h3>
+<p>Photos HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360° — tout est inclus, sans frais. Fiche Centris optimisée mot par mot.</p>
+<p class="meta">Délai : 5-7 jours</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Diffusion Centris + réseau qualifié</h3>
+<p>72 h en avant-première à mes 12 400 contacts Rive-Nord, puis publication Centris. Cette pré-mise en marché génère en moyenne 3-5 visites privées dès le départ.</p>
+<p class="meta">Jour J</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Gestion des visites et feedback structuré</h3>
+<p>Chaque visite est coordonnée, suivie d'un feedback dans les 24 h. Si quelque chose dérange l'acheteur, je le sais et je m'ajuste.</p>
+<p class="meta">Semaines 1-4</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Offres, contre-propositions et négociation</h3>
+<p>L'analyse d'une offre dépasse le prix : conditions, délais, dépôt, garanties, clauses suspensives. Mon ratio prix vendu/demandé moyen : 99,2 % (vs 97,1 % marché).</p>
+<p class="meta">Délai : 1-5 jours</p>
+</div>
+</div>
+<div class="step">
+<div>
+<h3>Inspection, notaire et prise de possession</h3>
+<p>Coordination de l'inspection, suivi de la promesse jusqu'à l'acte notarié. Je suis présent à la signature — c'est mon rôle, pas un extra.</p>
+<p class="meta">Délai : 4-8 semaines</p>
+</div>
+</div>
+</div>
 
-<h2>3. Photographie et création de la mise en marché</h2>
-<p>Photos HDR 4K, vidéo drone, plan d'étage 2D et visite virtuelle 360° — tout est inclus dans mes services, sans frais additionnels. La fiche Centris est ensuite optimisée mot par mot : titre, description longue, mots-clés, ordre des photos.</p>
-
-<h2>4. Diffusion Centris + réseau qualifié</h2>
-<p>Avant même que votre propriété apparaisse publiquement sur Centris, elle est envoyée à mes <strong>12 400 contacts qualifiés</strong> de la Rive-Nord, segmentés par budget et secteur cible. Cette pré-mise en marché génère en moyenne <strong>3 à 5 visites privées dans les 72 premières heures</strong>.</p>
-
-<h2>5. Gestion des visites et feedback structuré</h2>
-<p>Chaque visite est coordonnée, suivie d'un feedback structuré au visiteur dans les 24 h. Si quelque chose dérange l'acheteur (couleur, odeur, prix perçu), je le sais immédiatement et je m'ajuste. Pas de mystère, pas de visites perdues.</p>
-
-<h2>6. Offres, contre-propositions et négociation</h2>
-<p>L'analyse d'une offre dépasse largement le prix : conditions, délais, dépôt, garanties, clauses suspensives. Mon ratio prix vendu/demandé moyen est de <strong>99,2 %</strong> — contre 97,1 % pour la moyenne du marché. Ça ne s'improvise pas.</p>
-
-<h2>7. Inspection, notaire et prise de possession</h2>
-<p>Coordination de l'inspection (mes inspecteurs partenaires sont disponibles sous 48-72 h), suivi de la promesse d'achat jusqu'à l'acte notarié. Je suis présent au notaire le jour de la signature — c'est mon rôle, pas un extra.</p>
+<div class="callout">
+<div class="ico">💡</div>
+<div><p><strong>Le piège du prix trop élevé.</strong> Une propriété mal positionnée stagne 60+ jours et finit par se vendre en moyenne 3,2 % sous sa vraie valeur. Sur 600 000 $, c'est près de 20 000 $ perdus.</p></div>
+</div>
 
 <h2>FAQ — vendre sa maison au Québec</h2>
 <h3>Combien de temps prend une vente sur la Rive-Nord en 2026 ?</h3>
-<p>Délai médian du marché : 52 jours. Délai médian sur mes inscriptions : <strong>28 jours</strong>. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
+<p>Délai médian du marché : 52 jours. Sur mes inscriptions : <strong>28 jours</strong>. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
 <h3>Dois-je vraiment passer par un courtier ?</h3>
 <p>Statistiquement, les maisons vendues par courtier se vendent <strong>13 % plus cher en moyenne</strong> que les ventes DPP (sans courtier), selon l'APCIQ. La commission est rentabilisée bien au-delà.</p>
 <h3>Combien coûte la commission ?</h3>
 <p>Voir <a href="/vendre/commission-courtier/">notre page dédiée</a>. La fourchette typique au Québec : 4 % à 5 %, négociable selon le mandat.</p>`],
-  ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging','Petites interventions, grand impact — 1 500 $ investis rapportent en moyenne 25 000 $ sur le prix final.','Préparer sa maison pour la vente · home staging Rive-Nord | Alain Brunelle','Guide complet pour préparer sa maison à la vente : désencombrement, peinture, éclairage, home staging. ROI moyen documenté.',`<p>L'acheteur prend sa décision dans les <strong>90 premières secondes</strong> d'une visite. Pas pendant l'inspection, pas pendant la négociation — dès qu'il franchit la porte. C'est pourquoi la préparation visuelle de votre propriété est l'investissement au rendement le plus garanti que vous ferez avant la vente.</p>
+  ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging · Préparation','1 500 $ investis rapportent en moyenne 25 000 $ sur le prix final — voici la méthode.','Préparer sa maison pour la vente · home staging Rive-Nord | Alain Brunelle','Guide complet pour préparer sa maison à la vente : désencombrement, peinture, éclairage, home staging. ROI moyen documenté.',`<p>L'acheteur prend sa décision dans les <strong>90 premières secondes</strong> d'une visite. Pas pendant l'inspection, pas pendant la négociation — dès qu'il franchit la porte. C'est pourquoi la préparation visuelle est l'investissement au rendement le plus garanti avant la vente.</p>
+
+<div class="stat-row">
+<div class="stat-mini"><div class="n">90 s</div><div class="l">temps pour qu'un acheteur décide</div></div>
+<div class="stat-mini"><div class="n">2-4 k$</div><div class="l">budget préparation optimal</div></div>
+<div class="stat-mini"><div class="n">×10-20</div><div class="l">ROI moyen sur préparation</div></div>
+</div>
 
 <h2>La règle des 3D : Désencombrer, Dépersonnaliser, Détacher</h2>
-<p>Avant toute peinture ou rénovation, faites le grand ménage des objets. Objectif : que chaque pièce respire et qu'un acheteur puisse <em>se projeter</em>. Trop de photos personnelles, trop de meubles, trop d'objets décoratifs = l'acheteur voit votre maison, pas la sienne.</p>
+<p>Avant toute peinture ou rénovation, faites le grand ménage des objets. Objectif : que chaque pièce respire et qu'un acheteur puisse <em>se projeter</em>.</p>
 <ul>
 <li>Retirez <strong>50 % des meubles inutiles</strong> (entreposage temporaire si nécessaire)</li>
 <li>Décrochez les photos de famille — laissez les œuvres d'art neutres</li>
@@ -1853,348 +1988,409 @@ const SUBPAGES = [
 <li>Désencombrez les comptoirs, les surfaces de salle de bain, les étagères</li>
 </ul>
 
-<h2>Les 5 interventions au meilleur rapport investissement/retour</h2>
-<ol>
-<li><strong>Peinture des zones-clés</strong> (entrée, salon, cuisine) — investissement 800-1 500 $, impact +8 000 à +15 000 $</li>
-<li><strong>Éclairage</strong> — remplacez les ampoules jaunes par du 3000K. Tout paraît plus grand, plus propre. ~200 $.</li>
-<li><strong>Robinetterie cuisine + salle de bain</strong> — 300-500 $ chacun, signal fort de modernité</li>
-<li><strong>Aménagement paysager d'entrée</strong> — premier contact visuel. Mulch frais, fleurs, porte d'entrée repeinte. ~400 $.</li>
-<li><strong>Nettoyage professionnel en profondeur</strong> avant les photos — ~300 $. Différence visible immédiate sur le rendu photo.</li>
-</ol>
+<h2>Les 5 interventions au meilleur rendement</h2>
+<div class="steps">
+<div class="step"><div><h3>Peinture des zones-clés</h3><p>Entrée, salon, cuisine. Couleurs neutres et lumineuses (blanc cassé, gris clair). Surface ≈ 60-80 m² couvre les zones critiques.</p><p class="meta">Investissement 800-1 500 $ · Impact +8 000 à +15 000 $</p></div></div>
+<div class="step"><div><h3>Éclairage moderne</h3><p>Remplacez les ampoules jaunes par du 3000K. Tout paraît plus grand, plus propre. Ajoutez des lampes dans les coins sombres.</p><p class="meta">Investissement ~200 $ · Impact significatif sur les photos</p></div></div>
+<div class="step"><div><h3>Robinetterie cuisine + salle de bain</h3><p>Signal fort de modernité, prend 30 minutes par item. Matte black ou brossé chrome — éviter les finis trop spécifiques.</p><p class="meta">Investissement 300-500 $ par robinet</p></div></div>
+<div class="step"><div><h3>Aménagement paysager d'entrée</h3><p>Premier contact visuel. Mulch frais, fleurs saisonnières, porte d'entrée repeinte si possible.</p><p class="meta">Investissement ~400 $ · Impact visible dès la photo de façade</p></div></div>
+<div class="step"><div><h3>Nettoyage professionnel</h3><p>En profondeur, avant les photos et avant chaque visite importante. Vitres, plinthes, ventilateurs, recoins. Différence visible immédiate.</p><p class="meta">Investissement ~300 $ · Indispensable</p></div></div>
+</div>
 
-<h2>Ce qu'il ne faut PAS faire</h2>
-<p>Beaucoup de vendeurs investissent dans les mauvaises choses :</p>
+<h2>Ce qu'il faut faire... et ce qu'il faut éviter</h2>
+<div class="compare">
+<div class="compare-col good">
+<h4>À FAIRE</h4>
 <ul>
-<li>Refaire entièrement une cuisine ou salle de bain juste avant la vente — vous ne récupérerez qu'une fraction du coût</li>
-<li>Choisir des finis très personnels (couleurs vives, motifs forts)</li>
-<li>Faire des rénovations majeures sans consulter votre courtier d'abord</li>
-<li>Cacher des défauts — l'inspection les trouvera et minera la confiance</li>
+<li>Peinture neutre et claire</li>
+<li>Désencombrement systématique</li>
+<li>Photos professionnelles HDR</li>
+<li>Calfeutrage frais (bains, fenêtres)</li>
+<li>Petits accrocs cosmétiques réparés</li>
 </ul>
+</div>
+<div class="compare-col bad">
+<h4>À ÉVITER</h4>
+<ul>
+<li>Rénover entièrement la cuisine</li>
+<li>Refaire la salle de bain juste avant</li>
+<li>Choisir des couleurs très personnelles</li>
+<li>Cacher des défauts (l'inspection les trouve)</li>
+<li>Investir +5 % du prix en préparation</li>
+</ul>
+</div>
+</div>
 
-<h2>Home staging professionnel : quand ça vaut la peine</h2>
-<p>Pour les propriétés au-dessus de 750 000 $, un home staging professionnel (1 800-3 500 $) peut littéralement transformer la perception. J'ai des partenaires home stagers que je recommande à mes vendeurs — service souvent inclus dans mon mandat selon le prix de la propriété.</p>
+<div class="callout">
+<div class="ico">📸</div>
+<div><p><strong>Home staging pro pour propriétés ≥ 750 000 $.</strong> 1 800-3 500 $ qui transforme la perception. J'ai des partenaires home stagers — service souvent inclus dans mon mandat selon le prix de la propriété.</p></div>
+</div>
 
 <h2>FAQ — préparation à la vente</h2>
 <h3>Combien dois-je vraiment investir avant de vendre ?</h3>
-<p>Pour une maison médiane de la Rive-Nord (~600 k$), un budget de préparation de 2 000 à 4 000 $ est optimal. Au-delà, le rendement marginal diminue rapidement.</p>
+<p>Pour une maison médiane (~600 k$), un budget de 2 000 à 4 000 $ est optimal. Au-delà, le rendement marginal chute rapidement.</p>
 <h3>Vaut-il mieux refaire la cuisine ou la vendre telle quelle ?</h3>
-<p>Sauf cas extrême, vendez telle quelle. Rénover prend 6-12 semaines (perte de temps de mise en marché), coûte 30-80 k$ pour une cuisine, et l'acheteur préfère souvent personnaliser lui-même. Ajustez plutôt le prix légèrement à la baisse.</p>
+<p>Sauf cas extrême, vendez telle quelle. Rénover prend 6-12 semaines (perte de temps de mise en marché), coûte 30-80 k$ pour une cuisine, et l'acheteur préfère personnaliser lui-même.</p>
 <h3>Quand commencer la préparation ?</h3>
-<p>Idéalement 4 à 6 semaines avant la mise en marché. <a href="/contact/">Parlons-en avant les premiers travaux</a> — je peux vous éviter des dépenses inutiles.</p>`],
-  ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Comprendre exactement ce qu\'inclut la commission — et pourquoi elle est rentabilisée 4 fois sur 5.','Commission courtier immobilier Québec 2026 | Alain Brunelle','Taux de commission au Québec, partage entre courtiers, ce qui est inclus, ce qui est négociable. Explications transparentes par un courtier RE/MAX CRYSTAL.',`<p>La commission, c'est le point le plus mal compris du métier de courtier. Le mythe : « le courtier prend 5 % juste pour mettre une pancarte ». La réalité : la commission paie un service complet qui inclut habituellement plus de 50 heures de travail spécialisé, des outils marketing professionnels, et un réseau acheteur de plusieurs milliers de contacts.</p>
+<p>Idéalement 4 à 6 semaines avant la mise en marché. <a href="/rendez-vous/">Parlons-en avant les premiers travaux</a>.</p>`],
+  ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Ce qui est inclus, ce qui est négociable — la transparence complète.','Commission courtier immobilier Québec 2026 | Alain Brunelle','Taux de commission au Québec, partage entre courtiers, ce qui est inclus, ce qui est négociable. Explications transparentes par un courtier RE/MAX CRYSTAL.',`<p>La commission, c'est le point le plus mal compris du métier de courtier. Le mythe : « le courtier prend 5 % juste pour mettre une pancarte ». La réalité : la commission paie un service complet qui inclut habituellement plus de <strong>50 heures de travail spécialisé</strong>, des outils marketing professionnels et un réseau acheteur qualifié.</p>
 
 <h2>Taux typique au Québec en 2026</h2>
-<p>La commission immobilière résidentielle se situe entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes (TPS + TVQ). Elle est entièrement <strong>payée par le vendeur</strong>, jamais par l'acheteur.</p>
-<p>Sur une vente à 600 000 $, ça représente :</p>
-<ul>
-<li>Commission brute : 24 000 $ à 30 000 $</li>
-<li>Plus TPS (5 %) + TVQ (9,975 %)</li>
-<li>Total payable au courtier inscripteur : 27 593 $ à 34 491 $</li>
-</ul>
+<p>La commission résidentielle se situe entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes. Elle est entièrement payée par le vendeur, jamais par l'acheteur.</p>
+<div class="stat-row">
+<div class="stat-mini"><div class="n">4-5 %</div><div class="l">commission typique vendeur</div></div>
+<div class="stat-mini"><div class="n">50/50</div><div class="l">partage inscripteur / collaborateur</div></div>
+<div class="stat-mini"><div class="n">+13 %</div><div class="l">prix moyen avec courtier vs DPP</div></div>
+</div>
+
+<h2>Exemple chiffré : vente à 600 000 $</h2>
+<table>
+<thead><tr><th>Élément</th><th>Montant</th></tr></thead>
+<tbody>
+<tr><td>Commission brute (5 %)</td><td>30 000 $</td></tr>
+<tr><td>+ TPS (5 %)</td><td>1 500 $</td></tr>
+<tr><td>+ TVQ (9,975 %)</td><td>2 992 $</td></tr>
+<tr><td><strong>Total payable</strong></td><td><strong>34 492 $</strong></td></tr>
+</tbody>
+</table>
 
 <h2>Comment la commission est partagée</h2>
-<p>Dans 92 % des transactions au Québec, deux courtiers sont impliqués :</p>
-<ul>
-<li><strong>Courtier inscripteur</strong> (le vôtre, qui représente le vendeur) — reçoit environ <strong>50 %</strong> de la commission brute</li>
-<li><strong>Courtier collaborateur</strong> (qui apporte l'acheteur) — reçoit l'autre <strong>50 %</strong></li>
-</ul>
-<p>Chaque courtier remet ensuite une portion à sa bannière (RE/MAX, Royal LePage, etc.), à son agence, et paie ses propres frais (publicité, photographie, plateforme, OACIQ, assurance professionnelle). Le revenu net du courtier inscripteur sur une commission de 30 000 $ tourne typiquement autour de 9 000 à 12 000 $.</p>
+<p>Dans 92 % des transactions, deux courtiers sont impliqués :</p>
+<div class="compare">
+<div class="compare-col">
+<h4>COURTIER INSCRIPTEUR</h4>
+<ul><li>Représente le vendeur</li><li>~50 % de la commission brute</li><li>Évaluation, mise en marché, négociation</li><li>Coordination notaire</li></ul>
+</div>
+<div class="compare-col">
+<h4>COURTIER COLLABORATEUR</h4>
+<ul><li>Apporte l'acheteur</li><li>~50 % de la commission brute</li><li>Accompagnement acheteur</li><li>Gestion promesse d'achat</li></ul>
+</div>
+</div>
+<p>Chaque courtier reverse ensuite une partie à sa bannière et son agence. Le <strong>revenu net</strong> du courtier inscripteur sur une commission de 30 000 $ tourne autour de 9 000-12 000 $.</p>
 
 <h2>Ce qui est inclus dans ma commission</h2>
 <ul>
 <li>Évaluation comparative avant inscription (rapport 48 h)</li>
-<li>Photographie professionnelle HDR 4K + vidéo drone + plan d'étage 2D + visite virtuelle 360°</li>
-<li>Inscription Centris + diffusion sur le réseau RE/MAX international</li>
+<li>Photos HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
+<li>Inscription Centris + réseau RE/MAX international</li>
 <li>Campagne sociale (Facebook + Instagram + LinkedIn) avec budget publicitaire</li>
 <li>Brochure imprimée sur place</li>
-<li>Pré-mise en marché à mon réseau de 12 400 contacts qualifiés</li>
+<li>Pré-mise en marché à 12 400 contacts qualifiés Rive-Nord</li>
 <li>Gestion complète des visites et feedback structuré</li>
 <li>Négociation de toutes les offres et contre-offres</li>
-<li>Coordination de l'inspection, du financement et du notaire</li>
+<li>Coordination inspection, financement, notaire</li>
 <li>Présence au notaire le jour de la signature</li>
 </ul>
 
 <h2>Ce qui est négociable</h2>
-<p>Trois leviers principaux :</p>
-<ol>
-<li><strong>Le taux global</strong> — selon le prix de la propriété (les ventes au-dessus de 1 M$ sont souvent à 3-4 %)</li>
-<li><strong>Le partage avec le collaborateur</strong> — qui détermine la motivation des autres courtiers à amener leurs acheteurs chez vous</li>
-<li><strong>La durée du mandat</strong> et les clauses d'exclusivité</li>
-</ol>
-<p>Mon approche : je propose toujours <strong>la structure qui maximise votre prix net</strong>, pas celle qui maximise ma commission. Souvent ce sont des décisions contre-intuitives — par exemple, augmenter le partage au collaborateur pour mobiliser plus d'agents acheteurs.</p>
+<div class="steps">
+<div class="step"><div><h3>Le taux global</h3><p>Selon le prix de la propriété. Les ventes au-dessus de 1 M$ sont souvent à 3-4 %.</p></div></div>
+<div class="step"><div><h3>Le partage avec le collaborateur</h3><p>Détermine la motivation des autres courtiers à amener leurs acheteurs chez vous.</p></div></div>
+<div class="step"><div><h3>La durée du mandat</h3><p>3, 6 ou 12 mois selon le contexte. Clauses d'exclusivité variables.</p></div></div>
+</div>
+
+<div class="callout success">
+<div class="ico">✓</div>
+<div><p><strong>Mon approche.</strong> Je propose toujours la structure qui maximise <em>votre prix net</em>, pas celle qui maximise ma commission. Parfois ça veut dire augmenter le partage au collaborateur pour mobiliser plus d'agents acheteurs.</p></div>
+</div>
 
 <h2>FAQ — commission</h2>
 <h3>Puis-je vendre sans courtier pour économiser ?</h3>
-<p>Vous pouvez. Mais les statistiques APCIQ sont sans équivoque : les maisons vendues sans courtier (DPP) se vendent <strong>13 % moins cher en moyenne</strong> qu'avec courtier. Sur une maison de 600 k$, c'est 78 000 $ perdus pour économiser ~28 000 $ de commission. Le calcul ne tient pas.</p>
+<p>Vous pouvez. Mais les statistiques APCIQ sont sans équivoque : les maisons vendues sans courtier (DPP) se vendent <strong>13 % moins cher en moyenne</strong>. Sur 600 k$, c'est 78 000 $ perdus pour économiser ~28 000 $ de commission.</p>
 <h3>Et si ma maison ne se vend pas, est-ce que je paie quand même ?</h3>
-<p>Non. La commission n'est payée qu'à la signature de l'acte de vente chez le notaire. Si rien ne se vend, vous ne devez rien.</p>
+<p>Non. La commission est payée à la signature de l'acte de vente uniquement. Si rien ne se vend, vous ne devez rien.</p>
 <h3>Puis-je négocier une commission par étapes ?</h3>
-<p>Oui — c'est même conseillé dans certains cas. Je vous explique les options à notre première rencontre. <a href="/rendez-vous/">Prendre rendez-vous</a>.</p>`],
-  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles aux 7 jours, zéro surprise — c\'est ma promesse.','Vendre sa maison sans stress sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sa maison sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître. Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
+<p>Oui — c'est conseillé dans certains cas. <a href="/rendez-vous/">Prendre rendez-vous</a> pour en discuter.</p>`],
+  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles aux 7 jours, zéro surprise — ma promesse.','Vendre sa maison sans stress sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sa maison sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
+<p>Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
 
 <h2>Ma promesse en 4 engagements</h2>
-<ol>
-<li><strong>Un point hebdomadaire fixe</strong>, chaque vendredi à la même heure. Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne. Pas de jeu de cache-cache.</li>
-<li><strong>Réponse à toute question en moins de 4 heures</strong> en journée (24 h max le week-end). Texto, courriel ou téléphone — vous choisissez le canal.</li>
-<li><strong>Toujours deux à trois scénarios</strong> à chaque décision importante (prix, ajustements, offres reçues). Vous décidez avec les chiffres en main, jamais sur intuition.</li>
-<li><strong>Zéro surprise</strong> à la signature chez le notaire. Tous les frais, délais et conditions sont sur la table dès la première rencontre.</li>
-</ol>
+<div class="steps">
+<div class="step"><div><h3>Un point hebdomadaire fixe</h3><p>Chaque vendredi à la même heure. Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne.</p></div></div>
+<div class="step"><div><h3>Réponse à toute question en moins de 4 h</h3><p>En journée (24 h max le week-end). Texto, courriel ou téléphone — vous choisissez le canal.</p></div></div>
+<div class="step"><div><h3>Deux à trois scénarios à chaque décision</h3><p>Prix, ajustements, offres reçues. Vous décidez avec les chiffres en main, jamais sur intuition.</p></div></div>
+<div class="step"><div><h3>Zéro surprise chez le notaire</h3><p>Tous les frais, délais et conditions sont sur la table dès la première rencontre.</p></div></div>
+</div>
 
 <h2>Le calendrier-type d'une vente sereine</h2>
-<table style="width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.95rem">
-<thead><tr><th style="text-align:left;padding:.6rem;border-bottom:1px solid #e6ebf2">Semaine</th><th style="text-align:left;padding:.6rem;border-bottom:1px solid #e6ebf2">Étape</th></tr></thead>
+<table>
+<thead><tr><th>Semaine</th><th>Étape</th></tr></thead>
 <tbody>
-<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-4</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Première rencontre, signature du mandat, évaluation</td></tr>
-<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-3 à S-2</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Préparation de la propriété, désencombrement, peinture si requise</td></tr>
-<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-1</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Photos, vidéo drone, plan d'étage, rédaction de la fiche</td></tr>
-<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Jour J</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Mise en marché Centris + pré-diffusion à mon réseau (72 h en avant-première)</td></tr>
-<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Semaines 1-4</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Visites, feedback, ajustements, négociation des premières offres</td></tr>
-<tr><td style="padding:.6rem">Semaines 5-9</td><td style="padding:.6rem">Inspection, financement de l'acheteur, signature notaire</td></tr>
+<tr><td><strong>S-4</strong></td><td>Première rencontre, signature du mandat, évaluation</td></tr>
+<tr><td><strong>S-3 à S-2</strong></td><td>Préparation de la propriété, désencombrement, peinture si requise</td></tr>
+<tr><td><strong>S-1</strong></td><td>Photos, vidéo drone, plan d'étage, rédaction de la fiche</td></tr>
+<tr><td><strong>Jour J</strong></td><td>Mise en marché Centris + pré-diffusion à mon réseau (72 h en avant-première)</td></tr>
+<tr><td><strong>Semaines 1-4</strong></td><td>Visites, feedback, ajustements, négociation des premières offres</td></tr>
+<tr><td><strong>Semaines 5-9</strong></td><td>Inspection, financement de l'acheteur, signature notaire</td></tr>
 </tbody>
 </table>
 
 <h2>Les 3 sources de stress que j'élimine pour vous</h2>
 <h3>L'incertitude sur la valeur réelle</h3>
-<p>Vous ne saurez jamais avec précision si vous avez « bien fait ». Mon rapport d'évaluation comparative vous donne <strong>trois fourchettes</strong> (basse, médiane, optimiste) basées sur des données vérifiables — pas sur des promesses.</p>
+<p>Mon rapport d'évaluation comparative vous donne <strong>trois fourchettes</strong> (basse, médiane, optimiste) basées sur des données vérifiables — pas sur des promesses.</p>
 <h3>La peur des visites surprises</h3>
-<p>Toute visite est planifiée 24 h à l'avance minimum. Aucun acheteur n'entre chez vous sans rendez-vous confirmé. Vous gardez le contrôle total de votre temps.</p>
+<p>Toute visite est planifiée <strong>24 h à l'avance minimum</strong>. Aucun acheteur n'entre chez vous sans rendez-vous confirmé.</p>
 <h3>La panique des offres « time-bombs »</h3>
-<p>Quand une offre arrive avec un délai de 24 h, l'instinct est de céder à la pression. Mon rôle est de vous montrer froidement les 2-3 options réalistes : accepter, contre-proposer, refuser. Et de vous dire ce que je ferais si c'était la mienne.</p>
+<p>Quand une offre arrive avec un délai de 24 h, l'instinct est de céder à la pression. Mon rôle est de vous montrer froidement les options : accepter, contre-proposer, refuser. Et de vous dire ce que je ferais si c'était la mienne.</p>
 
-<h2>Ce que disent mes clients</h2>
-<blockquote style="border-left:3px solid #0f2855;padding:.6rem 0 .6rem 1.2rem;margin:1.5rem 0;color:#2a3a54;font-style:italic">« Quand on a vendu notre maison à Sainte-Thérèse, j'avais perdu le sommeil pendant des mois en pensant à toute la paperasse. Alain a tout pris en main. Il m'envoyait un texto le vendredi avec le résumé de la semaine. Je n'ai jamais eu à courir après lui pour comprendre où on en était. — Marie-Claude, vendu en 22 jours »</blockquote>
+<blockquote>« Quand on a vendu notre maison à Sainte-Thérèse, j'avais perdu le sommeil pendant des mois en pensant à toute la paperasse. Alain a tout pris en main. Il m'envoyait un texto le vendredi avec le résumé de la semaine. Je n'ai jamais eu à courir après lui. »<cite>Marie-Claude · Vendu en 22 jours</cite></blockquote>
 
 <h2>FAQ — vendre sans stress</h2>
 <h3>Combien de visites devrai-je accepter ?</h3>
-<p>En moyenne, mes inscriptions reçoivent 8 à 15 visites avant d'obtenir une offre acceptable. Toutes sont coordonnées et regroupées si possible (visites libres, après-midis dédiés).</p>
+<p>En moyenne, mes inscriptions reçoivent 8 à 15 visites avant une offre acceptable. Toutes sont coordonnées et regroupées si possible.</p>
 <h3>Que se passe-t-il si je change d'idée en cours de route ?</h3>
-<p>Le mandat peut être résilié avec préavis. Aucune pénalité tant qu'il n'y a pas d'offre acceptée. <a href="/contact/">Parlons-en avant la signature</a> pour éviter toute mauvaise surprise.</p>
-<h3>Et si je dois vendre rapidement pour un déménagement professionnel ?</h3>
-<p>Mon délai médian est de 28 jours. Avec un positionnement de prix légèrement agressif (-3 à -5 %), on peut viser 14-21 jours sans sacrifier la qualité de l'offre.</p>`],
-  ['acheter/premier-acheteur','Premier acheteur','Acheteur · Guide','Acheter sa première maison à Sainte-Thérèse ou Blainville — le guide complet, sans jargon.','Premier acheteur Sainte-Thérèse Blainville 2026 | Alain Brunelle','Guide complet premier acheteur Rive-Nord : préapprobation, RAP, CELIAPP, frais cachés, négociation. Alain Brunelle vous accompagne pas à pas.',`<p>Vous achetez votre première propriété. C'est probablement la plus grosse décision financière de votre vie, et personne ne vous a vraiment appris à la prendre. Voici le guide que j'aurais aimé avoir quand j'ai acheté ma première maison à 24 ans.</p>
+<p>Le mandat peut être résilié avec préavis. Aucune pénalité tant qu'il n'y a pas d'offre acceptée.</p>
+<h3>Et si je dois vendre rapidement pour un déménagement ?</h3>
+<p>Mon délai médian est de 28 jours. Avec un positionnement légèrement agressif (-3 à -5 %), on peut viser 14-21 jours sans sacrifier la qualité.</p>`],
+  ['acheter/premier-acheteur','Premier acheteur','Acheteur · Guide','Acheter sa première maison à Sainte-Thérèse ou Blainville — sans jargon, sans surprise.','Premier acheteur Sainte-Thérèse Blainville 2026 | Alain Brunelle','Guide complet premier acheteur Rive-Nord : préapprobation, RAP, CELIAPP, frais cachés, négociation. Alain Brunelle vous accompagne pas à pas.',`<p>Vous achetez votre première propriété. C'est probablement la plus grosse décision financière de votre vie, et personne ne vous a vraiment appris à la prendre. Voici le guide que j'aurais aimé avoir quand j'ai acheté ma première maison.</p>
 
-<h2>1. Connaître votre capacité réelle (pas le maximum)</h2>
-<p>La première erreur du premier acheteur, c'est de viser le maximum permis par le prêteur. La banque accepte de vous prêter jusqu'à <strong>32 % de votre revenu brut</strong> en logement (ABD) et 40 % avec toutes vos dettes (ATD). Mais vivre à 32 % d'ABD, c'est financièrement étranglé. <strong>Cible réaliste : 28 % maximum.</strong></p>
-<p><a href="/acheter/calculatrices/">Utilisez ma calculatrice de capacité</a> pour avoir un chiffre précis avant même de parler à une banque.</p>
+<div class="stat-row">
+<div class="stat-mini"><div class="n">28 %</div><div class="l">ABD cible (vs 32 % max banque)</div></div>
+<div class="stat-mini"><div class="n">3 mois</div><div class="l">délai moyen achat complet</div></div>
+<div class="stat-mini"><div class="n">0 $</div><div class="l">honoraires courtier pour vous</div></div>
+</div>
 
-<h2>2. Préapprobation hypothécaire — toujours avant les visites</h2>
-<p>Ne visitez <strong>jamais</strong> sans préapprobation écrite en main. Trois raisons :</p>
-<ul>
-<li>Vous évitez de tomber amoureux d'une maison hors de prix</li>
-<li>Vous gelez votre taux d'intérêt pour 90-120 jours (protection contre une hausse)</li>
-<li>Vos offres sont prises au sérieux par les vendeurs et leurs courtiers</li>
-</ul>
-<p>La préapprobation est gratuite et n'engage à rien. Je peux vous référer à 3-4 courtiers hypothécaires partenaires qui magasinent pour vous parmi 20+ prêteurs.</p>
+<h2>Les 5 étapes essentielles</h2>
+<div class="steps">
+<div class="step"><div><h3>Connaître votre capacité réelle</h3><p>La banque vous prête jusqu'à 32 % de votre revenu brut en logement (ABD). Mais vivre à 32 %, c'est financièrement étranglé. <strong>Cible réaliste : 28 % max.</strong></p><p><a href="/acheter/calculatrices/">Utilisez ma calculatrice</a> pour un chiffre précis avant la banque.</p></div></div>
+<div class="step"><div><h3>Préapprobation hypothécaire</h3><p>Ne visitez jamais sans préapprobation écrite. Vous gelez votre taux 90-120 jours et vos offres sont prises au sérieux. Gratuite, n'engage à rien.</p></div></div>
+<div class="step"><div><h3>Mise de fonds</h3><p>Minimum 5 % sous 500 k$, 10 % entre 500 k$ et 1,5 M$, 20 % au-delà. Sous 20 % : assurance SCHL obligatoire (1,8-4 % du prêt).</p></div></div>
+<div class="step"><div><h3>Programmes gouvernementaux</h3><p>RAP + CELIAPP + crédits d'impôt fédéral et provincial. Combinés intelligemment, ces 3 programmes peuvent vous économiser 15 000-25 000 $.</p></div></div>
+<div class="step"><div><h3>Recherche, offre et fermeture</h3><p>Pré-sélection sur vos critères, visites accompagnées, rédaction de la promesse, inspection, notaire. 3-5 mois entre préapprobation et clés.</p></div></div>
+</div>
 
-<h2>3. Mise de fonds : combien et d'où ?</h2>
-<p>Minimum légal au Canada :</p>
-<ul>
-<li><strong>5 %</strong> pour la tranche jusqu'à 500 000 $</li>
-<li><strong>10 %</strong> pour la tranche entre 500 000 $ et 1 500 000 $</li>
-<li><strong>20 %</strong> au-delà de 1,5 M$</li>
-</ul>
-<p>Sous 20 %, vous payez une <strong>assurance prêt SCHL</strong> (1,8 % à 4 % du prêt, ajoutée à votre hypothèque). Si possible, visez 20 % pour l'éviter — sur 500 k$ empruntés, c'est ~15 000 $ d'économisés en assurance.</p>
+<h2>Programmes gouvernementaux à connaître</h2>
+<div class="compare">
+<div class="compare-col good"><h4>CELIAPP (depuis 2023)</h4><ul><li>Cotisations <strong>déductibles d'impôt</strong></li><li>Max 8 000 $/an, 40 000 $ à vie</li><li>Retrait <strong>non imposable</strong> pour acheter</li><li>Combinable avec le RAP</li><li>Le plus avantageux en 2026</li></ul></div>
+<div class="compare-col good"><h4>RAP (Régime d'accession)</h4><ul><li>Retirer jusqu'à <strong>60 000 $/personne</strong> du REER</li><li>120 000 $ en couple</li><li>Aucun impôt</li><li>Remboursement sur 15 ans</li><li>Puissant si REER bien garni</li></ul></div>
+</div>
+<p>Plus : crédits d'impôt fédéral et provincial (1 500 $ chacun à la déclaration), et remboursement TPS/TVQ sur les constructions neuves.</p>
 
-<h2>4. Programmes gouvernementaux à connaître</h2>
-<h3>Régime d'accession à la propriété (RAP)</h3>
-<p>Retirez jusqu'à <strong>60 000 $ par personne</strong> de votre REER (120 000 $ en couple) sans impôt, à rembourser sur 15 ans. Particulièrement puissant si vous cotisez au REER depuis quelques années.</p>
-<h3>CELIAPP (Compte d'épargne libre d'impôt pour l'achat d'une première propriété)</h3>
-<p>Le programme le plus avantageux créé en 2023. Contributions <strong>déductibles d'impôt</strong> (jusqu'à 8 000 $/an, max 40 000 $ à vie), retrait <strong>non imposable</strong> pour acheter. Combinable avec le RAP.</p>
-<h3>Crédit d'impôt fédéral et provincial</h3>
-<p>Jusqu'à <strong>1 500 $ fédéral + 1 500 $ provincial</strong> à votre déclaration suivant l'achat. Cumulables.</p>
-<h3>Remboursement de la TPS/TVQ (constructions neuves)</h3>
-<p>Sur les propriétés neuves, vous récupérez une partie des taxes (jusqu'à 36 % du remboursement TPS sur les premières tranches). À connaître avant de signer un préliminaire avec un constructeur.</p>
-
-<h2>5. Les frais cachés que personne ne mentionne</h2>
+<h2>Les frais cachés que personne ne mentionne</h2>
 <p>En plus de la mise de fonds, prévoyez <strong>1,5 % à 3 % du prix d'achat</strong> en frais ponctuels :</p>
-<ul>
-<li>Inspection préachat : 600-1 200 $</li>
-<li>Notaire : 1 200-2 500 $</li>
-<li>Taxe de bienvenue (mutation immobilière) : ~1 % à 2 % du prix — payable 30 à 60 jours après la prise de possession (souvent une mauvaise surprise)</li>
-<li>Ajustements (taxes municipales, scolaires payées d'avance par le vendeur) : 500-2 500 $</li>
-<li>Déménagement, peinture, petits travaux : prévoir 3 000-8 000 $</li>
-</ul>
+<table>
+<thead><tr><th>Frais</th><th>Montant typique</th></tr></thead>
+<tbody>
+<tr><td>Inspection préachat</td><td>600-1 200 $</td></tr>
+<tr><td>Notaire</td><td>1 200-2 500 $</td></tr>
+<tr><td>Taxe de bienvenue (mutation)</td><td>~1-2 % du prix</td></tr>
+<tr><td>Ajustements taxes municipales/scolaires</td><td>500-2 500 $</td></tr>
+<tr><td>Déménagement + petits travaux</td><td>3 000-8 000 $</td></tr>
+</tbody>
+</table>
 
-<h2>Comment je vous accompagne comme premier acheteur</h2>
+<div class="callout warn">
+<div class="ico">⚠️</div>
+<div><p><strong>Surprise classique.</strong> La taxe de bienvenue arrive 30-60 jours après la prise de possession. Sur un achat à 600 k$, ça peut représenter 7 500-9 000 $ payables d'un coup. Prévoyez-la en liquidités.</p></div>
+</div>
+
+<h2>Comment je vous accompagne</h2>
 <p>Mes services sont <strong>gratuits pour vous comme acheteur</strong> — je suis rémunéré par le vendeur via la commission Centris. Concrètement :</p>
 <ul>
-<li>Pré-sélection de propriétés selon vos vrais critères (pas juste prix + nb chambres)</li>
-<li>Visites accompagnées avec mes 29 ans d'expérience pour repérer les drapeaux rouges</li>
+<li>Pré-sélection sur vos vrais critères (pas juste prix + nb chambres)</li>
+<li>Visites accompagnées : 33 ans d'expérience pour repérer les drapeaux rouges</li>
 <li>Référencement aux meilleurs courtiers hypothécaires, inspecteurs, notaires</li>
-<li>Rédaction et négociation de votre promesse d'achat — la majorité des premiers acheteurs payent 3-5 % trop cher faute de négociation</li>
+<li>Rédaction et négociation de votre promesse — la majorité des primo-accédants payent 3-5 % trop cher faute de négociation</li>
 <li>Coordination jusqu'à la remise des clés</li>
 </ul>
 
 <h2>FAQ — premier acheteur</h2>
 <h3>Quel revenu faut-il pour acheter à Blainville en 2026 ?</h3>
-<p>Pour une unifamiliale médiane à 685 000 $ avec 20 % de mise de fonds : revenu ménage minimum d'environ <strong>135 000-150 000 $/an</strong>. Pour un condo à 380 000 $ : ~75 000 $/an.</p>
+<p>Unifamiliale médiane (685 000 $) avec 20 % de mise de fonds : revenu ménage minimum <strong>135 000-150 000 $/an</strong>. Condo (380 000 $) : ~75 000 $/an.</p>
 <h3>Combien de temps prend tout le processus ?</h3>
-<p>De la préapprobation à la prise de possession : typiquement <strong>3 à 5 mois</strong>. Recherche active 4-8 semaines, négociation 1-2 semaines, fermeture 6-10 semaines.</p>
+<p>De la préapprobation à la prise de possession : <strong>3 à 5 mois</strong>.</p>
 <h3>Et si l'inspection révèle des problèmes ?</h3>
-<p>Vous avez trois options : négocier une réduction de prix, exiger des travaux avant signature, ou annuler la promesse (si la condition d'inspection est encore active). Mon rôle est de vous guider vers la décision rationnelle, pas émotionnelle.</p>`],
-  ['acheter/etapes-pour-acheter','Les 9 étapes pour acheter','Processus acheteur','De la préapprobation à la remise des clés — chaque étape démystifiée.','Les 9 étapes pour acheter une maison au Québec | Alain Brunelle','Étapes complètes pour acheter une maison au Québec : préapprobation, visites, promesse, inspection, financement, notaire, possession.',`<p>Acheter une propriété au Québec, c'est neuf étapes parfaitement balisées. Voici la cartographie complète avec les délais réalistes, pour que vous sachiez toujours où vous en êtes.</p>
+<p>Trois options : renégocier le prix, exiger des travaux, ou annuler la promesse. Mon rôle est de vous guider vers la décision rationnelle.</p>`],
+  ['acheter/etapes-pour-acheter','Les 9 étapes pour acheter','Processus acheteur','De la préapprobation à la remise des clés — chaque étape avec son délai réaliste.','Les 9 étapes pour acheter une maison au Québec | Alain Brunelle','Étapes complètes pour acheter une maison au Québec : préapprobation, visites, promesse, inspection, financement, notaire, possession.',`<p>Acheter une propriété au Québec, c'est neuf étapes parfaitement balisées. Voici la cartographie complète avec les délais réalistes, pour que vous sachiez toujours où vous en êtes.</p>
 
-<h2>1. Préapprobation hypothécaire <span style="color:#6a7891;font-weight:400">— 1 à 3 jours</span></h2>
-<p>Avant tout. Le courtier hypothécaire magasine pour vous parmi 20+ prêteurs. Vous repartez avec une lettre confirmant votre capacité maximale et votre taux gelé 90-120 jours.</p>
+<h2>Le parcours complet</h2>
+<div class="steps">
+<div class="step"><div><h3>Préapprobation hypothécaire</h3><p>Le courtier hypothécaire magasine pour vous parmi 20+ prêteurs. Lettre de préapprobation + taux gelé 90-120 jours.</p><p class="meta">Délai : 1 à 3 jours</p></div></div>
+<div class="step"><div><h3>Définition des critères et recherche</h3><p>Mes vraies questions : rythme de vie, déplacements, évolution familiale prévue, tolérance aux rénos, horizon de revente. Liste sur mesure depuis Centris + mes inscriptions à venir.</p><p class="meta">Délai : variable</p></div></div>
+<div class="step"><div><h3>Visites accompagnées</h3><p>Maximum 5 visites par sortie — au-delà, vous mélangez tout. Après chaque visite, on prend 10 minutes pour noter les + et les − à chaud.</p><p class="meta">Délai : 2 à 8 semaines</p></div></div>
+<div class="step"><div><h3>Promesse d'achat</h3><p>Document légal de 14-20 pages. Prix, conditions, délais, inclusions/exclusions. C'est l'étape où la négociation se gagne ou se perd.</p><p class="meta">Délai : 1 à 3 jours</p></div></div>
+<div class="step"><div><h3>Négociation et contre-propositions</h3><p>Le vendeur accepte, refuse ou contre-propose. Peut tourner 2-3 fois. Mon rôle : les chiffres comparables en temps réel pour éviter la surenchère émotionnelle.</p><p class="meta">Délai : 1 à 5 jours</p></div></div>
+<div class="step"><div><h3>Inspection préachat</h3><p>Inspection complète (2-4 h), rapport livré 24-48 h après. Si problèmes majeurs : on renégocie ou on se retire. <a href="/acheter/inspection/">Voir le guide complet</a>.</p><p class="meta">Délai : 3 à 10 j après acceptation</p></div></div>
+<div class="step"><div><h3>Confirmation du financement</h3><p>La banque confirme après évaluation de la propriété. L'étape où certaines transactions tombent — d'où l'importance d'une préapprobation solide.</p><p class="meta">Délai : 7 à 14 jours</p></div></div>
+<div class="step"><div><h3>Réception chez le notaire</h3><p>Vérification des titres, ajustements, préparation de l'acte. Vous signez et payez le solde. Je suis présent.</p><p class="meta">Délai : 4 à 8 semaines après promesse</p></div></div>
+<div class="step"><div><h3>Prise de possession</h3><p>Remise des clés. Visite finale ensemble : état convenu, inclusions présentes, services transférés.</p><p class="meta">Jour J</p></div></div>
+</div>
 
-<h2>2. Définition des critères et recherche <span style="color:#6a7891;font-weight:400">— variable</span></h2>
-<p>Pas juste « 3 chambres, 600 000 $ ». Mes vraies questions : votre rythme de vie, vos déplacements, l'évolution familiale prévue, votre tolérance aux rénos, votre horizon de revente. Je bâtis ensuite une liste sur mesure depuis Centris + mes inscriptions à venir.</p>
-
-<h2>3. Visites accompagnées <span style="color:#6a7891;font-weight:400">— 2 à 8 semaines</span></h2>
-<p>Je vise <strong>maximum 5 visites par sortie</strong> — au-delà, vous mélangez tout. Après chaque visite, on prend 10 minutes pour noter à chaud les + et les − de chaque propriété.</p>
-
-<h2>4. Promesse d'achat <span style="color:#6a7891;font-weight:400">— 1 à 3 jours</span></h2>
-<p>Document légal de 14-20 pages. Prix, conditions (financement, inspection, vente d'une autre propriété), délais, inclusions/exclusions. <strong>L'étape où la négociation se gagne ou se perd</strong> — je rédige chaque clause stratégiquement.</p>
-
-<h2>5. Négociation et contre-propositions <span style="color:#6a7891;font-weight:400">— 1 à 5 jours</span></h2>
-<p>Le vendeur peut accepter, refuser, ou contre-proposer. La négociation peut tourner 2-3 fois. Mon rôle : vous donner les chiffres comparables en temps réel pour vous éviter de surenchérir émotionnellement.</p>
-
-<h2>6. Inspection préachat <span style="color:#6a7891;font-weight:400">— 3 à 10 jours après acceptation</span></h2>
-<p>Inspection complète (2-4 h), rapport écrit livré 24-48 h après. Si problèmes majeurs trouvés : on renégocie ou on se retire. Voir <a href="/acheter/inspection/">notre guide complet inspection</a>.</p>
-
-<h2>7. Confirmation du financement <span style="color:#6a7891;font-weight:400">— 7 à 14 jours</span></h2>
-<p>La banque confirme votre financement après évaluation de la propriété. C'est l'étape où certaines transactions tombent — d'où l'importance d'une préapprobation solide en amont.</p>
-
-<h2>8. Réception chez le notaire <span style="color:#6a7891;font-weight:400">— 4 à 8 semaines après promesse</span></h2>
-<p>Le notaire vérifie les titres, calcule les ajustements (taxes payées d'avance, services publics), prépare l'acte. Vous signez, vous payez le solde de la mise de fonds + les frais notariés. Je suis présent.</p>
-
-<h2>9. Prise de possession <span style="color:#6a7891;font-weight:400">— jour J</span></h2>
-<p>Remise des clés. Je vous accompagne pour la visite finale (vérification que la propriété est dans l'état convenu, inclusions présentes, services transférés).</p>
-
-<h2>Délai total typique</h2>
-<p>De la préapprobation à la remise des clés : <strong>3 à 5 mois</strong>. Ça peut être plus rapide (45 jours) en cas d'urgence, ou plus lent si vous prenez votre temps en recherche.</p>
+<div class="callout">
+<div class="ico">⏱️</div>
+<div><p><strong>Délai total typique :</strong> de la préapprobation à la remise des clés, <strong>3 à 5 mois</strong>. Possible en 45 jours en cas d'urgence, parfois plus lent si recherche méticuleuse.</p></div>
+</div>
 
 <h2>FAQ — étapes d'achat</h2>
 <h3>Combien de promesses d'achat faut-il en moyenne avant qu'une soit acceptée ?</h3>
-<p>Sur le marché Rive-Nord 2026, environ <strong>1 à 3 promesses</strong> sont nécessaires pour mes clients acheteurs. La sélection en amont fait toute la différence.</p>
+<p>Sur le marché Rive-Nord 2026, environ <strong>1 à 3 promesses</strong> sont nécessaires pour mes clients. La sélection en amont fait toute la différence.</p>
 <h3>Que faire si je me fais surenchérir ?</h3>
 <p>Cas par cas. Parfois on garde la même offre (le vendeur revient si l'autre acheteur retire), parfois on monte modérément, parfois on passe. Décision basée sur la valeur réelle, pas l'émotion.</p>
 <h3>Combien coûtent les services d'un courtier acheteur ?</h3>
-<p><strong>Zéro pour vous.</strong> Ma rémunération vient du vendeur via la commission Centris. <a href="/rendez-vous/">Parlons-en sans engagement</a>.</p>`],
-  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque · Stratégie','Taux fixe ou variable, amortissement 25 ou 30 ans — les vraies questions à se poser.','Financement hypothécaire Québec 2026 | Alain Brunelle','Tout sur le financement hypothécaire : taux fixe vs variable, amortissement, stress test, assurance SCHL, courtier vs banque. Conseils pratiques.',`<p>Le taux d'intérêt n'est qu'une variable parmi cinq qui déterminent ce que votre hypothèque va vraiment vous coûter. Voici la lecture stratégique complète.</p>
+<p><strong>Zéro pour vous.</strong> Ma rémunération vient du vendeur via la commission Centris.</p>`],
+  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque · Stratégie','Taux fixe ou variable, 25 ou 30 ans, SCHL ou non — les vraies questions.','Financement hypothécaire Québec 2026 | Alain Brunelle','Tout sur le financement hypothécaire : taux fixe vs variable, amortissement, stress test, assurance SCHL, courtier vs banque. Conseils pratiques.',`<p>Le taux d'intérêt n'est qu'une variable parmi cinq qui déterminent ce que votre hypothèque va vraiment vous coûter. Voici la lecture stratégique complète.</p>
+
+<div class="stat-row">
+<div class="stat-mini"><div class="n">4,89 %</div><div class="l">taux fixe 5 ans typique 2026</div></div>
+<div class="stat-mini"><div class="n">+2 %</div><div class="l">stress test fédéral imposé</div></div>
+<div class="stat-mini"><div class="n">-0,3 %</div><div class="l">économie typique courtier vs banque</div></div>
+</div>
 
 <h2>Taux fixe ou taux variable ?</h2>
-<p>En 2026, les fixes 5 ans tournent autour de <strong>4,89 % à 5,29 %</strong>, les variables <strong>5,15 % à 5,75 %</strong>. La différence : prévisibilité contre flexibilité.</p>
+<div class="compare">
+<div class="compare-col">
+<h4>TAUX FIXE</h4>
 <ul>
-<li><strong>Fixe</strong> : votre paiement ne bouge pas pendant le terme. Idéal si votre tolérance au risque est faible ou si vous achetez à la limite de votre capacité.</li>
-<li><strong>Variable</strong> : suit le taux directeur de la Banque du Canada. Historiquement, le variable a battu le fixe sur ~80 % des périodes de 5 ans. Mais 2022-2024 a montré qu'il pouvait monter brutalement.</li>
+<li>Paiement constant tout le terme</li>
+<li>Prévisibilité maximale</li>
+<li>Idéal premier achat ou budget serré</li>
+<li>Légèrement plus cher en moyenne historique</li>
+<li>4,89-5,29 % en mai 2026</li>
 </ul>
-<p>Ma règle pragmatique : <strong>fixe pour le premier achat</strong> (vous gérez déjà beaucoup d'incertitude), <strong>variable possible pour l'investisseur ou le 2e achat</strong> avec coussin financier.</p>
+</div>
+<div class="compare-col">
+<h4>TAUX VARIABLE</h4>
+<ul>
+<li>Suit le taux directeur Banque du Canada</li>
+<li>Plus bas historiquement (~80 % du temps)</li>
+<li>Peut monter brutalement (2022 a montré)</li>
+<li>Idéal 2e achat ou investisseur</li>
+<li>5,15-5,75 % en mai 2026</li>
+</ul>
+</div>
+</div>
+<p><strong>Ma règle pragmatique :</strong> fixe pour le premier achat, variable possible pour l'investisseur avec coussin financier.</p>
 
 <h2>Amortissement : 25 ou 30 ans ?</h2>
-<p>Avec une mise de fonds <strong>≥ 20 %</strong>, vous pouvez choisir 30 ans. Sur 500 000 $ empruntés à 5 % :</p>
-<ul>
-<li>25 ans : paiement mensuel ~2 908 $, intérêts totaux ~372 400 $</li>
-<li>30 ans : paiement mensuel ~2 669 $ (-239 $/mois), intérêts totaux ~460 800 $ (+88 400 $)</li>
-</ul>
-<p>Le 30 ans donne du souffle mensuel, mais coûte ~90 k$ de plus en intérêts. <strong>Compromis intelligent</strong> : prendre 30 ans pour la flexibilité, puis ajouter des paiements anticipés volontaires (la plupart des prêts permettent +20 % du paiement chaque année sans pénalité).</p>
+<p>Avec une mise de fonds ≥ 20 %, vous pouvez choisir 30 ans. Comparons sur 500 000 $ à 5 % :</p>
+<table>
+<thead><tr><th>Durée</th><th>Paiement mensuel</th><th>Intérêts totaux</th></tr></thead>
+<tbody>
+<tr><td>25 ans</td><td>2 908 $</td><td>372 400 $</td></tr>
+<tr><td>30 ans</td><td>2 669 $ (-239 $)</td><td>460 800 $ (+88 400 $)</td></tr>
+</tbody>
+</table>
+<div class="callout success">
+<div class="ico">💡</div>
+<div><p><strong>Compromis intelligent :</strong> prendre 30 ans pour la flexibilité, puis ajouter des paiements anticipés volontaires (+20 %/an permis sans pénalité chez la plupart des prêteurs).</p></div>
+</div>
 
 <h2>Le stress test fédéral</h2>
-<p>Depuis 2018, tous les prêts hypothécaires sont qualifiés à <strong>max(taux contractuel + 2 %, 5,25 %)</strong>. Ça signifie : même si votre taux est 4,89 %, la banque calcule votre capacité comme si vous payiez 6,89 %.</p>
-<p>Conséquence : votre capacité d'emprunt est environ <strong>15 à 20 % inférieure</strong> à ce que le taux contractuel suggérerait. Calculez avec mon <a href="/acheter/calculatrices/">simulateur de capacité</a>.</p>
+<p>Depuis 2018, tous les prêts sont qualifiés à <strong>max(taux contractuel + 2 %, 5,25 %)</strong>. Conséquence : votre capacité d'emprunt est environ <strong>15-20 % inférieure</strong> au calcul du taux contractuel. Utilisez ma <a href="/acheter/calculatrices/">calculatrice de capacité</a>.</p>
 
 <h2>Assurance SCHL — quand l'éviter</h2>
-<p>Si vous mettez moins de 20 % en mise de fonds, l'assurance prêt hypothécaire SCHL est obligatoire. Coût : 1,8 % à 4 % du prêt selon le ratio. Sur 500 000 $ empruntés à 10 % de mise :</p>
-<ul>
-<li>Prime SCHL : ~3,1 % = <strong>15 500 $</strong> ajoutés à l'hypothèque</li>
-<li>Vous payez intérêts sur ces 15 500 $ pendant 25-30 ans</li>
-</ul>
-<p>Vraie addition sur la durée du prêt : ~25 000 $. Vaut-il mieux attendre 6-12 mois pour atteindre 20 % ? Souvent oui, sauf si les prix du marché montent plus vite que vos économies.</p>
+<p>Sous 20 % de mise de fonds, l'assurance SCHL est obligatoire (1,8-4 % du prêt).</p>
+<div class="callout warn">
+<div class="ico">⚠️</div>
+<div><p>Sur 500 k$ empruntés à 10 % de mise : prime SCHL ~15 500 $ ajoutée à l'hypothèque. Vous payez intérêts dessus pendant 25-30 ans → vrai coût ~25 000 $. Vaut souvent mieux attendre 6-12 mois pour atteindre 20 %.</p></div>
+</div>
 
-<h2>Courtier hypothécaire ou directement la banque ?</h2>
-<p>Le courtier hypothécaire <strong>magasine pour vous parmi 20+ prêteurs</strong> (banques, caisses, prêteurs alternatifs) — sans frais pour vous (commission payée par le prêteur). Économie typique : 0,15 à 0,40 % de taux par rapport au taux affiché de votre banque. Sur 500 k$, c'est <strong>10 000 à 25 000 $ d'intérêts économisés</strong> sur 5 ans.</p>
+<h2>Courtier hypothécaire ou banque ?</h2>
+<p>Le courtier hypothécaire magasine parmi 20+ prêteurs — sans frais pour vous. Économie typique : <strong>0,15 à 0,40 %</strong> de taux par rapport au taux affiché bancaire. Sur 500 k$, ça représente <strong>10 000 à 25 000 $ d'intérêts économisés</strong> sur 5 ans.</p>
 <p>Mes partenaires courtiers hypothécaires sont disponibles dans les 48 h pour un appel découverte.</p>
 
-<h2>Le terme vs l'amortissement</h2>
+<h2>Terme vs amortissement</h2>
 <p>Deux concepts souvent confondus :</p>
 <ul>
-<li><strong>Amortissement</strong> : durée totale pour rembourser entièrement (25 ou 30 ans)</li>
-<li><strong>Terme</strong> : durée du contrat actuel avec votre prêteur (1, 3, 5, 7, 10 ans). À la fin du terme, vous renégociez (taux, prêteur, conditions).</li>
+<li><strong>Amortissement</strong> : durée totale pour rembourser (25 ou 30 ans)</li>
+<li><strong>Terme</strong> : durée du contrat actuel (1, 3, 5, 7, 10 ans). À la fin, vous renégociez.</li>
 </ul>
-<p>Terme 5 ans = standard. Terme 3 ans = bon choix si vous prévoyez vendre ou si les taux semblent près d'un sommet. Terme 1-2 ans = stratégie de patience pour attendre une baisse.</p>
+<p>Terme 5 ans = standard. Terme 3 ans = si vous prévoyez vendre ou attendez baisse des taux. Terme 1-2 ans = stratégie de patience agressive.</p>
 
 <h2>FAQ — financement</h2>
 <h3>Combien coûte une préapprobation ?</h3>
-<p><strong>Gratuit.</strong> Aucun engagement, aucun impact sur votre dossier de crédit majeur (vérification dite « douce » la plupart du temps).</p>
+<p><strong>Gratuit.</strong> Aucun engagement, vérification de crédit « douce » la plupart du temps.</p>
 <h3>Quel est le délai pour obtenir le financement final ?</h3>
-<p>De la promesse d'achat acceptée à la confirmation finale : généralement <strong>7 à 14 jours</strong>. La banque évalue la propriété et finalise votre dossier.</p>
-<h3>Et si mon taux gelé expire avant la prise de possession ?</h3>
-<p>Vous payez le taux en vigueur au moment de la signature. C'est pourquoi le choix du terme et la coordination des dates importent autant.</p>`],
-  ['acheter/inspection','Inspection pré-achat','Inspection · Garantie','Jamais d\'achat sans inspection — voici exactement ce qu\'elle vérifie et ne vérifie pas.','Inspection préachat Québec — guide 2026 | Alain Brunelle','Tout savoir sur l\'inspection préachat : déroulement, coût, vices cachés, recours. Le filet de sécurité non négociable avant d\'acheter.',`<p>L'inspection préachat, c'est votre dernière protection avant de signer un engagement de plusieurs centaines de milliers de dollars. Pourtant, 1 acheteur sur 6 au Québec en fait l'économie pour « gagner le bidding war ». C'est le pari le plus risqué de toute la transaction. Voici pourquoi je ne laisse jamais un client passer outre — et comment j'organise une inspection efficace en 48 h.</p>
+<p>De la promesse acceptée à la confirmation finale : <strong>7 à 14 jours</strong>.</p>
+<h3>Et si mon taux gelé expire avant la possession ?</h3>
+<p>Vous payez le taux en vigueur à la signature. Coordination des dates importe.</p>`],
+  ['acheter/inspection','Inspection pré-achat','Inspection · Garantie','Ce qu\'elle vérifie, ce qu\'elle ne couvre pas, et pourquoi il ne faut JAMAIS l\'omettre.','Inspection préachat Québec — guide 2026 | Alain Brunelle','Tout savoir sur l\'inspection préachat : déroulement, coût, vices cachés, recours. Le filet de sécurité non négociable avant d\'acheter.',`<p>L'inspection préachat, c'est votre dernière protection avant de signer un engagement de plusieurs centaines de milliers de dollars. Pourtant, <strong>1 acheteur sur 6 au Québec</strong> en fait l'économie pour « gagner le bidding war ». C'est le pari le plus risqué de toute la transaction.</p>
+
+<div class="stat-row">
+<div class="stat-mini"><div class="n">2-4 h</div><div class="l">durée d'une inspection complète</div></div>
+<div class="stat-mini"><div class="n">600-1 200 $</div><div class="l">coût typique selon grandeur</div></div>
+<div class="stat-mini"><div class="n">24-48 h</div><div class="l">délai rapport écrit après inspection</div></div>
+</div>
 
 <h2>Ce que l'inspecteur vérifie</h2>
-<p>Une inspection complète dure 2 à 4 heures et couvre :</p>
 <ul>
 <li><strong>Structure</strong> : fondation, charpente, sous-sol, planchers, plafonds, murs porteurs</li>
 <li><strong>Toiture</strong> : état général, durée de vie résiduelle, ventilation, gouttières, solins</li>
 <li><strong>Enveloppe</strong> : revêtement extérieur, fenêtres, portes, isolation visible</li>
-<li><strong>Plomberie</strong> : tuyauterie, robinetterie, chauffe-eau, drains, signe de fuites historiques</li>
-<li><strong>Électricité</strong> : panneau, distribution, mise à la terre, prises GFCI, signes de surcharge</li>
+<li><strong>Plomberie</strong> : tuyauterie, robinetterie, chauffe-eau, drains, signes de fuites</li>
+<li><strong>Électricité</strong> : panneau, distribution, mise à la terre, prises GFCI, surcharge</li>
 <li><strong>Chauffage/climatisation</strong> : système, âge, entretien, efficacité</li>
 <li><strong>Intérieur</strong> : finition, salles de bain, cuisine, escaliers, garde-corps</li>
 <li><strong>Indicateurs d'humidité, moisissure, parasites</strong></li>
 </ul>
 
-<h2>Ce que l'inspection NE couvre PAS</h2>
-<p>Important à savoir pour éviter les fausses attentes :</p>
-<ul>
-<li>L'inspecteur ne <strong>démolit rien</strong> — il ne voit que ce qui est visible</li>
-<li>Pas de tests environnementaux (radon, pyrite, mérule) sauf demande spécifique en supplément</li>
-<li>Pas d'évaluation des piscines, foyers ou cheminées (inspections spécialisées séparées)</li>
-<li>Pas d'inspection thermographique infrarouge sauf si demandée</li>
-</ul>
-<p>Pour les propriétés à risque (construction 1970-1985 = potentiel pyrite, sous-sols inondables = potentiel mérule, anciennes maisons rurales = potentiel radon), je recommande des tests complémentaires ciblés.</p>
-
-<h2>Coût et délai</h2>
-<ul>
-<li><strong>Coût</strong> : 600 à 1 200 $ + taxes selon la grandeur et l'âge de la propriété</li>
-<li><strong>Délai</strong> : 24-72 h pour planifier ; rapport écrit livré 24-48 h après l'inspection</li>
-<li><strong>Présence recommandée</strong> : vous + moi pendant les 2 dernières heures (l'inspecteur fait le tour avec vous et explique ses constats)</li>
-</ul>
-
-<h2>Mes inspecteurs partenaires</h2>
-<p>J'ai trois inspecteurs de confiance sur la Rive-Nord, tous membres en règle de l'AIBQ (Association des inspecteurs en bâtiment du Québec) ou de l'InterNACHI. Ils ne sont <strong>jamais payés par moi</strong> — vous les payez directement, leur indépendance reste totale. Mon rôle est juste la mise en contact rapide.</p>
+<div class="callout warn">
+<div class="ico">⚠️</div>
+<div><p><strong>Ce que l'inspection NE couvre PAS :</strong> tests environnementaux (radon, pyrite, mérule) sauf demande spécifique, piscines/foyers/cheminées (inspections séparées), thermographie infrarouge. Pour propriétés à risque (1970-1985 = pyrite, sous-sols inondables = mérule), tests complémentaires recommandés.</p></div>
+</div>
 
 <h2>Comment lire un rapport d'inspection</h2>
-<p>Tous les rapports listent des « défauts ». La question stratégique : <strong>lesquels sont des deal-breakers, lesquels sont du normal pour l'âge de la propriété ?</strong></p>
-<h3>Drapeaux rouges qui justifient une renégociation ou un retrait</h3>
+<div class="compare">
+<div class="compare-col bad">
+<h4>DRAPEAUX ROUGES</h4>
 <ul>
-<li>Fissures structurales actives ou affaissement de fondation</li>
-<li>Toit en fin de vie (-2 ans) non déclaré</li>
-<li>Panneau électrique aluminium ou Federal Pioneer (problèmes d'assurance)</li>
-<li>Présence de pyrite, vermiculite, mérule, infiltration chronique</li>
-<li>Système septique défaillant ou non conforme</li>
-<li>Réservoir d'huile enfoui (responsabilité environnementale)</li>
+<li>Fissures structurales actives</li>
+<li>Affaissement de fondation</li>
+<li>Toit en fin de vie non déclaré</li>
+<li>Panneau aluminium ou Federal Pioneer</li>
+<li>Pyrite, vermiculite, mérule</li>
+<li>Infiltration chronique</li>
+<li>Septique défaillant ou non conforme</li>
+<li>Réservoir d'huile enfoui</li>
 </ul>
-<h3>Items normaux à ignorer (ou presque)</h3>
+</div>
+<div class="compare-col good">
+<h4>ITEMS NORMAUX</h4>
 <ul>
 <li>Petites fissures de retrait du béton</li>
 <li>Calfeutrant à refaire</li>
-<li>Composantes en fin de vie utile mais fonctionnelles</li>
+<li>Composantes en fin de vie utile</li>
 <li>Mises aux normes mineures de code</li>
+<li>Petits accrocs cosmétiques</li>
+<li>Joints d'isolation à refaire</li>
 </ul>
+</div>
+</div>
 
 <h2>Et après le rapport ?</h2>
-<p>Trois options selon la condition d'inspection encore active dans votre promesse :</p>
-<ol>
-<li><strong>Tout accepter</strong> et procéder (rare avec un rapport propre)</li>
-<li><strong>Demander une réduction de prix</strong> équivalente aux travaux requis (le plus commun)</li>
-<li><strong>Annuler la promesse</strong> sans pénalité (en cas de défauts majeurs)</li>
-</ol>
-<p>Je négocie cette étape avec vous, basé sur les comparables et la réalité du marché.</p>
+<div class="steps">
+<div class="step"><div><h3>Tout accepter et procéder</h3><p>Rare avec un rapport vraiment propre. Si le rapport ne contient que des items normaux pour l'âge.</p></div></div>
+<div class="step"><div><h3>Demander une réduction de prix</h3><p>Le plus commun. Équivalente aux travaux requis, basée sur des soumissions réelles. Je négocie avec vous.</p></div></div>
+<div class="step"><div><h3>Annuler la promesse</h3><p>Sans pénalité (si condition d'inspection encore active). Réservée aux défauts majeurs.</p></div></div>
+</div>
+
+<h2>Mes inspecteurs partenaires</h2>
+<p>J'ai trois inspecteurs de confiance sur la Rive-Nord, tous membres en règle de l'AIBQ ou de l'InterNACHI. Ils ne sont <strong>jamais payés par moi</strong> — vous les payez directement, leur indépendance reste totale. Mon rôle : mise en contact rapide (48-72 h).</p>
 
 <h2>FAQ — inspection</h2>
 <h3>Puis-je vraiment renoncer à l'inspection pour gagner un bidding war ?</h3>
-<p>Légalement oui. Stratégiquement, presque jamais. Les vices cachés découverts après signature deviennent <strong>votre problème</strong> — et les recours juridiques contre le vendeur durent 18-36 mois et coûtent cher.</p>
+<p>Légalement oui. Stratégiquement, presque jamais. Les vices cachés découverts après signature deviennent votre problème — les recours juridiques durent 18-36 mois et coûtent cher.</p>
 <h3>L'inspecteur est-il responsable s'il a manqué un problème ?</h3>
-<p>Limité. Sa responsabilité est généralement plafonnée au coût de l'inspection sauf faute lourde démontrée. Choisir un inspecteur expérimenté et certifié réduit beaucoup ce risque.</p>
+<p>Limité. Sa responsabilité est plafonnée au coût de l'inspection sauf faute lourde. Choisir un inspecteur expérimenté et certifié réduit beaucoup ce risque.</p>
 <h3>Et pour une construction neuve ?</h3>
-<p>Inspection encore plus importante. La <strong>garantie GCR</strong> couvre certains défauts, mais ne dispense pas de vérifier l'exécution avant signature. Je recommande aussi une inspection avant la fin de la 1<sup>re</sup> année de possession (avant l'expiration de la garantie d'un an).</p>`],
+<p>Inspection encore plus importante. La garantie GCR couvre certains défauts mais ne dispense pas de vérifier l'exécution. Je recommande aussi une inspection avant la fin de la 1<sup>re</sup> année.</p>`],
 ];
+// Photos hero pour chaque sous-page (Unsplash CDN — libres de droits)
+const SUBPAGE_HERO = {
+  'vendre/etapes-pour-vendre':       'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=80&auto=format&fit=crop',
+  'vendre/preparer-sa-maison':       'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80&auto=format&fit=crop',
+  'vendre/commission-courtier':      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format&fit=crop',
+  'vendre/vendre-sans-stress':       'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&q=80&auto=format&fit=crop',
+  'acheter/premier-acheteur':        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop',
+  'acheter/etapes-pour-acheter':     'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80&auto=format&fit=crop',
+  'acheter/financement-hypothecaire':'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=900&q=80&auto=format&fit=crop',
+  'acheter/inspection':              'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80&auto=format&fit=crop'
+};
 for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
   writePage(`${p}/index.html`, contentPage({
     eyebrow: eye, h1, lead, title, desc,
     canonical: `https://alainbrunelle.com/${p}/`,
+    heroImg: SUBPAGE_HERO[p],
     body
   }));
 }
