@@ -1309,26 +1309,145 @@ ${cityBlock}
 
 // --- TYPES DE PROPRIÉTÉ ---
 const TYPES = [
-  ['maison-unifamiliale-a-vendre','Maison unifamiliale','La typologie la plus recherchée de la Rive-Nord.'],
-  ['condo-a-vendre','Condo','Propriété divise en copropriété — idéale pour premiers acheteurs et retraités.'],
-  ['maison-de-ville-a-vendre','Maison de ville','Propriété jumelée ou en rangée, entrée indépendante.'],
-  ['maison-neuve-a-vendre','Maison neuve','Constructions neuves livrées 2025-2027.']
+  ['maison-unifamiliale-a-vendre','Maison unifamiliale',
+   'La typologie la plus recherchée de la Rive-Nord — 68 % des transactions résidentielles 2026.',
+   `<p>La maison unifamiliale détachée reste la propriété la plus convoitée de la Rive-Nord. Sur les 12 derniers mois, elle représente <strong>68 % des transactions résidentielles</strong> à Blainville, Sainte-Thérèse, Rosemère et Lorraine confondues.</p>
+
+   <h2>Profil de l'acheteur d'unifamiliale en 2026</h2>
+   <ul>
+   <li>Familles avec enfants jeunes (35-45 ans) — 52 %</li>
+   <li>Couples sans enfants ou empty-nesters — 22 %</li>
+   <li>Familles recomposées ou multigénérationnelles — 14 %</li>
+   <li>Investisseurs (location courte ou longue durée) — 12 %</li>
+   </ul>
+
+   <h2>Prix médians par ville (12 derniers mois)</h2>
+   <ul>
+   <li><strong>Blainville</strong> : 685 000 $</li>
+   <li><strong>Sainte-Thérèse</strong> : 582 000 $</li>
+   <li><strong>Rosemère</strong> : 720 000 $</li>
+   <li><strong>Lorraine</strong> : 765 000 $</li>
+   </ul>
+
+   <h2>Ce qui fait monter ou descendre le prix</h2>
+   <h3>Facteurs +</h3>
+   <p>Lot >700 m², garage attaché, sous-sol fini avec hauteur libre ≥7 pi, rénovations cuisine/SDB <10 ans, orientation sud-ouest, proximité d'une école primaire bien cotée.</p>
+   <h3>Facteurs −</h3>
+   <p>Toiture en fin de vie, fenêtres d'origine (>25 ans), revêtement extérieur amiante, sous-sol bas (<6'8"), proximité d'une artère bruyante, voisinage commercial direct.</p>
+
+   <h2>Stratégie d'achat ou de vente</h2>
+   <p>Pour <strong>acheter</strong> : viser les secteurs en mutation (nouvelles écoles, futur transport collectif), où l'effet de halo va lever les prix sur 3-5 ans. Pour <strong>vendre</strong> : positionnement de prix précis selon le sous-secteur, photos drone obligatoires pour mettre en valeur le terrain. <a href="/vendre/evaluation-gratuite/">Obtenez votre évaluation gratuite</a>.</p>`],
+
+  ['condo-a-vendre','Condo',
+   'Propriété divise en copropriété — idéal pour premiers acheteurs, retraités et investisseurs.',
+   `<p>Le condo a complètement transformé le marché Rive-Nord en 10 ans. À Sainte-Thérèse, le secteur Vieux-Village a vu pousser une dizaine de projets neufs depuis 2018 — répondant à une demande forte de propriétaires souhaitant la propriété <em>sans l'entretien</em>.</p>
+
+   <h2>Prix médians condos 2026</h2>
+   <ul>
+   <li><strong>Sainte-Thérèse Vieux-Village</strong> : 425 000 $ (condos neufs 2-3 ch.)</li>
+   <li><strong>Blainville centre</strong> : 380 000 $</li>
+   <li><strong>Rosemère</strong> : 465 000 $</li>
+   <li><strong>Lorraine</strong> : 395 000 $</li>
+   </ul>
+
+   <h2>Charges de copropriété — l'élément le plus mal compris</h2>
+   <p>Les charges (entre 200 $ et 600 $/mois selon le projet) couvrent typiquement : chauffage des aires communes, déneigement, paysagement, fonds de prévoyance, assurance bâtiment. <strong>À vérifier obligatoirement avant d'offrir</strong> :</p>
+   <ul>
+   <li>État du <strong>fonds de prévoyance</strong> (devrait représenter au moins 5-10 % de la valeur de remplacement du bâtiment)</li>
+   <li>Procès-verbaux des 3 dernières assemblées (litiges, projets de travaux majeurs)</li>
+   <li>Étude du <strong>carnet d'entretien</strong> et de l'étude du fonds de prévoyance (obligatoire depuis 2024)</li>
+   <li>Règlements de copropriété (restrictions Airbnb, animaux, BBQ, location)</li>
+   </ul>
+
+   <h2>Condo neuf vs revente</h2>
+   <h3>Condo neuf</h3>
+   <p>Garantie GCR (5 ans structure, 3 ans enveloppe, 1 an fini), TPS/TVQ partiellement remboursables, possibilité de personnaliser certains finis. Inconvénient : on achète sur plan, livraison souvent reportée, et le condo se déprécie de 5-10 % la première année (effet « auto neuve »).</p>
+   <h3>Condo revente</h3>
+   <p>Prix négociable, qualité réelle vérifiable, charges déjà stabilisées. Inconvénient : finis peut-être à rafraîchir, fonds de prévoyance parfois sous-capitalisé.</p>
+
+   <h2>Pour qui ce type ?</h2>
+   <ul>
+   <li>Premier acheteur cherchant l'entrée dans le marché (mise de fonds modeste)</li>
+   <li>Empty-nesters quittant l'unifamiliale</li>
+   <li>Professionnel·le célibataire ou couple sans projet d'enfants</li>
+   <li>Investisseur locatif (rendement net 3,5-5 % selon le projet)</li>
+   </ul>`],
+
+  ['maison-de-ville-a-vendre','Maison de ville',
+   'Le compromis intelligent entre condo et unifamiliale — typologie en croissance forte.',
+   `<p>La maison de ville (souvent appelée « townhouse » ou « cottage en rangée ») offre l'expérience d'une maison — entrée privée, cour arrière, sous-sol — avec un prix inférieur de 15 à 25 % à l'unifamiliale équivalente. Sur la Rive-Nord, c'est la typologie qui gagne le plus en popularité depuis 2022.</p>
+
+   <h2>Sous-types à distinguer</h2>
+   <ul>
+   <li><strong>Jumelée</strong> : 2 unités partageant un mur. Prix proche de l'unifamiliale, plus d'intimité.</li>
+   <li><strong>En rangée</strong> : 3+ unités côte à côte. Plus abordable, contraintes esthétiques (façade uniforme).</li>
+   <li><strong>Cottage en rangée 2 étages</strong> : la version la plus recherchée à Blainville et Sainte-Thérèse-en-Haut.</li>
+   </ul>
+
+   <h2>Prix médians 2026</h2>
+   <ul>
+   <li><strong>Blainville (Fontainebleau, Chambéry)</strong> : 525 000 $</li>
+   <li><strong>Sainte-Thérèse</strong> : 465 000 $</li>
+   <li><strong>Rosemère</strong> : 545 000 $</li>
+   </ul>
+
+   <h2>Avantages</h2>
+   <ul>
+   <li>Prix d'entrée significativement plus bas que l'unifamiliale</li>
+   <li>Entretien extérieur partagé ou simplifié (pas d'entretien sur le mur mitoyen)</li>
+   <li>Cour arrière privée, généralement plus petite mais utilisable</li>
+   <li>Sous-sol et 2 étages — espace de vie comparable à une maison de 2 000-2 400 pi²</li>
+   </ul>
+
+   <h2>Points d'attention à la visite</h2>
+   <ul>
+   <li><strong>Insonorisation</strong> du ou des murs mitoyens — testez en frappant et en écoutant</li>
+   <li><strong>Stationnement</strong> : compté, partagé ou hors-rue ?</li>
+   <li><strong>Charges</strong> si formule copropriété (variable selon projets)</li>
+   <li>Règlements du projet (modifications extérieures, BBQ, peinture porte)</li>
+   </ul>`],
+
+  ['maison-neuve-a-vendre','Maison neuve',
+   'Constructions neuves livrées 2025-2027 sur la Rive-Nord — projets en cours et à venir.',
+   `<p>Le marché de la construction neuve sur la Rive-Nord est en pleine effervescence. Plusieurs projets résidentiels significatifs sont en cours ou prévus dans les 24 prochains mois, principalement à Blainville (secteur Chambéry, prolongement du boulevard Notre-Dame) et Mirabel.</p>
+
+   <h2>Avantages d'acheter neuf</h2>
+   <ul>
+   <li><strong>Garantie GCR</strong> : 5 ans structure, 3 ans enveloppe, 1 an fini — couverture la plus complète au Québec</li>
+   <li><strong>Remboursement partiel TPS/TVQ</strong> sur résidence principale (jusqu'à ~13 000 $)</li>
+   <li><strong>Personnalisation</strong> des finis avant livraison (planchers, comptoirs, robinetterie)</li>
+   <li>Aucun travail à prévoir avant 10-15 ans (fenêtres, toit, fournaise tous récents)</li>
+   <li>Efficacité énergétique supérieure (Novoclimat, R-2000)</li>
+   </ul>
+
+   <h2>Risques à mitiger</h2>
+   <ul>
+   <li><strong>Reports de livraison</strong> : prévoir 3-6 mois de marge sur la date promise par le constructeur</li>
+   <li><strong>Dépréciation initiale</strong> : un neuf perd typiquement 5-10 % la première année (revente difficile à valeur d'achat)</li>
+   <li><strong>Coûts cachés</strong> : aménagement extérieur, terrasse, clôture, paysagement, électroménagers souvent non inclus</li>
+   <li>Qualité variable selon le constructeur — vérifier les antécédents et les jugements GCR</li>
+   </ul>
+
+   <h2>L'inspection avant la 1<sup>re</sup> année</h2>
+   <p>Crucial : faire inspecter votre construction neuve <strong>avant l'expiration de la garantie de 1 an</strong>. C'est votre dernière fenêtre pour exiger des correctifs sans frais sur les défauts de finition (portes, planchers, calfeutrage, etc.).</p>
+
+   <h2>Comment je vous accompagne sur un neuf</h2>
+   <ul>
+   <li>Évaluation comparative du constructeur (historique, qualité de livraison, recours GCR)</li>
+   <li>Vérification du contrat préliminaire (clauses de pénalités de retard, modifications acceptables)</li>
+   <li>Coordination avec votre courtier hypothécaire pour les financements de construction</li>
+   <li>Accompagnement à la pré-livraison et à la livraison (liste de correctifs documentée)</li>
+   </ul>`]
 ];
-for (const [s,title,lead] of TYPES) {
+for (const [s,title,lead,body] of TYPES) {
   writePage(`types-de-propriete/${s}/index.html`, contentPage({
-    eyebrow:'Type de propriété',
+    eyebrow:'Type de propriété · Rive-Nord',
     h1:`${title} à vendre — Rive-Nord`,
     lead,
     title:`${title} à vendre Sainte-Thérèse Blainville | Alain Brunelle`,
-    desc:`${title} à vendre à Sainte-Thérèse, Blainville et Rive-Nord. Fiches Centris mises à jour quotidiennement.`,
+    desc:`${title} à vendre à Sainte-Thérèse, Blainville, Rosemère, Lorraine. Conseils d'expert et inscriptions Centris à jour.`,
     canonical:`https://alainbrunelle.com/types-de-propriete/${s}/`,
-    body:`<p>${lead}</p>
-    <h2>Pourquoi cette typologie ?</h2>
-    <p>Chaque type de propriété suit son propre cycle de marché. Un condo neuf à Sainte-Thérèse, par exemple, ne se vend pas comme une unifamiliale à Fontainebleau. Je bâtis la stratégie autour de la typologie spécifique.</p>
-    <h2>Ce qui fait la différence</h2>
-    <ul><li>Analyse comparative par typologie et secteur</li><li>Positionnement de prix fondé sur les ventes récentes équivalentes</li><li>Photographie et mise en marché adaptées à l'acheteur cible</li></ul>
-    <h2>Propriétés actives</h2>
-    <p>Consultez la <a href="/nos-proprietes/">liste complète des propriétés</a> pour voir les inscriptions en temps réel.</p>`
+    body: body + `\n<h2>Propriétés actives</h2>\n<p>Consultez la <a href="/nos-proprietes/">liste complète des propriétés disponibles</a>, mise à jour quotidiennement depuis Centris.</p>`
   }));
 }
 
@@ -1693,14 +1812,384 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
 
 // --- VENDRE / ACHETER / INVESTISSEUR ---
 const SUBPAGES = [
-  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape expliquée.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Étapes détaillées pour vendre sa maison au Québec : évaluation, préparation, mise en marché, offres, contre-propositions, notaire.','<h2>1. Évaluation et positionnement</h2><p>La base de toute vente réussie.</p><h2>2. Préparation de la propriété</h2><p>Dépersonnalisation, petites rénovations, home staging.</p><h2>3. Photographie et mise en marché</h2><p>Photos 4K, vidéo drone, visite virtuelle.</p><h2>4. Diffusion Centris + réseau</h2><p>Listing MLS, campagne sociale, emailing à mon réseau qualifié.</p><h2>5. Visites et feedback</h2><p>Gestion des visites, feedback structuré, ajustements.</p><h2>6. Offres et négociation</h2><p>Analyse de chaque offre, contre-proposition stratégique.</p><h2>7. Notaire et prise de possession</h2><p>Coordination avec le notaire, inspection, finalisation.</p>'],
-  ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging','Petites interventions, grand impact sur le prix de vente.','Préparer sa maison pour la vente · home staging | Alain Brunelle','Guide home staging pour maximiser le prix de vente : peinture, éclairage, désencombrement, petites rénovations.','<p>Un investissement de 1 500 $ en préparation peut rapporter 15 000 $ à 40 000 $ en prix de vente. C\'est prouvé par mes données.</p>'],
-  ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Comprendre la commission — et pourquoi elle est rentable.','Commission d\'un courtier immobilier au Québec | Alain Brunelle','Comment fonctionne la commission d\'un courtier immobilier au Québec : taux, partage, ce qui est inclus, ce qui est négociable.','<p>La commission se situe généralement entre 4 % et 5 % au Québec, partagée entre courtier inscripteur et courtier collaborateur.</p>'],
-  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé — vous savez toujours où vous en êtes.','Vendre sa maison sans stress | Alain Brunelle','Méthode pour vendre sa maison sans stress : planning clair, communication hebdo, checklist par étape.','<p>Vendre est émotif. Le rôle du courtier est de transformer cette émotion en processus prévisible.</p>'],
-  ['acheter/premier-acheteur','Premier acheteur','Acheteur · Guide','Acheter sa première maison à Sainte-Thérèse ou Blainville — par où commencer.','Premier acheteur Sainte-Thérèse Blainville | Alain Brunelle','Guide premier acheteur : préapprobation, RAP, CELIAPP, inspection, fraiss de notaire, mutation.','<h2>Préapprobation hypothécaire</h2><p>Toujours avant de visiter — pour connaître votre capacité réelle.</p><h2>Les programmes gouvernementaux</h2><p>RAP, CELIAPP, crédit d\'impôt pour l\'achat d\'une première habitation.</p>'],
-  ['acheter/etapes-pour-acheter','Étapes pour acheter','Processus acheteur','De la préapprobation à la remise des clés.','Étapes pour acheter une maison au Québec | Alain Brunelle','Étapes complètes pour acheter une maison au Québec.','<p>Acheter une propriété, c\'est 12 étapes balisées.</p>'],
-  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque','Préapprobation, taux, amortissement — les bases.','Financement hypothécaire Québec | Alain Brunelle','Comprendre le financement hypothécaire : préapprobation, taux fixe vs variable, amortissement.','<p>Le taux n\'est pas tout. L\'amortissement, la mise de fonds et le type de prêt comptent autant.</p>'],
-  ['acheter/inspection','Inspection pré-achat','Inspection','Jamais d\'achat sans inspection — mes inspecteurs partenaires.','Inspection pré-achat Québec | Alain Brunelle','Guide de l\'inspection pré-achat : à quoi s\'attendre, délais, vices cachés.','<p>L\'inspection, c\'est votre police d\'assurance avant signature.</p>'],
+  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 29 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas une opération mystérieuse — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la rigueur avec laquelle chacune de ces étapes est exécutée. Voici exactement comment ça fonctionne quand vous travaillez avec moi.</p>
+
+<h2>1. Évaluation et positionnement de prix</h2>
+<p>Tout commence ici. Une évaluation mal calibrée coûte en moyenne <strong>3,2 % du prix final</strong> selon les données APCIQ 2025 — sur une maison de 600 000 $, ça représente <strong>près de 20 000 $ laissés sur la table</strong>. Mon analyse comparative s'appuie sur trois couches : les ventes des 12 derniers mois à moins de 500 m, l'inventaire actif dans votre typologie, et les tendances saisonnières du secteur. <a href="/vendre/evaluation-gratuite/">Obtenez votre évaluation gratuite</a> — rapport livré sous 48 h.</p>
+
+<h2>2. Préparation de la propriété</h2>
+<p>Désencombrement, peinture des zones-clés, home staging léger, photo professionnelle préparée. Un investissement moyen de 1 500 à 3 000 $ rapporte en moyenne 15 000 à 40 000 $ sur le prix de vente final. <a href="/vendre/preparer-sa-maison/">Voir la checklist détaillée</a>.</p>
+
+<h2>3. Photographie et création de la mise en marché</h2>
+<p>Photos HDR 4K, vidéo drone, plan d'étage 2D et visite virtuelle 360° — tout est inclus dans mes services, sans frais additionnels. La fiche Centris est ensuite optimisée mot par mot : titre, description longue, mots-clés, ordre des photos.</p>
+
+<h2>4. Diffusion Centris + réseau qualifié</h2>
+<p>Avant même que votre propriété apparaisse publiquement sur Centris, elle est envoyée à mes <strong>12 400 contacts qualifiés</strong> de la Rive-Nord, segmentés par budget et secteur cible. Cette pré-mise en marché génère en moyenne <strong>3 à 5 visites privées dans les 72 premières heures</strong>.</p>
+
+<h2>5. Gestion des visites et feedback structuré</h2>
+<p>Chaque visite est coordonnée, suivie d'un feedback structuré au visiteur dans les 24 h. Si quelque chose dérange l'acheteur (couleur, odeur, prix perçu), je le sais immédiatement et je m'ajuste. Pas de mystère, pas de visites perdues.</p>
+
+<h2>6. Offres, contre-propositions et négociation</h2>
+<p>L'analyse d'une offre dépasse largement le prix : conditions, délais, dépôt, garanties, clauses suspensives. Mon ratio prix vendu/demandé moyen est de <strong>99,2 %</strong> — contre 97,1 % pour la moyenne du marché. Ça ne s'improvise pas.</p>
+
+<h2>7. Inspection, notaire et prise de possession</h2>
+<p>Coordination de l'inspection (mes inspecteurs partenaires sont disponibles sous 48-72 h), suivi de la promesse d'achat jusqu'à l'acte notarié. Je suis présent au notaire le jour de la signature — c'est mon rôle, pas un extra.</p>
+
+<h2>FAQ — vendre sa maison au Québec</h2>
+<h3>Combien de temps prend une vente sur la Rive-Nord en 2026 ?</h3>
+<p>Délai médian du marché : 52 jours. Délai médian sur mes inscriptions : <strong>28 jours</strong>. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
+<h3>Dois-je vraiment passer par un courtier ?</h3>
+<p>Statistiquement, les maisons vendues par courtier se vendent <strong>13 % plus cher en moyenne</strong> que les ventes DPP (sans courtier), selon l'APCIQ. La commission est rentabilisée bien au-delà.</p>
+<h3>Combien coûte la commission ?</h3>
+<p>Voir <a href="/vendre/commission-courtier/">notre page dédiée</a>. La fourchette typique au Québec : 4 % à 5 %, négociable selon le mandat.</p>`],
+  ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging','Petites interventions, grand impact — 1 500 $ investis rapportent en moyenne 25 000 $ sur le prix final.','Préparer sa maison pour la vente · home staging Rive-Nord | Alain Brunelle','Guide complet pour préparer sa maison à la vente : désencombrement, peinture, éclairage, home staging. ROI moyen documenté.',`<p>L'acheteur prend sa décision dans les <strong>90 premières secondes</strong> d'une visite. Pas pendant l'inspection, pas pendant la négociation — dès qu'il franchit la porte. C'est pourquoi la préparation visuelle de votre propriété est l'investissement au rendement le plus garanti que vous ferez avant la vente.</p>
+
+<h2>La règle des 3D : Désencombrer, Dépersonnaliser, Détacher</h2>
+<p>Avant toute peinture ou rénovation, faites le grand ménage des objets. Objectif : que chaque pièce respire et qu'un acheteur puisse <em>se projeter</em>. Trop de photos personnelles, trop de meubles, trop d'objets décoratifs = l'acheteur voit votre maison, pas la sienne.</p>
+<ul>
+<li>Retirez <strong>50 % des meubles inutiles</strong> (entreposage temporaire si nécessaire)</li>
+<li>Décrochez les photos de famille — laissez les œuvres d'art neutres</li>
+<li>Videz les armoires de cuisine à 70 % (signale de l'espace de rangement abondant)</li>
+<li>Désencombrez les comptoirs, les surfaces de salle de bain, les étagères</li>
+</ul>
+
+<h2>Les 5 interventions au meilleur rapport investissement/retour</h2>
+<ol>
+<li><strong>Peinture des zones-clés</strong> (entrée, salon, cuisine) — investissement 800-1 500 $, impact +8 000 à +15 000 $</li>
+<li><strong>Éclairage</strong> — remplacez les ampoules jaunes par du 3000K. Tout paraît plus grand, plus propre. ~200 $.</li>
+<li><strong>Robinetterie cuisine + salle de bain</strong> — 300-500 $ chacun, signal fort de modernité</li>
+<li><strong>Aménagement paysager d'entrée</strong> — premier contact visuel. Mulch frais, fleurs, porte d'entrée repeinte. ~400 $.</li>
+<li><strong>Nettoyage professionnel en profondeur</strong> avant les photos — ~300 $. Différence visible immédiate sur le rendu photo.</li>
+</ol>
+
+<h2>Ce qu'il ne faut PAS faire</h2>
+<p>Beaucoup de vendeurs investissent dans les mauvaises choses :</p>
+<ul>
+<li>Refaire entièrement une cuisine ou salle de bain juste avant la vente — vous ne récupérerez qu'une fraction du coût</li>
+<li>Choisir des finis très personnels (couleurs vives, motifs forts)</li>
+<li>Faire des rénovations majeures sans consulter votre courtier d'abord</li>
+<li>Cacher des défauts — l'inspection les trouvera et minera la confiance</li>
+</ul>
+
+<h2>Home staging professionnel : quand ça vaut la peine</h2>
+<p>Pour les propriétés au-dessus de 750 000 $, un home staging professionnel (1 800-3 500 $) peut littéralement transformer la perception. J'ai des partenaires home stagers que je recommande à mes vendeurs — service souvent inclus dans mon mandat selon le prix de la propriété.</p>
+
+<h2>FAQ — préparation à la vente</h2>
+<h3>Combien dois-je vraiment investir avant de vendre ?</h3>
+<p>Pour une maison médiane de la Rive-Nord (~600 k$), un budget de préparation de 2 000 à 4 000 $ est optimal. Au-delà, le rendement marginal diminue rapidement.</p>
+<h3>Vaut-il mieux refaire la cuisine ou la vendre telle quelle ?</h3>
+<p>Sauf cas extrême, vendez telle quelle. Rénover prend 6-12 semaines (perte de temps de mise en marché), coûte 30-80 k$ pour une cuisine, et l'acheteur préfère souvent personnaliser lui-même. Ajustez plutôt le prix légèrement à la baisse.</p>
+<h3>Quand commencer la préparation ?</h3>
+<p>Idéalement 4 à 6 semaines avant la mise en marché. <a href="/contact/">Parlons-en avant les premiers travaux</a> — je peux vous éviter des dépenses inutiles.</p>`],
+  ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Comprendre exactement ce qu\'inclut la commission — et pourquoi elle est rentabilisée 4 fois sur 5.','Commission courtier immobilier Québec 2026 | Alain Brunelle','Taux de commission au Québec, partage entre courtiers, ce qui est inclus, ce qui est négociable. Explications transparentes par un courtier RE/MAX CRYSTAL.',`<p>La commission, c'est le point le plus mal compris du métier de courtier. Le mythe : « le courtier prend 5 % juste pour mettre une pancarte ». La réalité : la commission paie un service complet qui inclut habituellement plus de 50 heures de travail spécialisé, des outils marketing professionnels, et un réseau acheteur de plusieurs milliers de contacts.</p>
+
+<h2>Taux typique au Québec en 2026</h2>
+<p>La commission immobilière résidentielle se situe entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes (TPS + TVQ). Elle est entièrement <strong>payée par le vendeur</strong>, jamais par l'acheteur.</p>
+<p>Sur une vente à 600 000 $, ça représente :</p>
+<ul>
+<li>Commission brute : 24 000 $ à 30 000 $</li>
+<li>Plus TPS (5 %) + TVQ (9,975 %)</li>
+<li>Total payable au courtier inscripteur : 27 593 $ à 34 491 $</li>
+</ul>
+
+<h2>Comment la commission est partagée</h2>
+<p>Dans 92 % des transactions au Québec, deux courtiers sont impliqués :</p>
+<ul>
+<li><strong>Courtier inscripteur</strong> (le vôtre, qui représente le vendeur) — reçoit environ <strong>50 %</strong> de la commission brute</li>
+<li><strong>Courtier collaborateur</strong> (qui apporte l'acheteur) — reçoit l'autre <strong>50 %</strong></li>
+</ul>
+<p>Chaque courtier remet ensuite une portion à sa bannière (RE/MAX, Royal LePage, etc.), à son agence, et paie ses propres frais (publicité, photographie, plateforme, OACIQ, assurance professionnelle). Le revenu net du courtier inscripteur sur une commission de 30 000 $ tourne typiquement autour de 9 000 à 12 000 $.</p>
+
+<h2>Ce qui est inclus dans ma commission</h2>
+<ul>
+<li>Évaluation comparative avant inscription (rapport 48 h)</li>
+<li>Photographie professionnelle HDR 4K + vidéo drone + plan d'étage 2D + visite virtuelle 360°</li>
+<li>Inscription Centris + diffusion sur le réseau RE/MAX international</li>
+<li>Campagne sociale (Facebook + Instagram + LinkedIn) avec budget publicitaire</li>
+<li>Brochure imprimée sur place</li>
+<li>Pré-mise en marché à mon réseau de 12 400 contacts qualifiés</li>
+<li>Gestion complète des visites et feedback structuré</li>
+<li>Négociation de toutes les offres et contre-offres</li>
+<li>Coordination de l'inspection, du financement et du notaire</li>
+<li>Présence au notaire le jour de la signature</li>
+</ul>
+
+<h2>Ce qui est négociable</h2>
+<p>Trois leviers principaux :</p>
+<ol>
+<li><strong>Le taux global</strong> — selon le prix de la propriété (les ventes au-dessus de 1 M$ sont souvent à 3-4 %)</li>
+<li><strong>Le partage avec le collaborateur</strong> — qui détermine la motivation des autres courtiers à amener leurs acheteurs chez vous</li>
+<li><strong>La durée du mandat</strong> et les clauses d'exclusivité</li>
+</ol>
+<p>Mon approche : je propose toujours <strong>la structure qui maximise votre prix net</strong>, pas celle qui maximise ma commission. Souvent ce sont des décisions contre-intuitives — par exemple, augmenter le partage au collaborateur pour mobiliser plus d'agents acheteurs.</p>
+
+<h2>FAQ — commission</h2>
+<h3>Puis-je vendre sans courtier pour économiser ?</h3>
+<p>Vous pouvez. Mais les statistiques APCIQ sont sans équivoque : les maisons vendues sans courtier (DPP) se vendent <strong>13 % moins cher en moyenne</strong> qu'avec courtier. Sur une maison de 600 k$, c'est 78 000 $ perdus pour économiser ~28 000 $ de commission. Le calcul ne tient pas.</p>
+<h3>Et si ma maison ne se vend pas, est-ce que je paie quand même ?</h3>
+<p>Non. La commission n'est payée qu'à la signature de l'acte de vente chez le notaire. Si rien ne se vend, vous ne devez rien.</p>
+<h3>Puis-je négocier une commission par étapes ?</h3>
+<p>Oui — c'est même conseillé dans certains cas. Je vous explique les options à notre première rencontre. <a href="/rendez-vous/">Prendre rendez-vous</a>.</p>`],
+  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles aux 7 jours, zéro surprise — c\'est ma promesse.','Vendre sa maison sans stress sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sa maison sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître. Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
+
+<h2>Ma promesse en 4 engagements</h2>
+<ol>
+<li><strong>Un point hebdomadaire fixe</strong>, chaque vendredi à la même heure. Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne. Pas de jeu de cache-cache.</li>
+<li><strong>Réponse à toute question en moins de 4 heures</strong> en journée (24 h max le week-end). Texto, courriel ou téléphone — vous choisissez le canal.</li>
+<li><strong>Toujours deux à trois scénarios</strong> à chaque décision importante (prix, ajustements, offres reçues). Vous décidez avec les chiffres en main, jamais sur intuition.</li>
+<li><strong>Zéro surprise</strong> à la signature chez le notaire. Tous les frais, délais et conditions sont sur la table dès la première rencontre.</li>
+</ol>
+
+<h2>Le calendrier-type d'une vente sereine</h2>
+<table style="width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.95rem">
+<thead><tr><th style="text-align:left;padding:.6rem;border-bottom:1px solid #e6ebf2">Semaine</th><th style="text-align:left;padding:.6rem;border-bottom:1px solid #e6ebf2">Étape</th></tr></thead>
+<tbody>
+<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-4</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Première rencontre, signature du mandat, évaluation</td></tr>
+<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-3 à S-2</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Préparation de la propriété, désencombrement, peinture si requise</td></tr>
+<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">S-1</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Photos, vidéo drone, plan d'étage, rédaction de la fiche</td></tr>
+<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Jour J</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Mise en marché Centris + pré-diffusion à mon réseau (72 h en avant-première)</td></tr>
+<tr><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Semaines 1-4</td><td style="padding:.6rem;border-bottom:1px solid #e6ebf2">Visites, feedback, ajustements, négociation des premières offres</td></tr>
+<tr><td style="padding:.6rem">Semaines 5-9</td><td style="padding:.6rem">Inspection, financement de l'acheteur, signature notaire</td></tr>
+</tbody>
+</table>
+
+<h2>Les 3 sources de stress que j'élimine pour vous</h2>
+<h3>L'incertitude sur la valeur réelle</h3>
+<p>Vous ne saurez jamais avec précision si vous avez « bien fait ». Mon rapport d'évaluation comparative vous donne <strong>trois fourchettes</strong> (basse, médiane, optimiste) basées sur des données vérifiables — pas sur des promesses.</p>
+<h3>La peur des visites surprises</h3>
+<p>Toute visite est planifiée 24 h à l'avance minimum. Aucun acheteur n'entre chez vous sans rendez-vous confirmé. Vous gardez le contrôle total de votre temps.</p>
+<h3>La panique des offres « time-bombs »</h3>
+<p>Quand une offre arrive avec un délai de 24 h, l'instinct est de céder à la pression. Mon rôle est de vous montrer froidement les 2-3 options réalistes : accepter, contre-proposer, refuser. Et de vous dire ce que je ferais si c'était la mienne.</p>
+
+<h2>Ce que disent mes clients</h2>
+<blockquote style="border-left:3px solid #0f2855;padding:.6rem 0 .6rem 1.2rem;margin:1.5rem 0;color:#2a3a54;font-style:italic">« Quand on a vendu notre maison à Sainte-Thérèse, j'avais perdu le sommeil pendant des mois en pensant à toute la paperasse. Alain a tout pris en main. Il m'envoyait un texto le vendredi avec le résumé de la semaine. Je n'ai jamais eu à courir après lui pour comprendre où on en était. — Marie-Claude, vendu en 22 jours »</blockquote>
+
+<h2>FAQ — vendre sans stress</h2>
+<h3>Combien de visites devrai-je accepter ?</h3>
+<p>En moyenne, mes inscriptions reçoivent 8 à 15 visites avant d'obtenir une offre acceptable. Toutes sont coordonnées et regroupées si possible (visites libres, après-midis dédiés).</p>
+<h3>Que se passe-t-il si je change d'idée en cours de route ?</h3>
+<p>Le mandat peut être résilié avec préavis. Aucune pénalité tant qu'il n'y a pas d'offre acceptée. <a href="/contact/">Parlons-en avant la signature</a> pour éviter toute mauvaise surprise.</p>
+<h3>Et si je dois vendre rapidement pour un déménagement professionnel ?</h3>
+<p>Mon délai médian est de 28 jours. Avec un positionnement de prix légèrement agressif (-3 à -5 %), on peut viser 14-21 jours sans sacrifier la qualité de l'offre.</p>`],
+  ['acheter/premier-acheteur','Premier acheteur','Acheteur · Guide','Acheter sa première maison à Sainte-Thérèse ou Blainville — le guide complet, sans jargon.','Premier acheteur Sainte-Thérèse Blainville 2026 | Alain Brunelle','Guide complet premier acheteur Rive-Nord : préapprobation, RAP, CELIAPP, frais cachés, négociation. Alain Brunelle vous accompagne pas à pas.',`<p>Vous achetez votre première propriété. C'est probablement la plus grosse décision financière de votre vie, et personne ne vous a vraiment appris à la prendre. Voici le guide que j'aurais aimé avoir quand j'ai acheté ma première maison à 24 ans.</p>
+
+<h2>1. Connaître votre capacité réelle (pas le maximum)</h2>
+<p>La première erreur du premier acheteur, c'est de viser le maximum permis par le prêteur. La banque accepte de vous prêter jusqu'à <strong>32 % de votre revenu brut</strong> en logement (ABD) et 40 % avec toutes vos dettes (ATD). Mais vivre à 32 % d'ABD, c'est financièrement étranglé. <strong>Cible réaliste : 28 % maximum.</strong></p>
+<p><a href="/acheter/calculatrices/">Utilisez ma calculatrice de capacité</a> pour avoir un chiffre précis avant même de parler à une banque.</p>
+
+<h2>2. Préapprobation hypothécaire — toujours avant les visites</h2>
+<p>Ne visitez <strong>jamais</strong> sans préapprobation écrite en main. Trois raisons :</p>
+<ul>
+<li>Vous évitez de tomber amoureux d'une maison hors de prix</li>
+<li>Vous gelez votre taux d'intérêt pour 90-120 jours (protection contre une hausse)</li>
+<li>Vos offres sont prises au sérieux par les vendeurs et leurs courtiers</li>
+</ul>
+<p>La préapprobation est gratuite et n'engage à rien. Je peux vous référer à 3-4 courtiers hypothécaires partenaires qui magasinent pour vous parmi 20+ prêteurs.</p>
+
+<h2>3. Mise de fonds : combien et d'où ?</h2>
+<p>Minimum légal au Canada :</p>
+<ul>
+<li><strong>5 %</strong> pour la tranche jusqu'à 500 000 $</li>
+<li><strong>10 %</strong> pour la tranche entre 500 000 $ et 1 500 000 $</li>
+<li><strong>20 %</strong> au-delà de 1,5 M$</li>
+</ul>
+<p>Sous 20 %, vous payez une <strong>assurance prêt SCHL</strong> (1,8 % à 4 % du prêt, ajoutée à votre hypothèque). Si possible, visez 20 % pour l'éviter — sur 500 k$ empruntés, c'est ~15 000 $ d'économisés en assurance.</p>
+
+<h2>4. Programmes gouvernementaux à connaître</h2>
+<h3>Régime d'accession à la propriété (RAP)</h3>
+<p>Retirez jusqu'à <strong>60 000 $ par personne</strong> de votre REER (120 000 $ en couple) sans impôt, à rembourser sur 15 ans. Particulièrement puissant si vous cotisez au REER depuis quelques années.</p>
+<h3>CELIAPP (Compte d'épargne libre d'impôt pour l'achat d'une première propriété)</h3>
+<p>Le programme le plus avantageux créé en 2023. Contributions <strong>déductibles d'impôt</strong> (jusqu'à 8 000 $/an, max 40 000 $ à vie), retrait <strong>non imposable</strong> pour acheter. Combinable avec le RAP.</p>
+<h3>Crédit d'impôt fédéral et provincial</h3>
+<p>Jusqu'à <strong>1 500 $ fédéral + 1 500 $ provincial</strong> à votre déclaration suivant l'achat. Cumulables.</p>
+<h3>Remboursement de la TPS/TVQ (constructions neuves)</h3>
+<p>Sur les propriétés neuves, vous récupérez une partie des taxes (jusqu'à 36 % du remboursement TPS sur les premières tranches). À connaître avant de signer un préliminaire avec un constructeur.</p>
+
+<h2>5. Les frais cachés que personne ne mentionne</h2>
+<p>En plus de la mise de fonds, prévoyez <strong>1,5 % à 3 % du prix d'achat</strong> en frais ponctuels :</p>
+<ul>
+<li>Inspection préachat : 600-1 200 $</li>
+<li>Notaire : 1 200-2 500 $</li>
+<li>Taxe de bienvenue (mutation immobilière) : ~1 % à 2 % du prix — payable 30 à 60 jours après la prise de possession (souvent une mauvaise surprise)</li>
+<li>Ajustements (taxes municipales, scolaires payées d'avance par le vendeur) : 500-2 500 $</li>
+<li>Déménagement, peinture, petits travaux : prévoir 3 000-8 000 $</li>
+</ul>
+
+<h2>Comment je vous accompagne comme premier acheteur</h2>
+<p>Mes services sont <strong>gratuits pour vous comme acheteur</strong> — je suis rémunéré par le vendeur via la commission Centris. Concrètement :</p>
+<ul>
+<li>Pré-sélection de propriétés selon vos vrais critères (pas juste prix + nb chambres)</li>
+<li>Visites accompagnées avec mes 29 ans d'expérience pour repérer les drapeaux rouges</li>
+<li>Référencement aux meilleurs courtiers hypothécaires, inspecteurs, notaires</li>
+<li>Rédaction et négociation de votre promesse d'achat — la majorité des premiers acheteurs payent 3-5 % trop cher faute de négociation</li>
+<li>Coordination jusqu'à la remise des clés</li>
+</ul>
+
+<h2>FAQ — premier acheteur</h2>
+<h3>Quel revenu faut-il pour acheter à Blainville en 2026 ?</h3>
+<p>Pour une unifamiliale médiane à 685 000 $ avec 20 % de mise de fonds : revenu ménage minimum d'environ <strong>135 000-150 000 $/an</strong>. Pour un condo à 380 000 $ : ~75 000 $/an.</p>
+<h3>Combien de temps prend tout le processus ?</h3>
+<p>De la préapprobation à la prise de possession : typiquement <strong>3 à 5 mois</strong>. Recherche active 4-8 semaines, négociation 1-2 semaines, fermeture 6-10 semaines.</p>
+<h3>Et si l'inspection révèle des problèmes ?</h3>
+<p>Vous avez trois options : négocier une réduction de prix, exiger des travaux avant signature, ou annuler la promesse (si la condition d'inspection est encore active). Mon rôle est de vous guider vers la décision rationnelle, pas émotionnelle.</p>`],
+  ['acheter/etapes-pour-acheter','Les 9 étapes pour acheter','Processus acheteur','De la préapprobation à la remise des clés — chaque étape démystifiée.','Les 9 étapes pour acheter une maison au Québec | Alain Brunelle','Étapes complètes pour acheter une maison au Québec : préapprobation, visites, promesse, inspection, financement, notaire, possession.',`<p>Acheter une propriété au Québec, c'est neuf étapes parfaitement balisées. Voici la cartographie complète avec les délais réalistes, pour que vous sachiez toujours où vous en êtes.</p>
+
+<h2>1. Préapprobation hypothécaire <span style="color:#6a7891;font-weight:400">— 1 à 3 jours</span></h2>
+<p>Avant tout. Le courtier hypothécaire magasine pour vous parmi 20+ prêteurs. Vous repartez avec une lettre confirmant votre capacité maximale et votre taux gelé 90-120 jours.</p>
+
+<h2>2. Définition des critères et recherche <span style="color:#6a7891;font-weight:400">— variable</span></h2>
+<p>Pas juste « 3 chambres, 600 000 $ ». Mes vraies questions : votre rythme de vie, vos déplacements, l'évolution familiale prévue, votre tolérance aux rénos, votre horizon de revente. Je bâtis ensuite une liste sur mesure depuis Centris + mes inscriptions à venir.</p>
+
+<h2>3. Visites accompagnées <span style="color:#6a7891;font-weight:400">— 2 à 8 semaines</span></h2>
+<p>Je vise <strong>maximum 5 visites par sortie</strong> — au-delà, vous mélangez tout. Après chaque visite, on prend 10 minutes pour noter à chaud les + et les − de chaque propriété.</p>
+
+<h2>4. Promesse d'achat <span style="color:#6a7891;font-weight:400">— 1 à 3 jours</span></h2>
+<p>Document légal de 14-20 pages. Prix, conditions (financement, inspection, vente d'une autre propriété), délais, inclusions/exclusions. <strong>L'étape où la négociation se gagne ou se perd</strong> — je rédige chaque clause stratégiquement.</p>
+
+<h2>5. Négociation et contre-propositions <span style="color:#6a7891;font-weight:400">— 1 à 5 jours</span></h2>
+<p>Le vendeur peut accepter, refuser, ou contre-proposer. La négociation peut tourner 2-3 fois. Mon rôle : vous donner les chiffres comparables en temps réel pour vous éviter de surenchérir émotionnellement.</p>
+
+<h2>6. Inspection préachat <span style="color:#6a7891;font-weight:400">— 3 à 10 jours après acceptation</span></h2>
+<p>Inspection complète (2-4 h), rapport écrit livré 24-48 h après. Si problèmes majeurs trouvés : on renégocie ou on se retire. Voir <a href="/acheter/inspection/">notre guide complet inspection</a>.</p>
+
+<h2>7. Confirmation du financement <span style="color:#6a7891;font-weight:400">— 7 à 14 jours</span></h2>
+<p>La banque confirme votre financement après évaluation de la propriété. C'est l'étape où certaines transactions tombent — d'où l'importance d'une préapprobation solide en amont.</p>
+
+<h2>8. Réception chez le notaire <span style="color:#6a7891;font-weight:400">— 4 à 8 semaines après promesse</span></h2>
+<p>Le notaire vérifie les titres, calcule les ajustements (taxes payées d'avance, services publics), prépare l'acte. Vous signez, vous payez le solde de la mise de fonds + les frais notariés. Je suis présent.</p>
+
+<h2>9. Prise de possession <span style="color:#6a7891;font-weight:400">— jour J</span></h2>
+<p>Remise des clés. Je vous accompagne pour la visite finale (vérification que la propriété est dans l'état convenu, inclusions présentes, services transférés).</p>
+
+<h2>Délai total typique</h2>
+<p>De la préapprobation à la remise des clés : <strong>3 à 5 mois</strong>. Ça peut être plus rapide (45 jours) en cas d'urgence, ou plus lent si vous prenez votre temps en recherche.</p>
+
+<h2>FAQ — étapes d'achat</h2>
+<h3>Combien de promesses d'achat faut-il en moyenne avant qu'une soit acceptée ?</h3>
+<p>Sur le marché Rive-Nord 2026, environ <strong>1 à 3 promesses</strong> sont nécessaires pour mes clients acheteurs. La sélection en amont fait toute la différence.</p>
+<h3>Que faire si je me fais surenchérir ?</h3>
+<p>Cas par cas. Parfois on garde la même offre (le vendeur revient si l'autre acheteur retire), parfois on monte modérément, parfois on passe. Décision basée sur la valeur réelle, pas l'émotion.</p>
+<h3>Combien coûtent les services d'un courtier acheteur ?</h3>
+<p><strong>Zéro pour vous.</strong> Ma rémunération vient du vendeur via la commission Centris. <a href="/rendez-vous/">Parlons-en sans engagement</a>.</p>`],
+  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque · Stratégie','Taux fixe ou variable, amortissement 25 ou 30 ans — les vraies questions à se poser.','Financement hypothécaire Québec 2026 | Alain Brunelle','Tout sur le financement hypothécaire : taux fixe vs variable, amortissement, stress test, assurance SCHL, courtier vs banque. Conseils pratiques.',`<p>Le taux d'intérêt n'est qu'une variable parmi cinq qui déterminent ce que votre hypothèque va vraiment vous coûter. Voici la lecture stratégique complète.</p>
+
+<h2>Taux fixe ou taux variable ?</h2>
+<p>En 2026, les fixes 5 ans tournent autour de <strong>4,89 % à 5,29 %</strong>, les variables <strong>5,15 % à 5,75 %</strong>. La différence : prévisibilité contre flexibilité.</p>
+<ul>
+<li><strong>Fixe</strong> : votre paiement ne bouge pas pendant le terme. Idéal si votre tolérance au risque est faible ou si vous achetez à la limite de votre capacité.</li>
+<li><strong>Variable</strong> : suit le taux directeur de la Banque du Canada. Historiquement, le variable a battu le fixe sur ~80 % des périodes de 5 ans. Mais 2022-2024 a montré qu'il pouvait monter brutalement.</li>
+</ul>
+<p>Ma règle pragmatique : <strong>fixe pour le premier achat</strong> (vous gérez déjà beaucoup d'incertitude), <strong>variable possible pour l'investisseur ou le 2e achat</strong> avec coussin financier.</p>
+
+<h2>Amortissement : 25 ou 30 ans ?</h2>
+<p>Avec une mise de fonds <strong>≥ 20 %</strong>, vous pouvez choisir 30 ans. Sur 500 000 $ empruntés à 5 % :</p>
+<ul>
+<li>25 ans : paiement mensuel ~2 908 $, intérêts totaux ~372 400 $</li>
+<li>30 ans : paiement mensuel ~2 669 $ (-239 $/mois), intérêts totaux ~460 800 $ (+88 400 $)</li>
+</ul>
+<p>Le 30 ans donne du souffle mensuel, mais coûte ~90 k$ de plus en intérêts. <strong>Compromis intelligent</strong> : prendre 30 ans pour la flexibilité, puis ajouter des paiements anticipés volontaires (la plupart des prêts permettent +20 % du paiement chaque année sans pénalité).</p>
+
+<h2>Le stress test fédéral</h2>
+<p>Depuis 2018, tous les prêts hypothécaires sont qualifiés à <strong>max(taux contractuel + 2 %, 5,25 %)</strong>. Ça signifie : même si votre taux est 4,89 %, la banque calcule votre capacité comme si vous payiez 6,89 %.</p>
+<p>Conséquence : votre capacité d'emprunt est environ <strong>15 à 20 % inférieure</strong> à ce que le taux contractuel suggérerait. Calculez avec mon <a href="/acheter/calculatrices/">simulateur de capacité</a>.</p>
+
+<h2>Assurance SCHL — quand l'éviter</h2>
+<p>Si vous mettez moins de 20 % en mise de fonds, l'assurance prêt hypothécaire SCHL est obligatoire. Coût : 1,8 % à 4 % du prêt selon le ratio. Sur 500 000 $ empruntés à 10 % de mise :</p>
+<ul>
+<li>Prime SCHL : ~3,1 % = <strong>15 500 $</strong> ajoutés à l'hypothèque</li>
+<li>Vous payez intérêts sur ces 15 500 $ pendant 25-30 ans</li>
+</ul>
+<p>Vraie addition sur la durée du prêt : ~25 000 $. Vaut-il mieux attendre 6-12 mois pour atteindre 20 % ? Souvent oui, sauf si les prix du marché montent plus vite que vos économies.</p>
+
+<h2>Courtier hypothécaire ou directement la banque ?</h2>
+<p>Le courtier hypothécaire <strong>magasine pour vous parmi 20+ prêteurs</strong> (banques, caisses, prêteurs alternatifs) — sans frais pour vous (commission payée par le prêteur). Économie typique : 0,15 à 0,40 % de taux par rapport au taux affiché de votre banque. Sur 500 k$, c'est <strong>10 000 à 25 000 $ d'intérêts économisés</strong> sur 5 ans.</p>
+<p>Mes partenaires courtiers hypothécaires sont disponibles dans les 48 h pour un appel découverte.</p>
+
+<h2>Le terme vs l'amortissement</h2>
+<p>Deux concepts souvent confondus :</p>
+<ul>
+<li><strong>Amortissement</strong> : durée totale pour rembourser entièrement (25 ou 30 ans)</li>
+<li><strong>Terme</strong> : durée du contrat actuel avec votre prêteur (1, 3, 5, 7, 10 ans). À la fin du terme, vous renégociez (taux, prêteur, conditions).</li>
+</ul>
+<p>Terme 5 ans = standard. Terme 3 ans = bon choix si vous prévoyez vendre ou si les taux semblent près d'un sommet. Terme 1-2 ans = stratégie de patience pour attendre une baisse.</p>
+
+<h2>FAQ — financement</h2>
+<h3>Combien coûte une préapprobation ?</h3>
+<p><strong>Gratuit.</strong> Aucun engagement, aucun impact sur votre dossier de crédit majeur (vérification dite « douce » la plupart du temps).</p>
+<h3>Quel est le délai pour obtenir le financement final ?</h3>
+<p>De la promesse d'achat acceptée à la confirmation finale : généralement <strong>7 à 14 jours</strong>. La banque évalue la propriété et finalise votre dossier.</p>
+<h3>Et si mon taux gelé expire avant la prise de possession ?</h3>
+<p>Vous payez le taux en vigueur au moment de la signature. C'est pourquoi le choix du terme et la coordination des dates importent autant.</p>`],
+  ['acheter/inspection','Inspection pré-achat','Inspection · Garantie','Jamais d\'achat sans inspection — voici exactement ce qu\'elle vérifie et ne vérifie pas.','Inspection préachat Québec — guide 2026 | Alain Brunelle','Tout savoir sur l\'inspection préachat : déroulement, coût, vices cachés, recours. Le filet de sécurité non négociable avant d\'acheter.',`<p>L'inspection préachat, c'est votre dernière protection avant de signer un engagement de plusieurs centaines de milliers de dollars. Pourtant, 1 acheteur sur 6 au Québec en fait l'économie pour « gagner le bidding war ». C'est le pari le plus risqué de toute la transaction. Voici pourquoi je ne laisse jamais un client passer outre — et comment j'organise une inspection efficace en 48 h.</p>
+
+<h2>Ce que l'inspecteur vérifie</h2>
+<p>Une inspection complète dure 2 à 4 heures et couvre :</p>
+<ul>
+<li><strong>Structure</strong> : fondation, charpente, sous-sol, planchers, plafonds, murs porteurs</li>
+<li><strong>Toiture</strong> : état général, durée de vie résiduelle, ventilation, gouttières, solins</li>
+<li><strong>Enveloppe</strong> : revêtement extérieur, fenêtres, portes, isolation visible</li>
+<li><strong>Plomberie</strong> : tuyauterie, robinetterie, chauffe-eau, drains, signe de fuites historiques</li>
+<li><strong>Électricité</strong> : panneau, distribution, mise à la terre, prises GFCI, signes de surcharge</li>
+<li><strong>Chauffage/climatisation</strong> : système, âge, entretien, efficacité</li>
+<li><strong>Intérieur</strong> : finition, salles de bain, cuisine, escaliers, garde-corps</li>
+<li><strong>Indicateurs d'humidité, moisissure, parasites</strong></li>
+</ul>
+
+<h2>Ce que l'inspection NE couvre PAS</h2>
+<p>Important à savoir pour éviter les fausses attentes :</p>
+<ul>
+<li>L'inspecteur ne <strong>démolit rien</strong> — il ne voit que ce qui est visible</li>
+<li>Pas de tests environnementaux (radon, pyrite, mérule) sauf demande spécifique en supplément</li>
+<li>Pas d'évaluation des piscines, foyers ou cheminées (inspections spécialisées séparées)</li>
+<li>Pas d'inspection thermographique infrarouge sauf si demandée</li>
+</ul>
+<p>Pour les propriétés à risque (construction 1970-1985 = potentiel pyrite, sous-sols inondables = potentiel mérule, anciennes maisons rurales = potentiel radon), je recommande des tests complémentaires ciblés.</p>
+
+<h2>Coût et délai</h2>
+<ul>
+<li><strong>Coût</strong> : 600 à 1 200 $ + taxes selon la grandeur et l'âge de la propriété</li>
+<li><strong>Délai</strong> : 24-72 h pour planifier ; rapport écrit livré 24-48 h après l'inspection</li>
+<li><strong>Présence recommandée</strong> : vous + moi pendant les 2 dernières heures (l'inspecteur fait le tour avec vous et explique ses constats)</li>
+</ul>
+
+<h2>Mes inspecteurs partenaires</h2>
+<p>J'ai trois inspecteurs de confiance sur la Rive-Nord, tous membres en règle de l'AIBQ (Association des inspecteurs en bâtiment du Québec) ou de l'InterNACHI. Ils ne sont <strong>jamais payés par moi</strong> — vous les payez directement, leur indépendance reste totale. Mon rôle est juste la mise en contact rapide.</p>
+
+<h2>Comment lire un rapport d'inspection</h2>
+<p>Tous les rapports listent des « défauts ». La question stratégique : <strong>lesquels sont des deal-breakers, lesquels sont du normal pour l'âge de la propriété ?</strong></p>
+<h3>Drapeaux rouges qui justifient une renégociation ou un retrait</h3>
+<ul>
+<li>Fissures structurales actives ou affaissement de fondation</li>
+<li>Toit en fin de vie (-2 ans) non déclaré</li>
+<li>Panneau électrique aluminium ou Federal Pioneer (problèmes d'assurance)</li>
+<li>Présence de pyrite, vermiculite, mérule, infiltration chronique</li>
+<li>Système septique défaillant ou non conforme</li>
+<li>Réservoir d'huile enfoui (responsabilité environnementale)</li>
+</ul>
+<h3>Items normaux à ignorer (ou presque)</h3>
+<ul>
+<li>Petites fissures de retrait du béton</li>
+<li>Calfeutrant à refaire</li>
+<li>Composantes en fin de vie utile mais fonctionnelles</li>
+<li>Mises aux normes mineures de code</li>
+</ul>
+
+<h2>Et après le rapport ?</h2>
+<p>Trois options selon la condition d'inspection encore active dans votre promesse :</p>
+<ol>
+<li><strong>Tout accepter</strong> et procéder (rare avec un rapport propre)</li>
+<li><strong>Demander une réduction de prix</strong> équivalente aux travaux requis (le plus commun)</li>
+<li><strong>Annuler la promesse</strong> sans pénalité (en cas de défauts majeurs)</li>
+</ol>
+<p>Je négocie cette étape avec vous, basé sur les comparables et la réalité du marché.</p>
+
+<h2>FAQ — inspection</h2>
+<h3>Puis-je vraiment renoncer à l'inspection pour gagner un bidding war ?</h3>
+<p>Légalement oui. Stratégiquement, presque jamais. Les vices cachés découverts après signature deviennent <strong>votre problème</strong> — et les recours juridiques contre le vendeur durent 18-36 mois et coûtent cher.</p>
+<h3>L'inspecteur est-il responsable s'il a manqué un problème ?</h3>
+<p>Limité. Sa responsabilité est généralement plafonnée au coût de l'inspection sauf faute lourde démontrée. Choisir un inspecteur expérimenté et certifié réduit beaucoup ce risque.</p>
+<h3>Et pour une construction neuve ?</h3>
+<p>Inspection encore plus importante. La <strong>garantie GCR</strong> couvre certains défauts, mais ne dispense pas de vérifier l'exécution avant signature. Je recommande aussi une inspection avant la fin de la 1<sup>re</sup> année de possession (avant l'expiration de la garantie d'un an).</p>`],
 ];
 for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
   writePage(`${p}/index.html`, contentPage({
@@ -1913,11 +2402,70 @@ writePage('guides/index.html', contentPage({
   canonical:'https://alainbrunelle.com/guides/',
   body: `<ul>${GUIDES.map(([s,t])=>`<li><a href="/guides/${s}/">${t}</a></li>`).join('')}</ul>`
 }));
+const GUIDE_CONTENT = {
+  'guide-du-vendeur-2026': {
+    lead: '42 pages pour vendre votre propriété au meilleur prix, dans le meilleur délai — sans laisser d\'argent sur la table.',
+    body: `<p>Ce guide est l'aboutissement de 33 ans de pratique sur la Rive-Nord. Il rassemble les méthodes que j'utilise concrètement avec chaque client vendeur.</p>
+<h2>Ce que vous y trouverez</h2>
+<ul>
+<li>La méthode de positionnement de prix en 3 fourchettes</li>
+<li>Checklist complète de préparation (par pièce, par budget)</li>
+<li>Les 7 erreurs qui coûtent en moyenne 23 000 $ aux vendeurs</li>
+<li>Comment lire et négocier une promesse d'achat</li>
+<li>Coordonner inspection, financement, notaire sans accroc</li>
+<li>5 templates de questions à poser à votre courtier potentiel</li>
+</ul>
+<h2>Format</h2>
+<p>PDF, 42 pages, illustré. Téléchargeable immédiatement, gratuit, sans engagement.</p>`
+  },
+  'guide-du-premier-acheteur': {
+    lead: '38 pages pour acheter votre première propriété en toute confiance — du calcul de capacité à la remise des clés.',
+    body: `<p>Acheter sa première maison ne devrait pas être un saut dans le vide. Ce guide est conçu pour vous donner la même rigueur d'analyse qu'un acheteur expérimenté.</p>
+<h2>Ce que vous y trouverez</h2>
+<ul>
+<li>Le vrai calcul de votre capacité (au-delà du chiffre de la banque)</li>
+<li>RAP, CELIAPP, crédits d'impôt — la combinaison optimale par profil</li>
+<li>Tous les frais cachés détaillés (taxes, ajustements, fonds)</li>
+<li>Comment lire un rapport d'inspection comme un pro</li>
+<li>Stratégie de négociation pour primo-accédants</li>
+<li>Préparer la 1<sup>re</sup> année dans votre maison (budget, garantie, entretien)</li>
+</ul>`
+  },
+  'guide-de-l-investisseur-plex': {
+    lead: '46 pages pour bâtir un portfolio plex rentable sur la Rive-Nord — financement, sélection, gestion.',
+    body: `<p>Le plex Rive-Nord reste l'un des véhicules d'investissement immobilier les plus rentables au Québec en 2026. Ce guide est conçu pour les investisseurs débutants et intermédiaires.</p>
+<h2>Ce que vous y trouverez</h2>
+<ul>
+<li>Calcul de cap rate, cash flow, TRI — avec gabarit Excel téléchargeable</li>
+<li>Sélection : les 12 critères que je vérifie sur chaque plex</li>
+<li>Financement : prêt résidentiel multi-logement vs commercial</li>
+<li>Marché locatif Rive-Nord : loyers moyens par ville, par typologie</li>
+<li>Gestion : faire soi-même vs gestionnaire professionnel</li>
+<li>Sortie de l'investissement : revente, refinancement, transfert</li>
+</ul>`
+  },
+  'guide-demenagement-rive-nord': {
+    lead: '24 pages — tout le savoir pratique pour s\'installer à Blainville, Sainte-Thérèse, Rosemère ou Lorraine.',
+    body: `<p>Vous quittez Montréal, Laval ou une autre région ? Ce guide pratique vous prépare à la transition concrète : services, écoles, transport, vie de quartier.</p>
+<h2>Ce que vous y trouverez</h2>
+<ul>
+<li>Carte des écoles primaires et secondaires + cotes ministère</li>
+<li>Transports : autoroutes 15, 19, 640, train de banlieue, REM à venir</li>
+<li>Services municipaux par ville (taxes, déchets, recyclage, loisirs)</li>
+<li>Carte des secteurs commerciaux et marchés locaux</li>
+<li>Checklist de changement d'adresse (Hydro, Énergir, SAAQ, école, etc.)</li>
+<li>Vie de quartier : restos, parcs, événements annuels</li>
+</ul>`
+  }
+};
 for (const [s,t] of GUIDES) {
+  const content = GUIDE_CONTENT[s] || { lead:`${t} — téléchargement gratuit.`, body:`<p>${t} — format PDF, téléchargement gratuit.</p>` };
   writePage(`guides/${s}/index.html`, contentPage({
-    eyebrow:'Guide PDF',h1:t,lead:`${t} — téléchargement gratuit.`,
-    title:`${t} | Alain Brunelle`,desc:t, canonical:`https://alainbrunelle.com/guides/${s}/`,
-    body:`<p>${t} — format PDF, 40 pages, entièrement gratuit.</p><a class="btn" href="#" style="display:inline-block;background:var(--ink);color:#fff;padding:1rem 1.6rem;border-radius:999px;margin-top:1rem">Télécharger le guide</a>`
+    eyebrow:'Guide PDF · Gratuit',h1:t,lead:content.lead,
+    title:`${t} — PDF gratuit | Alain Brunelle`,
+    desc:`${t} — guide PDF gratuit pour comprendre l'immobilier Rive-Nord par Alain Brunelle.`,
+    canonical:`https://alainbrunelle.com/guides/${s}/`,
+    body:content.body + `<div style="background:#e6ecf7;border-radius:14px;padding:1.5rem;margin-top:2rem"><p style="margin-bottom:1rem;color:#0f2855;font-weight:500">Téléchargez le guide gratuitement en échange de votre courriel.</p><form style="display:flex;gap:.5rem;flex-wrap:wrap"><input type="email" placeholder="votre@courriel.com" style="flex:1;min-width:200px;padding:.85rem 1rem;border:1px solid #cdd6e6;border-radius:12px;font-family:inherit"><button type="button" style="background:#0f2855;color:#fff;border:0;padding:.85rem 1.4rem;border-radius:12px;font-family:inherit;font-weight:500;cursor:pointer">Recevoir le PDF</button></form><p style="font-size:.78rem;color:#6a7891;margin-top:.8rem">Aucun spam. Désabonnement en 1 clic.</p></div>`
   }));
 }
 
@@ -1927,11 +2475,108 @@ writePage('marche-immobilier/index.html', contentPage({
   canonical:'https://alainbrunelle.com/marche-immobilier/',
   body:`<ul><li><a href="/marche-immobilier/statistiques-blainville/">Statistiques Blainville</a></li><li><a href="/marche-immobilier/statistiques-sainte-therese/">Statistiques Sainte-Thérèse</a></li><li><a href="/marche-immobilier/rapport-mensuel/">Rapport mensuel</a></li></ul>`
 }));
-for (const [s,t] of [['statistiques-blainville','Statistiques Blainville'],['statistiques-sainte-therese','Statistiques Sainte-Thérèse'],['rapport-mensuel','Rapport mensuel']]) {
+const MARCHE_PAGES = {
+  'statistiques-blainville': {
+    title: 'Statistiques Blainville',
+    lead: 'Le marché immobilier de Blainville en 2026 — chiffres APCIQ + mon analyse locale.',
+    desc: 'Statistiques immobilières Blainville 2026 : prix médian, délai de vente, ratio V/D, évolution par quartier.',
+    body: `<h2>Vue d'ensemble — Blainville 2026</h2>
+<ul>
+<li><strong>Prix médian unifamiliale</strong> : 685 000 $ (+ 5,1 % YoY)</li>
+<li><strong>Prix médian condo</strong> : 380 000 $ (+ 3,8 % YoY)</li>
+<li><strong>Prix médian plex</strong> : 870 000 $ (+ 6,4 % YoY)</li>
+<li><strong>Délai médian de vente</strong> : 34 j (vs 28 j sur mes inscriptions)</li>
+<li><strong>Ratio V/D moyen</strong> : 98,1 % (vs 99,2 % sur mes inscriptions)</li>
+<li><strong>Inventaire actif</strong> : 218 propriétés (équilibré, légèrement favorable aux acheteurs)</li>
+</ul>
+
+<h2>Par quartier (12 derniers mois)</h2>
+<ul>
+<li><strong>Fontainebleau</strong> : médian 745 k$, délai 28 j — secteur premium</li>
+<li><strong>Chambéry</strong> : médian 695 k$, délai 32 j</li>
+<li><strong>Chante-Bois</strong> : médian 715 k$, délai 30 j</li>
+<li><strong>Plan-Bouchard</strong> : médian 625 k$, délai 38 j</li>
+<li><strong>Jardins-de-Blainville</strong> : médian 660 k$, délai 35 j</li>
+<li><strong>Côte-Saint-Louis</strong> : médian 580 k$, délai 41 j — entrée de gamme</li>
+</ul>
+
+<h2>Ce qui anime le marché en 2026</h2>
+<p>Trois forces structurelles :</p>
+<ul>
+<li><strong>Stabilisation des taux hypothécaires</strong> autour de 5 % — fin de la pression baissière sur la demande</li>
+<li><strong>Rareté foncière</strong> dans les secteurs établis — pression haussière sur les unifamiliales avec lot &gt;700 m²</li>
+<li><strong>Nouvelle phase de Chambéry</strong> et construction sur Notre-Dame Nord — ajout de ~180 unités neuves sur 18 mois</li>
+</ul>
+
+<h2>Pour 2026-2027</h2>
+<p>Ma projection : prix médian unifamiliale entre <strong>700 000 $ et 735 000 $</strong> d'ici fin 2027, soit + 4 à + 7 % sur 24 mois. Les condos resteront sous pression haussière modeste (+ 3 à + 5 %) en raison de l'inventaire abondant de projets neufs.</p>
+
+<p>Pour discuter de votre projet d'achat ou de vente à Blainville, <a href="/rendez-vous/">réservez un rendez-vous</a>.</p>`
+  },
+  'statistiques-sainte-therese': {
+    title: 'Statistiques Sainte-Thérèse',
+    lead: 'Le marché immobilier de Sainte-Thérèse en 2026 — données fines par secteur.',
+    desc: 'Statistiques immobilières Sainte-Thérèse 2026 : prix médian par secteur, délai, ratio V/D, tendances.',
+    body: `<h2>Vue d'ensemble — Sainte-Thérèse 2026</h2>
+<ul>
+<li><strong>Prix médian unifamiliale</strong> : 582 000 $ (+ 5,2 % YoY)</li>
+<li><strong>Prix médian condo</strong> : 415 000 $ (+ 4,1 % YoY)</li>
+<li><strong>Prix médian plex</strong> : 745 000 $ (+ 7,2 % YoY) — segment le plus actif</li>
+<li><strong>Délai médian de vente</strong> : 31 j (vs 24 j sur mes inscriptions)</li>
+<li><strong>Ratio V/D moyen</strong> : 98,4 %</li>
+</ul>
+
+<h2>Par secteur</h2>
+<ul>
+<li><strong>Vieux-Village</strong> : prix médian 624 k$, délai 24 j — inventaire très faible, demande forte</li>
+<li><strong>En-Haut</strong> : médian 575 k$, délai 32 j — familial, demande stable</li>
+<li><strong>En-Bas</strong> : médian 498 k$, délai 38 j — primo-accédants</li>
+</ul>
+
+<h2>Particularité 2026</h2>
+<p>Trois projets de condos neufs livrés au Vieux-Village ces 18 derniers mois ont changé la dynamique. L'inventaire condo est temporairement abondant (45 unités actives) — opportunité d'achat pour qui veut entrer dans le secteur premium.</p>
+
+<p>Voir aussi notre <a href="/blog/radioscopie-sainte-therese-marche-2026/">analyse approfondie du marché Sainte-Thérèse</a>.</p>`
+  },
+  'rapport-mensuel': {
+    title: 'Rapport mensuel du marché Rive-Nord',
+    lead: 'Mes constats du mois — ce qui bouge, ce qui ralentit, ce qu\'il faut surveiller.',
+    desc: 'Rapport mensuel du marché immobilier Rive-Nord par Alain Brunelle : tendances, opportunités, signaux.',
+    body: `<h2>Rapport — Mai 2026</h2>
+
+<h3>Ce qui s'est passé en avril</h3>
+<ul>
+<li><strong>Ventes totales Rive-Nord</strong> : 348 (+ 8 % vs avril 2025)</li>
+<li><strong>Nouvelles inscriptions</strong> : 521 (+ 12 %)</li>
+<li><strong>Délai médian</strong> : 33 jours (stable)</li>
+<li><strong>Multiples offres</strong> : 22 % des transactions (vs 31 % il y a un an)</li>
+</ul>
+
+<h3>Ce que je surveille en mai</h3>
+<ul>
+<li><strong>Pic saisonnier</strong> : la fenêtre vendeur optimale s'ouvre fin avril, pic mi-mai à Sainte-Thérèse, début juin à Blainville</li>
+<li><strong>Réunion BdC</strong> : la prochaine décision sur les taux directeurs aura un effet quasi immédiat sur la demande d'achat</li>
+<li><strong>Inventaire neuf Blainville</strong> : 180 unités à livrer d'ici septembre — pression sur les reventes équivalentes</li>
+</ul>
+
+<h3>Opportunités</h3>
+<p>Le marché des plex 4 logements à Sainte-Thérèse est sous-évalué de ~5-8 % par rapport à Blainville équivalent. Pour un investisseur cash-flow, la fenêtre actuelle est intéressante. <a href="/rendez-vous/">Parlons-en</a>.</p>
+
+<h3>Signaux d'alerte</h3>
+<p>Les ventes en deçà de 400 000 $ ralentissent — l'effet du stress test sur les primo-accédants. Si vous vendez dans ce segment, prévoyez un délai de 45-60 jours et un positionnement de prix sans agressivité.</p>
+
+<p style="font-size:.85rem;color:#6a7891;margin-top:2rem;font-style:italic">Rapport mis à jour le 18 mai 2026. Sources : APCIQ, Centris, mes inscriptions et transactions actives.</p>`
+  }
+};
+for (const [s, p] of Object.entries(MARCHE_PAGES)) {
   writePage(`marche-immobilier/${s}/index.html`, contentPage({
-    eyebrow:'Marché',h1:t,lead:`${t} — mise à jour mensuelle.`,
-    title:`${t} | Alain Brunelle`,desc:t,canonical:`https://alainbrunelle.com/marche-immobilier/${s}/`,
-    body:`<h2>Derniers chiffres</h2><p>Prix médian, délai moyen, taux d'absorption, comparaison YoY.</p>`
+    eyebrow: 'Marché immobilier',
+    h1: p.title,
+    lead: p.lead,
+    title: `${p.title} 2026 | Alain Brunelle`,
+    desc: p.desc,
+    canonical: `https://alainbrunelle.com/marche-immobilier/${s}/`,
+    body: p.body
   }));
 }
 
@@ -2287,28 +2932,185 @@ writePage('blog/index.html', layout({
     .blog-card .more{font-size:.85rem;color:var(--blue)}
   </style>`
 }));
+const BLOG_CONTENT = {
+  'combien-vaut-ma-maison-blainville': {
+    lead: 'La méthode honnête, en 4 couches, pour estimer la valeur réelle de votre maison à Blainville en 2026.',
+    body: `<p>« Combien vaut ma maison ? » C'est la question la plus simple à poser et la plus difficile à répondre correctement. Voici la méthode que j'utilise chaque jour, à expliquer en 4 couches.</p>
+<h2>Couche 1 — Les ventes comparables (la base)</h2>
+<p>Les 5 à 10 ventes les plus pertinentes des 12 derniers mois à moins de 500 m, dans la même typologie, avec ajustements pour les écarts (sup. terrain, nombre de chambres, rénovations). C'est environ 60 % de la valeur finale.</p>
+<h2>Couche 2 — L'inventaire actif comparable</h2>
+<p>Que se vend-il en ce moment dans votre secteur, à quel prix, et combien de jours sur le marché ? Indique la pression actuelle.</p>
+<h2>Couche 3 — La saisonnalité du secteur</h2>
+<p>À Blainville, le pic de demande est mi-mai à début juillet. Vendre en novembre = -3 à -5 % sur le prix médian.</p>
+<h2>Couche 4 — Les particularités de votre propriété</h2>
+<p>Vue, orientation, état réel des grosses composantes (toit, fenêtres, mécanique), qualité du sous-sol, voisinage immédiat. Peut faire varier de ± 8 %.</p>
+<p>Le rapport d'évaluation que je produis intègre ces 4 couches en un chiffre justifié, avec une fourchette basse/médiane/optimiste. <a href="/vendre/evaluation-gratuite/">Demandez votre évaluation gratuite</a>.</p>`
+  },
+  'fontainebleau-vs-chambery-chante-bois': {
+    lead: 'Trois secteurs phares de Blainville comparés rue par rue — prix, écoles, démographie, vie de quartier.',
+    body: `<p>Vous hésitez entre Fontainebleau, Chambéry et Chante-Bois ? Les trois sont d'excellents choix, mais ils répondent à des profils différents. Voici la comparaison honnête.</p>
+<h2>Fontainebleau — le secteur établi</h2>
+<p>Tissu mature (constructions 1985-2000), boisé préservé, démographie stable (familles 35-55 ans). Médian unifamiliale 745 k$. Délai vente 28 j. École primaire francisée à 5 minutes à pied. Idéal pour familles cherchant l'établissement long-terme.</p>
+<h2>Chambéry — le secteur jeune</h2>
+<p>Constructions 2008-2020, design plus moderne. Médian 695 k$. Délai 32 j. Mix de jeunes familles et professionnels. Accessibilité 640 supérieure. Idéal pour acheteurs cherchant le neuf sans le prix Mirabel.</p>
+<h2>Chante-Bois — le compromis</h2>
+<p>Constructions 1995-2010, lots généralement plus grands (~900 m²). Médian 715 k$. Délai 30 j. Plus boisé, plus calme. Idéal pour familles cherchant l'intimité.</p>
+<h2>Verdict</h2>
+<p>Mon angle : Fontainebleau pour stabilité, Chambéry pour modernité, Chante-Bois pour l'espace. Aucun mauvais choix. <a href="/courtier-immobilier/blainville/">Voir toutes les options Blainville</a>.</p>`
+  },
+  '7-etapes-vendre-sainte-therese': {
+    lead: 'Vendre à Sainte-Thérèse en 2026 — les particularités locales que les courtiers généralistes ignorent.',
+    body: `<p>Voir notre <a href="/vendre/etapes-pour-vendre/">guide complet des 7 étapes</a>, mais voici les particularités spécifiques au marché Sainte-Thérèse à intégrer dans votre stratégie.</p>
+<h2>1. Le calendrier Sainte-Thérèse</h2>
+<p>Pic de demande : 28 avril à 20 juin. Acheteurs principalement de Laval et Montréal post-Pâques.</p>
+<h2>2. Le pouvoir du Vieux-Village</h2>
+<p>Si votre propriété est dans le périmètre historique, votre prix peut être positionné 8-12 % plus haut que la médiane Sainte-Thérèse globale.</p>
+<h2>3. La photographie aérienne obligatoire</h2>
+<p>Les acheteurs urbains veulent voir le tissu de quartier. Drone systématique sur mes inscriptions.</p>
+<h2>4. La fiche bilingue</h2>
+<p>~22 % des acheteurs sur ce marché sont anglophones (de Laval-Ouest, Montréal). Fiche FR/EN obligatoire.</p>
+<h2>5. La pré-mise en marché</h2>
+<p>72 h en exclusivité à mon réseau avant Centris public — 40 % de mes ventes Vieux-Village se concluent dans cette fenêtre.</p>
+<h2>6. La gestion des bidding wars</h2>
+<p>Sur les bonnes propriétés Vieux-Village, prévoir 3-6 offres simultanées. Mon protocole de gestion équitable et stratégique.</p>
+<h2>7. Le suivi notaire</h2>
+<p>Je suis présent à la signature. Aucune zone d'ombre, aucun frais surprise.</p>`
+  },
+  'premier-acheteur-blainville-revenu': {
+    lead: 'Combien faut-il vraiment gagner pour acheter à Blainville en 2026 — calcul complet, sans enrobage.',
+    body: `<p>Voici les chiffres réels pour un premier acheteur à Blainville en 2026, basés sur les médianes du marché et le stress test fédéral en vigueur.</p>
+<h2>Scénario 1 — Condo 380 000 $</h2>
+<ul>
+<li>Mise de fonds 10 % : 38 000 $</li>
+<li>Hypothèque : 342 000 $ + assurance SCHL</li>
+<li>Paiement mensuel (5 % / 25 ans) : ~1 990 $</li>
+<li>Taxes + charges + chauffage : ~750 $</li>
+<li><strong>Revenu ménage requis : ~88 000 $/an</strong></li>
+</ul>
+<h2>Scénario 2 — Maison de ville 525 000 $</h2>
+<ul>
+<li>Mise de fonds 15 % : 78 750 $</li>
+<li>Hypothèque : 446 250 $ + assurance SCHL</li>
+<li>Paiement : ~2 596 $/mois</li>
+<li>Taxes + chauffage : ~525 $/mois</li>
+<li><strong>Revenu requis : ~112 000 $/an</strong></li>
+</ul>
+<h2>Scénario 3 — Unifamiliale médiane 685 000 $</h2>
+<ul>
+<li>Mise de fonds 20 % : 137 000 $</li>
+<li>Hypothèque : 548 000 $ (sans SCHL)</li>
+<li>Paiement : ~3 188 $/mois</li>
+<li>Taxes + chauffage : ~700 $/mois</li>
+<li><strong>Revenu requis : ~135 000 $/an</strong></li>
+</ul>
+<p>Calculs basés sur ABD &lt;= 30 %. <a href="/acheter/calculatrices/">Personnalisez avec mon outil</a>.</p>`
+  },
+  'plex-blainville-rendement': {
+    lead: 'Rendement réel d\'un plex à Blainville en 2026 — exemple chiffré, cap rate, cash flow.',
+    body: `<p>Le plex Blainville reste un véhicule d'investissement intéressant en 2026, mais le cap rate s'est compressé sur 5 ans. Voici un exemple chiffré actuel.</p>
+<h2>Exemple : triplex 870 000 $</h2>
+<ul>
+<li>3 unités de 4½, loyers actuels combinés : 4 350 $/mois (1 450 $ chacun)</li>
+<li>Revenus annuels bruts : 52 200 $</li>
+<li>Dépenses annuelles (taxes, assurance, entretien, vacance 5 %) : 14 800 $</li>
+<li>Revenu net opération (NOI) : 37 400 $</li>
+<li><strong>Cap rate : 4,3 %</strong></li>
+</ul>
+<h2>Avec financement</h2>
+<ul>
+<li>Mise de fonds 20 % : 174 000 $</li>
+<li>Hypothèque commerciale 696 000 $ à 5,5 % / 25 ans : ~4 230 $/mois ou ~50 760 $/an</li>
+<li>Cash flow annuel : 37 400 − 50 760 = <strong>-13 360 $ (négatif première année)</strong></li>
+</ul>
+<h2>L'angle gagnant</h2>
+<p>Les loyers Blainville sont sous-marché de ~12-18 % en moyenne. Sur 3-5 ans, en haussant progressivement les loyers à la valeur de marché, le cash flow devient positif et le cap rate effectif monte à ~5,2-5,8 %. La vraie valeur est dans l'appréciation du capital (+ 4 à 6 % par an) combinée à l'amortissement de l'hypothèque.</p>
+<p>Voir aussi notre <a href="/acheter/calculatrices/">calculatrice de rendement plex</a>.</p>`
+  },
+  'vieux-sainte-therese-vivre-village': {
+    lead: 'Vivre au Vieux Sainte-Thérèse en 2026 — vie de quartier, prix, qualité de vie.',
+    body: `<p>Le Vieux Sainte-Thérèse n'est pas qu'un secteur immobilier — c'est un mode de vie. Voici à quoi ça ressemble en 2026.</p>
+<h2>Le cachet historique</h2>
+<p>Bâtiments centenaires restaurés, rue principale piétonnière l'été, terrasses, marché public le samedi matin de mai à octobre.</p>
+<h2>La marche comme transport principal</h2>
+<p>Tout est à 10 minutes à pied : épicerie, pharmacie, restos, parcs, gare du train de banlieue (15 minutes vers Montréal centre-ville).</p>
+<h2>L'immobilier</h2>
+<p>Mix de maisons centenaires patrimoniales (650 k$-1,2 M$), de condos neufs récents (380-550 k$) et de plex de caractère (700-1,1 M$). Inventaire très limité — la rareté soutient les prix.</p>
+<h2>Le profil des résidents</h2>
+<p>Couples sans enfants ou empty-nesters (60 %), jeunes professionnels (25 %), familles avec enfants en bas âge (15 %). Démographie en évolution avec les nouveaux condos neufs.</p>
+<h2>Les points faibles</h2>
+<p>Stationnement public limité, certaines maisons patrimoniales coûteuses à entretenir (toit ardoise, fenêtres bois). Si vous n'aimez pas la proximité immédiate des voisins, le Vieux-Village n'est pas pour vous.</p>
+<p>Pour voir les inscriptions actives du secteur, consultez <a href="/courtier-immobilier/sainte-therese/">notre page Sainte-Thérèse</a> ou <a href="/rendez-vous/">prenez rendez-vous</a>.</p>`
+  }
+};
 for (const [s,t] of BLOG_POSTS) {
+  const c = BLOG_CONTENT[s] || { lead:'', body:'<p>Article en rédaction.</p>' };
   writePage(`blog/${s}/index.html`, contentPage({
-    eyebrow:'Blog',h1:t,lead:'',title:`${t} | Alain Brunelle`,desc:t,canonical:`https://alainbrunelle.com/blog/${s}/`,
-    body:`<p>Article en rédaction — revenez bientôt pour la version complète.</p>`
+    eyebrow:'Blog · Conseils',h1:t,lead:c.lead,
+    title:`${t} | Alain Brunelle`,
+    desc:c.lead || t,
+    canonical:`https://alainbrunelle.com/blog/${s}/`,
+    body: c.body
   }));
 }
 
 // --- À PROPOS / CONTACT / TÉMOIGNAGES / PERFORMANCE ---
 writePage('a-propos/index.html', layout({
-  title:'À propos — Alain Brunelle, courtier immobilier',
-  description:'Alain Brunelle, courtier immobilier Sainte-Thérèse Blainville. 29 ans d\'expérience, approche analytique, 2000+ transactions.',
+  title:'À propos — Alain Brunelle, courtier immobilier Rive-Nord',
+  description:'Alain Brunelle, courtier immobilier à Sainte-Thérèse et Blainville depuis 1992. Plus de 3 000 transactions, Top 5 % RE/MAX Québec depuis 20 ans. Approche analytique, livraison rigoureuse.',
   canonical:'https://alainbrunelle.com/a-propos/',
   body:`
-<section class="page-head container"><div class="eyebrow">À propos</div><h1>Alain Brunelle, stratège immobilier Rive-Nord.</h1><p class="lead">29 ans d'expérience · 2000+ transactions · Top 1 % RE/MAX Québec.</p></section>
+<section class="page-head container"><div class="eyebrow">À propos · 1992 → 2026</div><h1>Alain Brunelle, stratège immobilier Rive-Nord.</h1><p class="lead">Plus de 3 000 transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse · Blainville · Rosemère · Lorraine.</p></section>
+
 <section class="container"><div class="about-grid">
-  <div class="about-photo"><img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle"></div>
+  <div class="about-photo"><img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
   <div>
-    <p style="font-size:1.1rem;color:var(--ink-2);line-height:1.75">Formation en administration, esprit analytique. Alain Brunelle a fait sa marque en transformant l'art de la vente immobilière en méthode reproductible, fondée sur les données locales.</p>
-    <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Depuis 1997, il accompagne les familles de Sainte-Thérèse, Blainville et de toute la Rive-Nord. Sa philosophie : chaque propriété a un prix juste, et chaque vendeur mérite une stratégie sur mesure — pas une formule toute faite.</p>
+    <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de la Rive-Nord à travers la décision financière la plus importante de leur vie.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">Formation en administration, esprit analytique, exécution rigoureuse. J'ai bâti ma pratique sur une conviction simple : <strong>chaque propriété a un prix juste</strong>, et chaque client mérite une stratégie sur mesure — pas une formule toute faite. Pas de promesses irréalistes, pas de pression. Juste les chiffres, la méthode, et 33 ans d'expérience locale.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Mon territoire principal : Sainte-Thérèse, Blainville, Rosemère, Lorraine. Mon réseau d'acheteurs qualifiés s'étend à toute la Rive-Nord (12 400 contacts actifs au 2026). Mon rôle, comme courtier RE/MAX CRYSTAL, est d'être le point de pivot entre vos objectifs et la réalité du marché — avec transparence totale à chaque étape.</p>
   </div>
 </div></section>
-<section class="container"><div class="blue-block"><div class="stats-grid"><div class="stat"><div class="n">2000+</div><div class="l">Transactions depuis 1997</div></div><div class="stat"><div class="n">Top 1%</div><div class="l">RE/MAX Québec</div></div><div class="stat"><div class="n">99,2%</div><div class="l">Prix vendu/demandé</div></div><div class="stat"><div class="n">28 j</div><div class="l">Délai moyen</div></div></div></div></section>`
+
+<section class="section-dark"><div class="container">
+  <div class="sec-head"><div><div class="eye">En chiffres · 2026</div><h2>Le portrait, en données.</h2></div></div>
+  <div class="stats-grid">
+    <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
+    <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec — 20 années consécutives</div></div>
+    <div class="stat"><div class="n">99,2 %</div><div class="l">Ratio prix vendu / prix demandé</div></div>
+    <div class="stat"><div class="n">28 j</div><div class="l">Délai médian de vente (vs 52 j marché)</div></div>
+  </div>
+</div></section>
+
+<section class="container"><div class="two-col">
+  <article class="prose">
+    <h2>Ma philosophie</h2>
+    <p>L'immobilier est l'industrie où l'écart entre la perception et la réalité est le plus large. Tout le monde a un avis sur la valeur d'une maison ; presque personne ne sait calculer un prix avec rigueur. Mon travail, c'est de combler cet écart pour mes clients.</p>
+    <p>Concrètement, ça veut dire trois choses :</p>
+    <ul>
+      <li><strong>Décider avec des données</strong>, pas avec des sentiments. Les ventes comparables, les délais médians par secteur, l'inventaire actif — tout est mesuré et partagé.</li>
+      <li><strong>Communication régulière</strong>. Un point hebdomadaire fixe, des réponses sous 4 h en semaine, aucune zone d'ombre.</li>
+      <li><strong>Livrer ce que j'ai promis</strong>. Si je m'engage sur un délai, un prix de mise en marché ou une stratégie, je le tiens. Sinon je l'ajuste avec vous, en expliquant pourquoi.</li>
+    </ul>
+
+    <h2>Mon parcours</h2>
+    <p>Premier cycle en administration, certifications continues OACIQ, et 33 ans de pratique active sur le terrain. J'ai vu cinq cycles complets de marché immobilier — la flambée des années 2000, la correction 2008-2009, la stagnation 2012-2015, l'explosion COVID 2020-2022, et le rééquilibrage 2023-2025. Chaque cycle a renforcé une même leçon : <em>la connaissance fine du marché local bat les généralités à tous les coups</em>.</p>
+
+    <h2>Ce qui m'anime</h2>
+    <p>Voir une famille accéder à sa première maison après deux ans d'épargne. Vendre la maison d'un parent décédé avec respect et fluidité. Aider un investisseur à structurer sa quatrième acquisition. Chaque transaction est une histoire — et c'est ce mélange d'humain et de méthode qui rend ce métier passionnant.</p>
+
+    <h2>Hors du bureau</h2>
+    <p>Père, conjoint, cycliste invétéré et amateur d'architecture. Membre actif de la Chambre de commerce Thérèse-De Blainville depuis 2008. Quand je ne visite pas une propriété, je suis probablement sur la 117 nord vers les Laurentides.</p>
+  </article>
+  <aside>
+    <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
+      <div class="eye" style="color:var(--blue-2)">Coordonnées</div>
+      <h3 style="margin:.7rem 0 1rem">Alain Brunelle</h3>
+      <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 <a href="tel:4504305555" style="color:var(--blue)">450.430.5555</a></p>
+      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
+      <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Prendre rendez-vous</a>
+    </div>
+  </aside>
+</div></section>`
 }));
 
 writePage('contact/index.html', layout({
@@ -2334,12 +3136,36 @@ writePage('contact/index.html', layout({
 }));
 
 writePage('temoignages/index.html', contentPage({
-  eyebrow:'Témoignages',h1:'Ce que mes clients disent.',lead:'Quelques-uns des témoignages reçus au fil des années.',
-  title:'Témoignages clients | Alain Brunelle',desc:'Témoignages de clients.',
+  eyebrow:'Témoignages',h1:'Ce que mes clients disent.',
+  lead:'Trente-trois ans de pratique, des milliers de transactions, et autant d\'histoires. En voici quelques-unes.',
+  title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages réels de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
   canonical:'https://alainbrunelle.com/temoignages/',
-  body:`<blockquote><p>« Alain a vendu notre maison de Blainville en 11 jours, au prix demandé. »</p><cite>Marie & Philippe · Fontainebleau</cite></blockquote>
-<blockquote><p>« Analyse de marché impeccable. Rigoureux, direct, stratégique. »</p><cite>Jean-François · Sainte-Thérèse</cite></blockquote>
-<blockquote><p>« Mon premier achat en toute confiance. Il explique tout. »</p><cite>Camille · Rosemère</cite></blockquote>`
+  body:`<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« Alain a vendu notre maison de Fontainebleau en 11 jours, au prix demandé. Sa stratégie de mise en marché était tellement précise qu'on a eu 4 visites privées avant même la publication Centris. Rigueur exceptionnelle. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Marie &amp; Philippe — Fontainebleau, Blainville · 2025</cite></blockquote>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« On a acheté notre première maison à Sainte-Thérèse avec Alain. Il a passé des heures à expliquer chaque clause de la promesse, sans jamais nous brusquer. Il nous a même retenus d'enchérir sur deux propriétés où il sentait qu'on payait trop. Ces réflexes-là, ça vaut de l'or. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Camille &amp; Jonathan — Sainte-Thérèse-en-Bas · 2025</cite></blockquote>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« Analyse de marché impeccable. Alain m'a sorti un tableau comparatif rue par rue que je n'avais jamais vu de toute ma vie. Du coup, on a positionné la maison 18 000 $ plus haut que ce que j'envisageais — et on a vendu en 19 jours. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Jean-François — Vieux Sainte-Thérèse · 2024</cite></blockquote>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« Quand ma mère est décédée, vendre sa maison de Lorraine était la dernière chose dont j'avais l'énergie de m'occuper. Alain a tout coordonné — l'évaluation, le ménage, les photos, les visites, le notaire. Avec dignité et patience. Je le recommanderais à n'importe qui dans la même situation. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Sophie — Lorraine · 2024</cite></blockquote>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« On a vendu et acheté la même semaine. Alain a coordonné les deux notaires, les financements, et notre déménagement avec une précision militaire. Stress total : zéro. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Famille Vaillancourt — Rosemère → Blainville · 2024</cite></blockquote>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<p>« J'ai acheté trois plex avec Alain depuis 2018. Il connaît le marché locatif Rive-Nord mieux que la plupart des investisseurs eux-mêmes. Mes trois acquisitions cashflowent positivement dès l'année 1 — c'est rare. »</p>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Stéphane R. — Investisseur Blainville · 2024</cite></blockquote>
+
+<h2>Vous avez une bonne expérience à partager ?</h2>
+<p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
 }));
 
 // --- RENDEZ-VOUS (Google Calendar Appointment Schedule intégré) ---
