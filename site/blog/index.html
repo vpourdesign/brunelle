@@ -15,18 +15,60 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 <style>
-    .featured-post{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.5rem);background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease);color:var(--ink)}
-    .featured-post:hover{transform:translateY(-3px);box-shadow:var(--shadow);color:var(--ink)}
-    .featured-post .fp-img{aspect-ratio:4/3;overflow:hidden;background:#eef2f8}
-    .featured-post .fp-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-    .featured-post:hover .fp-img img{transform:scale(1.04)}
-    .featured-post .fp-body{padding:clamp(1.5rem,3vw,2.5rem);display:flex;flex-direction:column;justify-content:center}
-    @media(max-width:820px){.featured-post{grid-template-columns:1fr}}
-    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--gap)}
-    .blog-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;transition:all .4s var(--ease)}
-    .blog-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-    .blog-card h3{font-size:1.05rem;font-weight:500;margin-bottom:.8rem;letter-spacing:-.01em}
-    .blog-card .more{font-size:.85rem;color:var(--blue)}
+    /* Blog hero */
+    .blog-hero{background:linear-gradient(180deg,var(--blue-soft) 0%,#fff 100%);padding:clamp(3rem,6vw,5rem) 0 clamp(2rem,4vw,3rem);margin-bottom:clamp(2rem,4vw,3.5rem);position:relative;overflow:hidden}
+    .blog-hero::after{content:"";position:absolute;left:-10%;top:-30%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6),transparent 60%);pointer-events:none}
+    .blog-hero .bh-inner{position:relative;z-index:1;max-width:60ch}
+    .blog-hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;background:#fff;border-radius:999px;border:1px solid rgba(15,42,90,.1)}
+    .blog-hero h1{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:400;letter-spacing:-.025em;line-height:1.05;color:var(--ink);margin:.3rem 0 1rem}
+    .blog-hero .lead{font-size:clamp(1rem,1.4vw,1.15rem);color:var(--ink-2);line-height:1.6;max-width:54ch}
+    .blog-hero .bh-meta{display:flex;gap:.8rem;align-items:center;margin-top:1.6rem;font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+    .blog-hero .bh-meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
+
+    /* Featured post — asymmetric, dark CTA feel */
+    .featured-post{display:grid;grid-template-columns:1.15fr 1fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s var(--ease);color:var(--ink);position:relative;box-shadow:var(--shadow-sm)}
+    .featured-post:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
+    .featured-post .fp-img{position:relative;aspect-ratio:5/4;overflow:hidden;background:var(--blue-soft)}
+    .featured-post .fp-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+    .featured-post:hover .fp-img img{transform:scale(1.05)}
+    .featured-post .fp-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,22,40,0) 60%,rgba(11,22,40,.08) 100%);pointer-events:none}
+    .featured-post .fp-badge{position:absolute;top:1.2rem;left:1.2rem;padding:.45rem 1rem;background:var(--blue);color:#fff;border-radius:999px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;box-shadow:0 4px 12px rgba(15,42,90,.25)}
+    .featured-post .fp-body{padding:clamp(2rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:center;gap:1rem}
+    .featured-post .bp-tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:600}
+    .featured-post h2{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:400;letter-spacing:-.022em;line-height:1.12;color:var(--ink);max-width:22ch}
+    .featured-post p{color:var(--ink-2);line-height:1.65;font-size:1rem;max-width:46ch;margin:0}
+    .featured-post .bp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;padding-top:1.2rem;border-top:1px solid var(--line);gap:1rem;flex-wrap:wrap}
+    .featured-post .bp-meta{font-size:.82rem;color:var(--muted)}
+    .featured-post .bp-read{display:inline-flex;align-items:center;gap:.7rem;color:var(--blue);font-weight:500;font-size:.95rem}
+    .featured-post .bp-read .arrow{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:999px;background:var(--blue-soft);transition:transform .35s var(--ease-spring),background .3s var(--ease)}
+    .featured-post:hover .bp-read .arrow{transform:translateX(4px);background:var(--blue);color:#fff}
+    @media(max-width:900px){.featured-post{grid-template-columns:1fr}.featured-post .fp-img{aspect-ratio:16/9}}
+
+    /* Section head with filters */
+    .bsec-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem;margin:clamp(2.5rem,5vw,4rem) 0 clamp(1.5rem,3vw,2.2rem)}
+    .bsec-head h2{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:400;letter-spacing:-.018em}
+    .bsec-filters{display:flex;gap:.4rem;flex-wrap:wrap}
+    .bf{background:transparent;border:1px solid var(--line);color:var(--ink-2);font:inherit;font-size:.82rem;padding:.5rem 1rem;border-radius:999px;cursor:pointer;transition:all .25s var(--ease)}
+    .bf:hover{border-color:var(--blue);color:var(--blue)}
+    .bf.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+    /* Blog grid — staggered magazine */
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(1.4rem,2.5vw,2rem)}
+    .blog-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease);color:var(--ink);text-decoration:none}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
+    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft);border-radius:var(--radius-lg);box-shadow:inset 0 0 0 1px rgba(15,42,90,.04)}
+    .blog-card .bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+    .blog-card:hover .bc-img img{transform:scale(1.06)}
+    .blog-card .bc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,22,40,.35) 100%);pointer-events:none}
+    .blog-card .bc-tag{position:absolute;top:1rem;left:1rem;padding:.4rem .85rem;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:999px;font-size:.7rem;font-weight:500;color:var(--ink);letter-spacing:.04em;z-index:1}
+    .blog-card .bc-body{padding:1.4rem .25rem .25rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+    .blog-card h3{font-size:1.15rem;font-weight:500;letter-spacing:-.012em;line-height:1.28;color:var(--ink);margin:0}
+    .blog-card p{color:var(--ink-2);font-size:.93rem;line-height:1.55;margin:0;flex:1}
+    .blog-card .bc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted);margin-top:.4rem;padding-top:.9rem;border-top:1px solid var(--line)}
+    .blog-card .bc-arrow{width:28px;height:28px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;transition:transform .3s var(--ease-spring),background .3s var(--ease)}
+    .blog-card:hover .bc-arrow{transform:translateX(3px);background:var(--blue);color:#fff}
+
+    @media(max-width:540px){.blog-grid{grid-template-columns:1fr}.bsec-filters{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:.3rem}}
   </style>
 
 </head>
@@ -34,33 +76,138 @@
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle"><img src="/brand_assets/logo.png" alt="Alain Brunelle" height="64"></a>
   <nav class="nav-links">
-    <a class="nav-item" href="/">Accueil</a><a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><a class="nav-item" href="/vendre/evaluation-gratuite/">Vendre</a><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><a class="nav-item" href="/blog/">Blog</a><a class="nav-item" href="/a-propos/">À propos</a><a class="nav-item" href="/rendez-vous/">Rendez-vous</a>
+    <a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/vendre/evaluation-gratuite/">Vendre</a><div class="sub"><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a><a href="/vendre/preparer-sa-maison/">Préparer sa maison</a><a href="/vendre/commission-courtier/">Commission du courtier</a><a href="/vendre/vendre-sans-stress/">Vendre sans stress</a></div></div><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><div class="nav-item has-sub"><a href="/blog/">Ressources</a><div class="sub"><a href="/blog/">Blog</a><a href="/marche-immobilier/">Marché immobilier</a><a href="/a-propos/">À propos</a><a href="/temoignages/">Témoignages</a></div></div>
   </nav>
-  <a class="nav-cta" href="/rendez-vous/">Prendre rendez-vous</a>
+  <a class="nav-cta" href="/rendez-vous/">Réserver 20 min</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <main>
 
-<section class="page-head container"><div class="eyebrow">Blog</div><h1>Le blog d'Alain Brunelle.</h1><p class="lead">Analyses rue par rue, outils interactifs et guides pour qui veut comprendre le marché avant d'agir.</p></section>
+<section class="blog-hero">
+  <div class="container">
+    <div class="bh-inner">
+      <div class="eyebrow">Le journal d'Alain Brunelle, courtier immobilier</div>
+      <h1>Comprendre le marché de la Rive-Nord — avant d'agir.</h1>
+      <p class="lead">Analyses rue par rue, outils interactifs et guides. Pour vendeurs, acheteurs et investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine.</p>
+      <div class="bh-meta">
+        <span>7 articles</span>
+        <span class="dot"></span>
+        <span>Mis à jour mai 2026</span>
+        <span class="dot"></span>
+        <span>Sainte-Thérèse · Blainville · Rosemère · Lorraine</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="container">
   <a class="featured-post" href="/blog/radioscopie-sainte-therese-marche-2026/">
-    <div class="fp-img"><img src="/photos/stetherese1.jpg" alt=""></div>
+    <div class="fp-img"><img src="/photos/stetherese1.jpg" alt="Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier" loading="lazy"><span class="fp-badge">À la une</span></div>
     <div class="fp-body">
-      <div class="eye" style="color:var(--blue);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:500">Article vedette · Sainte-Thérèse</div>
-      <h2 style="font-size:clamp(1.5rem,2.6vw,2rem);margin:.7rem 0 1rem;font-weight:400;letter-spacing:-.02em">Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier</h2>
-      <p style="color:var(--ink-2);line-height:1.6;max-width:58ch">Le guide interactif que seul le meilleur courtier immobilier de la Rive-Nord peut vous offrir — secteurs décortiqués, outils de calcul, et données qui n'existent pas ailleurs.</p>
-      <span style="display:inline-block;margin-top:1.2rem;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Lire l'analyse complète →</span>
+      <div class="bp-tag">Article vedette · Sainte-Thérèse</div>
+      <h2>Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier</h2>
+      <p>Le guide interactif d'un courtier immobilier qui connaît la Rive-Nord rue par rue — secteurs décortiqués, outils de calcul, et données qui n'existent pas ailleurs.</p>
+      <div class="bp-foot"><span class="bp-meta">12 min · 18 mai 2026</span><span class="bp-read">Lire l'analyse complète <span class="arrow">→</span></span></div>
     </div>
   </a>
-  <h3 style="margin:3rem 0 1.5rem;font-size:1.1rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:500">Autres articles</h3>
-  <div class="blog-grid"><a class="blog-card" href="/blog/combien-vaut-ma-maison-blainville/"><h3>Combien vaut ma maison à Blainville en 2026 ?</h3><span class="more">Lire →</span></a><a class="blog-card" href="/blog/fontainebleau-vs-chambery-chante-bois/"><h3>Fontainebleau vs Chambéry vs Chante-Bois : où acheter à Blainville ?</h3><span class="more">Lire →</span></a><a class="blog-card" href="/blog/7-etapes-vendre-sainte-therese/"><h3>Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress</h3><span class="more">Lire →</span></a><a class="blog-card" href="/blog/premier-acheteur-blainville-revenu/"><h3>Premier acheteur à Blainville : quel revenu faut-il en 2026 ?</h3><span class="more">Lire →</span></a><a class="blog-card" href="/blog/plex-blainville-rendement/"><h3>Plex à Blainville : rendement réel en 2026</h3><span class="more">Lire →</span></a><a class="blog-card" href="/blog/vieux-sainte-therese-vivre-village/"><h3>Vieux Sainte-Thérèse : vivre au cœur du village</h3><span class="more">Lire →</span></a></div>
 </section>
+
+<section class="container">
+  <div class="bsec-head">
+    <h2>Tous les articles</h2>
+    <div class="bsec-filters">
+      <button class="bf on" data-f="all">Tout</button>
+      <button class="bf" data-f="Blainville">Blainville</button>
+      <button class="bf" data-f="Sainte-Thérèse">Sainte-Thérèse</button>
+      <button class="bf" data-f="Investissement">Investissement</button>
+    </div>
+  </div>
+  <div class="blog-grid">
+    
+      <a class="blog-card" href="/blog/combien-vaut-ma-maison-blainville/" data-tag="Blainville · Évaluation">
+        <div class="bc-img"><img src="/photos/blainville/blainville1.jpg" alt="Combien vaut ma maison à Blainville en 2026 ?" loading="lazy"><span class="bc-tag">Blainville · Évaluation</span></div>
+        <div class="bc-body">
+          <h3>Combien vaut ma maison à Blainville en 2026 ?</h3>
+          <p>La méthode honnête en 4 couches que j'utilise pour estimer la valeur réelle d'une maison à Blainville — au-delà des moyennes Centris.</p>
+          <div class="bc-foot"><span>6 min · 12 mai. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+      <a class="blog-card" href="/blog/fontainebleau-vs-chambery-chante-bois/" data-tag="Blainville · Quartiers">
+        <div class="bc-img"><img src="/photos/blainville/actu_parc_chambery.jpg" alt="Fontainebleau vs Chambéry vs Chante-Bois : où acheter à Blainville ?" loading="lazy"><span class="bc-tag">Blainville · Quartiers</span></div>
+        <div class="bc-body">
+          <h3>Fontainebleau vs Chambéry vs Chante-Bois : où acheter à Blainville ?</h3>
+          <p>Trois secteurs phares de Blainville comparés rue par rue — prix médians, écoles, démographie, profil d'acheteur.</p>
+          <div class="bc-foot"><span>8 min · 05 mai. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+      <a class="blog-card" href="/blog/7-etapes-vendre-sainte-therese/" data-tag="Sainte-Thérèse · Vendre">
+        <div class="bc-img"><img src="/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg" alt="Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress" loading="lazy"><span class="bc-tag">Sainte-Thérèse · Vendre</span></div>
+        <div class="bc-body">
+          <h3>Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress</h3>
+          <p>Du moment où vous décidez de vendre jusqu'à la signature chez le notaire — les 7 étapes décrites par un courtier qui les vit chaque semaine.</p>
+          <div class="bc-foot"><span>7 min · 28 avr. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+      <a class="blog-card" href="/blog/premier-acheteur-blainville-revenu/" data-tag="Blainville · Premier acheteur">
+        <div class="bc-img"><img src="/photos/blainville/blainville2.jpg" alt="Premier acheteur à Blainville : quel revenu faut-il en 2026 ?" loading="lazy"><span class="bc-tag">Blainville · Premier acheteur</span></div>
+        <div class="bc-body">
+          <h3>Premier acheteur à Blainville : quel revenu faut-il en 2026 ?</h3>
+          <p>Trois scénarios chiffrés (condo 380 k$, cottage 580 k$, unifamiliale 720 k$) avec le revenu requis, mise de fonds et coûts cachés.</p>
+          <div class="bc-foot"><span>9 min · 20 avr. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+      <a class="blog-card" href="/blog/plex-blainville-rendement/" data-tag="Blainville · Investissement">
+        <div class="bc-img"><img src="/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg" alt="Plex à Blainville : rendement réel en 2026" loading="lazy"><span class="bc-tag">Blainville · Investissement</span></div>
+        <div class="bc-body">
+          <h3>Plex à Blainville : rendement réel en 2026</h3>
+          <p>Cap rate, cash-flow, ratio dette-revenu — les vraies métriques pour évaluer un plex Blainville en 2026, sans illusion.</p>
+          <div class="bc-foot"><span>10 min · 12 avr. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+      <a class="blog-card" href="/blog/vieux-sainte-therese-vivre-village/" data-tag="Sainte-Thérèse · Quartiers">
+        <div class="bc-img"><img src="/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg" alt="Vieux Sainte-Thérèse : vivre au cœur du village" loading="lazy"><span class="bc-tag">Sainte-Thérèse · Quartiers</span></div>
+        <div class="bc-body">
+          <h3>Vieux Sainte-Thérèse : vivre au cœur du village</h3>
+          <p>Le Vieux-Village a une dynamique unique : pourquoi l'inventaire y reste rare, qui y achète, et ce que ça vaut en 2026.</p>
+          <div class="bc-foot"><span>5 min · 05 avr. 2026</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    
+  </div>
+</section>
+
+<section class="container">
+  <div class="cta-band">
+    <h2>Une question sur votre quartier ?</h2>
+    <a class="btn" href="/rendez-vous/">Discuter de votre projet</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  const btns=document.querySelectorAll('.bf');
+  const cards=document.querySelectorAll('.blog-card[data-tag]');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    const f=b.dataset.f;
+    cards.forEach(c=>{
+      const show=(f==='all') || c.dataset.tag.includes(f);
+      c.style.display=show?'':'none';
+    });
+  }));
+})();
+</script>
 </main>
 <footer class="footer">
   <div class="f-grid">
     <div>
       <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
-      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
     </div>
     <div>
       <h4>Territoires</h4>

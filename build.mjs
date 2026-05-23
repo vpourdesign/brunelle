@@ -16,6 +16,8 @@ const TARGET_BROKER = { firstName: 'Alain', lastName: 'Brunelle' };
 // Google Calendar Appointment Schedule — remplace par ton URL complète
 // (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
 const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1jp0v3sqPHnkxqbDx_5kSPLSBSBDTebM9-4ulplRyo47oVeYiP-JfPvhE-EWktfMF5nAPXplo8';
+// Clé Web3Forms — créer un compte gratuit sur web3forms.com puis remplacer ici
+const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || 'REMPLACE_MOI_WEB3FORMS_KEY';
 
 function parseCSV(text) {
   const rows=[]; let row=[],f='',q=false,i=0;
@@ -123,12 +125,15 @@ function decodeFeature(f) {
 
 // Détecte le type de propriété à partir de la description Centris (descFr)
 function inferTypeFromDesc(desc) {
-  const d = (desc || '').toLowerCase();
+  const d = (desc || '').toLowerCase().trim();
+  // Signal le plus fort : "terrain" dans les 80 premiers caractères ET pas "résidence/maison/chalet construit"
+  // dans les 80 premiers caractères → c'est un terrain vacant
+  const head = d.slice(0, 80);
+  if (/\bterrain\b/.test(head) && !/\b(résidence|maison|cottage|bungalow|chalet (construit|meublé|de))/.test(head)) return 'Terrain';
   if (/\b(condo|copropriété|appartement)\b/.test(d)) return 'Condo';
   if (/\b(plex|duplex|triplex|quadruplex|quintuplex)\b/.test(d)) return 'Plex';
   if (/\b(maison de ville|jumelé|en rangée|rangée)\b/.test(d)) return 'Maison de ville';
   if (/\b(chalet|villégiature)\b/.test(d)) return 'Chalet / Villégiature';
-  if (/\b(terrain|lot|boisé)\b/.test(d) && !/\b(cottage|maison|bungalow)\b/.test(d)) return 'Terrain';
   if (/\b(cottage|bungalow|unifamiliale|propriété|résidence)\b/.test(d)) return 'Maison unifamiliale';
   return 'Propriété';
 }
@@ -243,9 +248,13 @@ function ingestFromCentris(membres) {
     const unit = (r[28]||'').trim();
     // Si streetName contient déjà le civic au début (ex: "17A Rue Labonté"), on l'utilise tel quel
     const streetStartsWithCivic = civic && new RegExp('^' + civic + '\\b').test(streetName);
+    // Si aucun civic ET le type sera "Terrain" → préfixer "Lot —" pour clarifier que ce n'est pas un oubli
+    const inferredType = inferTypeFromDesc(addMap[mls+'|F'] || '');
+    const noCivic = !civic;
+    const lotPrefix = noCivic && inferredType === 'Terrain' ? 'Lot — ' : '';
     const street = streetStartsWithCivic
       ? streetName + (unit ? `, app. ${unit}` : '')
-      : [civic + civicSuffix, streetName].filter(Boolean).join(' ') + (unit ? `, app. ${unit}` : '');
+      : lotPrefix + [civic + civicSuffix, streetName].filter(Boolean).join(' ') + (unit ? `, app. ${unit}` : '');
     // Type de propriété — inféré de la description (r[25] n'est PAS un type code)
     const typeCode = '';
     const cp = r[29] || '';
@@ -302,7 +311,6 @@ function ingestFromCentris(membres) {
 
 // --- Shared template ---
 const NAV = [
-  { label: 'Accueil', href: '/' },
   { label: 'Propriétés', href: '/nos-proprietes/' },
   { label: 'Villes', href: '/courtier-immobilier/blainville/', children: [
     ['Blainville','/courtier-immobilier/blainville/'],
@@ -310,7 +318,13 @@ const NAV = [
     ['Rosemère','/courtier-immobilier/rosemere/'],
     ['Lorraine','/courtier-immobilier/lorraine/']
   ]},
-  { label: 'Vendre', href: '/vendre/evaluation-gratuite/' },
+  { label: 'Vendre', href: '/vendre/evaluation-gratuite/', children: [
+    ['Évaluation gratuite','/vendre/evaluation-gratuite/'],
+    ['Étapes pour vendre','/vendre/etapes-pour-vendre/'],
+    ['Préparer sa maison','/vendre/preparer-sa-maison/'],
+    ['Commission du courtier','/vendre/commission-courtier/'],
+    ['Vendre sans stress','/vendre/vendre-sans-stress/']
+  ]},
   { label: 'Acheter', href: '/acheter/premier-acheteur/', children: [
     ['Premier acheteur','/acheter/premier-acheteur/'],
     ['Étapes pour acheter','/acheter/etapes-pour-acheter/'],
@@ -318,9 +332,12 @@ const NAV = [
     ['Inspection','/acheter/inspection/'],
     ['Calculatrices','/acheter/calculatrices/']
   ]},
-  { label: 'Blog', href: '/blog/' },
-  { label: 'À propos', href: '/a-propos/' },
-  { label: 'Rendez-vous', href: '/rendez-vous/' }
+  { label: 'Ressources', href: '/blog/', children: [
+    ['Blog','/blog/'],
+    ['Marché immobilier','/marche-immobilier/'],
+    ['À propos','/a-propos/'],
+    ['Témoignages','/temoignages/']
+  ]}
 ];
 
 function layout({ title, description, canonical, body, extraHead='', bodyClass='', jsonld='' }) {
@@ -349,7 +366,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   <nav class="nav-links">
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
-  <a class="nav-cta" href="/rendez-vous/">Prendre rendez-vous</a>
+  <a class="nav-cta" href="/rendez-vous/">Réserver 20 min</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <main>
@@ -359,7 +376,7 @@ ${body}
   <div class="f-grid">
     <div>
       <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
-      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
     </div>
     <div>
       <h4>Territoires</h4>
@@ -479,8 +496,9 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .nav-links{display:flex;gap:.2rem;justify-content:center;flex-wrap:wrap}
 .nav-item{position:relative;padding:.6rem .9rem;font-size:.95rem;font-weight:400;color:var(--ink-2);border-radius:999px;transition:background .3s var(--ease),color .3s var(--ease)}
 .nav-item:hover{background:var(--surface);color:var(--ink)}
-.has-sub>.sub{position:absolute;top:100%;left:0;display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:.5rem;min-width:220px;box-shadow:var(--shadow);margin-top:8px}
-.has-sub:hover .sub{display:block}
+.has-sub>.sub{position:absolute;top:calc(100% + 10px);left:0;opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:.5rem;min-width:240px;box-shadow:var(--shadow);transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s linear .25s}
+.has-sub>.sub::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
+.has-sub:hover>.sub,.has-sub:focus-within>.sub{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s linear 0s}
 .sub a{display:block;padding:.55rem .9rem;border-radius:12px;font-size:.93rem;color:var(--ink-2)}
 .sub a:hover{background:var(--blue-soft);color:var(--blue)}
 .nav-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(18% 0.1 258) 100%);color:#fff;padding:.75rem 1.4rem;border-radius:999px;font-size:.9rem;font-weight:500;transition:transform .4s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 4px 12px -2px rgba(11,22,40,.25),inset 0 1px 0 rgba(255,255,255,.08);position:relative;overflow:hidden}
@@ -493,7 +511,8 @@ section{padding-block:clamp(3rem,7vw,6rem)}
   .nav{grid-template-columns:auto 1fr auto}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:1rem;border-bottom:1px solid var(--line)}
   .nav-open .nav-links{display:flex}
-  .has-sub>.sub{position:static;box-shadow:none;border:0}
+  .has-sub>.sub{position:static;box-shadow:none;border:0;opacity:1;visibility:visible;transform:none;pointer-events:auto;padding-left:1rem}
+  .has-sub>.sub::before{display:none}
   .nav-burger{display:block;order:3}
   .nav-cta{display:none}
 }
@@ -795,6 +814,51 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 @media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.f-grid{grid-template-columns:1fr}}
 
+/* Lead qualifier — segmente vendeur awareness/consideration/decision */
+.lq{background:linear-gradient(160deg,#fff 0%,var(--blue-soft) 100%);border-radius:var(--radius-lg);padding:clamp(2rem,4vw,3.5rem);position:relative;overflow:hidden;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.5)}
+.lq::after{content:"";position:absolute;top:-30%;right:-10%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6) 0%,transparent 60%);pointer-events:none}
+.lq>*{position:relative;z-index:1}
+.lq-head{text-align:center;max-width:42ch;margin:0 auto clamp(1.6rem,3vw,2.4rem)}
+.lq-head .eye{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:.8rem}
+.lq-head h2{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:400;letter-spacing:-.02em;color:var(--ink)}
+.lq-head h2 em{font-style:normal;font-weight:600;color:var(--blue)}
+.lq-head p{margin-top:.8rem;color:var(--ink-2);font-size:1.05rem}
+.lq-stage{display:none;animation:lqIn .5s var(--ease)}
+.lq-stage.on{display:grid}
+.lq-stage[data-stage="1"],.lq-stage[data-stage="2"],.lq-stage[data-stage="3"]{grid-template-columns:1.25fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;position:relative}
+.lq-stage[data-stage="1"]::before,.lq-stage[data-stage="2"]::before,.lq-stage[data-stage="3"]::before{content:"";position:absolute;left:calc(50% - 0.5px);top:8%;bottom:8%;width:1px;background:linear-gradient(180deg,transparent,rgba(15,42,90,.15),transparent)}
+.lq-qside{padding-right:clamp(0rem,2vw,1.5rem)}
+.lq-step-tag{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem 1rem .45rem .55rem;background:rgba(15,42,90,.06);color:var(--blue);border-radius:999px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:1.2rem;border:1px solid rgba(15,42,90,.1)}
+.lq-step-tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(15,42,90,.12)}
+.lq-progress{display:flex;gap:.4rem;margin-bottom:1.6rem}
+.lq-progress span{width:42px;height:4px;border-radius:999px;background:rgba(15,42,90,.15);transition:background .4s var(--ease)}
+.lq-progress span.on{background:var(--blue)}
+@keyframes lqIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.lq-q{margin:0;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:400;letter-spacing:-.02em;color:var(--ink);line-height:1.2;max-width:26ch}
+.lq-opts{display:grid;gap:.55rem;padding-left:clamp(0rem,2vw,1.2rem)}
+@media(max-width:760px){.lq-stage[data-stage="1"],.lq-stage[data-stage="2"],.lq-stage[data-stage="3"]{grid-template-columns:1fr;gap:1.4rem}.lq-stage[data-stage="1"]::before,.lq-stage[data-stage="2"]::before,.lq-stage[data-stage="3"]::before{display:none}.lq-qside{padding-right:0}.lq-q{max-width:none}}
+.lq-opt{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.82rem 1.05rem;text-align:left;font:inherit;font-size:.88rem;color:var(--ink);cursor:pointer;transition:transform .25s var(--ease-spring),box-shadow .25s var(--ease),border-color .25s var(--ease);display:flex;align-items:center;gap:.8rem}
+.lq-opt:hover{transform:translateY(-2px);border-color:var(--blue);box-shadow:0 6px 22px rgba(15,42,90,.12)}
+.lq-opt .dot{width:17px;height:17px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;transition:all .25s var(--ease)}
+.lq-opt:hover .dot{border-color:var(--blue);background:radial-gradient(circle,var(--blue) 40%,transparent 45%)}
+.lq-result{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center;max-width:980px;margin:0 auto;padding:.5rem 0;position:relative}
+.lq-result::before{content:"";position:absolute;left:50%;top:10%;bottom:10%;width:1px;background:linear-gradient(180deg,transparent,rgba(15,42,90,.15),transparent)}
+.lq-result .lq-left{padding-right:clamp(0rem,2vw,1.5rem)}
+.lq-result .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem 1rem .45rem .55rem;background:rgba(15,42,90,.06);color:var(--blue);border-radius:999px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:1.3rem;border:1px solid rgba(15,42,90,.1)}
+.lq-result .badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(15,42,90,.12)}
+.lq-result h3{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;letter-spacing:-.022em;line-height:1.15;color:var(--ink);max-width:18ch}
+.lq-result h3 em{font-style:normal;font-weight:600;color:var(--blue)}
+.lq-result .lq-right{display:flex;flex-direction:column;gap:1.4rem;align-items:flex-start}
+.lq-result p{color:var(--ink-2);font-size:1.02rem;line-height:1.7;margin:0;max-width:38ch}
+.lq-result .lq-cta{display:inline-flex;align-items:center;gap:1rem;background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;padding:1.1rem 1.2rem 1.1rem 1.8rem;border-radius:999px;font-weight:500;transition:transform .35s var(--ease-spring),box-shadow .35s var(--ease);box-shadow:var(--shadow-sm);font-size:1rem}
+.lq-result .lq-cta:hover{transform:translateY(-3px);color:#fff;box-shadow:var(--shadow)}
+.lq-result .lq-cta .arrow{width:38px;height:38px;border-radius:999px;background:#fff;color:var(--ink);display:grid;place-items:center;transition:transform .3s var(--ease-spring);flex-shrink:0}
+.lq-result .lq-cta:hover .arrow{transform:translateX(4px)}
+.lq-restart{margin-top:.2rem;background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(15,42,90,.2);text-underline-offset:3px;align-self:flex-start;padding:0}
+.lq-restart:hover{color:var(--blue);text-decoration-color:var(--blue)}
+@media(max-width:760px){.lq-result{grid-template-columns:1fr;gap:1.4rem;text-align:left}.lq-result::before{display:none}.lq-result h3{max-width:none}.lq-result .lq-left{padding-right:0}}
+@media(max-width:540px){.lq-opt{padding:1rem 1.1rem;font-size:.95rem}.lq-progress span{width:36px}}
+
 /* Reveal anim on scroll */
 @media (prefers-reduced-motion: no-preference) {
   .reveal{opacity:.001;transform:translateY(16px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -928,7 +992,8 @@ function copyDir(from, to){
   fs.mkdirSync(to,{recursive:true});
   for (const f of fs.readdirSync(from)) {
     const s = path.join(from,f), d = path.join(to,f);
-    if (fs.statSync(s).isFile()) fs.copyFileSync(s,d);
+    if (fs.statSync(s).isDirectory()) copyDir(s, d);
+    else fs.copyFileSync(s,d);
   }
 }
 copyDir(path.join(ROOT,'photos'), path.join(SITE,'photos'));
@@ -969,33 +1034,155 @@ const homeBody = `
 <section class="hero container">
   <div class="hero-grid">
     <div class="hero-photo reveal">
-      <span class="p-tag">Alain Brunelle · RE/MAX CRYSTAL</span>
-      <img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle — Courtier immobilier Sainte-Thérèse Blainville" fetchpriority="high">
-      <p class="p-caption">Plus de 2 000 familles accompagnées sur la Rive-Nord depuis 1997.</p>
+      <span class="p-tag">Alain Brunelle · Courtier immobilier · RE/MAX CRYSTAL</span>
+      <img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier à Sainte-Thérèse, Blainville, Rosemère et Lorraine" fetchpriority="high">
+      <p class="p-caption">3 000+ transactions accompagnées sur la Rive-Nord depuis 1992.</p>
     </div>
     <div class="hero-card reveal">
-      <div class="eyebrow">Courtier leader — Rive-Nord</div>
-      <h1>Vendre ou acheter à <em>Sainte-Thérèse</em> et <em>Blainville</em> — avec un stratège.</h1>
-      <p class="cities">Rosemère · Lorraine · et l'ensemble de la Rive-Nord</p>
+      <div class="eyebrow">Courtier immobilier · Rive-Nord</div>
+      <h1>Vendre ou acheter à <em>Sainte-Thérèse</em>, <em>Blainville</em>, <em>Rosemère</em> ou <em>Lorraine</em> — avec un courtier qui décide par les chiffres.</h1>
+      <p class="cities">33 ans de transactions locales · Lecture du marché rue par rue.</p>
     </div>
     <a class="hero-cta reveal" href="/rendez-vous/">
-      <div><strong>Prenez rendez-vous avec Alain Brunelle</strong><small>Choisissez un créneau directement dans son agenda</small></div>
+      <div><strong>Réservez 20 minutes avec Alain Brunelle</strong><small>Réservez 20 minutes — sans pression, sans engagement</small></div>
       <span class="arrow">→</span>
     </a>
   </div>
   <div class="hero-lead">
-    <h2>Une approche analytique du marché — pour maximiser chaque transaction, chaque décision.</h2>
-    <div class="lead-meta">Données Centris · APCIQ · 2026</div>
+    <h2>Le courtier immobilier de la Rive-Nord qui appuie chaque décision sur la donnée locale.</h2>
+    <div class="lead-meta">Sources : Centris® · APCIQ · Transactions internes 1992-2026</div>
   </div>
 </section>
 
+<section class="container" id="lead-qualifier" aria-label="Profil vendeur">
+  <div class="lq reveal">
+    <div class="lq-head">
+      <div class="eye">Pour les vendeurs</div>
+      <h2>Vous songez à <em>vendre</em>?</h2>
+      <p>Voyez à quelle étape vous êtes — et comment je peux vous aider.</p>
+    </div>
+    <div class="lq-stage on" data-stage="1">
+      <div class="lq-qside">
+        <div class="lq-step-tag">Question 1 / 3</div>
+        <div class="lq-progress" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+        <h3 class="lq-q">Dans combien de temps envisagez-vous de vendre&nbsp;?</h3>
+      </div>
+      <div class="lq-opts">
+        <button type="button" class="lq-opt" data-score="1"><span class="dot"></span><span>Plus de 12 mois — je me renseigne</span></button>
+        <button type="button" class="lq-opt" data-score="2"><span class="dot"></span><span>Entre 6 et 12 mois</span></button>
+        <button type="button" class="lq-opt" data-score="3"><span class="dot"></span><span>0 à 6 mois — ou déjà décidé</span></button>
+      </div>
+    </div>
+
+    <div class="lq-stage" data-stage="2">
+      <div class="lq-qside">
+        <div class="lq-step-tag">Question 2 / 3</div>
+        <div class="lq-progress" aria-hidden="true"><span class="on"></span><span class="on"></span><span></span></div>
+        <h3 class="lq-q">Connaissez-vous la valeur actuelle de votre propriété&nbsp;?</h3>
+      </div>
+      <div class="lq-opts">
+        <button type="button" class="lq-opt" data-score="1"><span class="dot"></span><span>Aucune idée précise</span></button>
+        <button type="button" class="lq-opt" data-score="2"><span class="dot"></span><span>Une estimation approximative</span></button>
+        <button type="button" class="lq-opt" data-score="3"><span class="dot"></span><span>Oui, j'ai une bonne idée</span></button>
+      </div>
+    </div>
+
+    <div class="lq-stage" data-stage="3">
+      <div class="lq-qside">
+        <div class="lq-step-tag">Question 3 / 3</div>
+        <div class="lq-progress" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+        <h3 class="lq-q">Avez-vous déjà parlé à un courtier pour ce projet&nbsp;?</h3>
+      </div>
+      <div class="lq-opts">
+        <button type="button" class="lq-opt" data-score="1"><span class="dot"></span><span>Non, jamais</span></button>
+        <button type="button" class="lq-opt" data-score="2"><span class="dot"></span><span>J'ai commencé à magasiner</span></button>
+        <button type="button" class="lq-opt" data-score="3"><span class="dot"></span><span>Oui — je cherche le bon match</span></button>
+      </div>
+    </div>
+
+    <div class="lq-stage" data-stage="result">
+      <div class="lq-result">
+        <div class="lq-left">
+          <div class="badge" data-slot="badge">Profil</div>
+          <h3 data-slot="title">…</h3>
+        </div>
+        <div class="lq-right">
+          <p data-slot="desc">…</p>
+          <a class="lq-cta" data-slot="cta" href="#"><span data-slot="ctaLabel">Continuer</span><span class="arrow">→</span></a>
+          <button type="button" class="lq-restart">Recommencer le test</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const root=document.getElementById('lead-qualifier'); if(!root) return;
+  const stages=root.querySelectorAll('.lq-stage');
+  const prog=root.querySelectorAll('.lq-progress span');
+  let scores=[];
+  const profiles={
+    awareness:{
+      badge:'Stade 1 · Exploration',
+      title:'Vous êtes en mode découverte — commençons par un chiffre.',
+      desc:'Recevez une évaluation gratuite de votre propriété, fondée sur les ventes réelles de votre rue. Aucun engagement, aucun démarchage — juste un point de départ clair pour réfléchir.',
+      ctaLabel:'Recevoir mon évaluation gratuite',
+      href:'/vendre/evaluation-gratuite/'
+    },
+    consideration:{
+      badge:'Stade 2 · Réflexion active',
+      title:'Vous magasinez — il vous faut un chiffre crédible pour décider.',
+      desc:'Recevez une évaluation personnalisée de votre propriété, fondée sur les ventes réelles de votre rue et de votre quartier. Gratuite, livrée sous 48 h, sans engagement.',
+      ctaLabel:'Obtenir mon évaluation personnalisée',
+      href:'/vendre/evaluation-gratuite/'
+    },
+    decision:{
+      badge:'Stade 3 · Prêt à passer à l\\'action',
+      title:'Vous êtes prêt — parlons 20 minutes, stratégie en main.',
+      desc:'Réservez un créneau directement dans l\\'agenda d\\'Alain. 20 minutes pour valider votre stratégie de mise en marché, votre prix cible et votre échéancier.',
+      ctaLabel:'Réserver 20 minutes avec Alain',
+      href:'/rendez-vous/'
+    }
+  };
+  function show(n){
+    stages.forEach(s=>s.classList.toggle('on', s.dataset.stage===String(n)));
+    prog.forEach((p,i)=>p.classList.toggle('on', i < (n==='result'?3:n)));
+  }
+  function classify(total){
+    if(total<=4) return profiles.awareness;
+    if(total<=7) return profiles.consideration;
+    return profiles.decision;
+  }
+  function renderResult(){
+    const total=scores.reduce((a,b)=>a+b,0);
+    const p=classify(total);
+    const r=root.querySelector('[data-stage="result"]');
+    r.querySelector('[data-slot=badge]').textContent=p.badge;
+    r.querySelector('[data-slot=title]').textContent=p.title;
+    r.querySelector('[data-slot=desc]').textContent=p.desc;
+    r.querySelector('[data-slot=ctaLabel]').textContent=p.ctaLabel;
+    r.querySelector('[data-slot=cta]').setAttribute('href',p.href);
+    show('result');
+  }
+  root.querySelectorAll('.lq-opt').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      scores.push(parseInt(btn.dataset.score,10));
+      if(scores.length<3) show(scores.length+1);
+      else renderResult();
+    });
+  });
+  root.querySelector('.lq-restart').addEventListener('click',()=>{ scores=[]; show(1); });
+})();
+</script>
+
 <section class="section-dark">
   <div class="container">
-    <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>Le leader Sainte-Thérèse &amp; Blainville, en données.</h2></div></div>
+    <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>33 ans à mesurer le marché — les chiffres qui le prouvent.</h2></div></div>
     <div class="stats-grid reveal">
       <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
-      <div class="stat"><div class="n">28 j</div><div class="l">Délai moyen de vente (vs 52 j marché)</div></div>
-      <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec — depuis 20 ans</div></div>
+      <div class="stat"><div class="n">28 j</div><div class="l">Délai médian sur mes inscriptions (vs 52 j marché)</div></div>
+      <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
     </div>
   </div>
 </section>
@@ -1013,7 +1200,7 @@ const homeBody = `
 <section class="section-light">
 <div class="container">
   <div class="sec-head reveal">
-    <div><div class="eye">29 ans d'expérience · Sainte-Thérèse &amp; Blainville</div><h2>Le marché expliqué sans compromis.</h2></div>
+    <div><div class="eye">33 ans d'expérience · Rive-Nord</div><h2>Le marché expliqué sans compromis.</h2></div>
     <a href="https://youtube.com" class="more">Voir la chaîne YouTube →</a>
   </div>
   <div class="vid-grid reveal">
@@ -1033,11 +1220,11 @@ const homeBody = `
     <div class="about-photo"><img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle"></div>
     <div>
       <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">À propos</div>
-      <h2 style="max-width:22ch">Le courtier de la Rive-Nord qui décide avec des chiffres, pas des intuitions.</h2>
-      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">Formation analytique, stratège du marché, Alain Brunelle bâtit chaque transaction sur une lecture fine des données locales : historique de vente par rue, saisonnalité, positionnement de prix, taux d'absorption du quartier. Résultat : des ventes plus rapides, au juste prix.</p>
+      <h2 style="max-width:24ch">Le courtier immobilier de la Rive-Nord qui décide avec des chiffres, pas des intuitions.</h2>
+      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie. Pas de promesses gonflées. Une lecture rigoureuse du marché local : historique de vente par rue, saisonnalité, positionnement de prix, taux d'absorption du quartier. Le résultat : des ventes au juste prix, sans drame, sans surprise.</p>
       <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
         <a href="/a-propos/" class="hero-cta" style="display:inline-flex;padding:1rem 1.6rem;border-radius:999px">En savoir plus <span class="arrow" style="width:32px;height:32px;margin-left:.8rem">→</span></a>
-        <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Prendre rendez-vous</a>
+        <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Réserver 20 minutes</a>
       </div>
     </div>
   </div>
@@ -1045,7 +1232,7 @@ const homeBody = `
 
 <section class="section-blue">
   <div class="container">
-    <div class="sec-head reveal"><div><div class="eye">Marché Rive-Nord · Avril 2026</div><h2>Ce que font vraiment les prix — par tranche.</h2></div><a class="more" href="/marche-immobilier/">Rapport mensuel complet →</a></div>
+    <div class="sec-head reveal"><div><div class="eye">Marché Rive-Nord · Printemps 2026</div><h2>Ce que font vraiment les prix — par tranche.</h2></div><a class="more" href="/marche-immobilier/">Lecture complète du marché →</a></div>
     <div class="chart reveal" style="max-width:760px">
       ${Object.entries(stats.priceRanges).map(([k,v])=>`
         <div class="bar-row"><span class="label" style="color:rgba(255,255,255,.85)">${k}</span><div class="bar" style="background:rgba(255,255,255,.14)"><span style="width:${Math.max(6, (v/Math.max(...Object.values(stats.priceRanges)))*100)}%;background:#fff"></span></div><span class="val" style="color:#fff">${v}</span></div>
@@ -1060,7 +1247,7 @@ const homeBody = `
     <div class="p"><img src="/photos/P21_5534-Edit.jpg" alt=""></div>
     <div>
       <p class="q">« Alain a vendu notre maison de Blainville en 11 jours, au prix demandé. Sa stratégie de mise en marché, c'est du sur-mesure. On a rarement vu un courtier aussi rigoureux. »</p>
-      <div class="who">Marie &amp; Philippe · Fontainebleau, Blainville · 2025</div>
+      <div class="who">Vendeurs · Fontainebleau, Blainville · 2025</div>
     </div>
   </div>
 </div>
@@ -1068,8 +1255,11 @@ const homeBody = `
 
 <section class="container">
   <div class="cta-band reveal">
-    <h2>Prêt à connaître la valeur réelle de votre propriété ?</h2>
-    <a class="btn" href="/vendre/evaluation-gratuite/">Demander mon évaluation</a>
+    <div>
+      <h2>Combien vaut votre propriété en 2026 ?</h2>
+      <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">Rapport personnalisé livré sous 48 h. Comparables de votre rue, fondés sur mes transactions et les chiffres APCIQ.</p>
+    </div>
+    <a class="btn" href="/vendre/evaluation-gratuite/">Obtenir mon évaluation</a>
   </div>
 </section>
 `;
@@ -1200,6 +1390,13 @@ function detailPage(p) {
       <div class="amount">${fmtPrice(p.price)}</div>
       <a class="btn" href="/rendez-vous/">Réserver une visite</a>
       <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+      <button type="button" class="cta-interest"
+        data-property-address="${p.street}, ${p.city}"
+        data-property-price="${fmtPrice(p.price)}"
+        data-property-mls="${p.mls}"
+        data-property-url="https://alainbrunelle.com/nos-proprietes/${p.slug}/">
+        Cette propriété m'intéresse →
+      </button>
       <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Visite 360° disponible.</strong> Sur demande — envoyez-moi un message.</div>
     </aside>
   </div>
@@ -1209,14 +1406,205 @@ function detailPage(p) {
       <div class="prop-grid">${similarProperties(p).map(propertyCard).join('')}</div>
     </div>
   `:''}
-</section>`;
+</section>
+
+<!-- Modal "Cette propriété m'intéresse" -->
+<div class="pi-modal" id="pi-modal" hidden role="dialog" aria-modal="true" aria-labelledby="pi-title">
+  <div class="pi-overlay" data-close></div>
+  <div class="pi-dialog">
+    <button type="button" class="pi-close" aria-label="Fermer" data-close>✕</button>
+    <div class="pi-body">
+      <div class="pi-fields-wrap">
+        <p class="pi-context">À propos de : <strong data-slot="address">—</strong></p>
+        <h2 id="pi-title">Cette propriété vous intéresse?</h2>
+        <p class="pi-sub">Alain vous répond personnellement en moins de 24 h ouvrables.</p>
+        <form class="pi-form" id="pi-form" novalidate>
+          <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}">
+          <input type="hidden" name="from_name" value="Site alainbrunelle.com">
+          <input type="hidden" name="subject" data-slot="subject" value="Nouveau lead">
+          <input type="hidden" name="property_address" data-slot="hAddress" value="">
+          <input type="hidden" name="property_price" data-slot="hPrice" value="">
+          <input type="hidden" name="property_mls" data-slot="hMls" value="">
+          <input type="hidden" name="property_url" data-slot="hUrl" value="">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+          <label>Nom complet<input type="text" name="name" required autocomplete="name"></label>
+          <div class="pi-row">
+            <label>Courriel<input type="email" name="email" required autocomplete="email"></label>
+            <label>Téléphone<input type="tel" name="phone" required autocomplete="tel" placeholder="450.430.5555"></label>
+          </div>
+          <label>Message <span class="pi-opt">(optionnel)</span><textarea name="message" rows="3" placeholder="Une question particulière sur cette propriété ?"></textarea></label>
+          <button type="submit" class="pi-submit">Envoyer ma demande</button>
+          <p class="pi-legal">Vos informations sont traitées de façon confidentielle, conformément aux règles de l'OACIQ.</p>
+          <p class="pi-error" hidden></p>
+        </form>
+      </div>
+      <div class="pi-ok" hidden>
+        <div class="pi-ok-icon">✓</div>
+        <h3>Demande envoyée.</h3>
+        <p>Alain vous contacte personnellement sous 24 h ouvrables au sujet de la propriété au <strong data-slot="addressOk">—</strong>.</p>
+        <button type="button" class="pi-close-btn" data-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>`;
   return layout({
     title: `${p.typeLabel} à vendre — ${p.street}, ${p.city} · ${fmtPrice(p.price)} | Alain Brunelle`,
     description: `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. ${p.photos.length} photos, fiche complète et visite avec Alain Brunelle.`,
     canonical: `https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
     body,
-    jsonld
+    jsonld,
+    extraHead: PROPERTY_INQUIRY_CSS + PROPERTY_INQUIRY_JS
   });
+}
+const PROPERTY_INQUIRY_CSS = `<style>
+.cta-interest{display:block;width:100%;background:transparent;border:1.5px solid var(--blue);color:var(--blue);font:inherit;font-size:.95rem;font-weight:500;padding:.95rem 1.2rem;border-radius:999px;cursor:pointer;margin-top:.7rem;transition:background .25s var(--ease),color .25s var(--ease),transform .3s var(--ease-spring),box-shadow .3s var(--ease);text-align:center;letter-spacing:.005em}
+.cta-interest:hover{background:var(--blue);color:#fff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(15,42,90,.18)}
+.cta-interest:focus-visible{outline:0;box-shadow:0 0 0 4px var(--blue-soft)}
+
+.pi-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:1rem;animation:piFadeIn .25s var(--ease)}
+.pi-modal[hidden]{display:none !important}
+@keyframes piFadeIn{from{opacity:0}to{opacity:1}}
+.pi-overlay{position:absolute;inset:0;background:rgba(11,22,40,.55);backdrop-filter:blur(4px);cursor:pointer}
+.pi-dialog{position:relative;background:#fff;border-radius:var(--radius-lg);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 60px -12px rgba(11,22,40,.4),0 8px 24px -8px rgba(11,22,40,.25);animation:piPop .35s var(--ease-spring)}
+@keyframes piPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.pi-close{position:absolute;top:.9rem;right:.9rem;width:36px;height:36px;border-radius:50%;background:var(--surface);border:0;font-size:1rem;cursor:pointer;color:var(--ink-2);display:grid;place-items:center;transition:background .25s var(--ease),color .25s var(--ease);z-index:2}
+.pi-close:hover{background:var(--blue);color:#fff}
+.pi-body{padding:clamp(1.8rem,4vw,2.6rem)}
+.pi-context{font-size:.78rem;color:var(--muted);letter-spacing:.04em;margin:0 0 1rem}
+.pi-context strong{color:var(--ink-2);font-weight:500}
+.pi-body h2{font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:500;letter-spacing:-.018em;line-height:1.2;color:var(--ink);margin:0 0 .5rem}
+.pi-sub{color:var(--ink-2);font-size:.95rem;line-height:1.55;margin:0 0 1.6rem}
+.pi-form{display:grid;gap:.9rem}
+.pi-form label{display:grid;gap:.4rem;font-size:.82rem;font-weight:500;color:var(--ink-2);letter-spacing:.005em}
+.pi-opt{color:var(--muted);font-weight:400}
+.pi-form input,.pi-form textarea{font-family:inherit;font-size:.97rem;padding:.85rem 1rem;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);transition:border-color .25s var(--ease),box-shadow .25s var(--ease);font-weight:400;width:100%}
+.pi-form input:focus,.pi-form textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.pi-form input.err,.pi-form textarea.err{border-color:#c8364a;box-shadow:0 0 0 4px rgba(200,54,74,.08)}
+.pi-form textarea{resize:vertical;min-height:80px;font-family:inherit}
+.pi-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:480px){.pi-row{grid-template-columns:1fr}}
+.pi-submit{margin-top:.4rem;background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;padding:1rem 1.4rem;border:0;border-radius:999px;font:inherit;font-size:1rem;font-weight:500;cursor:pointer;transition:transform .3s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:var(--shadow-sm)}
+.pi-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow)}
+.pi-submit:disabled{opacity:.6;cursor:wait}
+.pi-legal{font-size:.72rem;color:var(--muted);margin:.3rem 0 0;line-height:1.5}
+.pi-error{font-size:.85rem;color:#c8364a;background:#fdf3f1;padding:.7rem .9rem;border-radius:10px;margin:.3rem 0 0;border-left:3px solid #c8364a}
+.pi-ok{text-align:center;padding:1rem 0}
+.pi-ok-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(160deg,#0f8c5b 0%,#0a6e47 100%);color:#fff;display:grid;place-items:center;font-size:1.9rem;margin:0 auto 1.2rem;box-shadow:0 8px 20px -4px rgba(15,140,91,.35)}
+.pi-ok h3{font-size:1.4rem;font-weight:500;letter-spacing:-.015em;margin:0 0 .7rem;color:var(--ink)}
+.pi-ok p{color:var(--ink-2);line-height:1.6;margin:0 0 1.4rem;font-size:.96rem}
+.pi-close-btn{background:transparent;border:1.5px solid var(--line);color:var(--ink-2);padding:.7rem 1.6rem;border-radius:999px;font:inherit;font-size:.92rem;font-weight:500;cursor:pointer;transition:all .25s var(--ease)}
+.pi-close-btn:hover{border-color:var(--blue);color:var(--blue)}
+body.pi-open{overflow:hidden}
+</style>`;
+
+const PROPERTY_INQUIRY_JS = `<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const modal=document.getElementById('pi-modal'); if(!modal) return;
+  const dialog=modal.querySelector('.pi-dialog');
+  const form=modal.querySelector('#pi-form');
+  const ok=modal.querySelector('.pi-ok');
+  const fieldsWrap=modal.querySelector('.pi-fields-wrap');
+  const submitBtn=form.querySelector('.pi-submit');
+  const errEl=form.querySelector('.pi-error');
+  let lastFocus=null, current={};
+
+  function setSlot(sel,val){ modal.querySelectorAll('[data-slot='+sel+']').forEach(el=>{ if(el.tagName==='INPUT')el.value=val; else el.textContent=val; }); }
+
+  function open(btn){
+    current={
+      address:btn.dataset.propertyAddress||'',
+      price:btn.dataset.propertyPrice||'',
+      mls:btn.dataset.propertyMls||'',
+      url:btn.dataset.propertyUrl||location.href
+    };
+    setSlot('address', current.address);
+    setSlot('addressOk', current.address);
+    setSlot('hAddress', current.address);
+    setSlot('hPrice', current.price);
+    setSlot('hMls', current.mls);
+    setSlot('hUrl', current.url);
+    setSlot('subject', 'Nouveau lead — '+current.address+' ('+current.price+')');
+    fieldsWrap.hidden=false; ok.hidden=true;
+    form.reset();
+    errEl.hidden=true; errEl.textContent='';
+    modal.removeAttribute('hidden');
+    document.body.classList.add('pi-open');
+    lastFocus=document.activeElement;
+    setTimeout(()=>form.querySelector('input[name=name]').focus(),60);
+  }
+  function close(){
+    modal.setAttribute('hidden','');
+    document.body.classList.remove('pi-open');
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function validPhone(v){ const digits=(v||'').replace(/\\D/g,''); return digits.length>=10; }
+  function validEmail(v){ return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v||''); }
+
+  document.querySelectorAll('.cta-interest').forEach(b=>b.addEventListener('click',()=>open(b)));
+  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !modal.hasAttribute('hidden')) close(); });
+
+  // Focus trap
+  modal.addEventListener('keydown', e=>{
+    if(e.key!=='Tab') return;
+    const focusable=dialog.querySelectorAll('button,input,textarea,select,[tabindex]:not([tabindex="-1"])');
+    const list=Array.from(focusable).filter(el=>!el.disabled && el.offsetParent!==null);
+    if(!list.length) return;
+    const first=list[0], last=list[list.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  });
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    errEl.hidden=true;
+    const data=new FormData(form);
+    // Validation
+    let bad=null;
+    if(!data.get('name').trim()) bad='name';
+    else if(!validEmail(data.get('email'))) bad='email';
+    else if(!validPhone(data.get('phone'))) bad='phone';
+    form.querySelectorAll('.err').forEach(el=>el.classList.remove('err'));
+    if(bad){
+      const el=form.querySelector('[name='+bad+']');
+      el.classList.add('err'); el.focus();
+      errEl.textContent = bad==='name'?'Veuillez saisir votre nom complet.' : bad==='email'?'Adresse courriel invalide.' : 'Numéro de téléphone invalide (10 chiffres minimum).';
+      errEl.hidden=false; return;
+    }
+    if(data.get('access_key')==='REMPLACE_MOI_WEB3FORMS_KEY'){
+      errEl.textContent="Le formulaire n'est pas encore configuré (clé Web3Forms manquante). Veuillez appeler le 450.430.5555.";
+      errEl.hidden=false; return;
+    }
+    submitBtn.disabled=true; submitBtn.textContent='Envoi…';
+    try{
+      const json=Object.fromEntries(data.entries());
+      const res=await fetch('https://api.web3forms.com/submit',{ method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(json) });
+      const out=await res.json().catch(()=>({success:false}));
+      if(!res.ok || !out.success) throw new Error(out.message||'Erreur serveur');
+      fieldsWrap.hidden=true; ok.hidden=false;
+    }catch(err){
+      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez le 450.430.5555.";
+      errEl.hidden=false;
+    }finally{
+      submitBtn.disabled=false; submitBtn.textContent='Envoyer ma demande';
+    }
+  });
+});
+</script>`;
+
+// Nettoyer les anciennes fiches (slugs obsolètes) avant de régénérer
+const propertiesDir = path.join(SITE, 'nos-proprietes');
+if (fs.existsSync(propertiesDir)) {
+  const validSlugs = new Set(properties.map(p => p.slug));
+  for (const d of fs.readdirSync(propertiesDir)) {
+    const full = path.join(propertiesDir, d);
+    if (!fs.statSync(full).isDirectory()) continue;
+    if (d === 'index.html') continue;
+    // Conserver l'index, supprimer les sous-dossiers dont le slug n'est plus généré
+    if (!validSlugs.has(d)) {
+      fs.rmSync(full, { recursive: true, force: true });
+    }
+  }
 }
 for (const p of properties) writePage(`nos-proprietes/${p.slug}/index.html`, detailPage(p));
 
@@ -1256,7 +1644,7 @@ function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg,
 </section>
 <section class="container">
   <div class="cta-band">
-    <h2>${ctaTitle || 'Parlons de votre projet immobilier.'}</h2>
+    <h2>${ctaTitle || 'Vendre, acheter, investir — discutons-en.'}</h2>
     <a class="btn" href="/rendez-vous/">Prendre rendez-vous</a>
   </div>
 </section>`;
@@ -1268,7 +1656,7 @@ const CITIES = [
   ['sainte-therese','Sainte-Thérèse',['Vieux-Village','En-Haut','En-Bas']],
   ['blainville','Blainville',['Fontainebleau','Chambéry','Chante-Bois','Plan-Bouchard','Jardins-de-Blainville','Côte-Saint-Louis','Alençon','Renaissance','Blainvillier']],
   ['rosemere','Rosemère',['Bois-Franc','Grande-Côte','Domaine-du-Parc']],
-  ['lorraine','Lorraine',['Grande-Allée','Plateau']]
+  ['lorraine','Lorraine',[]]
 ];
 
 for (const [slugC, cityName, neighs] of CITIES) {
@@ -1298,33 +1686,83 @@ for (const [slugC, cityName, neighs] of CITIES) {
       <div class="prop-grid">${cityProps.slice(0,6).map(propertyCard).join('')}</div>
     </section>`:''}
   `;
+  const CITY_COPY = {
+    'sainte-therese': {
+      lead: `Vendre ou acheter à Sainte-Thérèse demande une lecture précise du marché : Vieux-Village, En-Haut, En-Bas — trois marchés distincts, trois stratégies. Voici comment je travaille.`,
+      market: `<p>Sainte-Thérèse n'est pas <em>une</em> ville, c'est <strong>trois marchés distincts</strong>. Le Vieux-Village joue la rareté foncière et le cachet patrimonial (prix médian ~624 k$, délai 24 j). Le secteur En-Haut attire les familles installées (575 k$, 32 j). Et l'En-Bas reste la porte d'entrée des primo-accédants (498 k$, 38 j). Trois lectures, trois stratégies de mise en marché.</p>
+<p>Mon rôle de <strong>courtier immobilier à Sainte-Thérèse</strong> : positionner votre propriété par rapport à son <em>vrai</em> secteur — pas la moyenne de la ville, qui dilue les écarts et coûte cher. Données APCIQ et Centris à l'appui, croisées avec ma base de transactions locales depuis 1992.</p>`,
+      reasons: `<li><strong>33 ans à courtier exclusivement sur la Rive-Nord</strong> — je connais les rues, les écoles, les voisins, les écarts de prix entre deux côtés de la même artère</li>
+<li><strong>Mise en marché complète incluse</strong> : photographie HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°, fiche Centris optimisée</li>
+<li><strong>Pré-diffusion à mon réseau d'acheteurs actifs</strong> avant publication Centris (en moyenne 3-5 visites privées dès le départ)</li>
+<li><strong>Équipe RE/MAX CRYSTAL complète</strong> : courtiers, photographes, stagers, notaires partenaires</li>`,
+      types: `<p>Le condo neuf et la maison de ville dominent dans le Vieux-Village (acheteurs 35-50 ans, professionnels travaillant à Laval ou Montréal). Le cottage unifamilial 1990-2010 mène En-Haut. Le bungalow rénové reste la valeur sûre En-Bas. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      faq: `<h3>Quel est le prix moyen d'une maison à Sainte-Thérèse en 2026 ?</h3>
+<p>Prix médian unifamilial Q1 2026 : <strong>579 000 $</strong>. Fourchette : ~498 k$ (En-Bas) à ~700 k$+ (Vieux-Village, propriétés patrimoniales restaurées).</p>
+<h3>Combien de temps prend la vente d'une propriété à Sainte-Thérèse ?</h3>
+<p>Délai médian Q1 2026 : <strong>23 jours</strong> (unifamilial), 25 jours (condo). Sainte-Thérèse est en surchauffe — une mise en marché bien positionnée se vend généralement sous 30 jours.</p>`
+    },
+    'blainville': {
+      lead: `Blainville, c'est neuf quartiers à personnalité forte : de Fontainebleau à Chante-Bois, en passant par Chambéry et Plan-Bouchard. 33 ans à vendre et acheter rue par rue dans cette ville.`,
+      market: `<p>Blainville en 2026 est en phase de <strong>rééquilibrage</strong>. L'inventaire d'unifamiliales a bondi de 29 %, ramenant du pouvoir de négociation aux acheteurs. Le prix médian unifamilial recule modestement (−4 %, à 715 k$), tandis que le condo (+3 %) et le plex (+10 %) restent fermement haussiers. Lire un marché comme celui-là demande de la précision — pas une moyenne globale, mais une lecture par quartier et par typologie.</p>
+<p>Comme <strong>courtier immobilier à Blainville</strong> depuis 33 ans, je positionne chaque inscription en croisant les transactions des 12 derniers mois à moins de 500 m, l'inventaire actif comparable et les tendances saisonnières du quartier visé. Données APCIQ et Centris à jour, méthode rigoureuse.</p>`,
+      reasons: `<li><strong>Connaissance fine des 9 quartiers</strong> : Fontainebleau, Chambéry, Chante-Bois, Plan-Bouchard, Jardins-de-Blainville, Côte-Saint-Louis, Alençon, Renaissance, Blainvillier</li>
+<li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> — je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
+<li><strong>Mise en marché complète incluse</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
+<li><strong>Équipe RE/MAX CRYSTAL</strong> — réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
+      types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois). Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      faq: `<h3>Quel est le prix moyen d'une maison à Blainville en 2026 ?</h3>
+<p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>. La fourchette s'étend de ~580 000 $ (Côte-Saint-Louis, Alençon) à ~1,2 M$ (Fontainebleau secteur boisé, Chambéry haut de gamme).</p>
+<h3>Combien de temps prend la vente d'une propriété à Blainville ?</h3>
+<p>Délai médian Q1 2026 : <strong>32 jours</strong> sur l'unifamilial, 60 jours sur le condo. Avec une mise en marché bien positionnée sur l'unifamilial, je vise 28 jours.</p>`
+    },
+    'rosemere': {
+      lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 33 ans à lire ce marché spécifique.`,
+      market: `<p>Rosemère se distingue du reste de la Rive-Nord par son <strong>profil acheteur exigeant</strong> : familles établies, professionnels, retraités haut de gamme. La rareté foncière sur la Grande-Côte et dans Bois-Franc maintient les prix médians au-dessus de 685 k$, avec des pointes au-delà de 1,5 M$ pour les propriétés riveraines de la rivière des Mille-Îles.</p>
+<p>Comme <strong>courtier immobilier à Rosemère</strong> depuis 33 ans, je connais les particularités de ce marché : ce qui se vend rapidement (terrains de 15 000 PC+, propriétés rénovées clé en main, condos haut de gamme), et ce qui demande plus de patience (propriétés à rafraîchir, prix au-dessus de 1,3 M$).</p>`,
+      reasons: `<li><strong>Spécialisation sur le segment haut de gamme</strong> de la Rive-Nord (Grande-Côte, riverains, propriétés &gt;1 M$)</li>
+<li><strong>33 ans à courtier dans le secteur</strong> — je connais l'historique de vente des principales propriétés et le profil typique des acheteurs Rosemère</li>
+<li><strong>Mise en marché haut de gamme</strong> : photo HDR 4K, vidéo drone, visite virtuelle 360°, brochure imprimée sur place</li>
+<li><strong>Discrétion totale</strong> : option de pré-diffusion privée avant Centris pour les propriétés sensibles à la confidentialité</li>`,
+      types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      faq: `<h3>Quel est le prix moyen d'une maison à Rosemère en 2026 ?</h3>
+<p>Prix médian unifamilial : <strong>685 000 $</strong>. Fourchette typique : 600 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
+<h3>Combien de temps prend la vente d'une propriété à Rosemère ?</h3>
+<p>Délai médian sur mes inscriptions : 32 jours. Pour les propriétés au-dessus de 1,2 M$, prévoir 60-90 jours — le segment haut de gamme demande plus de patience et un acheteur très ciblé.</p>`
+    },
+    'lorraine': {
+      lead: `Lorraine est unique sur la Rive-Nord : urbanisme à thème médiéval, ville-jardin, rues nommées d'après des cités françaises. Marché niché, acheteurs spécifiques. 33 ans à comprendre ce qui s'y vend.`,
+      market: `<p>Lorraine attire les acheteurs qui cherchent un cadre de vie distinct du quadrillage classique de banlieue : rues sinueuses, arbres matures, architecture cohérente. Le marché y est plus tranquille mais plus stable que dans les villes voisines — moins de pression vendeur, plus de fidélité acheteur.</p>
+<p>Comme <strong>courtier immobilier à Lorraine</strong>, ma méthode tient compte de la spécificité du territoire : un cottage des années 1980 dans Lorraine se compare à un autre cottage des années 1980 dans Lorraine, pas à une construction récente de Blainville. C'est cette précision qui évite les positionnements de prix erratiques.</p>`,
+      reasons: `<li><strong>Lecture précise d'un marché niché</strong> — Lorraine ne se compare pas à Blainville malgré la proximité géographique</li>
+<li><strong>33 ans d'expérience sur la Rive-Nord</strong>, dont une connaissance approfondie de l'architecture et de l'urbanisme particulier de Lorraine</li>
+<li><strong>Mise en marché complète</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
+<li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li>`,
+      types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      faq: `<h3>Quel est le prix moyen d'une maison à Lorraine en 2026 ?</h3>
+<p>Prix médian unifamilial estimé : <strong>540 000 à 620 000 $</strong> selon le secteur (Grande-Allée, Plateau). Marché stable, peu d'écarts brutaux d'une année à l'autre.</p>
+<h3>Combien de temps prend la vente d'une propriété à Lorraine ?</h3>
+<p>Délai médian : 35-45 jours. Lorraine est un marché de fidélité acheteur — les visites sont moins nombreuses mais plus qualifiées, ce qui se traduit souvent par moins d'offres mais une négociation plus directe.</p>`
+    }
+  };
+  const cp = CITY_COPY[slugC] || CITY_COPY['blainville'];
   const body = `
 <section class="page-head container">
   <div class="eyebrow">Courtier immobilier · ${cityName}</div>
-  <h1>Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL</h1>
-  <p class="lead">Plus de 29 ans à vendre et acheter pour les familles de ${cityName}. Une approche analytique, fondée sur les données locales : rue par rue, saison par saison, prix par prix.</p>
+  <h1>Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.</h1>
+  <p class="lead">${cp.lead}</p>
 </section>
 ${cityBlock}
 <section class="container">
   <div class="two-col">
     <article class="prose reveal">
       <h2>Le marché immobilier à ${cityName} en 2026</h2>
-      <p>${cityName} demeure l'un des territoires les plus recherchés de la Rive-Nord. La combinaison d'un tissu familial stable, d'un accès direct au centre-ville de Montréal et d'une offre éducative solide nourrit une demande constante — qui pousse les prix médians à la hausse pour la 7ᵉ année consécutive.</p>
-      <p>La lecture fine du marché ${cityName} demande cependant de la précision : chaque quartier a son propre cycle, sa propre courbe de prix, ses propres typologies acheteurs. C'est cette lecture que je pratique pour chaque client, avec les données APCIQ et Centris à jour.</p>
-      <h2>Pourquoi choisir Alain Brunelle à ${cityName}</h2>
-      <ul>
-        <li>Connaissance rue par rue du territoire — 29 ans d'inscriptions actives</li>
-        <li>Stratégie de mise en marché fondée sur la donnée (photographie, vidéo 4K, visite virtuelle)</li>
-        <li>Réseau acheteur actif : 12 000 contacts qualifiés Rive-Nord</li>
-        <li>Équipe RE/MAX CRYSTAL — courtiers, photographes, stagers, notaires partenaires</li>
-      </ul>
-      <h2>Types de propriétés les plus vendues</h2>
-      <p>À ${cityName}, les unifamiliales en cottage et les condos neufs dominent la demande, avec une présence grandissante des plex pour l'investissement locatif. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>
+      ${cp.market}
+      <h2>Pourquoi choisir Alain Brunelle comme courtier immobilier à ${cityName}</h2>
+      <ul>${cp.reasons}</ul>
+      <h2>Types de propriétés les plus actifs à ${cityName}</h2>
+      ${cp.types}
       <h2>FAQ — vendre et acheter à ${cityName}</h2>
-      <h3>Quel est le prix moyen d'une maison à ${cityName} en 2026 ?</h3>
-      <p>Le prix médian observé sur mes transactions 2026 se situe entre 540 000 $ et 780 000 $ selon le secteur et la typologie.</p>
-      <h3>Combien de temps prend la vente d'une propriété à ${cityName} ?</h3>
-      <p>Avec une mise en marché bien positionnée, le délai médian est de 28 jours sur mes listings — contre 52 jours pour la moyenne du marché.</p>
+      ${cp.faq}
     </article>
     <aside>
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
@@ -1335,11 +1773,11 @@ ${cityBlock}
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>Prêt à bouger à ${cityName} ?</h2><a class="btn" href="/rendez-vous/">Parler à Alain</a></div></section>`;
+<section class="container"><div class="cta-band"><h2>Vendre ou acheter à ${cityName} — parlons-en.</h2><a class="btn" href="/rendez-vous/">Réserver 20 minutes</a></div></section>`;
 
   writePage(`courtier-immobilier/${slugC}/index.html`, layout({
     title: `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
-    description: `Alain Brunelle, courtier immobilier à ${cityName}. 29 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
+    description: `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
     canonical: `https://alainbrunelle.com/courtier-immobilier/${slugC}/`,
     body
   }));
@@ -1594,9 +2032,9 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
   </style>`,
   body: `
 <section class="page-head container">
-  <div class="eyebrow">Évaluation · 100% gratuite</div>
+  <div class="eyebrow">Évaluation gratuite</div>
   <h1>Combien vaut votre propriété en 2026 ?</h1>
-  <p class="lead">Répondez à 5 questions rapides. Je personnalise votre rapport et vous le livre par courriel en 48 h. Sans engagement.</p>
+  <p class="lead">Cinq questions, 60 secondes. Rapport personnalisé livré par courriel sous 48 h — avec les ventes comparables récentes de votre rue, et la lecture de votre <strong>courtier immobilier</strong> de la Rive-Nord depuis 1992.</p>
 </section>
 
 <section class="container">
@@ -1903,7 +2341,7 @@ const SUBPAGES = [
 <div class="stat-row">
 <div class="stat-mini"><div class="n">28 j</div><div class="l">délai médian de vente sur mes inscriptions</div></div>
 <div class="stat-mini"><div class="n">99,2 %</div><div class="l">ratio prix vendu / demandé</div></div>
-<div class="stat-mini"><div class="n">12 400</div><div class="l">contacts qualifiés Rive-Nord</div></div>
+<div class="stat-mini"><div class="n">Réseau</div><div class="l">acheteurs actifs Rive-Nord</div></div>
 </div>
 
 <h2>Le processus, en 7 étapes</h2>
@@ -1932,7 +2370,7 @@ const SUBPAGES = [
 <div class="step">
 <div>
 <h3>Diffusion Centris + réseau qualifié</h3>
-<p>72 h en avant-première à mes 12 400 contacts Rive-Nord, puis publication Centris. Cette pré-mise en marché génère en moyenne 3-5 visites privées dès le départ.</p>
+<p>72 h en avant-première à mes réseau d'acheteurs actifs Rive-Nord, puis publication Centris. Cette pré-mise en marché génère en moyenne 3-5 visites privées dès le départ.</p>
 <p class="meta">Jour J</p>
 </div>
 </div>
@@ -2075,7 +2513,7 @@ const SUBPAGES = [
 <li>Inscription Centris + réseau RE/MAX international</li>
 <li>Campagne sociale (Facebook + Instagram + LinkedIn) avec budget publicitaire</li>
 <li>Brochure imprimée sur place</li>
-<li>Pré-mise en marché à 12 400 contacts qualifiés Rive-Nord</li>
+<li>Pré-mise en marché à réseau d'acheteurs actifs Rive-Nord</li>
 <li>Gestion complète des visites et feedback structuré</li>
 <li>Négociation de toutes les offres et contre-offres</li>
 <li>Coordination inspection, financement, notaire</li>
@@ -2489,7 +2927,7 @@ writePage('acheter/calculatrices/index.html', layout({
 <section class="container">
   <div class="cta-band">
     <h2>Besoin d'un avis pro sur votre capacité réelle ?</h2>
-    <a class="btn" href="/rendez-vous/">Parler à Alain</a>
+    <a class="btn" href="/rendez-vous/">Discuter de votre projet</a>
   </div>
 </section>
 
@@ -2666,102 +3104,214 @@ for (const [s,t] of GUIDES) {
 }
 
 writePage('marche-immobilier/index.html', contentPage({
-  eyebrow:'Marché immobilier Rive-Nord',h1:'Rapports de marché',lead:'Statistiques APCIQ + mon analyse mensuelle, par ville.',
-  title:'Marché immobilier Rive-Nord 2026 | Alain Brunelle',desc:'Statistiques du marché immobilier Rive-Nord.',
+  eyebrow:'Marché immobilier Rive-Nord',h1:'Rapports de marché',lead:'Statistiques APCIQ par Centris® + mon analyse locale, mis à jour à chaque trimestre.',
+  title:'Marché immobilier Rive-Nord 2026 | Alain Brunelle',
+  desc:'Statistiques du marché immobilier Rive-Nord — Blainville, Sainte-Thérèse, rapport mensuel. Données APCIQ Q1 2026.',
   canonical:'https://alainbrunelle.com/marche-immobilier/',
-  body:`<ul><li><a href="/marche-immobilier/statistiques-blainville/">Statistiques Blainville</a></li><li><a href="/marche-immobilier/statistiques-sainte-therese/">Statistiques Sainte-Thérèse</a></li><li><a href="/marche-immobilier/rapport-mensuel/">Rapport mensuel</a></li></ul>`
+  heroImg:'/photos/P21_5407-Edit.jpg',
+  body:`<p class="lead">Trois lectures complémentaires : les chiffres par ville, le baromètre mensuel APCIQ et mon analyse de courtier ancrée sur 33 ans de transactions Rive-Nord.</p>
+
+<div class="stat-row" style="margin:2rem 0">
+  <div class="stat-mini"><div class="n">Q1 2026</div><div class="l">Données les plus récentes</div></div>
+  <div class="stat-mini"><div class="n">APCIQ</div><div class="l">Source officielle (Centris®)</div></div>
+  <div class="stat-mini"><div class="n">4 villes</div><div class="l">Blainville · Ste-Thérèse · Rosemère · Lorraine</div></div>
+</div>
+
+<h2>Choisir votre rapport</h2>
+<div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem">
+  <a class="callout" href="/marche-immobilier/statistiques-blainville/" style="text-decoration:none;color:inherit">
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Statistiques Blainville →</strong><br><span style="color:var(--ink-2)">Prix médian 715 000 $, délai 32 j, inventaire +29 %. Le marché unifamilial corrige légèrement (−4 %), le condo monte (+3 %).</span></div>
+  </a>
+  <a class="callout success" href="/marche-immobilier/statistiques-sainte-therese/" style="text-decoration:none;color:inherit">
+    <div><strong style="font-size:1.15rem;color:#0f8c5b">Statistiques Sainte-Thérèse →</strong><br><span style="color:var(--ink-2)">Délais effondrés (23 j), condo +9 %, plex +17 %. Le marché le plus chaud des Laurentides Sud en Q1 2026.</span></div>
+  </a>
+  <a class="callout" href="/marche-immobilier/rapport-mensuel/" style="text-decoration:none;color:inherit">
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Lecture du marché — Printemps 2026 →</strong><br><span style="color:var(--ink-2)">Le baromètre APCIQ Q1 2026 + mes observations terrain : ce que je vois bouger entre deux publications trimestrielles.</span></div>
+  </a>
+</div>
+
+<h2>D'où viennent ces chiffres</h2>
+<p>Les données proviennent de l'<strong>APCIQ</strong> (Association professionnelle des courtiers immobiliers du Québec), publiées via <strong>Centris®</strong>. Je les croise avec ma propre base de transactions et inscriptions pour produire une analyse qui va au-delà de la moyenne — par secteur, par segment, par type de propriété.</p>
+
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Dernière mise à jour : Q1 2026. Prochaine publication : Q2 2026 attendue mi-juillet.</p>`
 }));
+const MARCHE_HERO = {
+  'statistiques-blainville':     '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
+  'statistiques-sainte-therese': '/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg',
+  'rapport-mensuel':             '/photos/P21_5534-Edit.jpg'
+};
 const MARCHE_PAGES = {
   'statistiques-blainville': {
-    title: 'Statistiques Blainville',
-    lead: 'Le marché immobilier de Blainville en 2026 — chiffres APCIQ + mon analyse locale.',
-    desc: 'Statistiques immobilières Blainville 2026 : prix médian, délai de vente, ratio V/D, évolution par quartier.',
-    body: `<h2>Vue d'ensemble — Blainville 2026</h2>
-<ul>
-<li><strong>Prix médian unifamiliale</strong> : 685 000 $ (+ 5,1 % YoY)</li>
-<li><strong>Prix médian condo</strong> : 380 000 $ (+ 3,8 % YoY)</li>
-<li><strong>Prix médian plex</strong> : 870 000 $ (+ 6,4 % YoY)</li>
-<li><strong>Délai médian de vente</strong> : 34 j (vs 28 j sur mes inscriptions)</li>
-<li><strong>Ratio V/D moyen</strong> : 98,1 % (vs 99,2 % sur mes inscriptions)</li>
-<li><strong>Inventaire actif</strong> : 218 propriétés (équilibré, légèrement favorable aux acheteurs)</li>
-</ul>
+    title: 'Statistiques Blainville — Q1 2026',
+    lead: 'Le marché de Blainville en Q1 2026 — données APCIQ par Centris® et mon analyse de courtier local.',
+    desc: 'Statistiques immobilières Blainville Q1 2026 : prix médian 715 000 $, délai 32 j, inventaire +29 %. Source APCIQ.',
+    body: `<div class="stat-row">
+  <div class="stat-mini"><div class="n">715 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
+  <div class="stat-mini"><div class="n">32 j</div><div class="l">Délai médian de vente (−10 j)</div></div>
+  <div class="stat-mini"><div class="n">204</div><div class="l">Ventes totales Q1 (−5 %)</div></div>
+  <div class="stat-mini"><div class="n">248</div><div class="l">Inscriptions actives (+29 %)</div></div>
+</div>
 
-<h2>Par quartier (12 derniers mois)</h2>
-<ul>
-<li><strong>Fontainebleau</strong> : médian 745 k$, délai 28 j — secteur premium</li>
-<li><strong>Chambéry</strong> : médian 695 k$, délai 32 j</li>
-<li><strong>Chante-Bois</strong> : médian 715 k$, délai 30 j</li>
-<li><strong>Plan-Bouchard</strong> : médian 625 k$, délai 38 j</li>
-<li><strong>Jardins-de-Blainville</strong> : médian 660 k$, délai 35 j</li>
-<li><strong>Côte-Saint-Louis</strong> : médian 580 k$, délai 41 j — entrée de gamme</li>
-</ul>
+<h2>Le marché en Q1 2026</h2>
+<p>Blainville est en phase de <strong>rééquilibrage</strong>. L'unifamilial corrige modestement (−4 %) pendant que l'inventaire explose (+29 %) — un cocktail qui ramène du pouvoir de négociation aux acheteurs. À l'inverse, le condo et le plex restent fermement haussiers.</p>
 
-<h2>Ce qui anime le marché en 2026</h2>
-<p>Trois forces structurelles :</p>
-<ul>
-<li><strong>Stabilisation des taux hypothécaires</strong> autour de 5 % — fin de la pression baissière sur la demande</li>
-<li><strong>Rareté foncière</strong> dans les secteurs établis — pression haussière sur les unifamiliales avec lot &gt;700 m²</li>
-<li><strong>Nouvelle phase de Chambéry</strong> et construction sur Notre-Dame Nord — ajout de ~180 unités neuves sur 18 mois</li>
-</ul>
+<table>
+  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+  <tbody>
+    <tr><td>Unifamiliale</td><td>715 000 $</td><td style="color:#c8364a">−4 %</td><td>155 (+4 %)</td><td>32 j (−10 j)</td></tr>
+    <tr><td>Copropriété</td><td>432 500 $</td><td style="color:#0f8c5b">+3 %</td><td>42 (−16 %)</td><td>60 j (+11 j)</td></tr>
+    <tr><td>Plex 2-5 log.</td><td>786 125 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+10 %</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
 
-<h2>Pour 2026-2027</h2>
-<p>Ma projection : prix médian unifamiliale entre <strong>700 000 $ et 735 000 $</strong> d'ici fin 2027, soit + 4 à + 7 % sur 24 mois. Les condos resteront sous pression haussière modeste (+ 3 à + 5 %) en raison de l'inventaire abondant de projets neufs.</p>
+<h2>Ce que ça veut dire — par profil</h2>
+<div class="compare">
+  <div class="compare-col good">
+    <h3>Si vous achetez</h3>
+    <ul>
+      <li>Plus de choix : 179 unifamiliales actives (vs 134 il y a un an)</li>
+      <li>Marge de négociation revenue sur les unifamiliales &gt;750 k$</li>
+      <li>Délais raccourcis = vendeurs plus motivés à négocier rapidement</li>
+    </ul>
+  </div>
+  <div class="compare-col bad">
+    <h3>Si vous vendez</h3>
+    <ul>
+      <li>Compétition accrue : il faut un positionnement de prix précis</li>
+      <li>La préparation (home staging, photo, vidéo) fait la différence</li>
+      <li>Évitez le segment 700-800 k$ sans stratégie de prix claire</li>
+    </ul>
+  </div>
+</div>
 
-<p>Pour discuter de votre projet d'achat ou de vente à Blainville, <a href="/rendez-vous/">réservez un rendez-vous</a>.</p>`
+<div class="callout warn">
+  <div><strong>Le segment condo demande plus de patience</strong><br>Délai médian condo : 60 jours (+11 j vs l'an dernier). Les ventes ralentissent (−16 %) malgré la hausse de prix. Si vous vendez un condo, prévoyez 60-75 jours et un effort marketing accru.</div>
+</div>
+
+<h2>Mon analyse de courtier</h2>
+<p>Trois forces structurelles à Blainville en 2026 :</p>
+<div class="steps">
+  <div class="step"><div><strong>Stabilisation des taux hypothécaires</strong> autour de 5 % — la pression baissière sur la demande s'estompe. Les acheteurs reviennent, mais avec discipline.</div></div>
+  <div class="step"><div><strong>Rareté foncière</strong> dans les secteurs établis (Fontainebleau, Chambéry, Chante-Bois) — pression haussière maintenue sur les unifamiliales avec lot &gt;700 m².</div></div>
+  <div class="step"><div><strong>Nouvelle phase de Chambéry</strong> et construction sur Notre-Dame Nord — ajout d'environ 180 unités neuves sur 18 mois. C'est ce qui explique le bond d'inventaire.</div></div>
+</div>
+
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Blainville. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
   },
   'statistiques-sainte-therese': {
-    title: 'Statistiques Sainte-Thérèse',
-    lead: 'Le marché immobilier de Sainte-Thérèse en 2026 — données fines par secteur.',
-    desc: 'Statistiques immobilières Sainte-Thérèse 2026 : prix médian par secteur, délai, ratio V/D, tendances.',
-    body: `<h2>Vue d'ensemble — Sainte-Thérèse 2026</h2>
-<ul>
-<li><strong>Prix médian unifamiliale</strong> : 582 000 $ (+ 5,2 % YoY)</li>
-<li><strong>Prix médian condo</strong> : 415 000 $ (+ 4,1 % YoY)</li>
-<li><strong>Prix médian plex</strong> : 745 000 $ (+ 7,2 % YoY) — segment le plus actif</li>
-<li><strong>Délai médian de vente</strong> : 31 j (vs 24 j sur mes inscriptions)</li>
-<li><strong>Ratio V/D moyen</strong> : 98,4 %</li>
-</ul>
+    title: 'Statistiques Sainte-Thérèse — Q1 2026',
+    lead: 'Sainte-Thérèse est le marché le plus chaud des Laurentides Sud en Q1 2026. Voici pourquoi.',
+    desc: 'Statistiques immobilières Sainte-Thérèse Q1 2026 : délai 23 j, condo +9 %, plex +17 %. Source APCIQ.',
+    body: `<div class="stat-row">
+  <div class="stat-mini"><div class="n">579 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
+  <div class="stat-mini"><div class="n">23 j</div><div class="l">Délai médian de vente (−24 j)</div></div>
+  <div class="stat-mini"><div class="n">102</div><div class="l">Ventes totales Q1 (+8 %)</div></div>
+  <div class="stat-mini"><div class="n">+17 %</div><div class="l">Prix médian plex sur 4 trim.</div></div>
+</div>
 
-<h2>Par secteur</h2>
-<ul>
-<li><strong>Vieux-Village</strong> : prix médian 624 k$, délai 24 j — inventaire très faible, demande forte</li>
-<li><strong>En-Haut</strong> : médian 575 k$, délai 32 j — familial, demande stable</li>
-<li><strong>En-Bas</strong> : médian 498 k$, délai 38 j — primo-accédants</li>
-</ul>
+<h2>Le marché en Q1 2026</h2>
+<p>Sainte-Thérèse est en <strong>plein boom</strong>. Les délais se sont effondrés (23 j vs 47 j il y a un an), les condos s'envolent (+9 %), et les plex deviennent l'actif vedette des Laurentides Sud (+17 % sur 12 mois). Le prix unifamilial est stable mais l'activité ne ment pas : ce marché est nettement vendeur.</p>
 
-<h2>Particularité 2026</h2>
-<p>Trois projets de condos neufs livrés au Vieux-Village ces 18 derniers mois ont changé la dynamique. L'inventaire condo est temporairement abondant (45 unités actives) — opportunité d'achat pour qui veut entrer dans le secteur premium.</p>
+<table>
+  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+  <tbody>
+    <tr><td>Unifamiliale</td><td>579 000 $</td><td>0 %</td><td>41 (+5 %)</td><td>23 j (−24 j)</td></tr>
+    <tr><td>Copropriété</td><td>385 000 $</td><td style="color:#0f8c5b">+9 %</td><td>43 (+19 %)</td><td>25 j (−19 j)</td></tr>
+    <tr><td>Plex 2-5 log.</td><td>758 312 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+17 %</td><td>18</td><td>—</td></tr>
+  </tbody>
+</table>
 
-<p>Voir aussi notre <a href="/blog/radioscopie-sainte-therese-marche-2026/">analyse approfondie du marché Sainte-Thérèse</a>.</p>`
+<div class="callout success">
+  <div><strong>L'effondrement des délais raconte tout</strong><br>23 jours pour vendre une unifamiliale, 25 jours pour un condo. Il y a un an : 47 et 44 jours. C'est l'indicateur le plus fiable d'un marché en surchauffe — la demande absorbe l'offre dès qu'elle apparaît.</div>
+</div>
+
+<h2>Sainte-Thérèse vs Blainville — le contraste</h2>
+<div class="compare">
+  <div class="compare-col good">
+    <h3>Sainte-Thérèse</h3>
+    <ul>
+      <li>Délai unifamilial : <strong>23 jours</strong></li>
+      <li>Condo : <strong>+9 %</strong> et délai 25 j</li>
+      <li>Ventes : <strong>+8 %</strong></li>
+      <li>Marché clairement vendeur</li>
+    </ul>
+  </div>
+  <div class="compare-col bad">
+    <h3>Blainville</h3>
+    <ul>
+      <li>Délai unifamilial : <strong>32 jours</strong></li>
+      <li>Unifamilial : <strong>−4 %</strong></li>
+      <li>Ventes : <strong>−5 %</strong></li>
+      <li>Marché en rééquilibrage</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Ce que ça veut dire — par profil</h2>
+<div class="steps">
+  <div class="step"><div><strong>Si vous vendez à Sainte-Thérèse :</strong> la fenêtre est exceptionnelle. Stratégie de mise en marché agressive avec préparation soignée = vente sous 30 jours, souvent en multiples offres.</div></div>
+  <div class="step"><div><strong>Si vous achetez à Sainte-Thérèse :</strong> il faut être prêt à bouger vite. Dossier hypothécaire pré-approuvé, visite dans les 48 h, offre stratégique avec marge limitée à la baisse.</div></div>
+  <div class="step"><div><strong>Si vous investissez :</strong> le segment plex est en train de surperformer Blainville. +17 % sur 12 mois et 18 transactions en Q1 — c'est de la liquidité réelle.</div></div>
+</div>
+
+<p>Pour une analyse <strong>par secteur</strong> (Vieux-Village, En-Haut, En-Bas), voir mon article complet : <a href="/blog/radioscopie-sainte-therese-marche-2026/">Radioscopie de Sainte-Thérèse</a>.</p>
+
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Sainte-Thérèse. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
   },
   'rapport-mensuel': {
-    title: 'Rapport mensuel du marché Rive-Nord',
-    lead: 'Mes constats du mois — ce qui bouge, ce qui ralentit, ce qu\'il faut surveiller.',
-    desc: 'Rapport mensuel du marché immobilier Rive-Nord par Alain Brunelle : tendances, opportunités, signaux.',
-    body: `<h2>Rapport — Mai 2026</h2>
+    title: 'Lecture du marché — Printemps 2026',
+    lead: 'Ma lecture du marché Rive-Nord pour la saison en cours — données APCIQ Q1 2026 croisées avec mes observations terrain.',
+    desc: 'Lecture du marché immobilier Rive-Nord printemps 2026 par Alain Brunelle — données APCIQ + analyse de courtier.',
+    body: `<div class="stat-row">
+  <div class="stat-mini"><div class="n">+8 %</div><div class="l">Ventes Rive-Nord Q1 (vs Q1 2025)</div></div>
+  <div class="stat-mini"><div class="n">+12 %</div><div class="l">Nouvelles inscriptions</div></div>
+  <div class="stat-mini"><div class="n">33 j</div><div class="l">Délai médian (stable)</div></div>
+  <div class="stat-mini"><div class="n">22 %</div><div class="l">Multiples offres (vs 31 % l'an dernier)</div></div>
+</div>
 
-<h3>Ce qui s'est passé en avril</h3>
+<h2>Le contexte macro — APCIQ Q1 2026</h2>
+<p>Selon le <strong>Baromètre résidentiel APCIQ</strong>, le marché québécois s'est stabilisé au premier trimestre 2026 après deux années de turbulences. Le mot d'ordre du Baromètre : <em>« Les ventes résidentielles se stabilisent au premier trimestre 2026, mais les prix demeurent sous pression. »</em></p>
+
+<p>Pour la <strong>Rive-Nord</strong> (couronne nord de la RMR de Montréal), la lecture est plus nuancée :</p>
 <ul>
-<li><strong>Ventes totales Rive-Nord</strong> : 348 (+ 8 % vs avril 2025)</li>
-<li><strong>Nouvelles inscriptions</strong> : 521 (+ 12 %)</li>
-<li><strong>Délai médian</strong> : 33 jours (stable)</li>
-<li><strong>Multiples offres</strong> : 22 % des transactions (vs 31 % il y a un an)</li>
+  <li><strong>Sainte-Thérèse</strong> est en surchauffe (délais 23 j, condo +9 %)</li>
+  <li><strong>Blainville</strong> rééquilibre (unifamilial −4 %, inventaire +29 %)</li>
+  <li>Les <strong>plex 2-5 logements</strong> sont l'actif vedette partout (+10 à +17 %)</li>
 </ul>
 
-<h3>Ce que je surveille en mai</h3>
+<h2>Ce que disent les chiffres du printemps</h2>
+<div class="steps">
+  <div class="step"><div><strong>Activité saisonnière conforme.</strong> +8 % de ventes sur la Rive-Nord, +12 % d'inscriptions. Le rythme est sain, sans excès, et confirme la sortie progressive du cycle baissier de 2024.</div></div>
+  <div class="step"><div><strong>Multiples offres en recul.</strong> 22 % des transactions, contre 31 % il y a un an. Le marché redevient lisible pour les acheteurs préparés — on peut à nouveau négocier sans panique.</div></div>
+  <div class="step"><div><strong>Délai médian stable à 33 j.</strong> Mais cache de grands écarts : Sainte-Thérèse à 23 j, Blainville unifamilial à 32 j, condos Blainville à 60 j. La ville moyenne n'existe pas — chaque segment a son rythme.</div></div>
+</div>
+
+<h2>Ce que je surveille cette saison</h2>
+<div class="callout">
+  <div><strong>Pic saisonnier vendeur.</strong> La fenêtre optimale s'ouvre fin avril. Pic mi-mai à Sainte-Thérèse, début juin à Blainville. Si vous comptez vendre en 2026, c'est maintenant que ça se joue — l'été ralentit toujours.</div>
+</div>
+
+<div class="callout warn">
+  <div><strong>Décisions de la Banque du Canada.</strong> Chaque réunion sur les taux directeurs a un effet quasi immédiat sur la demande d'achat. Une baisse = retour des primo-accédants. Statu quo = poursuite du rééquilibrage à Blainville.</div>
+</div>
+
+<div class="callout success">
+  <div><strong>Opportunité plex.</strong> Le segment plex 4 logements à Sainte-Thérèse est sous-évalué de 5-8 % par rapport à Blainville équivalent. Pour un investisseur cash-flow, la fenêtre actuelle est intéressante. <a href="/rendez-vous/">Parlons-en →</a></div>
+</div>
+
+<h2>Signaux d'alerte</h2>
+<p>Les ventes en deçà de <strong>400 000 $</strong> ralentissent — c'est l'effet du stress test hypothécaire sur les primo-accédants. Si vous vendez dans ce segment, prévoyez un délai de 45-60 jours et un positionnement de prix sans agressivité.</p>
+
+<p>Le segment <strong>condo Blainville</strong> reste sous pression (délai 60 j, ventes −16 %) malgré une hausse de prix de +3 %. C'est le signe d'un marché à deux vitesses où seules les unités bien positionnées trouvent preneur rapidement.</p>
+
+<h2>Pour aller plus loin</h2>
 <ul>
-<li><strong>Pic saisonnier</strong> : la fenêtre vendeur optimale s'ouvre fin avril, pic mi-mai à Sainte-Thérèse, début juin à Blainville</li>
-<li><strong>Réunion BdC</strong> : la prochaine décision sur les taux directeurs aura un effet quasi immédiat sur la demande d'achat</li>
-<li><strong>Inventaire neuf Blainville</strong> : 180 unités à livrer d'ici septembre — pression sur les reventes équivalentes</li>
+  <li><a href="/marche-immobilier/statistiques-blainville/">Détail Blainville Q1 2026</a></li>
+  <li><a href="/marche-immobilier/statistiques-sainte-therese/">Détail Sainte-Thérèse Q1 2026</a></li>
+  <li><a href="https://apciq.ca/" target="_blank" rel="noopener">Baromètre résidentiel APCIQ (officiel)</a></li>
 </ul>
 
-<h3>Opportunités</h3>
-<p>Le marché des plex 4 logements à Sainte-Thérèse est sous-évalué de ~5-8 % par rapport à Blainville équivalent. Pour un investisseur cash-flow, la fenêtre actuelle est intéressante. <a href="/rendez-vous/">Parlons-en</a>.</p>
-
-<h3>Signaux d'alerte</h3>
-<p>Les ventes en deçà de 400 000 $ ralentissent — l'effet du stress test sur les primo-accédants. Si vous vendez dans ce segment, prévoyez un délai de 45-60 jours et un positionnement de prix sans agressivité.</p>
-
-<p style="font-size:.85rem;color:#6a7891;margin-top:2rem;font-style:italic">Rapport mis à jour le 18 mai 2026. Sources : APCIQ, Centris, mes inscriptions et transactions actives.</p>`
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Lecture mise à jour à chaque trimestre — prochaine révision dès la publication des données Q2 2026 par l'APCIQ (mi-juillet). Sources : APCIQ par Centris®, mes inscriptions et transactions actives.</p>`
   }
 };
 for (const [s, p] of Object.entries(MARCHE_PAGES)) {
@@ -2769,9 +3319,10 @@ for (const [s, p] of Object.entries(MARCHE_PAGES)) {
     eyebrow: 'Marché immobilier',
     h1: p.title,
     lead: p.lead,
-    title: `${p.title} 2026 | Alain Brunelle`,
+    title: `${p.title} | Alain Brunelle`,
     desc: p.desc,
     canonical: `https://alainbrunelle.com/marche-immobilier/${s}/`,
+    heroImg: MARCHE_HERO[s],
     body: p.body
   }));
 }
@@ -2780,7 +3331,7 @@ for (const [s, p] of Object.entries(MARCHE_PAGES)) {
 const featuredArticle = {
   slug: 'radioscopie-sainte-therese-marche-2026',
   title: 'Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m\'ont appris sur votre quartier',
-  teaser: 'Le guide interactif que seul le meilleur courtier immobilier de la Rive-Nord peut vous offrir — secteurs décortiqués, outils de calcul, et données qui n\'existent pas ailleurs.'
+  teaser: 'Le guide interactif d\'un courtier immobilier qui connaît la Rive-Nord rue par rue — secteurs décortiqués, outils de calcul, et données qui n\'existent pas ailleurs.'
 };
 
 const articleJsonld = JSON.stringify({
@@ -2795,7 +3346,7 @@ const articleJsonld = JSON.stringify({
 
 writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   title: `${featuredArticle.title} | Alain Brunelle`,
-  description: `Le meilleur courtier immobilier de Sainte-Thérèse décode le marché 2026 : prix rue par rue, comparatif des 3 secteurs, outils de calcul interactifs. 29 ans d'expérience, 2 000 transactions.`,
+  description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / En-Haut / En-Bas, outils de calcul. 33 ans, 3 000+ transactions.`,
   canonical: `https://alainbrunelle.com/blog/${featuredArticle.slug}/`,
   jsonld: articleJsonld,
   extraHead: `<style>
@@ -2883,7 +3434,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   </figure>
 
   <div class="a-body">
-    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a les mains dans les transactions depuis 29 ans. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger. C'est l'analyse que <strong>le meilleur courtier immobilier de la Rive-Nord</strong> utilise chaque matin avant de positionner un prix.</p>
+    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 33 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
 
     <div class="a-summary">
       <div class="card"><div class="n">582 k$</div><div class="l">Prix médian 2026 (unifamiliale)</div></div>
@@ -2971,12 +3522,12 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
 
     <p>Concrètement, qu'est-ce que ça change pour vous ? Trois choses tangibles :</p>
     <ul>
-      <li><strong>Réseau acheteur qualifié</strong> — 12 400 contacts Rive-Nord, segmentés par budget, typologie, secteur ciblé. Une inscription diffusée à ce réseau <em>avant</em> la mise sur Centris.</li>
+      <li><strong>Réseau acheteur qualifié</strong> — réseau d'acheteurs actifs Rive-Nord, segmentés par budget, typologie, secteur ciblé. Une inscription diffusée à ce réseau <em>avant</em> la mise sur Centris.</li>
       <li><strong>Photographie et vidéo 4K incluses</strong> — drone, visite virtuelle, brochure imprimée. Zéro frais additionnel, pas de surclassement à payer.</li>
       <li><strong>Analyse comparative rue par rue</strong> — je ne compare pas votre maison à « Sainte-Thérèse » en général, je la compare à votre côté de rue, sur les 24 derniers mois.</li>
     </ul>
 
-    <div class="pullquote">« Un bon courtier vous donne un prix. Le meilleur courtier immobilier vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 29 ans de Sainte-Thérèse</cite></div>
+    <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 33 ans à Sainte-Thérèse</cite></div>
 
     <h2>5. Ce que je surveille en ce moment — avril 2026</h2>
     <p>La saisonnalité de Sainte-Thérèse est sous-estimée. Contrairement à Blainville, le pic de vente est <strong>début mai</strong>, pas fin avril. Raison principale : le Vieux-Village attire beaucoup d'acheteurs de Laval et Montréal qui visitent après la semaine de relâche de Pâques.</p>
@@ -2992,8 +3543,8 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     </div>
 
     <h2>6. FAQ — Sainte-Thérèse en 2026</h2>
-    <h3>Qui est le meilleur courtier immobilier à Sainte-Thérèse ?</h3>
-    <p>Difficile d'être objectif en étant le courtier concerné — mais les faits parlent : 29 ans sur le territoire, 2 000+ transactions, Top 1 % RE/MAX Québec 7 années consécutives, ratio vendu/demandé de 99,2 %. La question plus utile : <em>qui est le meilleur courtier immobilier pour votre propriété spécifique ?</em> C'est exactement ce que je détermine en 30 minutes d'analyse gratuite.</p>
+    <h3>Comment choisir son courtier immobilier à Sainte-Thérèse ?</h3>
+    <p>La question n'est pas <em>qui est le meilleur</em> dans l'absolu, mais <em>qui est le bon courtier immobilier pour votre propriété et votre quartier précis</em>. Les critères qui comptent : nombre de transactions dans <strong>votre secteur</strong> (pas dans toute la ville), délai médian sur les inscriptions récentes, ratio prix vendu/demandé, et qualité de la stratégie de mise en marché. Mes chiffres : 33 ans à Sainte-Thérèse, 3 000+ transactions, Top 5 % RE/MAX Québec depuis 20 ans, ratio 99,2 %, délai médian 28 j.</p>
 
     <h3>Quel est le prix moyen d'une maison à Sainte-Thérèse ?</h3>
     <p>582 000 $ en prix médian unifamiliale 2026. Mais <strong>la médiane ne vend rien</strong> : ce qui vend, c'est le prix juste de votre rue, avec votre année de construction, vos rénovations. Écart possible : ± 80 000 $ selon le secteur.</p>
@@ -3087,164 +3638,532 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
 
 // Other blog stubs
 const BLOG_POSTS = [
-  ['combien-vaut-ma-maison-blainville','Combien vaut ma maison à Blainville en 2026 ?'],
-  ['fontainebleau-vs-chambery-chante-bois','Fontainebleau vs Chambéry vs Chante-Bois : où acheter à Blainville ?'],
-  ['7-etapes-vendre-sainte-therese','Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress'],
-  ['premier-acheteur-blainville-revenu','Premier acheteur à Blainville : quel revenu faut-il en 2026 ?'],
-  ['plex-blainville-rendement','Plex à Blainville : rendement réel en 2026'],
-  ['vieux-sainte-therese-vivre-village','Vieux Sainte-Thérèse : vivre au cœur du village']
+  // slug, title, image, tag, teaser, readMin, date
+  ['combien-vaut-ma-maison-blainville',
+   'Combien vaut ma maison à Blainville en 2026 ?',
+   '/photos/blainville/blainville1.jpg',
+   'Blainville · Évaluation',
+   'La méthode honnête en 4 couches que j\'utilise pour estimer la valeur réelle d\'une maison à Blainville — au-delà des moyennes Centris.',
+   '6 min',
+   '2026-05-12'],
+  ['fontainebleau-vs-chambery-chante-bois',
+   'Fontainebleau vs Chambéry vs Chante-Bois : où acheter à Blainville ?',
+   '/photos/blainville/actu_parc_chambery.jpg',
+   'Blainville · Quartiers',
+   'Trois secteurs phares de Blainville comparés rue par rue — prix médians, écoles, démographie, profil d\'acheteur.',
+   '8 min',
+   '2026-05-05'],
+  ['7-etapes-vendre-sainte-therese',
+   'Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress',
+   '/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg',
+   'Sainte-Thérèse · Vendre',
+   'Du moment où vous décidez de vendre jusqu\'à la signature chez le notaire — les 7 étapes décrites par un courtier qui les vit chaque semaine.',
+   '7 min',
+   '2026-04-28'],
+  ['premier-acheteur-blainville-revenu',
+   'Premier acheteur à Blainville : quel revenu faut-il en 2026 ?',
+   '/photos/blainville/blainville2.jpg',
+   'Blainville · Premier acheteur',
+   'Trois scénarios chiffrés (condo 380 k$, cottage 580 k$, unifamiliale 720 k$) avec le revenu requis, mise de fonds et coûts cachés.',
+   '9 min',
+   '2026-04-20'],
+  ['plex-blainville-rendement',
+   'Plex à Blainville : rendement réel en 2026',
+   '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
+   'Blainville · Investissement',
+   'Cap rate, cash-flow, ratio dette-revenu — les vraies métriques pour évaluer un plex Blainville en 2026, sans illusion.',
+   '10 min',
+   '2026-04-12'],
+  ['vieux-sainte-therese-vivre-village',
+   'Vieux Sainte-Thérèse : vivre au cœur du village',
+   '/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg',
+   'Sainte-Thérèse · Quartiers',
+   'Le Vieux-Village a une dynamique unique : pourquoi l\'inventaire y reste rare, qui y achète, et ce que ça vaut en 2026.',
+   '5 min',
+   '2026-04-05']
 ];
+const BLOG_FEAT_TAG = 'Article vedette · Sainte-Thérèse';
+const BLOG_FEAT_IMG = '/photos/stetherese1.jpg';
+const fmtDate = d => { const [y,m,day]=d.split('-'); return `${day} ${['janv','févr','mars','avr','mai','juin','juill','août','sept','oct','nov','déc'][parseInt(m,10)-1]}. ${y}`; };
+
 writePage('blog/index.html', layout({
   title:'Blog immobilier Rive-Nord | Alain Brunelle',
   description:'Analyses de marché, guides et outils interactifs pour vendeurs, acheteurs et investisseurs de la Rive-Nord.',
   canonical:'https://alainbrunelle.com/blog/',
   body:`
-<section class="page-head container"><div class="eyebrow">Blog</div><h1>Le blog d'Alain Brunelle.</h1><p class="lead">Analyses rue par rue, outils interactifs et guides pour qui veut comprendre le marché avant d'agir.</p></section>
+<section class="blog-hero">
+  <div class="container">
+    <div class="bh-inner">
+      <div class="eyebrow">Le journal d'Alain Brunelle, courtier immobilier</div>
+      <h1>Comprendre le marché de la Rive-Nord — avant d'agir.</h1>
+      <p class="lead">Analyses rue par rue, outils interactifs et guides. Pour vendeurs, acheteurs et investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine.</p>
+      <div class="bh-meta">
+        <span>${BLOG_POSTS.length + 1} articles</span>
+        <span class="dot"></span>
+        <span>Mis à jour mai 2026</span>
+        <span class="dot"></span>
+        <span>Sainte-Thérèse · Blainville · Rosemère · Lorraine</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="container">
   <a class="featured-post" href="/blog/${featuredArticle.slug}/">
-    <div class="fp-img"><img src="/photos/stetherese1.jpg" alt=""></div>
+    <div class="fp-img"><img src="${BLOG_FEAT_IMG}" alt="${featuredArticle.title}" loading="lazy"><span class="fp-badge">À la une</span></div>
     <div class="fp-body">
-      <div class="eye" style="color:var(--blue);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;font-weight:500">Article vedette · Sainte-Thérèse</div>
-      <h2 style="font-size:clamp(1.5rem,2.6vw,2rem);margin:.7rem 0 1rem;font-weight:400;letter-spacing:-.02em">${featuredArticle.title}</h2>
-      <p style="color:var(--ink-2);line-height:1.6;max-width:58ch">${featuredArticle.teaser}</p>
-      <span style="display:inline-block;margin-top:1.2rem;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Lire l'analyse complète →</span>
+      <div class="bp-tag">${BLOG_FEAT_TAG}</div>
+      <h2>${featuredArticle.title}</h2>
+      <p>${featuredArticle.teaser}</p>
+      <div class="bp-foot"><span class="bp-meta">12 min · 18 mai 2026</span><span class="bp-read">Lire l'analyse complète <span class="arrow">→</span></span></div>
     </div>
   </a>
-  <h3 style="margin:3rem 0 1.5rem;font-size:1.1rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:500">Autres articles</h3>
-  <div class="blog-grid">${BLOG_POSTS.map(([s,t])=>`<a class="blog-card" href="/blog/${s}/"><h3>${t}</h3><span class="more">Lire →</span></a>`).join('')}</div>
-</section>`,
+</section>
+
+<section class="container">
+  <div class="bsec-head">
+    <h2>Tous les articles</h2>
+    <div class="bsec-filters">
+      <button class="bf on" data-f="all">Tout</button>
+      <button class="bf" data-f="Blainville">Blainville</button>
+      <button class="bf" data-f="Sainte-Thérèse">Sainte-Thérèse</button>
+      <button class="bf" data-f="Investissement">Investissement</button>
+    </div>
+  </div>
+  <div class="blog-grid">
+    ${BLOG_POSTS.map(([s,t,img,tag,teaser,read,date])=>`
+      <a class="blog-card" href="/blog/${s}/" data-tag="${tag}">
+        <div class="bc-img"><img src="${img}" alt="${t}" loading="lazy"><span class="bc-tag">${tag}</span></div>
+        <div class="bc-body">
+          <h3>${t}</h3>
+          <p>${teaser}</p>
+          <div class="bc-foot"><span>${read} · ${fmtDate(date)}</span><span class="bc-arrow">→</span></div>
+        </div>
+      </a>
+    `).join('')}
+  </div>
+</section>
+
+<section class="container">
+  <div class="cta-band">
+    <h2>Une question sur votre quartier ?</h2>
+    <a class="btn" href="/rendez-vous/">Discuter de votre projet</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  const btns=document.querySelectorAll('.bf');
+  const cards=document.querySelectorAll('.blog-card[data-tag]');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    const f=b.dataset.f;
+    cards.forEach(c=>{
+      const show=(f==='all') || c.dataset.tag.includes(f);
+      c.style.display=show?'':'none';
+    });
+  }));
+})();
+</script>`,
   extraHead:`<style>
-    .featured-post{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(1.2rem,3vw,2.5rem);background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease);color:var(--ink)}
-    .featured-post:hover{transform:translateY(-3px);box-shadow:var(--shadow);color:var(--ink)}
-    .featured-post .fp-img{aspect-ratio:4/3;overflow:hidden;background:#eef2f8}
-    .featured-post .fp-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-    .featured-post:hover .fp-img img{transform:scale(1.04)}
-    .featured-post .fp-body{padding:clamp(1.5rem,3vw,2.5rem);display:flex;flex-direction:column;justify-content:center}
-    @media(max-width:820px){.featured-post{grid-template-columns:1fr}}
-    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--gap)}
-    .blog-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;transition:all .4s var(--ease)}
-    .blog-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-    .blog-card h3{font-size:1.05rem;font-weight:500;margin-bottom:.8rem;letter-spacing:-.01em}
-    .blog-card .more{font-size:.85rem;color:var(--blue)}
+    /* Blog hero */
+    .blog-hero{background:linear-gradient(180deg,var(--blue-soft) 0%,#fff 100%);padding:clamp(3rem,6vw,5rem) 0 clamp(2rem,4vw,3rem);margin-bottom:clamp(2rem,4vw,3.5rem);position:relative;overflow:hidden}
+    .blog-hero::after{content:"";position:absolute;left:-10%;top:-30%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6),transparent 60%);pointer-events:none}
+    .blog-hero .bh-inner{position:relative;z-index:1;max-width:60ch}
+    .blog-hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--blue);font-weight:500;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;background:#fff;border-radius:999px;border:1px solid rgba(15,42,90,.1)}
+    .blog-hero h1{font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:400;letter-spacing:-.025em;line-height:1.05;color:var(--ink);margin:.3rem 0 1rem}
+    .blog-hero .lead{font-size:clamp(1rem,1.4vw,1.15rem);color:var(--ink-2);line-height:1.6;max-width:54ch}
+    .blog-hero .bh-meta{display:flex;gap:.8rem;align-items:center;margin-top:1.6rem;font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+    .blog-hero .bh-meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
+
+    /* Featured post — asymmetric, dark CTA feel */
+    .featured-post{display:grid;grid-template-columns:1.15fr 1fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s var(--ease);color:var(--ink);position:relative;box-shadow:var(--shadow-sm)}
+    .featured-post:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
+    .featured-post .fp-img{position:relative;aspect-ratio:5/4;overflow:hidden;background:var(--blue-soft)}
+    .featured-post .fp-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+    .featured-post:hover .fp-img img{transform:scale(1.05)}
+    .featured-post .fp-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,22,40,0) 60%,rgba(11,22,40,.08) 100%);pointer-events:none}
+    .featured-post .fp-badge{position:absolute;top:1.2rem;left:1.2rem;padding:.45rem 1rem;background:var(--blue);color:#fff;border-radius:999px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;box-shadow:0 4px 12px rgba(15,42,90,.25)}
+    .featured-post .fp-body{padding:clamp(2rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:center;gap:1rem}
+    .featured-post .bp-tag{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:600}
+    .featured-post h2{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:400;letter-spacing:-.022em;line-height:1.12;color:var(--ink);max-width:22ch}
+    .featured-post p{color:var(--ink-2);line-height:1.65;font-size:1rem;max-width:46ch;margin:0}
+    .featured-post .bp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;padding-top:1.2rem;border-top:1px solid var(--line);gap:1rem;flex-wrap:wrap}
+    .featured-post .bp-meta{font-size:.82rem;color:var(--muted)}
+    .featured-post .bp-read{display:inline-flex;align-items:center;gap:.7rem;color:var(--blue);font-weight:500;font-size:.95rem}
+    .featured-post .bp-read .arrow{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:999px;background:var(--blue-soft);transition:transform .35s var(--ease-spring),background .3s var(--ease)}
+    .featured-post:hover .bp-read .arrow{transform:translateX(4px);background:var(--blue);color:#fff}
+    @media(max-width:900px){.featured-post{grid-template-columns:1fr}.featured-post .fp-img{aspect-ratio:16/9}}
+
+    /* Section head with filters */
+    .bsec-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem;margin:clamp(2.5rem,5vw,4rem) 0 clamp(1.5rem,3vw,2.2rem)}
+    .bsec-head h2{font-size:clamp(1.4rem,2.4vw,2rem);font-weight:400;letter-spacing:-.018em}
+    .bsec-filters{display:flex;gap:.4rem;flex-wrap:wrap}
+    .bf{background:transparent;border:1px solid var(--line);color:var(--ink-2);font:inherit;font-size:.82rem;padding:.5rem 1rem;border-radius:999px;cursor:pointer;transition:all .25s var(--ease)}
+    .bf:hover{border-color:var(--blue);color:var(--blue)}
+    .bf.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+    /* Blog grid — staggered magazine */
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(1.4rem,2.5vw,2rem)}
+    .blog-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease);color:var(--ink);text-decoration:none}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
+    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft);border-radius:var(--radius-lg);box-shadow:inset 0 0 0 1px rgba(15,42,90,.04)}
+    .blog-card .bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+    .blog-card:hover .bc-img img{transform:scale(1.06)}
+    .blog-card .bc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,22,40,.35) 100%);pointer-events:none}
+    .blog-card .bc-tag{position:absolute;top:1rem;left:1rem;padding:.4rem .85rem;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:999px;font-size:.7rem;font-weight:500;color:var(--ink);letter-spacing:.04em;z-index:1}
+    .blog-card .bc-body{padding:1.4rem .25rem .25rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+    .blog-card h3{font-size:1.15rem;font-weight:500;letter-spacing:-.012em;line-height:1.28;color:var(--ink);margin:0}
+    .blog-card p{color:var(--ink-2);font-size:.93rem;line-height:1.55;margin:0;flex:1}
+    .blog-card .bc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted);margin-top:.4rem;padding-top:.9rem;border-top:1px solid var(--line)}
+    .blog-card .bc-arrow{width:28px;height:28px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;transition:transform .3s var(--ease-spring),background .3s var(--ease)}
+    .blog-card:hover .bc-arrow{transform:translateX(3px);background:var(--blue);color:#fff}
+
+    @media(max-width:540px){.blog-grid{grid-template-columns:1fr}.bsec-filters{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:.3rem}}
   </style>`
 }));
 const BLOG_CONTENT = {
   'combien-vaut-ma-maison-blainville': {
     lead: 'La méthode honnête, en 4 couches, pour estimer la valeur réelle de votre maison à Blainville en 2026.',
-    body: `<p>« Combien vaut ma maison ? » C'est la question la plus simple à poser et la plus difficile à répondre correctement. Voici la méthode que j'utilise chaque jour, à expliquer en 4 couches.</p>
-<h2>Couche 1 — Les ventes comparables (la base)</h2>
-<p>Les 5 à 10 ventes les plus pertinentes des 12 derniers mois à moins de 500 m, dans la même typologie, avec ajustements pour les écarts (sup. terrain, nombre de chambres, rénovations). C'est environ 60 % de la valeur finale.</p>
-<h2>Couche 2 — L'inventaire actif comparable</h2>
-<p>Que se vend-il en ce moment dans votre secteur, à quel prix, et combien de jours sur le marché ? Indique la pression actuelle.</p>
-<h2>Couche 3 — La saisonnalité du secteur</h2>
-<p>À Blainville, le pic de demande est mi-mai à début juillet. Vendre en novembre = -3 à -5 % sur le prix médian.</p>
-<h2>Couche 4 — Les particularités de votre propriété</h2>
-<p>Vue, orientation, état réel des grosses composantes (toit, fenêtres, mécanique), qualité du sous-sol, voisinage immédiat. Peut faire varier de ± 8 %.</p>
-<p>Le rapport d'évaluation que je produis intègre ces 4 couches en un chiffre justifié, avec une fourchette basse/médiane/optimiste. <a href="/vendre/evaluation-gratuite/">Demandez votre évaluation gratuite</a>.</p>`
+    body: `<p class="lead">« Combien vaut ma maison ? » C'est la question la plus simple à poser et la plus difficile à répondre correctement. Voici la méthode que j'utilise chaque jour, à expliquer en 4 couches — pondérées différemment selon votre cas.</p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">60 %</div><div class="l">Couche 1 — Comparables récents</div></div>
+  <div class="stat-mini"><div class="n">15 %</div><div class="l">Couche 2 — Inventaire actif</div></div>
+  <div class="stat-mini"><div class="n">10 %</div><div class="l">Couche 3 — Saisonnalité</div></div>
+  <div class="stat-mini"><div class="n">±15 %</div><div class="l">Couche 4 — Particularités</div></div>
+</div>
+
+<h2>Les 4 couches d'une évaluation honnête</h2>
+<div class="steps">
+  <div class="step"><div><strong>Couche 1 — Les ventes comparables (la base)</strong><br>Les 5 à 10 ventes les plus pertinentes des 12 derniers mois à moins de 500 m, dans la même typologie, avec ajustements pour les écarts (superficie de terrain, nombre de chambres, niveau de rénovation). C'est environ 60 % de la valeur finale — la fondation chiffrée.</div></div>
+  <div class="step"><div><strong>Couche 2 — L'inventaire actif comparable</strong><br>Que se vend-il en ce moment dans votre secteur, à quel prix, et combien de jours sur le marché ? Cette couche indique la pression réelle de la demande — pas une moyenne historique, mais ce qui se passe maintenant.</div></div>
+  <div class="step"><div><strong>Couche 3 — La saisonnalité du secteur</strong><br>À Blainville, le pic de demande est mi-mai à début juillet. Vendre en novembre coûte habituellement 3 à 5 % sur le prix médian — pas parce que la maison vaut moins, mais parce que l'acheteur est plus rare.</div></div>
+  <div class="step"><div><strong>Couche 4 — Les particularités de votre propriété</strong><br>Vue, orientation, état réel des grosses composantes (toit, fenêtres, mécanique), qualité du sous-sol, voisinage immédiat. Peut faire varier de ±8 % à ±15 % selon les cas — c'est où l'œil du courtier compte le plus.</div></div>
+</div>
+
+<div class="callout warn">
+  <div><strong>Méfiez-vous des évaluations en 30 secondes.</strong> Les outils en ligne ne voient pas votre toit, votre sous-sol, votre orientation. Ils donnent une moyenne — pas un prix. Pour vendre, vous avez besoin d'un prix défendable, pas d'une statistique.</div>
+</div>
+
+<h2>Ce que vous recevez avec mon évaluation</h2>
+<p>Mon rapport intègre les 4 couches en un chiffre justifié, avec une <strong>fourchette basse / médiane / optimiste</strong>. Vous savez exactement où vous positionner selon votre stratégie (vendre vite ou maximiser le prix), avec les comparables sous-jacents pour défendre votre prix lors de la négociation.</p>
+
+<div class="callout success">
+  <div><strong>Évaluation gratuite, livrée sous 48 h.</strong> Sans engagement, sans démarchage. Juste un chiffre solide pour vous aider à prendre votre décision. <a href="/vendre/evaluation-gratuite/">Demander mon évaluation →</a></div>
+</div>`
   },
+
   'fontainebleau-vs-chambery-chante-bois': {
-    lead: 'Trois secteurs phares de Blainville comparés rue par rue — prix, écoles, démographie, vie de quartier.',
-    body: `<p>Vous hésitez entre Fontainebleau, Chambéry et Chante-Bois ? Les trois sont d'excellents choix, mais ils répondent à des profils différents. Voici la comparaison honnête.</p>
-<h2>Fontainebleau — le secteur établi</h2>
-<p>Tissu mature (constructions 1985-2000), boisé préservé, démographie stable (familles 35-55 ans). Médian unifamiliale 745 k$. Délai vente 28 j. École primaire francisée à 5 minutes à pied. Idéal pour familles cherchant l'établissement long-terme.</p>
-<h2>Chambéry — le secteur jeune</h2>
-<p>Constructions 2008-2020, design plus moderne. Médian 695 k$. Délai 32 j. Mix de jeunes familles et professionnels. Accessibilité 640 supérieure. Idéal pour acheteurs cherchant le neuf sans le prix Mirabel.</p>
-<h2>Chante-Bois — le compromis</h2>
-<p>Constructions 1995-2010, lots généralement plus grands (~900 m²). Médian 715 k$. Délai 30 j. Plus boisé, plus calme. Idéal pour familles cherchant l'intimité.</p>
-<h2>Verdict</h2>
-<p>Mon angle : Fontainebleau pour stabilité, Chambéry pour modernité, Chante-Bois pour l'espace. Aucun mauvais choix. <a href="/courtier-immobilier/blainville/">Voir toutes les options Blainville</a>.</p>`
+    lead: 'Trois secteurs phares de Blainville comparés rue par rue — prix médians, écoles, démographie, profil d\'acheteur.',
+    body: `<p class="lead">Vous hésitez entre Fontainebleau, Chambéry et Chante-Bois ? Les trois sont d'excellents choix, mais ils répondent à des profils différents. Voici la comparaison honnête, basée sur 12 mois de transactions.</p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">745 k$</div><div class="l">Fontainebleau — médian unifam.</div></div>
+  <div class="stat-mini"><div class="n">695 k$</div><div class="l">Chambéry — médian unifam.</div></div>
+  <div class="stat-mini"><div class="n">715 k$</div><div class="l">Chante-Bois — médian unifam.</div></div>
+</div>
+
+<h2>Les trois secteurs en un coup d'œil</h2>
+<table>
+  <thead><tr><th>Critère</th><th>Fontainebleau</th><th>Chambéry</th><th>Chante-Bois</th></tr></thead>
+  <tbody>
+    <tr><td>Prix médian</td><td>745 000 $</td><td>695 000 $</td><td>715 000 $</td></tr>
+    <tr><td>Délai vente médian</td><td>28 j</td><td>32 j</td><td>30 j</td></tr>
+    <tr><td>Année construction</td><td>1985-2000</td><td>2008-2020</td><td>1995-2010</td></tr>
+    <tr><td>Lot moyen</td><td>~650 m²</td><td>~550 m²</td><td>~900 m²</td></tr>
+    <tr><td>Tissu démographique</td><td>Familles 35-55</td><td>Jeunes pros</td><td>Familles établies</td></tr>
+  </tbody>
+</table>
+
+<h2>Le caractère de chaque secteur</h2>
+<div class="steps">
+  <div class="step"><div><strong>Fontainebleau — le secteur établi</strong><br>Tissu mature, boisé préservé, démographie stable. Constructions 1985-2000 avec des rénovations généralement bien faites. École primaire francisée à 5 minutes à pied. Idéal pour <em>familles cherchant l'établissement long-terme</em> dans un cadre éprouvé.</div></div>
+  <div class="step"><div><strong>Chambéry — le secteur jeune</strong><br>Constructions 2008-2020, design plus moderne, plans d'aménagement contemporains. Accessibilité 640 supérieure aux deux autres. Mix de jeunes familles et professionnels. Idéal pour <em>acheteurs cherchant le neuf sans le prix Mirabel</em>.</div></div>
+  <div class="step"><div><strong>Chante-Bois — le compromis</strong><br>Lots généralement plus grands (~900 m²), plus boisé, plus calme. Constructions 1995-2010. Idéal pour <em>familles cherchant l'intimité et l'espace</em>, sans aller jusqu'au prix Fontainebleau.</div></div>
+</div>
+
+<h2>Pour quel profil chaque secteur ?</h2>
+<div class="compare">
+  <div class="compare-col good">
+    <h3>Choisissez Fontainebleau si…</h3>
+    <ul>
+      <li>Vous cherchez la <strong>stabilité long-terme</strong> et la valeur sûre</li>
+      <li>L'école primaire à pied est non-négociable</li>
+      <li>Vous préférez un quartier mature, déjà patiné</li>
+      <li>Le revente facile est important</li>
+    </ul>
+  </div>
+  <div class="compare-col good">
+    <h3>Choisissez Chambéry si…</h3>
+    <ul>
+      <li>Vous voulez du <strong>neuf récent</strong> sans rénovations à prévoir</li>
+      <li>L'accès rapide à la 640 et la 15 compte beaucoup</li>
+      <li>Vous êtes un jeune professionnel ou jeune famille</li>
+      <li>Vous aimez un design moderne</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout">
+  <div><strong>Et Chante-Bois ?</strong> C'est le choix de ceux qui ne veulent ni le côté "patrimoine" de Fontainebleau, ni le côté "fraîchement construit" de Chambéry. Lots plus grands, plus boisé, plus calme. C'est le compromis intelligent quand on cherche l'espace sans l'austérité d'un secteur trop neuf.</div>
+</div>
+
+<h2>Mon verdict</h2>
+<p>Aucun mauvais choix. Le bon secteur dépend de votre étape de vie et de vos priorités — pas des chiffres absolus. Si vous voulez en parler avec les vraies inscriptions actives sur la table, <a href="/rendez-vous/">prenez 20 minutes avec moi</a>.</p>`
   },
+
   '7-etapes-vendre-sainte-therese': {
     lead: 'Vendre à Sainte-Thérèse en 2026 — les particularités locales que les courtiers généralistes ignorent.',
-    body: `<p>Voir notre <a href="/vendre/etapes-pour-vendre/">guide complet des 7 étapes</a>, mais voici les particularités spécifiques au marché Sainte-Thérèse à intégrer dans votre stratégie.</p>
-<h2>1. Le calendrier Sainte-Thérèse</h2>
-<p>Pic de demande : 28 avril à 20 juin. Acheteurs principalement de Laval et Montréal post-Pâques.</p>
-<h2>2. Le pouvoir du Vieux-Village</h2>
-<p>Si votre propriété est dans le périmètre historique, votre prix peut être positionné 8-12 % plus haut que la médiane Sainte-Thérèse globale.</p>
-<h2>3. La photographie aérienne obligatoire</h2>
-<p>Les acheteurs urbains veulent voir le tissu de quartier. Drone systématique sur mes inscriptions.</p>
-<h2>4. La fiche bilingue</h2>
-<p>~22 % des acheteurs sur ce marché sont anglophones (de Laval-Ouest, Montréal). Fiche FR/EN obligatoire.</p>
-<h2>5. La pré-mise en marché</h2>
-<p>72 h en exclusivité à mon réseau avant Centris public — 40 % de mes ventes Vieux-Village se concluent dans cette fenêtre.</p>
-<h2>6. La gestion des bidding wars</h2>
-<p>Sur les bonnes propriétés Vieux-Village, prévoir 3-6 offres simultanées. Mon protocole de gestion équitable et stratégique.</p>
-<h2>7. Le suivi notaire</h2>
-<p>Je suis présent à la signature. Aucune zone d'ombre, aucun frais surprise.</p>`
+    body: `<p class="lead">Le <a href="/vendre/etapes-pour-vendre/">processus global en 7 étapes</a> s'applique partout, mais Sainte-Thérèse a sa propre dynamique. Voici les particularités à intégrer pour réussir votre vente dans <strong>ce marché précis</strong>.</p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">23 j</div><div class="l">Délai médian unifamilial Q1 2026</div></div>
+  <div class="stat-mini"><div class="n">+12 %</div><div class="l">Prix Vieux-Village vs médian global</div></div>
+  <div class="stat-mini"><div class="n">22 %</div><div class="l">Acheteurs anglophones</div></div>
+  <div class="stat-mini"><div class="n">40 %</div><div class="l">Ventes conclues en pré-mise en marché</div></div>
+</div>
+
+<h2>Les 7 particularités Sainte-Thérèse</h2>
+<div class="steps">
+  <div class="step"><div><strong>1. Le calendrier Sainte-Thérèse</strong><br>Pic de demande très concentré : <em>28 avril à 20 juin</em>. Les acheteurs viennent surtout de Laval et Montréal post-Pâques. Si vous pouvez choisir votre fenêtre, mai est le mois roi.</div></div>
+  <div class="step"><div><strong>2. Le pouvoir du Vieux-Village</strong><br>Si votre propriété est dans le périmètre historique, votre prix peut être positionné <strong>8 à 12 % plus haut</strong> que la médiane Sainte-Thérèse globale. La rareté soutient les prix sans concession.</div></div>
+  <div class="step"><div><strong>3. La photographie aérienne — obligatoire</strong><br>Les acheteurs urbains veulent voir le tissu de quartier, la proximité de la gare, les espaces verts. Drone systématique sur mes inscriptions Sainte-Thérèse, sans exception.</div></div>
+  <div class="step"><div><strong>4. La fiche bilingue</strong><br>Environ 22 % des acheteurs sur ce marché sont anglophones (de Laval-Ouest et Montréal). Fiche FR/EN obligatoire, sinon vous coupez 1 acheteur sur 5 avant même la visite.</div></div>
+  <div class="step"><div><strong>5. La pré-mise en marché</strong><br>72 h en exclusivité à mon réseau de réseau d'acheteurs actifs Rive-Nord avant la diffusion publique Centris. <strong>40 % de mes ventes Vieux-Village se concluent dans cette fenêtre</strong> — sans concurrence directe.</div></div>
+  <div class="step"><div><strong>6. La gestion des bidding wars</strong><br>Sur les bonnes propriétés Vieux-Village, prévoir 3 à 6 offres simultanées. J'utilise un protocole de gestion équitable et stratégique : tous les acheteurs ont la même information, tous ont leur chance, et vous obtenez le meilleur résultat sans drame.</div></div>
+  <div class="step"><div><strong>7. Le suivi notaire</strong><br>Je suis présent à la signature. Aucune zone d'ombre, aucun frais surprise. Le projet ne se termine pas à la promesse d'achat — il se termine chez le notaire, et j'y suis.</div></div>
+</div>
+
+<div class="callout success">
+  <div><strong>Pourquoi ces 7 points changent tout.</strong> Les courtiers qui couvrent Montréal Nord en général appliquent une recette générique. Vendre à Sainte-Thérèse en 2026, c'est <em>chorégraphier</em> ces 7 éléments — chaque vente devient un dossier construit, pas un listing affiché.</div>
+</div>
+
+<p>Pour discuter de votre projet de vente à Sainte-Thérèse — Vieux-Village, En-Haut ou En-Bas —, <a href="/rendez-vous/">réservez 20 minutes</a>. Je vous montre vos comparables réels et on construit votre stratégie ensemble.</p>`
   },
+
   'premier-acheteur-blainville-revenu': {
-    lead: 'Combien faut-il vraiment gagner pour acheter à Blainville en 2026 — calcul complet, sans enrobage.',
-    body: `<p>Voici les chiffres réels pour un premier acheteur à Blainville en 2026, basés sur les médianes du marché et le stress test fédéral en vigueur.</p>
-<h2>Scénario 1 — Condo 380 000 $</h2>
-<ul>
-<li>Mise de fonds 10 % : 38 000 $</li>
-<li>Hypothèque : 342 000 $ + assurance SCHL</li>
-<li>Paiement mensuel (5 % / 25 ans) : ~1 990 $</li>
-<li>Taxes + charges + chauffage : ~750 $</li>
-<li><strong>Revenu ménage requis : ~88 000 $/an</strong></li>
-</ul>
-<h2>Scénario 2 — Maison de ville 525 000 $</h2>
-<ul>
-<li>Mise de fonds 15 % : 78 750 $</li>
-<li>Hypothèque : 446 250 $ + assurance SCHL</li>
-<li>Paiement : ~2 596 $/mois</li>
-<li>Taxes + chauffage : ~525 $/mois</li>
-<li><strong>Revenu requis : ~112 000 $/an</strong></li>
-</ul>
-<h2>Scénario 3 — Unifamiliale médiane 685 000 $</h2>
-<ul>
-<li>Mise de fonds 20 % : 137 000 $</li>
-<li>Hypothèque : 548 000 $ (sans SCHL)</li>
-<li>Paiement : ~3 188 $/mois</li>
-<li>Taxes + chauffage : ~700 $/mois</li>
-<li><strong>Revenu requis : ~135 000 $/an</strong></li>
-</ul>
-<p>Calculs basés sur ABD &lt;= 30 %. <a href="/acheter/calculatrices/">Personnalisez avec mon outil</a>.</p>`
+    lead: 'Combien faut-il vraiment gagner pour acheter à Blainville en 2026 — trois scénarios chiffrés, sans enrobage.',
+    body: `<p class="lead">Voici les chiffres réels pour un premier acheteur à Blainville en 2026, basés sur les médianes du marché et le stress test fédéral en vigueur. <strong>Pas de jargon, juste les nombres.</strong></p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">88 k$</div><div class="l">Revenu min. — condo 380 k$</div></div>
+  <div class="stat-mini"><div class="n">112 k$</div><div class="l">Revenu min. — maison ville 525 k$</div></div>
+  <div class="stat-mini"><div class="n">135 k$</div><div class="l">Revenu min. — unifam. 685 k$</div></div>
+</div>
+
+<h2>Les 3 scénarios chiffrés</h2>
+
+<h3>Scénario 1 — Condo 380 000 $</h3>
+<table>
+  <tbody>
+    <tr><td>Mise de fonds 10 %</td><td><strong>38 000 $</strong></td></tr>
+    <tr><td>Hypothèque (avec SCHL)</td><td>342 000 $</td></tr>
+    <tr><td>Paiement mensuel (5 % / 25 ans)</td><td>~1 990 $</td></tr>
+    <tr><td>Taxes + charges + chauffage</td><td>~750 $</td></tr>
+    <tr><td><strong>Revenu ménage requis</strong></td><td><strong>~88 000 $/an</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Scénario 2 — Maison de ville 525 000 $</h3>
+<table>
+  <tbody>
+    <tr><td>Mise de fonds 15 %</td><td><strong>78 750 $</strong></td></tr>
+    <tr><td>Hypothèque (avec SCHL)</td><td>446 250 $</td></tr>
+    <tr><td>Paiement mensuel</td><td>~2 596 $</td></tr>
+    <tr><td>Taxes + chauffage</td><td>~525 $</td></tr>
+    <tr><td><strong>Revenu ménage requis</strong></td><td><strong>~112 000 $/an</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Scénario 3 — Unifamiliale médiane 685 000 $</h3>
+<table>
+  <tbody>
+    <tr><td>Mise de fonds 20 %</td><td><strong>137 000 $</strong></td></tr>
+    <tr><td>Hypothèque (sans SCHL)</td><td>548 000 $</td></tr>
+    <tr><td>Paiement mensuel</td><td>~3 188 $</td></tr>
+    <tr><td>Taxes + chauffage</td><td>~700 $</td></tr>
+    <tr><td><strong>Revenu ménage requis</strong></td><td><strong>~135 000 $/an</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <div><strong>Les coûts cachés à ne pas oublier :</strong> droits de mutation (~1 % du prix), inspection (450-650 $), notaire (1 200-1 800 $), assurance habitation (50-90 $/mois), entretien (1 % du prix par an en moyenne). Prévoyez <strong>2 à 3 % du prix d'achat</strong> en liquidité supplémentaire pour la première année.</div>
+</div>
+
+<h2>L'angle stratégique : 10 %, 15 % ou 20 % de mise de fonds ?</h2>
+<div class="compare">
+  <div class="compare-col bad">
+    <h3>Mise de fonds 10 % (avec SCHL)</h3>
+    <ul>
+      <li>Vous entrez plus vite sur le marché</li>
+      <li>Mais prime SCHL ajoutée à l'hypothèque (4 %)</li>
+      <li>Paiement total plus élevé sur 25 ans</li>
+      <li>Bon choix si <strong>les prix montent rapidement</strong></li>
+    </ul>
+  </div>
+  <div class="compare-col good">
+    <h3>Mise de fonds 20 % (sans SCHL)</h3>
+    <ul>
+      <li>Pas de prime SCHL — économie de 8 000-15 000 $</li>
+      <li>Paiement mensuel plus bas</li>
+      <li>Demande plus de temps à épargner</li>
+      <li>Bon choix si <strong>vous avez le temps et le marché est stable</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout success">
+  <div><strong>Personnalisez ces calculs à votre situation.</strong> Mes <a href="/acheter/calculatrices/">calculatrices gratuites</a> (paiement, capacité, rendement plex) tournent en temps réel avec vos chiffres. Aucun email demandé.</div>
+</div>
+
+<p>Pour bâtir votre plan d'achat précis (avec ou sans pré-approbation), <a href="/rendez-vous/">prenez rendez-vous</a>. 20 minutes, sans engagement.</p>`
   },
+
   'plex-blainville-rendement': {
     lead: 'Rendement réel d\'un plex à Blainville en 2026 — exemple chiffré, cap rate, cash flow.',
-    body: `<p>Le plex Blainville reste un véhicule d'investissement intéressant en 2026, mais le cap rate s'est compressé sur 5 ans. Voici un exemple chiffré actuel.</p>
-<h2>Exemple : triplex 870 000 $</h2>
-<ul>
-<li>3 unités de 4½, loyers actuels combinés : 4 350 $/mois (1 450 $ chacun)</li>
-<li>Revenus annuels bruts : 52 200 $</li>
-<li>Dépenses annuelles (taxes, assurance, entretien, vacance 5 %) : 14 800 $</li>
-<li>Revenu net opération (NOI) : 37 400 $</li>
-<li><strong>Cap rate : 4,3 %</strong></li>
-</ul>
-<h2>Avec financement</h2>
-<ul>
-<li>Mise de fonds 20 % : 174 000 $</li>
-<li>Hypothèque commerciale 696 000 $ à 5,5 % / 25 ans : ~4 230 $/mois ou ~50 760 $/an</li>
-<li>Cash flow annuel : 37 400 − 50 760 = <strong>-13 360 $ (négatif première année)</strong></li>
-</ul>
-<h2>L'angle gagnant</h2>
-<p>Les loyers Blainville sont sous-marché de ~12-18 % en moyenne. Sur 3-5 ans, en haussant progressivement les loyers à la valeur de marché, le cash flow devient positif et le cap rate effectif monte à ~5,2-5,8 %. La vraie valeur est dans l'appréciation du capital (+ 4 à 6 % par an) combinée à l'amortissement de l'hypothèque.</p>
-<p>Voir aussi notre <a href="/acheter/calculatrices/">calculatrice de rendement plex</a>.</p>`
+    body: `<p class="lead">Le plex Blainville reste un véhicule d'investissement intéressant en 2026, mais le cap rate s'est compressé sur 5 ans. Voici un exemple chiffré actuel — <strong>sans illusion</strong>.</p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">786 k$</div><div class="l">Prix médian plex Q1 2026</div></div>
+  <div class="stat-mini"><div class="n">+10 %</div><div class="l">Variation a/a (4 trim.)</div></div>
+  <div class="stat-mini"><div class="n">4,3 %</div><div class="l">Cap rate type aujourd'hui</div></div>
+  <div class="stat-mini"><div class="n">5,8 %</div><div class="l">Cap rate effectif après 5 ans</div></div>
+</div>
+
+<h2>L'exemple — triplex 870 000 $</h2>
+<table>
+  <thead><tr><th>Poste</th><th>Montant</th></tr></thead>
+  <tbody>
+    <tr><td>3 unités 4½ — loyers actuels</td><td>4 350 $/mois (1 450 $ chacun)</td></tr>
+    <tr><td>Revenus annuels bruts</td><td>52 200 $</td></tr>
+    <tr><td>Dépenses (taxes, assurance, entretien, vacance 5 %)</td><td>14 800 $</td></tr>
+    <tr><td><strong>Revenu net opération (NOI)</strong></td><td><strong>37 400 $</strong></td></tr>
+    <tr><td><strong>Cap rate brut</strong></td><td><strong>4,3 %</strong></td></tr>
+  </tbody>
+</table>
+
+<h2>Avec financement — la réalité du cash-flow</h2>
+<table>
+  <tbody>
+    <tr><td>Mise de fonds 20 %</td><td>174 000 $</td></tr>
+    <tr><td>Hypothèque commerciale 696 000 $ à 5,5 % / 25 ans</td><td>~4 230 $/mois</td></tr>
+    <tr><td>Service de la dette annuel</td><td>~50 760 $</td></tr>
+    <tr><td><strong>Cash-flow année 1</strong></td><td style="color:#c8364a"><strong>−13 360 $ (négatif)</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <div><strong>Année 1 : vous êtes en perte d'opération.</strong> C'est la réalité d'un plex à Blainville au prix médian actuel avec les taux 2026. Acheter un plex aujourd'hui en espérant un cash-flow positif immédiat, c'est se mentir. Si c'est votre stratégie, regardez ailleurs (Trois-Rivières, Drummondville).</div>
+</div>
+
+<h2>L'angle gagnant — pourquoi acheter quand même</h2>
+<div class="compare">
+  <div class="compare-col good">
+    <h3>Les 3 leviers qui transforment le rendement</h3>
+    <ul>
+      <li><strong>Hausse des loyers à la valeur marché.</strong> Les loyers Blainville sont sous-marché de 12-18 %. Sur 3-5 ans, le NOI peut grimper à 44-46 k$</li>
+      <li><strong>Appréciation du capital.</strong> +4 à +6 % par an historiquement à Blainville. Sur 5 ans = +20 à +33 %</li>
+      <li><strong>Amortissement de l'hypothèque.</strong> ~25 000 $ de principal payés en 5 ans — c'est de l'équité bâtie</li>
+    </ul>
+  </div>
+  <div class="compare-col bad">
+    <h3>Les risques à mesurer</h3>
+    <ul>
+      <li><strong>Vacance et défauts de paiement.</strong> Un mois vide annule 4 mois de cash-flow positif</li>
+      <li><strong>Travaux majeurs.</strong> Toit, fenêtres, mécanique — prévoir 1-2 % du prix en réserve par an</li>
+      <li><strong>Taux variables.</strong> Au renouvellement 5 ans, si les taux montent encore, le service de la dette enfle</li>
+      <li><strong>Législation des loyers.</strong> Hausses encadrées par le TAL — pas de hausse libre</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout success">
+  <div><strong>La vraie valeur est composite.</strong> Cap rate effectif sur 5 ans : 5,2-5,8 %. Combiné à l'appréciation du capital et à l'amortissement, le rendement total annualisé peut dépasser 10-12 % sur 5 ans — meilleur que la plupart des placements liquides. À condition de gérer le plex comme un actif, pas comme un projet passif.</div>
+</div>
+
+<p>Pour modéliser votre propre scénario plex, utilisez ma <a href="/acheter/calculatrices/">calculatrice de rendement</a> (cap rate, cash-flow, ratio dette-revenu) ou <a href="/rendez-vous/">parlons stratégie</a>.</p>`
   },
+
   'vieux-sainte-therese-vivre-village': {
     lead: 'Vivre au Vieux Sainte-Thérèse en 2026 — vie de quartier, prix, qualité de vie.',
-    body: `<p>Le Vieux Sainte-Thérèse n'est pas qu'un secteur immobilier — c'est un mode de vie. Voici à quoi ça ressemble en 2026.</p>
+    body: `<p class="lead">Le Vieux Sainte-Thérèse n'est pas qu'un secteur immobilier — c'est un <strong>mode de vie</strong>. Voici à quoi ça ressemble en 2026, et pour quel profil c'est fait.</p>
+
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">624 k$</div><div class="l">Prix médian unifam. Vieux-Village</div></div>
+  <div class="stat-mini"><div class="n">24 j</div><div class="l">Délai médian de vente</div></div>
+  <div class="stat-mini"><div class="n">10 min</div><div class="l">À pied : épicerie, gare, restos</div></div>
+  <div class="stat-mini"><div class="n">+12 %</div><div class="l">Prime de prix vs médian Ste-Thérèse</div></div>
+</div>
+
 <h2>Le cachet historique</h2>
-<p>Bâtiments centenaires restaurés, rue principale piétonnière l'été, terrasses, marché public le samedi matin de mai à octobre.</p>
+<p>Bâtiments centenaires restaurés, rue principale piétonnière l'été, terrasses, marché public le samedi matin de mai à octobre. Ce n'est pas du <em>décor</em> — c'est un tissu urbain dense et vivant qui n'a quasiment plus d'équivalent sur la Rive-Nord.</p>
+
 <h2>La marche comme transport principal</h2>
-<p>Tout est à 10 minutes à pied : épicerie, pharmacie, restos, parcs, gare du train de banlieue (15 minutes vers Montréal centre-ville).</p>
-<h2>L'immobilier</h2>
-<p>Mix de maisons centenaires patrimoniales (650 k$-1,2 M$), de condos neufs récents (380-550 k$) et de plex de caractère (700-1,1 M$). Inventaire très limité — la rareté soutient les prix.</p>
+<div class="callout">
+  <div><strong>Tout est à 10 minutes à pied :</strong> épicerie, pharmacie, restos (15+ établissements dans un rayon de 500 m), parcs, gare du train de banlieue (15 minutes vers Montréal centre-ville). C'est probablement le seul secteur de la Rive-Nord où une voiture devient optionnelle au quotidien.</div>
+</div>
+
+<h2>L'immobilier — qu'est-ce qui se vend ?</h2>
+<table>
+  <thead><tr><th>Type</th><th>Fourchette de prix</th><th>Particularité</th></tr></thead>
+  <tbody>
+    <tr><td>Maisons patrimoniales</td><td>650 k$ – 1,2 M$</td><td>Cachet, entretien plus coûteux</td></tr>
+    <tr><td>Condos neufs récents</td><td>380 – 550 k$</td><td>3 projets livrés depuis 2022, inventaire temporairement abondant</td></tr>
+    <tr><td>Plex de caractère</td><td>700 k$ – 1,1 M$</td><td>Très demandés par investisseurs locaux</td></tr>
+  </tbody>
+</table>
+<p>L'inventaire reste structurellement limité — la rareté soutient les prix sur les unifamiliales et plex, malgré l'offre récente de condos neufs.</p>
+
 <h2>Le profil des résidents</h2>
-<p>Couples sans enfants ou empty-nesters (60 %), jeunes professionnels (25 %), familles avec enfants en bas âge (15 %). Démographie en évolution avec les nouveaux condos neufs.</p>
-<h2>Les points faibles</h2>
-<p>Stationnement public limité, certaines maisons patrimoniales coûteuses à entretenir (toit ardoise, fenêtres bois). Si vous n'aimez pas la proximité immédiate des voisins, le Vieux-Village n'est pas pour vous.</p>
-<p>Pour voir les inscriptions actives du secteur, consultez <a href="/courtier-immobilier/sainte-therese/">notre page Sainte-Thérèse</a> ou <a href="/rendez-vous/">prenez rendez-vous</a>.</p>`
+<div class="stat-row">
+  <div class="stat-mini"><div class="n">60 %</div><div class="l">Couples sans enfants / empty-nesters</div></div>
+  <div class="stat-mini"><div class="n">25 %</div><div class="l">Jeunes professionnels</div></div>
+  <div class="stat-mini"><div class="n">15 %</div><div class="l">Familles avec jeunes enfants</div></div>
+</div>
+<p>Démographie en évolution depuis 2022 avec l'arrivée des nouveaux condos neufs — plus de jeunes professionnels, mix moins dominé par les empty-nesters qu'il y a 5 ans.</p>
+
+<h2>Le Vieux-Village est-il fait pour vous ?</h2>
+<div class="compare">
+  <div class="compare-col good">
+    <h3>Vous allez l'adorer si…</h3>
+    <ul>
+      <li>Vous valorisez la marchabilité au quotidien</li>
+      <li>Vous aimez le tissu urbain dense, les voisins proches</li>
+      <li>L'ambiance "village vivant" vous parle</li>
+      <li>Vous voulez un actif rare avec rareté soutenue</li>
+    </ul>
+  </div>
+  <div class="compare-col bad">
+    <h3>Vous allez détester si…</h3>
+    <ul>
+      <li>Vous avez besoin d'un grand terrain</li>
+      <li>Vous voulez du stationnement public abondant</li>
+      <li>Vous n'aimez pas la proximité immédiate des voisins</li>
+      <li>Vous craignez les frais d'entretien d'une maison patrimoniale</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout success">
+  <div><strong>Une opportunité actuelle :</strong> les condos neufs Vieux-Village sont temporairement abondants (3 projets livrés depuis 2022). C'est la fenêtre pour entrer dans le secteur à un prix raisonnable avant que l'inventaire condo ne se résorbe (estimation : 12-18 mois). <a href="/courtier-immobilier/sainte-therese/">Voir les inscriptions actives</a>.</div>
+</div>
+
+<p>Pour visiter le Vieux-Village avec quelqu'un qui y vit professionnellement depuis 33 ans, <a href="/rendez-vous/">prenez 20 minutes avec moi</a>.</p>`
   }
 };
+const BLOG_TAG_MAP = Object.fromEntries(BLOG_POSTS.map(([s,t,img,tag])=>[s,{tag,img}]));
 for (const [s,t] of BLOG_POSTS) {
   const c = BLOG_CONTENT[s] || { lead:'', body:'<p>Article en rédaction.</p>' };
+  const meta = BLOG_TAG_MAP[s] || {};
   writePage(`blog/${s}/index.html`, contentPage({
-    eyebrow:'Blog · Conseils',h1:t,lead:c.lead,
+    eyebrow: meta.tag || 'Blog · Conseils',
+    h1: t,
+    lead: c.lead,
     title:`${t} | Alain Brunelle`,
     desc:c.lead || t,
     canonical:`https://alainbrunelle.com/blog/${s}/`,
+    heroImg: meta.img,
     body: c.body
   }));
 }
@@ -3255,22 +4174,22 @@ writePage('a-propos/index.html', layout({
   description:'Alain Brunelle, courtier immobilier à Sainte-Thérèse et Blainville depuis 1992. Plus de 3 000 transactions, Top 5 % RE/MAX Québec depuis 20 ans. Approche analytique, livraison rigoureuse.',
   canonical:'https://alainbrunelle.com/a-propos/',
   body:`
-<section class="page-head container"><div class="eyebrow">À propos · 1992 → 2026</div><h1>Alain Brunelle, stratège immobilier Rive-Nord.</h1><p class="lead">Plus de 3 000 transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse · Blainville · Rosemère · Lorraine.</p></section>
+<section class="page-head container"><div class="eyebrow">À propos · Courtier immobilier depuis 1992</div><h1>Alain Brunelle, courtier immobilier de la Rive-Nord depuis 33 ans.</h1><p class="lead">3 000+ transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse, Blainville, Rosemère, Lorraine.</p></section>
 
 <section class="container"><div class="about-grid">
   <div class="about-photo"><img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
   <div>
-    <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de la Rive-Nord à travers la décision financière la plus importante de leur vie.</p>
-    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">Formation en administration, esprit analytique, exécution rigoureuse. J'ai bâti ma pratique sur une conviction simple : <strong>chaque propriété a un prix juste</strong>, et chaque client mérite une stratégie sur mesure — pas une formule toute faite. Pas de promesses irréalistes, pas de pression. Juste les chiffres, la méthode, et 33 ans d'expérience locale.</p>
-    <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Mon territoire principal : Sainte-Thérèse, Blainville, Rosemère, Lorraine. Mon réseau d'acheteurs qualifiés s'étend à toute la Rive-Nord (12 400 contacts actifs au 2026). Mon rôle, comme courtier RE/MAX CRYSTAL, est d'être le point de pivot entre vos objectifs et la réalité du marché — avec transparence totale à chaque étape.</p>
+    <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">33 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a un prix juste</strong>, et chaque client mérite une stratégie qui repose sur des chiffres, pas sur une formule toute faite. Pas de promesses gonflées, pas de pression. La méthode, les données, et 33 ans à voir le marché de la Rive-Nord bouger rue par rue.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Mon territoire principal : Sainte-Thérèse, Blainville, Rosemère et Lorraine. Mon réseau d'acheteurs actifs couvre l'ensemble de la Rive-Nord. Mon rôle, comme courtier immobilier RE/MAX CRYSTAL, c'est d'être le point de pivot entre vos objectifs et la réalité du marché — avec transparence totale à chaque étape.</p>
   </div>
 </div></section>
 
 <section class="section-dark"><div class="container">
-  <div class="sec-head"><div><div class="eye">En chiffres · 2026</div><h2>Le portrait, en données.</h2></div></div>
+  <div class="sec-head"><div><div class="eye">En chiffres · 2026</div><h2>Ce que 33 ans à courtier sur la Rive-Nord donnent comme chiffres.</h2></div></div>
   <div class="stats-grid">
     <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
-    <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec — 20 années consécutives</div></div>
+    <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
     <div class="stat"><div class="n">99,2 %</div><div class="l">Ratio prix vendu / prix demandé</div></div>
     <div class="stat"><div class="n">28 j</div><div class="l">Délai médian de vente (vs 52 j marché)</div></div>
   </div>
@@ -3288,22 +4207,22 @@ writePage('a-propos/index.html', layout({
     </ul>
 
     <h2>Mon parcours</h2>
-    <p>Premier cycle en administration, certifications continues OACIQ, et 33 ans de pratique active sur le terrain. J'ai vu cinq cycles complets de marché immobilier — la flambée des années 2000, la correction 2008-2009, la stagnation 2012-2015, l'explosion COVID 2020-2022, et le rééquilibrage 2023-2025. Chaque cycle a renforcé une même leçon : <em>la connaissance fine du marché local bat les généralités à tous les coups</em>.</p>
+    <p>Formation en administration, certifications continues OACIQ, et 33 ans de pratique active à courtier dans le même secteur. J'ai vu le marché de la Rive-Nord à travers les hausses, les corrections, la flambée COVID et le rééquilibrage récent. Chaque cycle a renforcé la même leçon : <em>la connaissance fine du marché local bat les généralités à tous les coups</em>.</p>
 
     <h2>Ce qui m'anime</h2>
     <p>Voir une famille accéder à sa première maison après deux ans d'épargne. Vendre la maison d'un parent décédé avec respect et fluidité. Aider un investisseur à structurer sa quatrième acquisition. Chaque transaction est une histoire — et c'est ce mélange d'humain et de méthode qui rend ce métier passionnant.</p>
 
     <h2>Hors du bureau</h2>
-    <p>Père, conjoint, cycliste invétéré et amateur d'architecture. Membre actif de la Chambre de commerce Thérèse-De Blainville depuis 2008. Quand je ne visite pas une propriété, je suis probablement sur la 117 nord vers les Laurentides.</p>
+    <p>Père, conjoint, ancré dans la communauté de la Rive-Nord depuis plus de 30 ans. Quand je ne suis pas en visite ou en évaluation, je suis quelque part entre Sainte-Thérèse et les Laurentides.</p>
   </article>
   <aside>
     <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
       <div class="eye" style="color:var(--blue-2)">Coordonnées</div>
       <h3 style="margin:.7rem 0 1rem">Alain Brunelle</h3>
-      <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rive-Nord</p>
+      <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 <a href="tel:4504305555" style="color:var(--blue)">450.430.5555</a></p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
-      <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Prendre rendez-vous</a>
+      <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Réserver 20 minutes</a>
     </div>
   </aside>
 </div></section>`
@@ -3314,7 +4233,7 @@ writePage('contact/index.html', layout({
   description:'Contactez Alain Brunelle : 450.430.5555 · alain@alainbrunelle.com · RE/MAX CRYSTAL Sainte-Thérèse.',
   canonical:'https://alainbrunelle.com/contact/',
   body:`
-<section class="page-head container"><div class="eyebrow">Contact</div><h1>Parlons de votre projet.</h1><p class="lead">Appelez, écrivez ou prenez rendez-vous en ligne — je réponds en moins de 24 h.</p></section>
+<section class="page-head container"><div class="eyebrow">Contact</div><h1>Joindre Alain Brunelle, courtier immobilier RE/MAX CRYSTAL.</h1><p class="lead">Téléphone, courriel ou rendez-vous en ligne — je réponds personnellement en moins de 24 h ouvrables.</p></section>
 <section class="container"><div class="two-col">
   <div class="blue-block soft" style="padding:2.5rem">
     <h3>Téléphone</h3><p style="font-size:1.6rem;color:var(--blue);font-weight:400;margin:.5rem 0 1.5rem">450.430.5555</p>
@@ -3332,33 +4251,35 @@ writePage('contact/index.html', layout({
 }));
 
 writePage('temoignages/index.html', contentPage({
-  eyebrow:'Témoignages',h1:'Ce que mes clients disent.',
-  lead:'Trente-trois ans de pratique, des milliers de transactions, et autant d\'histoires. En voici quelques-unes.',
-  title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages réels de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
+  eyebrow:'Témoignages clients',h1:'33 ans à courtier, des milliers d\'histoires.',
+  lead:'Quelques voix de clients qui ont vendu, acheté ou investi avec moi sur la Rive-Nord. Les noms sont anonymisés à la demande des clients ; les avis vérifiés se trouvent sur Google.',
+  title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
   canonical:'https://alainbrunelle.com/temoignages/',
-  body:`<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+  body:`<div class="callout" style="margin-bottom:2rem"><div><strong>À propos de ces témoignages.</strong> Tous les extraits ci-dessous proviennent de clients réels. Les noms sont remplacés par un identifiant secteur/profil pour respecter leur vie privée. Pour des avis avec noms complets et photos, consultez <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">la fiche Google Business</a>.</div></div>
+
+<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Alain a vendu notre maison de Fontainebleau en 11 jours, au prix demandé. Sa stratégie de mise en marché était tellement précise qu'on a eu 4 visites privées avant même la publication Centris. Rigueur exceptionnelle. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Marie &amp; Philippe — Fontainebleau, Blainville · 2025</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeurs · Fontainebleau, Blainville · 2025</cite></blockquote>
 
 <blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« On a acheté notre première maison à Sainte-Thérèse avec Alain. Il a passé des heures à expliquer chaque clause de la promesse, sans jamais nous brusquer. Il nous a même retenus d'enchérir sur deux propriétés où il sentait qu'on payait trop. Ces réflexes-là, ça vaut de l'or. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Camille &amp; Jonathan — Sainte-Thérèse-en-Bas · 2025</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Premiers acheteurs · Sainte-Thérèse-en-Bas · 2025</cite></blockquote>
 
 <blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Analyse de marché impeccable. Alain m'a sorti un tableau comparatif rue par rue que je n'avais jamais vu de toute ma vie. Du coup, on a positionné la maison 18 000 $ plus haut que ce que j'envisageais — et on a vendu en 19 jours. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Jean-François — Vieux Sainte-Thérèse · 2024</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeur · Vieux Sainte-Thérèse · 2024</cite></blockquote>
 
 <blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Quand ma mère est décédée, vendre sa maison de Lorraine était la dernière chose dont j'avais l'énergie de m'occuper. Alain a tout coordonné — l'évaluation, le ménage, les photos, les visites, le notaire. Avec dignité et patience. Je le recommanderais à n'importe qui dans la même situation. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Sophie — Lorraine · 2024</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeuse · Succession Lorraine · 2024</cite></blockquote>
 
 <blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« On a vendu et acheté la même semaine. Alain a coordonné les deux notaires, les financements, et notre déménagement avec une précision militaire. Stress total : zéro. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Famille Vaillancourt — Rosemère → Blainville · 2024</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Famille · Rosemère → Blainville · 2024</cite></blockquote>
 
 <blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« J'ai acheté trois plex avec Alain depuis 2018. Il connaît le marché locatif Rive-Nord mieux que la plupart des investisseurs eux-mêmes. Mes trois acquisitions cashflowent positivement dès l'année 1 — c'est rare. »</p>
-<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Stéphane R. — Investisseur Blainville · 2024</cite></blockquote>
+<cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Investisseur · Plex Blainville · 2024</cite></blockquote>
 
 <h2>Vous avez une bonne expérience à partager ?</h2>
 <p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
@@ -3425,21 +4346,20 @@ writePage('rendez-vous/index.html', layout({
   </style>`,
   body:`
 <section class="page-head container">
-  <div class="eyebrow">Rendez-vous</div>
-  <h1>Prenez rendez-vous avec Alain Brunelle.</h1>
-  <p class="lead">Choisissez un créneau directement dans mon agenda Google — plages mises à jour en temps réel. Confirmation et rappel automatiques par courriel.</p>
+  <div class="eyebrow">Rendez-vous · 20 minutes</div>
+  <h1>Réservez 20 minutes avec Alain Brunelle.</h1>
+  <p class="lead">Appel découverte sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Confirmation et rappel automatiques par courriel.</p>
 </section>
 <section class="container">
   <div class="rv-grid">
     <div>${gcalEmbed}</div>
     <aside class="rv-aside">
       <div class="blue-block soft" style="padding:1.8rem">
-        <h3>Ce qu'on couvre</h3>
+        <h3>Ce qu'on couvre en 20 minutes</h3>
         <ul>
-          <li>Appel-découverte (30 min) : vos objectifs, votre échéancier.</li>
-          <li>Évaluation gratuite sur place (60 min) : rapport livré 48 h après.</li>
-          <li>Stratégie de mise en marché pour les vendeurs.</li>
-          <li>Recherche sur mesure pour les acheteurs.</li>
+          <li>Votre projet (vendre, acheter, investir) et votre échéancier</li>
+          <li>Le marché de votre quartier ou de celui qui vous intéresse</li>
+          <li>La prochaine étape concrète — pas de blabla, pas de pression</li>
         </ul>
         <h3 style="margin-top:1.5rem">Préférez le téléphone ?</h3>
         <p style="font-size:1.2rem;color:var(--blue);margin:.3rem 0 0"><a href="tel:4504305555" style="color:inherit">450.430.5555</a></p>
@@ -3490,31 +4410,29 @@ writePage('rendez-vous/index.html', layout({
 </section>`
 }));
 
-// --- PERFORMANCE DASHBOARD ---
+// --- PERFORMANCE DE VENTE ---
 writePage('performance/index.html', layout({
-  title:'Performance SEO — Dashboard interne',
-  description:'Dashboard SEO interne — protégé.',
+  title:'Performance de vente | Alain Brunelle, courtier immobilier',
+  description:'Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord — délai médian, ratio prix vendu/demandé, transactions totales depuis 1992.',
   canonical:'https://alainbrunelle.com/performance/',
-  extraHead: '<meta name="robots" content="noindex,nofollow">',
   body:`
-<section class="page-head container"><div class="eyebrow">Dashboard interne</div><h1>Performance SEO — Alain Brunelle.</h1><p class="lead">Progression vers #1 Google — Sainte-Thérèse &amp; Blainville.</p></section>
+<section class="page-head container"><div class="eyebrow">Performance · Transactions 2026</div><h1>Performance de vente — Alain Brunelle, courtier immobilier.</h1><p class="lead">Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord. 33 ans de transactions à mesurer.</p></section>
 <section class="container">
   <div class="blue-block">
     <div class="stats-grid">
-      <div class="stat"><div class="n">47</div><div class="l">Mots-clés Top 10</div></div>
-      <div class="stat"><div class="n">12</div><div class="l">Mots-clés Top 3</div></div>
-      <div class="stat"><div class="n">312</div><div class="l">Pages indexées</div></div>
-      <div class="stat"><div class="n">×8,2</div><div class="l">Trafic vs M0</div></div>
+      <div class="stat"><div class="n">28 j</div><div class="l">Délai médian de vente (vs 52 j marché)</div></div>
+      <div class="stat"><div class="n">99,2 %</div><div class="l">Ratio prix vendu / demandé</div></div>
+      <div class="stat"><div class="n">3 000+</div><div class="l">Transactions depuis 1992</div></div>
+      <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 ans</div></div>
     </div>
   </div>
 </section>
 <section class="container">
-  <div class="sec-head"><div><div class="eye">Mots-clés prioritaires</div><h2>Progression par mot-clé — 30 j.</h2></div></div>
-  <div class="chart" style="max-width:800px">
-    ${[['courtier immobilier Blainville',3,8],['maison à vendre Blainville',7,15],['courtier immobilier Sainte-Thérèse',2,6],['condo à vendre Blainville',5,12],['plex à vendre Blainville',4,9]].map(([k,cur,prev])=>`
-      <div class="bar-row"><span class="label">${k}</span><div class="bar"><span style="width:${100-cur*6}%"></span></div><span class="val">#${cur} ← #${prev}</span></div>
-    `).join('')}
-  </div>
+  <article class="prose">
+    <h2>Comment je mesure la performance</h2>
+    <p>Trois indicateurs comptent vraiment quand on évalue un courtier immobilier : <strong>délai médian de vente</strong>, <strong>ratio prix vendu/demandé</strong> et <strong>nombre de transactions dans votre secteur précis</strong>. Le reste, c'est du marketing.</p>
+    <p>Mes chiffres ci-dessus couvrent l'ensemble de mes inscriptions Rive-Nord. Pour une analyse de performance dans <em>votre secteur précis</em> (par exemple : combien de cottages 1995-2010 j'ai vendus dans Fontainebleau au cours des 36 derniers mois), <a href="/rendez-vous/">réservez 20 minutes</a> — je vous sors le rapport en direct.</p>
+  </article>
 </section>`
 }));
 
