@@ -1,23 +1,22 @@
 {
-  "total": 9,
-  "avgPrice": 749922,
-  "totalValue": 6749300,
+  "total": 8,
+  "avgPrice": 749925,
+  "totalValue": 5999400,
   "byCity": {
-    "Sainte-Marthe-sur-le-Lac": 1,
     "Saint-Eustache": 5,
     "Blainville": 3
   },
   "byType": {
-    "Maison unifamiliale": 3,
     "Plex": 1,
     "Propriété": 3,
+    "Maison unifamiliale": 2,
     "Terrain": 1,
     "Maison de ville": 1
   },
   "priceRanges": {
     "<300k": 0,
     "300-500k": 0,
-    "500-800k": 6,
+    "500-800k": 5,
     "800k-1.5M": 3,
     ">1.5M": 0
   }
