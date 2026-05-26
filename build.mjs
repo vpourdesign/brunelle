@@ -169,10 +169,44 @@ const slug = (s) => (s || '').toString().toLowerCase().normalize('NFD')
 const HAS_CENTRIS = fs.existsSync(path.join(CENTRIS, 'INSCRIPTIONS.TXT'));
 let properties, stats;
 
+// --- Archive des propriétés vendues (rétention 30 jours après disparition du flux) ---
+const SOLD_ARCHIVE_PATH = path.join(ROOT, 'data', 'sold-archive.json');
+const SOLD_RETENTION_DAYS = 30;
+let soldArchive = {};
+if (fs.existsSync(SOLD_ARCHIVE_PATH)) {
+  try { soldArchive = JSON.parse(fs.readFileSync(SOLD_ARCHIVE_PATH, 'utf8')); } catch {}
+}
+
 if (HAS_CENTRIS) {
   console.log('Mode A · Reading Centris zip…');
   const membres = read('MEMBRES.TXT');
   ({ properties, stats } = ingestFromCentris(membres));
+
+  // Détection sold : compare avec le précédent build avant d'écraser
+  const prevPath = path.join(SITE, 'data', 'properties.json');
+  const prevProps = fs.existsSync(prevPath)
+    ? (() => { try { return JSON.parse(fs.readFileSync(prevPath, 'utf8')); } catch { return []; } })()
+    : [];
+  const currentMlsSet = new Set(properties.map(p => p.mls));
+  const today = new Date().toISOString().slice(0, 10);
+  // Élague l'archive (>30 jours) + réintègre les MLS qui sont revenus dans le flux
+  const nowMs = Date.now();
+  const retentionMs = SOLD_RETENTION_DAYS * 86400000;
+  for (const mls of Object.keys(soldArchive)) {
+    const t = new Date(soldArchive[mls].soldDate).getTime();
+    if (isNaN(t) || nowMs - t > retentionMs || currentMlsSet.has(mls)) delete soldArchive[mls];
+  }
+  // Ajoute les MLS disparus depuis le dernier build → marqués sold aujourd'hui
+  for (const prev of prevProps) {
+    if (!currentMlsSet.has(prev.mls) && !soldArchive[prev.mls]) {
+      soldArchive[prev.mls] = { soldDate: today, data: prev };
+    }
+  }
+  fs.mkdirSync(path.dirname(SOLD_ARCHIVE_PATH), { recursive: true });
+  fs.writeFileSync(SOLD_ARCHIVE_PATH, JSON.stringify(soldArchive, null, 2));
+  const soldCount = Object.keys(soldArchive).length;
+  if (soldCount) console.log(`📦 ${soldCount} propriété(s) vendue(s) en archive (visible ${SOLD_RETENTION_DAYS}j)`);
+
   // Persist for next Vercel build
   fs.mkdirSync(path.join(SITE, 'data'), { recursive: true });
   fs.writeFileSync(path.join(SITE, 'data', 'properties.json'), JSON.stringify(properties, null, 2));
@@ -615,6 +649,13 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .pcard .meta{margin-top:.9rem;display:flex;gap:1.2rem;color:var(--muted);font-size:.85rem;padding-top:.9rem;border-top:1px solid var(--line)}
 .pcard .meta span{display:inline-flex;align-items:center;gap:.35rem}
 
+/* État vendu — ruban diagonal + remplacement du prix */
+.pcard-sold .ph img{filter:grayscale(.35) brightness(.92);transition:filter .6s var(--ease)}
+.pcard-sold:hover .ph img{filter:grayscale(.15) brightness(.96)}
+.pcard .sold-ribbon{position:absolute;top:18px;right:-44px;transform:rotate(38deg);background:linear-gradient(180deg,#c8364a 0%,#9c1f30 100%);color:#fff;padding:.4rem 3.5rem;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 4px 14px rgba(155,30,48,.42),inset 0 1px 0 rgba(255,255,255,.18);z-index:3;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.pcard .price-sold{color:#c8364a;font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:1.4rem;display:inline-flex;align-items:center;gap:.6rem}
+.pcard .price-sold::before{content:"";width:10px;height:10px;border-radius:50%;background:#c8364a;box-shadow:0 0 0 4px rgba(200,54,74,.15)}
+
 /* Chart bars */
 .chart{display:flex;flex-direction:column;gap:.85rem;margin-top:1.5rem}
 .bar-row{display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:1rem}
@@ -658,6 +699,7 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .p-detail-head{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;margin-bottom:2rem}
 .p-detail-head h1{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:400;letter-spacing:-.02em;max-width:22ch}
 .p-detail-head .price{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:400;color:var(--blue);letter-spacing:-.02em}
+.p-detail-head .price-head-sold{background:linear-gradient(160deg,#c8364a 0%,#9c1f30 100%);color:#fff;padding:.7rem 1.6rem;border-radius:10px;font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 8px 20px rgba(155,30,48,.3),inset 0 1px 0 rgba(255,255,255,.18);text-shadow:0 1px 2px rgba(0,0,0,.18)}
 .gal{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:.6rem;height:clamp(360px,50vw,560px);border-radius:var(--radius-lg);overflow:hidden}
 .gal .main{grid-row:1/3}
 .gal>div{background:#eef2f8;position:relative;overflow:hidden}
@@ -699,6 +741,10 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .p-side .amount{font-size:2.2rem;color:var(--blue);font-weight:400;letter-spacing:-.02em;margin:.4rem 0 1.5rem}
 .p-side .btn{display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem}
 .p-side .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.p-side-sold{background:linear-gradient(160deg,#fef3f5 0%,#fce8ec 100%);border:1px solid rgba(200,54,74,.15)}
+.p-side-sold .from{color:#9c1f30}
+.p-side .sold-stamp{display:inline-block;background:linear-gradient(160deg,#c8364a 0%,#9c1f30 100%);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-size:1.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:.6rem 0 .5rem;box-shadow:0 6px 18px rgba(155,30,48,.32),inset 0 1px 0 rgba(255,255,255,.18);text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.p-side .sold-meta{font-size:.85rem;color:#7a2030;margin-bottom:1.5rem;font-style:italic}
 .desc{font-size:1rem;line-height:1.75;color:var(--ink-2);max-width:62ch}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.7rem;margin-top:1.5rem}
 .feature{background:var(--surface);padding:.85rem 1.1rem;border-radius:14px;font-size:.9rem;display:flex;flex-direction:column;gap:.2rem}
@@ -1018,8 +1064,24 @@ function writePage(relpath, html) {
   fs.writeFileSync(out, html);
 }
 
-// --- HOMEPAGE ---
-const topProps = properties.slice(0, 3);
+// --- Propriétés vendues à afficher (depuis l'archive) ---
+const soldProperties = Object.entries(soldArchive).map(([mls, entry]) => ({
+  ...entry.data,
+  sold: true,
+  soldDate: entry.soldDate
+}));
+// Liste complète pour génération de pages + cartes
+const allProperties = [...properties, ...soldProperties];
+
+// --- HOMEPAGE — priorité Blainville/Sainte-Thérèse, fallback autres ---
+const PRIORITY_CITIES = ['Blainville', 'Sainte-Thérèse'];
+const isPriority = p => PRIORITY_CITIES.includes(p.city);
+const priorityProps = allProperties.filter(isPriority);
+const otherProps = allProperties.filter(p => !isPriority(p));
+const HOME_COUNT = 3;
+const topProps = priorityProps.length >= HOME_COUNT
+  ? priorityProps.slice(0, HOME_COUNT)
+  : [...priorityProps, ...otherProps].slice(0, HOME_COUNT);
 const videos = [
   { file: 'AVANTAGE-REMAX.mp4', title: "L'avantage RE/MAX" },
   { file: 'AVENIR-IMMOBILIER.mp4', title: "L'avenir de l'immobilier" },
@@ -1273,12 +1335,15 @@ const homeBody = `
 
 function propertyCard(p) {
   const ph = p.photos[0]?.url || '/photos/P21_5525-Edit.jpg';
-  return `<a class="pcard" href="/nos-proprietes/${p.slug}/" data-prop="${p.typeLabel.toLowerCase()} ${p.city.toLowerCase()}">
-    <div class="ph"><span class="badge">${p.typeLabel}</span><img loading="lazy" src="${ph}" alt="${p.street}, ${p.city}"></div>
+  const soldClass = p.sold ? ' pcard-sold' : '';
+  return `<a class="pcard${soldClass}" href="/nos-proprietes/${p.slug}/" data-prop="${p.typeLabel.toLowerCase()} ${p.city.toLowerCase()}">
+    <div class="ph"><span class="badge">${p.typeLabel}</span>${p.sold?'<span class="sold-ribbon">Vendu</span>':''}<img loading="lazy" src="${ph}" alt="${p.street}, ${p.city}"></div>
     <div class="body">
       <div class="loc">${p.city} · MLS ${p.mls}</div>
       <div class="addr">${p.street}</div>
-      <div class="price">${fmtPrice(p.price)}</div>
+      ${p.sold
+        ? `<div class="price price-sold">Vendu</div>`
+        : `<div class="price">${fmtPrice(p.price)}</div>`}
       <div class="meta">
         ${p.yearBuilt?`<span>📅 ${p.yearBuilt}</span>`:''}
         ${p.areaTerrain?`<span>📐 ${p.areaTerrain}</span>`:''}
@@ -1310,7 +1375,7 @@ const listBody = `
     ${Object.entries(stats.byCity).slice(0,6).map(([k,v])=>`<button data-filter="${k.toLowerCase()}">${k} (${v})</button>`).join('')}
   </div>
   <div class="prop-grid">
-    ${properties.map(propertyCard).join('')}
+    ${allProperties.map(propertyCard).join('')}
   </div>
 </section>
 `;
@@ -1341,10 +1406,14 @@ function detailPage(p) {
     .map(([name, vals]) => `<div class="feature"><strong>${name}</strong><span>${[...new Set(vals)].join(', ')}</span></div>`);
   const jsonld = JSON.stringify({
     "@context":"https://schema.org","@type":"RealEstateListing",
-    "name":`${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
+    "name": p.sold
+      ? `Vendu — ${p.street}, ${p.city}`
+      : `${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
     "url":`https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
     "image":photos.map(x=>x.url),
-    "offers":{"@type":"Offer","price":p.price,"priceCurrency":"CAD"},
+    ...(p.sold
+      ? { "availability": "https://schema.org/SoldOut" }
+      : { "offers": { "@type":"Offer", "price": p.price, "priceCurrency": "CAD" } }),
     "address":{"@type":"PostalAddress","streetAddress":p.street,"addressLocality":p.city,"postalCode":p.postalCode,"addressCountry":"CA"}
   });
   const body = `
@@ -1352,10 +1421,12 @@ function detailPage(p) {
   <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem"><a href="/">Accueil</a> › <a href="/nos-proprietes/">Propriétés</a> › <span>${p.street}, ${p.city}</span></div>
   <div class="p-detail-head">
     <div>
-      <div style="font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.6rem">${p.typeLabel} · MLS ${p.mls}${p.isCoBroker?' · Collaboration':''}</div>
+      <div style="font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.6rem">${p.typeLabel} · MLS ${p.mls}${p.isCoBroker?' · Collaboration':''}${p.sold?' · <span style="color:#c8364a;font-weight:600">Vendu</span>':''}</div>
       <h1>${p.street}, ${p.city}</h1>
     </div>
-    <div class="price">${fmtPrice(p.price)}</div>
+    ${p.sold
+      ? `<div class="price-head-sold">Vendu</div>`
+      : `<div class="price">${fmtPrice(p.price)}</div>`}
   </div>
   <div class="gal" data-photos='${JSON.stringify(p.photos.map(ph=>ph.url)).replace(/'/g,"&#39;")}'>
     <div class="main" data-open-lightbox="0"><img src="${mainPh}" alt="${p.street}"></div>
@@ -1392,19 +1463,25 @@ function detailPage(p) {
         </table>
       `:''}
     </div>
-    <aside class="p-side">
+    <aside class="p-side${p.sold ? ' p-side-sold' : ''}">
       <div class="from">Alain Brunelle · RE/MAX CRYSTAL</div>
-      <div class="amount">${fmtPrice(p.price)}</div>
-      <a class="btn" href="/rendez-vous/">Réserver une visite</a>
-      <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
-      <button type="button" class="cta-interest"
-        data-property-address="${p.street}, ${p.city}"
-        data-property-price="${fmtPrice(p.price)}"
-        data-property-mls="${p.mls}"
-        data-property-url="https://alainbrunelle.com/nos-proprietes/${p.slug}/">
-        Cette propriété m'intéresse →
-      </button>
-      <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Visite 360° disponible.</strong> Sur demande — envoyez-moi un message.</div>
+      ${p.sold
+        ? `<div class="sold-stamp">Vendu</div>
+           <div class="sold-meta">Vendu le ${new Date(p.soldDate).toLocaleDateString('fr-CA',{day:'numeric',month:'long',year:'numeric'})}</div>
+           <a class="btn" href="/vendre/evaluation-gratuite/">Évaluation gratuite</a>
+           <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+           <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Une propriété similaire vous intéresse ?</strong> Parlons-en — j'ai souvent des inscriptions à venir avant Centris.</div>`
+        : `<div class="amount">${fmtPrice(p.price)}</div>
+           <a class="btn" href="/rendez-vous/">Réserver une visite</a>
+           <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+           <button type="button" class="cta-interest"
+             data-property-address="${p.street}, ${p.city}"
+             data-property-price="${fmtPrice(p.price)}"
+             data-property-mls="${p.mls}"
+             data-property-url="https://alainbrunelle.com/nos-proprietes/${p.slug}/">
+             Cette propriété m'intéresse →
+           </button>
+           <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Visite 360° disponible.</strong> Sur demande — envoyez-moi un message.</div>`}
     </aside>
   </div>
   ${similarProperties(p).length ? `
@@ -1455,8 +1532,12 @@ function detailPage(p) {
   </div>
 </div>`;
   return layout({
-    title: `${p.typeLabel} à vendre — ${p.street}, ${p.city} · ${fmtPrice(p.price)} | Alain Brunelle`,
-    description: `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. ${p.photos.length} photos, fiche complète et visite avec Alain Brunelle.`,
+    title: p.sold
+      ? `Vendu — ${p.street}, ${p.city} | Alain Brunelle`
+      : `${p.typeLabel} à vendre — ${p.street}, ${p.city} · ${fmtPrice(p.price)} | Alain Brunelle`,
+    description: p.sold
+      ? `Propriété vendue au ${p.street}, ${p.city} par Alain Brunelle, courtier immobilier RE/MAX CRYSTAL. Voyez les propriétés similaires actives sur la Rive-Nord.`
+      : `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. ${p.photos.length} photos, fiche complète et visite avec Alain Brunelle.`,
     canonical: `https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
     body,
     jsonld,
@@ -1602,18 +1683,19 @@ document.addEventListener('DOMContentLoaded', function(){
 // Nettoyer les anciennes fiches (slugs obsolètes) avant de régénérer
 const propertiesDir = path.join(SITE, 'nos-proprietes');
 if (fs.existsSync(propertiesDir)) {
-  const validSlugs = new Set(properties.map(p => p.slug));
+  // Conserver les slugs actifs ET les slugs des propriétés vendues récentes
+  const validSlugs = new Set([...allProperties.map(p => p.slug)]);
   for (const d of fs.readdirSync(propertiesDir)) {
     const full = path.join(propertiesDir, d);
     if (!fs.statSync(full).isDirectory()) continue;
     if (d === 'index.html') continue;
-    // Conserver l'index, supprimer les sous-dossiers dont le slug n'est plus généré
     if (!validSlugs.has(d)) {
       fs.rmSync(full, { recursive: true, force: true });
     }
   }
 }
-for (const p of properties) writePage(`nos-proprietes/${p.slug}/index.html`, detailPage(p));
+// Génère les pages — actives + vendues (badge VENDU sur ces dernières)
+for (const p of allProperties) writePage(`nos-proprietes/${p.slug}/index.html`, detailPage(p));
 
 // --- GENERIC CONTENT PAGE BUILDER ---
 function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg, sideBlock, ctaTitle }) {
@@ -4457,7 +4539,7 @@ const allUrls = [
   ...GUIDES.map(([s])=>`/guides/${s}/`),
   ...['statistiques-blainville','statistiques-sainte-therese','rapport-mensuel'].map(s=>`/marche-immobilier/${s}/`),
   ...BLOG_POSTS.map(([s])=>`/blog/${s}/`),
-  ...properties.map(p=>`/nos-proprietes/${p.slug}/`)
+  ...allProperties.map(p=>`/nos-proprietes/${p.slug}/`)
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
