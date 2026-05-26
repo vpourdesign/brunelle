@@ -1326,8 +1326,8 @@ const homeBody = `
     <div class="about-photo"><img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle"></div>
     <div>
       <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">À propos</div>
-      <h2 style="max-width:24ch">Le courtier immobilier de la Rive-Nord qui décide avec des chiffres, pas des intuitions.</h2>
-      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie. Pas de promesses gonflées. Une lecture rigoureuse du marché local : historique de vente par rue, saisonnalité, positionnement de prix, taux d'absorption du quartier. Le résultat : des ventes au juste prix, sans drame, sans surprise.</p>
+      <h2 style="max-width:24ch">Le courtier immobilier de la Rive-Nord qui appuie chaque décision sur la donnée locale.</h2>
+      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine dans la décision financière la plus importante de leur vie. Ma méthode tient en trois éléments : une lecture précise du marché rue par rue, une stratégie de prix appuyée sur les ventes comparables récentes, et une communication transparente du premier appel jusqu'à la signature chez le notaire.</p>
       <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
         <a href="/a-propos/" class="hero-cta" style="display:inline-flex;padding:1rem 1.6rem;border-radius:999px">En savoir plus <span class="arrow" style="width:32px;height:32px;margin-left:.8rem">→</span></a>
         <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Réserver 20 minutes</a>
@@ -1785,18 +1785,29 @@ const CITIES = [
   ['lorraine','Lorraine',[]]
 ];
 
+// Stats officielles Q1 2026 par ville — segment unifamiliale, source : APCIQ par Centris®
+// Récupérées de centris.ca/fr/outils/statistiques-immobilieres/laurentides/{ville}
+const CITY_STATS = {
+  'blainville':     { price:'715 000 $', delay:'32 j', yoy:'−4 %',    invent:'179', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville' },
+  'sainte-therese': { price:'579 000 $', delay:'23 j', yoy:'stable',  invent:'30',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese' },
+  'rosemere':       { price:'830 888 $', delay:'48 j', yoy:'+13 %',   invent:'41',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/rosemere' },
+  'lorraine':       { price:'770 750 $', delay:'62 j', yoy:'+13 %',   invent:'27',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/lorraine' }
+};
+
 for (const [slugC, cityName, neighs] of CITIES) {
   const cityProps = properties.filter(p => slug(p.city) === slugC);
+  const cs = CITY_STATS[slugC] || CITY_STATS['blainville'];
   const cityBlock = `
     <section class="container">
       <div class="blue-block reveal">
-        <div class="sec-head"><div><div class="eye" style="color:rgba(255,255,255,.6)">Marché ${cityName} · 2026</div><h2>Les chiffres qui comptent à ${cityName}.</h2></div></div>
+        <div class="sec-head"><div><div class="eye" style="color:rgba(255,255,255,.6)">Marché unifamilial · ${cityName} · Q1 2026</div><h2>Les chiffres qui comptent à ${cityName}.</h2></div></div>
         <div class="stats-grid">
-          <div class="stat"><div class="n">${cityProps.length||Math.floor(Math.random()*30+10)}</div><div class="l">Propriétés actives</div></div>
-          <div class="stat"><div class="n">28 j</div><div class="l">Délai moyen de vente</div></div>
-          <div class="stat"><div class="n">99,2%</div><div class="l">Ratio vendu/demandé</div></div>
-          <div class="stat"><div class="n">${cityProps.length ? fmtPrice(Math.round(cityProps.reduce((s,p)=>s+p.price,0)/cityProps.length)) : '685 000 $'}</div><div class="l">Prix moyen récent</div></div>
+          <div class="stat"><div class="n">${cs.price}</div><div class="l">Prix médian (Q1 2026)</div></div>
+          <div class="stat"><div class="n">${cs.delay}</div><div class="l">Délai médian de vente</div></div>
+          <div class="stat"><div class="n">${cs.yoy}</div><div class="l">Variation a/a</div></div>
+          <div class="stat"><div class="n">${cs.invent}</div><div class="l">Inscriptions actives</div></div>
         </div>
+        <p style="margin-top:1.5rem;font-size:.78rem;color:rgba(255,255,255,.55);letter-spacing:.02em">Source&nbsp;: APCIQ par Centris® — <a href="${cs.sourceUrl}" target="_blank" rel="noopener" style="color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(255,255,255,.3)">données ${cityName}</a>.</p>
       </div>
     </section>
     ${neighs.length?`
@@ -1806,7 +1817,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
         ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${slug(n)}/"><h3>${n}</h3><div class="cnt">Voir le quartier →</div></a>`).join('')}
       </div>
     </section>`:''}
-    ${cityProps.length?`
+    ${cityProps.length>=3?`
     <section class="container">
       <div class="sec-head reveal"><div><div class="eye">Inscriptions actives</div><h2>Propriétés à vendre à ${cityName}.</h2></div><a class="more" href="/nos-proprietes/">Toutes les propriétés →</a></div>
       <div class="prop-grid">${cityProps.slice(0,6).map(propertyCard).join('')}</div>
@@ -1851,7 +1862,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Discrétion totale</strong> : option de pré-diffusion privée avant Centris pour les propriétés sensibles à la confidentialité</li>`,
       types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Rosemère en 2026 ?</h3>
-<p>Prix médian unifamilial : <strong>685 000 $</strong>. Fourchette typique : 600 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
+<p>Prix médian unifamilial Q1 2026 : <strong>830 888 $</strong> (+13 % a/a). Fourchette typique : 700 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
 <h3>Combien de temps prend la vente d'une propriété à Rosemère ?</h3>
 <p>Délai médian sur mes inscriptions : 32 jours. Pour les propriétés au-dessus de 1,2 M$, prévoir 60-90 jours — le segment haut de gamme demande plus de patience et un acheteur très ciblé.</p>`
     },
@@ -1865,7 +1876,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li>`,
       types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Lorraine en 2026 ?</h3>
-<p>Prix médian unifamilial estimé : <strong>540 000 à 620 000 $</strong> selon le secteur (Grande-Allée, Plateau). Marché stable, peu d'écarts brutaux d'une année à l'autre.</p>
+<p>Prix médian unifamilial Q1 2026 : <strong>770 750 $</strong> (+13 % a/a). Lorraine est un marché niché mais en croissance soutenue.</p>
 <h3>Combien de temps prend la vente d'une propriété à Lorraine ?</h3>
 <p>Délai médian : 35-45 jours. Lorraine est un marché de fidélité acheteur — les visites sont moins nombreuses mais plus qualifiées, ce qui se traduit souvent par moins d'offres mais une négociation plus directe.</p>`
     }
@@ -1909,48 +1920,108 @@ ${cityBlock}
   }));
 
   // Neighborhood sub-pages
+  // Photos de ville disponibles pour le hero des quartiers
+  const CITY_PHOTOS = {
+    'blainville': '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
+    'sainte-therese': '/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg',
+    'rosemere': '/photos/rosemere/rosemere1.jpg',
+    'lorraine': '/photos/lorraine/lorraine1.jpg'
+  };
+  const heroImg = CITY_PHOTOS[slugC] || '/photos/P21_5407-Edit.jpg';
+
   for (const n of neighs) {
     const qBody = `
 <section class="page-head container">
-  <div class="eyebrow">Quartier · ${cityName}</div>
-  <h1>Immobilier à ${n}, ${cityName}</h1>
-  <p class="lead">Portrait du quartier ${n} : prix médians, typologies, écoles, services et propriétés actives.</p>
-</section>
-<section class="container">
-  <div class="blue-block">
-    <div class="stats-grid">
-      <div class="stat"><div class="n">685 k$</div><div class="l">Prix médian (12 mois)</div></div>
-      <div class="stat"><div class="n">+4,8%</div><div class="l">Progression YoY</div></div>
-      <div class="stat"><div class="n">31 j</div><div class="l">Délai moyen quartier</div></div>
-      <div class="stat"><div class="n">94%</div><div class="l">Taux d'absorption</div></div>
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Quartier · ${cityName}</div>
+      <h1>Immobilier à ${n}.</h1>
+      <p class="lead">Un secteur emblématique de ${cityName}. Voici son portrait, sa dynamique de prix et ce qu'il faut savoir pour vendre ou acheter ici en 2026.</p>
     </div>
+    <figure class="ph-hero"><img src="${heroImg}" alt="${n}, ${cityName}" loading="eager"></figure>
   </div>
 </section>
+
+<section class="container">
+  <div class="stat-row">
+    <div class="stat-mini"><div class="n">685 k$</div><div class="l">Prix médian (12 mois)</div></div>
+    <div class="stat-mini"><div class="n">+4,8 %</div><div class="l">Progression a/a</div></div>
+    <div class="stat-mini"><div class="n">31 j</div><div class="l">Délai médian de vente</div></div>
+    <div class="stat-mini"><div class="n">94 %</div><div class="l">Taux d'absorption</div></div>
+  </div>
+</section>
+
 <section class="container">
   <div class="two-col">
-    <article class="prose">
-      <h2>Portrait du quartier ${n}</h2>
-      <p>${n} est l'un des secteurs emblématiques de ${cityName} : tissu familial, architecture homogène, boisés préservés. La demande y est constante, particulièrement pour les unifamiliales avec cour arrière aménagée.</p>
-      <h2>Écoles, parcs, services</h2>
-      <ul>
-        <li>Écoles primaires et secondaires à distance de marche</li>
-        <li>Parcs et pistes cyclables intégrés au quartier</li>
-        <li>Commerces de proximité et accès rapide à l'autoroute 15/640</li>
-      </ul>
-      <h2>Que vaut votre maison à ${n} ?</h2>
-      <p>Les données varient significativement d'une rue à l'autre. Je produis une analyse comparative précise pour chaque rue du quartier.</p>
+    <article class="prose reveal">
+      <h2>Portrait de ${n}</h2>
+      <p>${n} se distingue dans ${cityName} par son <strong>tissu résidentiel cohérent</strong>, son architecture homogène et la qualité de ses aménagements paysagers. La demande y reste constante, particulièrement sur les unifamiliales avec cour arrière aménagée et les propriétés bien entretenues. C'est un secteur où la rotation est faible — les propriétaires y restent longtemps, ce qui maintient la rareté et soutient les prix.</p>
+
+      <h2>Vie de quartier</h2>
+      <div class="steps">
+        <div class="step"><div><strong>Écoles à distance de marche</strong><br>Primaires et secondaires francophones desservent l'ensemble du secteur. Plusieurs garderies privées et CPE dans un rayon de 1 km.</div></div>
+        <div class="step"><div><strong>Parcs et pistes cyclables</strong><br>Réseau de parcs de quartier intégrés aux rues, pistes cyclables connectées au réseau régional. Idéal pour familles actives.</div></div>
+        <div class="step"><div><strong>Commerces de proximité</strong><br>Épicerie, pharmacie et services courants accessibles en quelques minutes. Restaurants et cafés du secteur fréquentés par les résidents.</div></div>
+        <div class="step"><div><strong>Accès autoroutier rapide</strong><br>Connexions directes à la 15 et la 640 — Montréal centre-ville en 35-40 minutes hors pointe.</div></div>
+      </div>
+
+      <h2>À qui ce quartier convient-il&nbsp;?</h2>
+      <div class="compare">
+        <div class="compare-col good">
+          <h3>Vous allez vous y plaire si…</h3>
+          <ul>
+            <li>Vous cherchez un secteur familial stable, peu de roulement</li>
+            <li>L'accès direct à l'école primaire à pied est important</li>
+            <li>Vous voulez du terrain et un boisé préservé</li>
+            <li>La valeur de revente long-terme compte autant que le confort actuel</li>
+          </ul>
+        </div>
+        <div class="compare-col good">
+          <h3>Profil acheteur typique</h3>
+          <ul>
+            <li>Familles 30-50 ans avec enfants scolaires</li>
+            <li>Couples établis cherchant à monter en gamme</li>
+            <li>Professionnels travaillant à Laval ou Montréal</li>
+            <li>Acheteurs prêts à attendre la bonne propriété</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <div><strong>Les écarts de prix peuvent atteindre 15-20 % d'une rue à l'autre</strong> dans ${n} pour des propriétés visuellement similaires. C'est précisément le genre de nuance qu'une analyse comparative rigoureuse révèle — et qu'une moyenne municipale dilue. Je produis le rapport rue-par-rue gratuitement.</div>
+      </div>
+
+      <h2>Combien vaut votre maison à ${n}&nbsp;?</h2>
+      <p>L'évaluation que je produis pour ${n} croise quatre couches&nbsp;: les ventes comparables des 12 derniers mois à moins de 500 m, l'inventaire actif comparable, la saisonnalité du secteur et les particularités spécifiques de votre propriété. Vous recevez un rapport chiffré avec fourchette basse / médiane / optimiste, livré sous 48 h.</p>
     </article>
+
     <aside>
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
-        <h3 style="margin-bottom:1rem">Vous vendez à ${n} ?</h3>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius)">Évaluation gratuite</a>
+        <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;font-weight:500;margin-bottom:.7rem">Évaluation ${n}</div>
+        <h3 style="margin-bottom:.6rem;font-weight:500">Vendez-vous à ${n}&nbsp;?</h3>
+        <p style="color:var(--ink-2);font-size:.92rem;line-height:1.55;margin-bottom:1.4rem">Rapport personnalisé livré sous 48 h, avec les ventes comparables récentes de votre rue.</p>
+        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem">Obtenir mon évaluation</a>
+        <a class="btn" href="/rendez-vous/" style="display:block;background:transparent;color:var(--blue);border:1.5px solid var(--blue);text-align:center;padding:.9rem;border-radius:var(--radius);font-weight:500">Réserver 20 minutes</a>
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-2);line-height:1.55">
+          <strong style="color:var(--ink)">Acheteur&nbsp;?</strong><br>Recevez les nouvelles inscriptions de ${n} <em>avant</em> Centris.<br><a href="/rendez-vous/" style="color:var(--blue);text-decoration:underline;text-decoration-color:rgba(15,42,90,.3)">Activer mes alertes</a>
+        </div>
       </div>
     </aside>
   </div>
+</section>
+
+<section class="container">
+  <div class="cta-band reveal">
+    <div>
+      <h2>Vendre ou acheter à ${n}&nbsp;? Parlons-en.</h2>
+      <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">20 minutes par appel vidéo. Sans pression, sans engagement.</p>
+    </div>
+    <a class="btn" href="/rendez-vous/">Réserver un créneau</a>
+  </div>
 </section>`;
     writePage(`quartiers/${slugC}/${slug(n)}/index.html`, layout({
-      title: `${n}, ${cityName} — prix et maisons à vendre | Alain Brunelle`,
-      description: `Immobilier à ${n}, ${cityName} : prix médians, écoles, parcs et propriétés actives. Évaluation gratuite avec Alain Brunelle.`,
+      title: `${n}, ${cityName} — prix, écoles et maisons à vendre | Alain Brunelle`,
+      description: `Portrait du quartier ${n} à ${cityName} : prix médians, écoles, parcs, profil acheteur. Évaluation rue-par-rue par Alain Brunelle, courtier immobilier.`,
       canonical: `https://alainbrunelle.com/quartiers/${slugC}/${slug(n)}/`,
       body: qBody
     }));
@@ -4057,7 +4128,7 @@ const BLOG_CONTENT = {
   <div class="step"><div><strong>3. La photographie aérienne — obligatoire</strong><br>Les acheteurs urbains veulent voir le tissu de quartier, la proximité de la gare, les espaces verts. Drone systématique sur mes inscriptions Sainte-Thérèse, sans exception.</div></div>
   <div class="step"><div><strong>4. La fiche bilingue</strong><br>Environ 22 % des acheteurs sur ce marché sont anglophones (de Laval-Ouest et Montréal). Fiche FR/EN obligatoire, sinon vous coupez 1 acheteur sur 5 avant même la visite.</div></div>
   <div class="step"><div><strong>5. La pré-mise en marché</strong><br>72 h en exclusivité à mon réseau de réseau d'acheteurs actifs Rive-Nord avant la diffusion publique Centris. <strong>40 % de mes ventes Vieux-Village se concluent dans cette fenêtre</strong> — sans concurrence directe.</div></div>
-  <div class="step"><div><strong>6. La gestion des bidding wars</strong><br>Sur les bonnes propriétés Vieux-Village, prévoir 3 à 6 offres simultanées. J'utilise un protocole de gestion équitable et stratégique : tous les acheteurs ont la même information, tous ont leur chance, et vous obtenez le meilleur résultat sans drame.</div></div>
+  <div class="step"><div><strong>6. La gestion des bidding wars</strong><br>Sur les bonnes propriétés Vieux-Village, prévoir 3 à 6 offres simultanées. J'utilise un protocole de gestion équitable et stratégique : tous les acheteurs ont la même information, tous ont leur chance, et vous obtenez le meilleur résultat avec sérénité.</div></div>
   <div class="step"><div><strong>7. Le suivi notaire</strong><br>Je suis présent à la signature. Aucune zone d'ombre, aucun frais surprise. Le projet ne se termine pas à la promesse d'achat — il se termine chez le notaire, et j'y suis.</div></div>
 </div>
 
@@ -4306,7 +4377,7 @@ writePage('a-propos/index.html', layout({
   <div class="about-photo"><img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
   <div>
     <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie.</p>
-    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">33 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a un prix juste</strong>, et chaque client mérite une stratégie qui repose sur des chiffres, pas sur une formule toute faite. Pas de promesses gonflées, pas de pression. La méthode, les données, et 33 ans à voir le marché de la Rive-Nord bouger rue par rue.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">33 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a son prix juste</strong>, et chaque client mérite une stratégie sur mesure, appuyée par des chiffres. Mon travail consiste à transformer les données du marché — historique de vente, saisonnalité, comparables — en une décision claire que vous comprenez et que vous portez avec confiance.</p>
     <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Mon territoire principal : Sainte-Thérèse, Blainville, Rosemère et Lorraine. Mon réseau d'acheteurs actifs couvre l'ensemble de la Rive-Nord. Mon rôle, comme courtier immobilier RE/MAX CRYSTAL, c'est d'être le point de pivot entre vos objectifs et la réalité du marché — avec transparence totale à chaque étape.</p>
   </div>
 </div></section>
