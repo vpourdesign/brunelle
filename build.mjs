@@ -18,6 +18,9 @@ const TARGET_BROKER = { firstName: 'Alain', lastName: 'Brunelle' };
 const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1jp0v3sqPHnkxqbDx_5kSPLSBSBDTebM9-4ulplRyo47oVeYiP-JfPvhE-EWktfMF5nAPXplo8';
 // Clé Web3Forms — créer un compte gratuit sur web3forms.com puis remplacer ici
 const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || 'REMPLACE_MOI_WEB3FORMS_KEY';
+// Base URL des vidéos. En local: '' → sert /videos/foo.mp4 depuis site/. En prod Vercel: pointer vers Vercel Blob.
+// Ex: VIDEO_BASE=https://abc123.public.blob.vercel-storage.com/videos
+const VIDEO_BASE = process.env.VIDEO_BASE || '';
 
 function parseCSV(text) {
   const rows=[]; let row=[],f='',q=false,i=0;
@@ -366,7 +369,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   <nav class="nav-links">
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
-  <a class="nav-cta" href="/rendez-vous/">Réserver 20 min</a>
+  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Réserver 20 min</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <main>
@@ -501,7 +504,9 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .has-sub:hover>.sub,.has-sub:focus-within>.sub{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s linear 0s}
 .sub a{display:block;padding:.55rem .9rem;border-radius:12px;font-size:.93rem;color:var(--ink-2)}
 .sub a:hover{background:var(--blue-soft);color:var(--blue)}
-.nav-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(18% 0.1 258) 100%);color:#fff;padding:.75rem 1.4rem;border-radius:999px;font-size:.9rem;font-weight:500;transition:transform .4s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 4px 12px -2px rgba(11,22,40,.25),inset 0 1px 0 rgba(255,255,255,.08);position:relative;overflow:hidden}
+.nav-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(18% 0.1 258) 100%);color:#fff;padding:.75rem 1.4rem .75rem 1.1rem;border-radius:999px;font-size:.9rem;font-weight:500;transition:transform .4s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 4px 12px -2px rgba(11,22,40,.25),inset 0 1px 0 rgba(255,255,255,.08);position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55rem}
+.nav-cta-ico{flex-shrink:0;opacity:.92;transition:transform .3s var(--ease-spring)}
+.nav-cta:hover .nav-cta-ico{transform:scale(1.08)}
 .nav-cta::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--blue) 0%,var(--blue-hi) 100%);opacity:0;transition:opacity .3s var(--ease);z-index:-1;border-radius:inherit}
 .nav-cta{isolation:isolate}
 .nav-cta:hover{color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px -4px rgba(15,40,85,.4),inset 0 1px 0 rgba(255,255,255,.12)}
@@ -531,9 +536,11 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .hero-card::after{content:"";position:absolute;top:-50%;right:-20%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5) 0%,transparent 60%);pointer-events:none;opacity:.8}
 .hero-card>*{position:relative;z-index:1}
 .hero-card .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:500;margin-bottom:1.2rem;color:var(--blue-2)}
-.hero-card h1{color:var(--blue);font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:400;letter-spacing:-.02em}
-.hero-card h1 em{font-style:normal;font-weight:600}
-.hero-card .cities{margin-top:1.4rem;font-size:.95rem;color:var(--ink-2)}
+.hero-card h1{color:var(--blue);font-size:clamp(1.5rem,2.2vw,2rem);font-weight:400;letter-spacing:-.018em;line-height:1.2}
+.hero-card h1 em{font-style:normal;font-weight:600;color:oklch(38% 0.18 258)}
+.hero-cities{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.4rem}
+.hero-cities span{font-size:.78rem;letter-spacing:.04em;padding:.4rem .85rem;background:rgba(255,255,255,.65);border:1px solid rgba(15,42,90,.1);border-radius:999px;color:var(--blue);font-weight:500;backdrop-filter:blur(6px)}
+.hero-card .cities{margin-top:1.2rem;font-size:.85rem;color:var(--blue-2);font-weight:300}
 .hero-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;border-radius:var(--radius);padding:clamp(1.2rem,2.5vw,1.8rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease);position:relative;overflow:hidden;box-shadow:var(--shadow-sm),var(--shadow-inset-blue)}
 .hero-cta::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 80% 0%,rgba(255,255,255,.08),transparent 60%);pointer-events:none}
 .hero-cta:hover{transform:translateY(-3px);color:#fff;box-shadow:var(--shadow),var(--shadow-inset-blue)}
@@ -1040,17 +1047,17 @@ const homeBody = `
     </div>
     <div class="hero-card reveal">
       <div class="eyebrow">Courtier immobilier · Rive-Nord</div>
-      <h1>Vendre ou acheter à <em>Sainte-Thérèse</em>, <em>Blainville</em>, <em>Rosemère</em> ou <em>Lorraine</em> — avec un courtier qui décide par les chiffres.</h1>
+      <h1>Le <em>courtier immobilier</em> de référence à Blainville et Sainte-Thérèse.</h1>
+      <div class="hero-cities"><span>Sainte-Thérèse</span><span>Blainville</span><span>Rosemère</span><span>Lorraine</span></div>
       <p class="cities">33 ans de transactions locales · Lecture du marché rue par rue.</p>
     </div>
     <a class="hero-cta reveal" href="/rendez-vous/">
-      <div><strong>Réservez 20 minutes avec Alain Brunelle</strong><small>Réservez 20 minutes — sans pression, sans engagement</small></div>
+      <div><strong>Réservez 20 minutes avec Alain Brunelle</strong><small>Appel vidéo — sans pression, sans engagement</small></div>
       <span class="arrow">→</span>
     </a>
   </div>
   <div class="hero-lead">
     <h2>Le courtier immobilier de la Rive-Nord qui appuie chaque décision sur la donnée locale.</h2>
-    <div class="lead-meta">Sources : Centris® · APCIQ · Transactions internes 1992-2026</div>
   </div>
 </section>
 
@@ -1058,7 +1065,7 @@ const homeBody = `
   <div class="lq reveal">
     <div class="lq-head">
       <div class="eye">Pour les vendeurs</div>
-      <h2>Vous songez à <em>vendre</em>?</h2>
+      <h2>Vous songez <em>vendre</em>?</h2>
       <p>Voyez à quelle étape vous êtes — et comment je peux vous aider.</p>
     </div>
     <div class="lq-stage on" data-stage="1">
@@ -1206,7 +1213,7 @@ const homeBody = `
   <div class="vid-grid reveal">
     ${videos.map(v => `
       <button type="button" class="vid" aria-label="${v.title}">
-        <video preload="metadata" playsinline><source src="/videos/${v.file}#t=0.5" type="video/mp4"></video>
+        <video preload="metadata" playsinline><source src="${VIDEO_BASE || '/videos'}/${v.file}#t=0.5" type="video/mp4"></video>
         <span class="play">▶</span>
         <span class="t">${v.title}</span>
       </button>
@@ -4346,9 +4353,9 @@ writePage('rendez-vous/index.html', layout({
   </style>`,
   body:`
 <section class="page-head container">
-  <div class="eyebrow">Rendez-vous · 20 minutes</div>
+  <div class="eyebrow">Rendez-vous · Appel vidéo 20 minutes</div>
   <h1>Réservez 20 minutes avec Alain Brunelle.</h1>
-  <p class="lead">Appel découverte sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Confirmation et rappel automatiques par courriel.</p>
+  <p class="lead">Appel vidéo découverte, sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Lien Google Meet envoyé par courriel avec confirmation et rappel automatiques.</p>
 </section>
 <section class="container">
   <div class="rv-grid">
