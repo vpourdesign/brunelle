@@ -50,6 +50,42 @@ const CP_CITY = {
   'J0T':'Saint-Adolphe-d\u2019Howard','J0R':'Saint-Sauveur/Laurentides','J8B':'Morin-Heights','J8E':'Mont-Tremblant',
   'H2G':'Montréal','H2X':'Montréal'
 };
+// Code municipal MAMH du Québec — identifiant canonique fiable (champ r[22] dans INSCRIPTIONS.TXT)
+// Source autorisée, immune aux débordements de codes postaux (J7E couvre Saint-Eustache ET parties de Sainte-Thérèse)
+const MAMOT_CITY = {
+  // RCM Thérèse-De Blainville (73)
+  '73005':'Saint-Eustache','73010':'Sainte-Thérèse','73015':'Blainville','73020':'Boisbriand',
+  '73025':'Lorraine','73030':'Rosemère','73035':'Sainte-Anne-des-Plaines','73040':'Bois-des-Filion',
+  // RCM Deux-Montagnes (72)
+  '72005':'Deux-Montagnes','72010':'Saint-Joseph-du-Lac','72015':'Pointe-Calumet',
+  '72020':'Sainte-Marthe-sur-le-Lac','72025':'Oka','72032':'Saint-Placide',
+  // Mirabel (74)
+  '74005':'Mirabel',
+  // RCM La Rivière-du-Nord (75)
+  '75017':'Saint-Jérôme','75028':'Sainte-Sophie','75032':'Prévost','75035':'Saint-Hippolyte','75050':'Saint-Colomban',
+  // RCM Les Pays-d'en-Haut (77)
+  '77015':'Sainte-Marguerite-du-Lac-Masson','77022':'Morin-Heights','77030':'Sainte-Adèle',
+  '77035':'Sainte-Anne-des-Lacs','77040':'Saint-Sauveur','77047':'Wentworth-Nord',
+  '77050':'Piedmont','77055':'Lac-des-Seize-Îles','77060':'Estérel','77065':'Saint-Adolphe-d\u2019Howard',
+  // RCM Les Laurentides (78)
+  '78032':'Sainte-Lucie-des-Laurentides','78047':'Val-Morin','78060':'Val-David',
+  '78080':'Lantier','78102':'Mont-Tremblant','78110':'Saint-Faustin-Lac-Carré',
+  // Laval (65) — Centris utilise plusieurs sous-codes
+  '65005':'Laval','65105':'Laval','65015':'Laval','65095':'Laval',
+  // Montréal (66)
+  '66023':'Montréal','66072':'Montréal','66102':'Montréal','66112':'Montréal','66117':'Montréal',
+  '66127':'Montréal','66142':'Montréal','66507':'Montréal','66511':'Montréal','66617':'Montréal'
+};
+const unknownMamot = new Set();
+const cityFromCentris = (mamot, cp, mls) => {
+  const m = (mamot||'').trim();
+  if (m && MAMOT_CITY[m]) return MAMOT_CITY[m];
+  if (m && !unknownMamot.has(m)) {
+    unknownMamot.add(m);
+    console.warn(`⚠ Code MAMH inconnu : ${m} (MLS ${mls}) → fallback code postal`);
+  }
+  return CP_CITY[(cp||'').toUpperCase().slice(0,3)] || 'Laurentides';
+};
 const cityFromCP = cp => CP_CITY[(cp||'').toUpperCase().slice(0,3)] || 'Laurentides';
 
 // Centris feature code → human label (catégorie + valeur)
@@ -295,7 +331,8 @@ function ingestFromCentris(membres) {
     // Type de propriété — inféré de la description (r[25] n'est PAS un type code)
     const typeCode = '';
     const cp = r[29] || '';
-    const city = cityFromCP(cp);
+    const mamotCode = (r[22] || '').trim();
+    const city = cityFromCentris(mamotCode, cp, mls);
     const yearBuilt = r[59] && /^\d{4}$/.test(r[59]) ? r[59] : (r[68] && /^\d{4}$/.test(r[68]) ? r[68] : '');
     const areaTerrain = r[75] ? `${r[75]} ${r[76]||''}`.trim() : '';
     const lat = parseFloat(r[144])||null, lon = parseFloat(r[145])||null;
