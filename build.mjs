@@ -272,6 +272,24 @@ function ingestFromCentris(membres) {
   }
   const BROKER_NO = detectBroker();
 
+  // Map de tous les courtiers du flux (pour affichage des inscriptions en collaboration)
+  // r[0]=NO_MEMBRE, r[4]=NOM, r[5]=PRENOM, r[8]=tél1, r[10]=tél2, r[11]=email, r[15]=photoURL, r[17]=firme
+  const MEMBRES_BY_NO = {};
+  for (const r of membres) {
+    if (!r[0]) continue;
+    MEMBRES_BY_NO[r[0]] = {
+      no: r[0],
+      firstName: r[5] || '',
+      lastName: r[4] || '',
+      fullName: `${r[5]||''} ${r[4]||''}`.trim(),
+      phone: r[8] || r[10] || '',
+      email: r[11] || '',
+      website: r[12] || '',
+      photo: r[15] || '',
+      firm: r[17] || ''
+    };
+  }
+
   const inscr = read('INSCRIPTIONS.TXT');
   const photos = read('PHOTOS.TXT');
   const addenda = read('ADDENDA.TXT');
@@ -355,6 +373,8 @@ function ingestFromCentris(membres) {
       rooms: piecesByMls[mls] || [],
       links: linksByMls[mls] || [],
       isCoBroker: r[2] !== BROKER_NO,
+      primaryBrokerNo: r[2] || '',  // NO_MEMBRE de l'inscripteur principal (peut être un autre courtier)
+      primaryBroker: MEMBRES_BY_NO[r[2]] || null,  // Coordonnées complètes si dispo
       slug: `${mls}-${slug(street)}-${slug(city)}`
     };
   }).filter(p => p.price > 0 && p.photos.length >= 3);
@@ -778,6 +798,13 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .p-side .amount{font-size:2.2rem;color:var(--blue);font-weight:400;letter-spacing:-.02em;margin:.4rem 0 1.5rem}
 .p-side .btn{display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem}
 .p-side .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.p-side .collab-banner{font-size:.72rem;color:var(--blue);background:rgba(15,42,90,.05);border:1px solid rgba(15,42,90,.12);padding:.5rem .8rem;border-radius:8px;margin:0 0 1rem;letter-spacing:.01em;line-height:1.4}
+.p-side .collab-banner strong{font-weight:600}
+.p-side .collab-broker{display:flex;align-items:center;gap:.85rem;padding:.7rem;background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 1rem}
+.p-side .cb-photo{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line)}
+.p-side .cb-info{flex:1;min-width:0}
+.p-side .cb-name{font-size:.95rem;font-weight:500;color:var(--ink);letter-spacing:-.005em;line-height:1.2}
+.p-side .cb-title{font-size:.74rem;color:var(--muted);margin-top:.25rem;line-height:1.35}
 .p-side-sold{background:linear-gradient(160deg,#fef3f5 0%,#fce8ec 100%);border:1px solid rgba(200,54,74,.15)}
 .p-side-sold .from{color:#9c1f30}
 .p-side .sold-stamp{display:inline-block;background:linear-gradient(160deg,#c8364a 0%,#9c1f30 100%);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-size:1.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:.6rem 0 .5rem;box-shadow:0 6px 18px rgba(155,30,48,.32),inset 0 1px 0 rgba(255,255,255,.18);text-shadow:0 1px 2px rgba(0,0,0,.18)}
@@ -1501,7 +1528,16 @@ function detailPage(p) {
       `:''}
     </div>
     <aside class="p-side${p.sold ? ' p-side-sold' : ''}">
-      <div class="from">Alain Brunelle · RE/MAX CRYSTAL</div>
+      ${p.isCoBroker && p.primaryBroker && !p.sold ? `
+        <div class="collab-banner">En collaboration avec <strong>Alain Brunelle · RE/MAX CRYSTAL</strong></div>
+        <div class="collab-broker">
+          ${p.primaryBroker.photo ? `<img class="cb-photo" src="${p.primaryBroker.photo}" alt="${p.primaryBroker.fullName}" loading="lazy">` : ''}
+          <div class="cb-info">
+            <div class="cb-name">${p.primaryBroker.fullName}</div>
+            <div class="cb-title">Courtier inscripteur${p.primaryBroker.firm ? ` · ${p.primaryBroker.firm}` : ''}</div>
+          </div>
+        </div>
+      ` : `<div class="from">Alain Brunelle · RE/MAX CRYSTAL</div>`}
       ${p.sold
         ? `<div class="sold-stamp">Vendu</div>
            <div class="sold-meta">Vendu le ${new Date(p.soldDate).toLocaleDateString('fr-CA',{day:'numeric',month:'long',year:'numeric'})}</div>
@@ -1518,7 +1554,11 @@ function detailPage(p) {
              data-property-url="https://alainbrunelle.com/nos-proprietes/${p.slug}/">
              Cette propriété m'intéresse →
            </button>
-           <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Visite 360° disponible.</strong> Sur demande — envoyez-moi un message.</div>`}
+           ${p.isCoBroker && p.primaryBroker ? `
+             <div style="margin-top:1.5rem;font-size:.78rem;color:var(--muted);line-height:1.5;padding-top:1rem;border-top:1px solid var(--line)">Cette inscription appartient à ${p.primaryBroker.fullName}. Alain Brunelle agit comme courtier collaborateur — vos questions et visites sont coordonnées par lui.</div>
+           ` : `
+             <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Visite 360° disponible.</strong> Sur demande — envoyez-moi un message.</div>
+           `}`}
     </aside>
   </div>
   ${similarProperties(p).length ? `

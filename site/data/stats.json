@@ -1,24 +1,37 @@
 {
-  "total": 8,
-  "avgPrice": 749925,
-  "totalValue": 5999400,
+  "total": 19,
+  "avgPrice": 860626,
+  "totalValue": 16351900,
   "byCity": {
-    "Sainte-Thérèse": 5,
-    "Saint-Joseph-du-Lac": 1,
-    "Blainville": 2
+    "Saint-Adolphe-d’Howard": 2,
+    "Lorraine": 1,
+    "Sainte-Thérèse": 2,
+    "Morin-Heights": 1,
+    "Sainte-Marguerite-du-Lac-Masson": 1,
+    "Saint-Jérôme": 1,
+    "Sainte-Anne-des-Lacs": 1,
+    "Piedmont": 1,
+    "Montréal": 1,
+    "Mont-Tremblant": 1,
+    "Laval": 1,
+    "Saint-Sauveur": 2,
+    "Blainville": 2,
+    "Boisbriand": 1,
+    "Sainte-Anne-des-Plaines": 1
   },
   "byType": {
-    "Plex": 1,
-    "Propriété": 3,
+    "Terrain": 4,
+    "Propriété": 8,
+    "Plex": 2,
     "Maison unifamiliale": 2,
-    "Terrain": 1,
+    "Condo": 2,
     "Maison de ville": 1
   },
   "priceRanges": {
-    "<300k": 0,
-    "300-500k": 0,
-    "500-800k": 5,
-    "800k-1.5M": 3,
-    ">1.5M": 0
+    "<300k": 3,
+    "300-500k": 5,
+    "500-800k": 4,
+    "800k-1.5M": 6,
+    ">1.5M": 1
   }
 }
