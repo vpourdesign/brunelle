@@ -10,3 +10,4 @@ _tmp.zip
 # Videos — too heavy for Git, hosted ailleurs (à configurer)
 videos/
 site/videos/
+videos-opt/
