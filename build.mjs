@@ -456,7 +456,10 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
 </head>
 <body class="${bodyClass}">
 <header class="nav">
-  <a class="brand" href="/" aria-label="Alain Brunelle"><img src="/brand_assets/logo.png" alt="Alain Brunelle" height="64"></a>
+  <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
+    <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
+    <img class="brand-remax" src="/brand_assets/digital_ballon.png" alt="RE/MAX" height="56">
+  </a>
   <nav class="nav-links">
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
@@ -467,42 +470,56 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
 ${body}
 </main>
 <footer class="footer">
-  <div class="f-grid">
-    <div>
-      <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
-      <p class="f-tag">Courtier immobilier — RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
+        <img class="f-remax-crystal" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="52">
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">📍 Sainte-Thérèse</div>
+        <address class="f-address">
+          228 boul. du Curé-Labelle<br>
+          Sainte-Thérèse, Québec J7E 2X7<br>
+          <span class="f-line">Cell. : <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
+        </address>
+      </div>
+      <div class="f-col">
+        <h4>Territoires</h4>
+        <ul>
+          <li><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
+          <li><a href="/courtier-immobilier/blainville/">Blainville</a></li>
+          <li><a href="/courtier-immobilier/rosemere/">Rosemère</a></li>
+          <li><a href="/courtier-immobilier/lorraine/">Lorraine</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">🔗 Restons en contact</div>
+        <div class="f-social">
+          <a href="https://www.facebook.com/AlainBrunelleCourtier/" target="_blank" rel="noopener" aria-label="Facebook" class="f-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+        </div>
+        <h4 style="margin-top:1.8rem">Services</h4>
+        <ul>
+          <li><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a></li>
+          <li><a href="/acheter/calculatrices/">Calculatrices</a></li>
+          <li><a href="/rendez-vous/">Réserver 20 minutes</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Territoires</h4>
-      <ul>
-        <li><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
-        <li><a href="/courtier-immobilier/blainville/">Blainville</a></li>
-        <li><a href="/courtier-immobilier/rosemere/">Rosemère</a></li>
-        <li><a href="/courtier-immobilier/lorraine/">Lorraine</a></li>
-      </ul>
+
+    <div class="f-bottom">
+      <div class="f-bottom-legal">
+        © ${new Date().getFullYear()} RE/MAX CRYSTAL — Franchisé indépendant et autonome de RE/MAX Québec — Tous droits réservés
+        <span class="f-divider">·</span> <a href="/politique-confidentialite/">Politique de confidentialité</a>
+        <span class="f-divider">·</span> <a href="/conditions-utilisation/">Conditions d'utilisation</a>
+      </div>
+      <div class="f-bottom-credit">
+        Site web par <a href="https://vpourdesign.com" target="_blank" rel="noopener"><strong>vpourdesign</strong></a>
+      </div>
     </div>
-    <div>
-      <h4>Services</h4>
-      <ul>
-        <li><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a></li>
-        <li><a href="/acheter/premier-acheteur/">Premier acheteur</a></li>
-        <li><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a></li>
-        <li><a href="/acheter/calculatrices/">Calculatrices</a></li>
-        <li><a href="/marche-immobilier/statistiques-blainville/">Statistiques marché</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul class="f-contact">
-        <li><a href="tel:4504305555">450.430.5555</a></li>
-        <li><a href="mailto:alain@alainbrunelle.com">alain@alainbrunelle.com</a></li>
-        <li>RE/MAX CRYSTAL<br>Sainte-Thérèse, QC</li>
-      </ul>
-    </div>
-  </div>
-  <div class="f-bottom">
-    <span>© ${new Date().getFullYear()} Alain Brunelle — Courtier immobilier résidentiel · Permis OACIQ</span>
-    <span class="f-legal"><a href="/a-propos/">À propos</a> · <a href="/contact/">Contact</a> · <a href="/performance/">Performance</a></span>
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>
@@ -585,8 +602,13 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:1.5rem;padding:.85rem clamp(1rem,3vw,2.5rem);background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(230,235,242,.8);box-shadow:0 1px 0 rgba(255,255,255,.8),0 8px 24px -12px rgba(11,22,40,.08)}
-.nav .brand img{height:64px;width:auto}
-@media(max-width:980px){.nav .brand img{height:48px}}
+.nav .brand{display:inline-flex;align-items:center;gap:.85rem}
+.nav .brand-logo{height:64px;width:auto;flex-shrink:0}
+.nav .brand-remax{height:48px;width:auto;flex-shrink:0;opacity:.96;transition:opacity .3s var(--ease)}
+.nav .brand:hover .brand-remax{opacity:1;transform:scale(1.04)}
+.nav .brand-remax{transition:opacity .3s var(--ease),transform .3s var(--ease-spring)}
+@media(max-width:980px){.nav .brand-logo{height:48px}.nav .brand-remax{height:36px}}
+@media(max-width:540px){.nav .brand-remax{height:32px}}
 .nav-links{display:flex;gap:.2rem;justify-content:center;flex-wrap:wrap}
 .nav-item{position:relative;padding:.6rem .9rem;font-size:.95rem;font-weight:400;color:var(--ink-2);border-radius:999px;transition:background .3s var(--ease),color .3s var(--ease)}
 .nav-item:hover{background:var(--surface);color:var(--ink)}
@@ -920,15 +942,31 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 /* Footer */
 .footer{background:var(--ink);color:#cbd5ea;padding:clamp(3rem,5vw,4.5rem) 0 2rem;margin-top:clamp(3rem,6vw,5rem)}
 .footer{border-top-left-radius:var(--radius-lg);border-top-right-radius:var(--radius-lg)}
-.f-grid{max-width:var(--container);margin-inline:auto;padding-inline:var(--pad);display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem)}
-.footer h4{color:#fff;font-size:.9rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem;font-weight:500}
+.f-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem);align-items:start}
+.footer h4{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:1rem;font-weight:500}
 .footer ul{list-style:none;padding:0;margin:0}
 .footer li{margin-bottom:.5rem;font-size:.92rem}
+.footer a{color:#cbd5ea;transition:color .25s var(--ease)}
 .footer a:hover{color:#fff}
-.f-tag{font-size:.9rem;margin-top:1rem;color:#90a1c0}
-.f-contact li a{color:#cbd5ea}
-.f-bottom{max-width:var(--container);margin:3rem auto 0;padding:1.5rem var(--pad) 0;border-top:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#7a8aa8;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-@media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}}
+.f-brand{display:flex;flex-direction:column;gap:1.2rem;align-items:flex-start}
+.f-brand img{width:auto;max-width:200px}
+.f-remax-crystal{background:#fff;padding:.65rem .9rem;border-radius:8px;height:auto !important}
+.f-eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:#fff;font-weight:500;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+.f-address{font-style:normal;font-size:.9rem;line-height:1.7;color:#cbd5ea}
+.f-address .f-line{display:block;margin-top:.4rem}
+.f-address a{color:#cbd5ea;text-decoration:underline;text-decoration-color:rgba(203,213,234,.3);text-underline-offset:3px}
+.f-social{display:flex;gap:.6rem;margin-bottom:.4rem}
+.f-social-link{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;transition:background .25s var(--ease),transform .3s var(--ease-spring)}
+.f-social-link:hover{background:#fff;color:var(--ink);transform:translateY(-2px)}
+
+.f-bottom{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:#7a8aa8;line-height:1.6}
+.f-bottom-legal{max-width:78ch}
+.f-bottom-legal a{color:#9aabc7;text-decoration:underline;text-decoration-color:rgba(154,171,199,.3);text-underline-offset:3px}
+.f-bottom-legal .f-divider{margin:0 .35rem;opacity:.5}
+.f-bottom-credit{font-size:.75rem;color:#7a8aa8;text-transform:uppercase;letter-spacing:.12em}
+.f-bottom-credit a{color:#cbd5ea}
+.f-bottom-credit strong{font-weight:600;letter-spacing:.02em}
+@media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
 @media(max-width:540px){.f-grid{grid-template-columns:1fr}}
 
 /* Lead qualifier — segmente vendeur awareness/consideration/decision */
@@ -1175,7 +1213,7 @@ const homeBody = `
       <div class="eyebrow">Courtier immobilier · Rive-Nord</div>
       <h1>Le <em>courtier immobilier</em> de référence à Blainville et Sainte-Thérèse.</h1>
       <div class="hero-cities"><span>Sainte-Thérèse</span><span>Blainville</span><span>Rosemère</span><span>Lorraine</span></div>
-      <p class="cities">33 ans de transactions locales · Lecture du marché rue par rue.</p>
+      <p class="cities">33 ans de transactions locales · Personne ne connaît mieux le marché local.</p>
     </div>
     <a class="hero-cta reveal" href="/rendez-vous/">
       <div><strong>Réservez 20 minutes avec Alain Brunelle</strong><small>Appel vidéo — sans pression, sans engagement</small></div>
@@ -1183,7 +1221,7 @@ const homeBody = `
     </a>
   </div>
   <div class="hero-lead">
-    <h2>Le courtier immobilier de la Rive-Nord qui appuie chaque décision sur la donnée locale.</h2>
+    <h2>En tant que courtier immobilier sur la Rive-Nord, je prends mes décisions avec vous, chiffres en main.</h2>
   </div>
 </section>
 
@@ -1353,23 +1391,12 @@ const homeBody = `
     <div class="about-photo"><img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle"></div>
     <div>
       <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">À propos</div>
-      <h2 style="max-width:24ch">Le courtier immobilier de la Rive-Nord qui appuie chaque décision sur la donnée locale.</h2>
-      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine dans la décision financière la plus importante de leur vie. Ma méthode tient en trois éléments : une lecture précise du marché rue par rue, une stratégie de prix appuyée sur les ventes comparables récentes, et une communication transparente du premier appel jusqu'à la signature chez le notaire.</p>
+      <h2 style="max-width:26ch">Courtier immobilier sur la Rive-Nord depuis 1992, je mets les chiffres sur la table et on décide ensemble.</h2>
+      <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">J'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine dans ce qui est souvent la plus grosse décision financière de leur vie. Concrètement, ça veut dire trois choses : je connais bien chaque quartier, je fixe un prix qui tient la route grâce aux ventes comparables récentes, et je reste transparent avec vous du premier appel jusqu'à la signature chez le notaire.</p>
       <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
         <a href="/a-propos/" class="hero-cta" style="display:inline-flex;padding:1rem 1.6rem;border-radius:999px">En savoir plus <span class="arrow" style="width:32px;height:32px;margin-left:.8rem">→</span></a>
         <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Réserver 20 minutes</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section-blue">
-  <div class="container">
-    <div class="sec-head reveal"><div><div class="eye">Marché Rive-Nord · Printemps 2026</div><h2>Ce que font vraiment les prix — par tranche.</h2></div><a class="more" href="/marche-immobilier/">Lecture complète du marché →</a></div>
-    <div class="chart reveal" style="max-width:760px">
-      ${Object.entries(stats.priceRanges).map(([k,v])=>`
-        <div class="bar-row"><span class="label" style="color:rgba(255,255,255,.85)">${k}</span><div class="bar" style="background:rgba(255,255,255,.14)"><span style="width:${Math.max(6, (v/Math.max(...Object.values(stats.priceRanges)))*100)}%;background:#fff"></span></div><span class="val" style="color:#fff">${v}</span></div>
-      `).join('')}
     </div>
   </div>
 </section>
@@ -2269,9 +2296,12 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
   </style>`,
   body: `
 <section class="page-head container">
-  <div class="eyebrow">Évaluation gratuite</div>
+  <div class="eyebrow">Avis de valeur marchande · Sans frais</div>
   <h1>Combien vaut votre propriété en 2026 ?</h1>
-  <p class="lead">Cinq questions, 60 secondes. Rapport personnalisé livré par courriel sous 48 h — avec les ventes comparables récentes de votre rue, et la lecture de votre <strong>courtier immobilier</strong> de la Rive-Nord depuis 1992.</p>
+  <p class="lead">Cinq questions, 60 secondes. Recevez un <strong>avis de valeur marchande</strong> par courriel, généralement sous 48 h ouvrables — avec les ventes comparables récentes de votre rue, et la lecture de votre <strong>courtier immobilier</strong> de la Rive-Nord depuis 1992.</p>
+  <div class="callout" style="margin-top:1.8rem;max-width:62ch">
+    <div style="font-size:.88rem;line-height:1.55">L'avis de valeur fourni par un courtier immobilier <strong>ne constitue pas une évaluation</strong> au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</div>
+  </div>
 </section>
 
 <section class="container">
@@ -2393,7 +2423,13 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
         <div class="eval-field">
           <label for="eval-email">Courriel</label>
           <input type="email" id="eval-email" name="email" required>
-          <p class="eval-hint">Promesse : aucun spam, aucune liste partagée. Vous pouvez vous désabonner en 1 clic.</p>
+        </div>
+        <div class="eval-field" style="background:var(--blue-soft);padding:1rem 1.2rem;border-radius:12px;font-size:.82rem;line-height:1.55;color:var(--ink-2);margin-top:1rem">
+          <p style="margin:0 0 .6rem"><strong>Finalité de la collecte (Loi 25) :</strong> vos coordonnées sont recueillies dans le seul but de vous transmettre votre avis de valeur marchande et d'assurer le suivi du projet. Aucun partage avec des tiers. Conservation : 6 ans après la fermeture du dossier, conformément à la <a href="/politique-confidentialite/" style="color:var(--blue);text-decoration:underline">politique de confidentialité</a>.</p>
+          <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--ink);cursor:pointer">
+            <input type="checkbox" name="consent" required style="margin-top:.2rem;flex-shrink:0">
+            <span>J'autorise Alain Brunelle à recueillir mes renseignements personnels pour le traitement de ma demande d'avis de valeur. <span style="color:var(--muted);font-size:.78rem">(obligatoire)</span></span>
+          </label>
         </div>
       </div>
 
@@ -2402,7 +2438,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
         <div class="eval-success">
           <div class="check">✓</div>
           <h2>Merci. Votre demande est reçue.</h2>
-          <p>Je prépare personnellement votre rapport d'évaluation. Vous recevrez par courriel dans les 48 h votre fourchette de prix, les 5 ventes comparables les plus pertinentes et mes recommandations de préparation.</p>
+          <p>Je prépare personnellement votre avis de valeur marchande. Vous recevrez par courriel sous 1 à 3 jours ouvrables votre fourchette de prix, les ventes comparables les plus pertinentes et mes recommandations de préparation.</p>
           <div class="recap" id="eval-recap"></div>
           <a class="eval-btn primary" href="/" style="text-decoration:none">Retour à l'accueil →</a>
         </div>
@@ -2576,8 +2612,8 @@ const SUBPAGES = [
   ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 33 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas mystérieux — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la <strong>rigueur d'exécution</strong> à chaque étape.</p>
 
 <div class="stat-row">
-<div class="stat-mini"><div class="n">28 j</div><div class="l">délai médian de vente sur mes inscriptions</div></div>
-<div class="stat-mini"><div class="n">99,2 %</div><div class="l">ratio prix vendu / demandé</div></div>
+<div class="stat-mini"><div class="n">28 j</div><div class="l">délai médian — mes inscriptions 2024-2025</div></div>
+<div class="stat-mini"><div class="n">99,2 %</div><div class="l">ratio vendu/demandé — mes inscriptions 2024-2025</div></div>
 <div class="stat-mini"><div class="n">Réseau</div><div class="l">acheteurs actifs Rive-Nord</div></div>
 </div>
 
@@ -2636,14 +2672,14 @@ const SUBPAGES = [
 
 <div class="callout">
 <div class="ico">💡</div>
-<div><p><strong>Le piège du prix trop élevé.</strong> Une propriété mal positionnée stagne 60+ jours et finit par se vendre en moyenne 3,2 % sous sa vraie valeur. Sur 600 000 $, c'est près de 20 000 $ perdus.</p></div>
+<div><p><strong>Le piège du prix trop élevé.</strong> Une propriété mal positionnée tend à stagner plus longtemps sur le marché. Les acheteurs perçoivent alors qu'il y a « quelque chose qui cloche » et négocient à la baisse plus agressivement. Mieux vaut un positionnement réaliste dès le départ.</p></div>
 </div>
 
 <h2>FAQ — vendre sa maison au Québec</h2>
 <h3>Combien de temps prend une vente sur la Rive-Nord en 2026 ?</h3>
 <p>Délai médian du marché : 52 jours. Sur mes inscriptions : <strong>28 jours</strong>. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
 <h3>Dois-je vraiment passer par un courtier ?</h3>
-<p>Statistiquement, les maisons vendues par courtier se vendent <strong>13 % plus cher en moyenne</strong> que les ventes DPP (sans courtier), selon l'APCIQ. La commission est rentabilisée bien au-delà.</p>
+<p>Vendre seul (DPP / FSBO) demande de gérer la mise en marché, la photographie, les visites, la qualification des acheteurs, la rédaction des offres et la coordination notariale. Au Québec, plusieurs études — dont celles publiées par l'APCIQ — suggèrent que les propriétés vendues avec un courtier obtiennent en moyenne un meilleur prix net après commission, mais les résultats varient selon le marché local et la propriété. Ce qui compte le plus, à mon avis : avoir un positionnement de prix juste, une mise en marché professionnelle et de la disponibilité pour les acheteurs.</p>
 <h3>Combien coûte la commission ?</h3>
 <p>Voir <a href="/vendre/commission-courtier/">notre page dédiée</a>. La fourchette typique au Québec : 4 % à 5 %, négociable selon le mandat.</p>`],
   ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging · Préparation','1 500 $ investis rapportent en moyenne 25 000 $ sur le prix final — voici la méthode.','Préparer sa maison pour la vente · home staging Rive-Nord | Alain Brunelle','Guide complet pour préparer sa maison à la vente : désencombrement, peinture, éclairage, home staging. ROI moyen documenté.',`<p>L'acheteur prend sa décision dans les <strong>90 premières secondes</strong> d'une visite. Pas pendant l'inspection, pas pendant la négociation — dès qu'il franchit la porte. C'est pourquoi la préparation visuelle est l'investissement au rendement le plus garanti avant la vente.</p>
@@ -2651,7 +2687,7 @@ const SUBPAGES = [
 <div class="stat-row">
 <div class="stat-mini"><div class="n">90 s</div><div class="l">temps pour qu'un acheteur décide</div></div>
 <div class="stat-mini"><div class="n">2-4 k$</div><div class="l">budget préparation optimal</div></div>
-<div class="stat-mini"><div class="n">×10-20</div><div class="l">ROI moyen sur préparation</div></div>
+<div class="stat-mini"><div class="n">Impact</div><div class="l">positif sur la valeur perçue</div></div>
 </div>
 
 <h2>La règle des 3D : Désencombrer, Dépersonnaliser, Détacher</h2>
@@ -2665,7 +2701,7 @@ const SUBPAGES = [
 
 <h2>Les 5 interventions au meilleur rendement</h2>
 <div class="steps">
-<div class="step"><div><h3>Peinture des zones-clés</h3><p>Entrée, salon, cuisine. Couleurs neutres et lumineuses (blanc cassé, gris clair). Surface ≈ 60-80 m² couvre les zones critiques.</p><p class="meta">Investissement 800-1 500 $ · Impact +8 000 à +15 000 $</p></div></div>
+<div class="step"><div><h3>Peinture des zones-clés</h3><p>Entrée, salon, cuisine. Couleurs neutres et lumineuses (blanc cassé, gris clair). Surface ≈ 60-80 m² couvre les zones critiques.</p><p class="meta">Investissement typique 800-1 500 $ · Impact potentiel important sur la valeur perçue</p></div></div>
 <div class="step"><div><h3>Éclairage moderne</h3><p>Remplacez les ampoules jaunes par du 3000K. Tout paraît plus grand, plus propre. Ajoutez des lampes dans les coins sombres.</p><p class="meta">Investissement ~200 $ · Impact significatif sur les photos</p></div></div>
 <div class="step"><div><h3>Robinetterie cuisine + salle de bain</h3><p>Signal fort de modernité, prend 30 minutes par item. Matte black ou brossé chrome — éviter les finis trop spécifiques.</p><p class="meta">Investissement 300-500 $ par robinet</p></div></div>
 <div class="step"><div><h3>Aménagement paysager d'entrée</h3><p>Premier contact visuel. Mulch frais, fleurs saisonnières, porte d'entrée repeinte si possible.</p><p class="meta">Investissement ~400 $ · Impact visible dès la photo de façade</p></div></div>
@@ -2711,11 +2747,11 @@ const SUBPAGES = [
   ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Ce qui est inclus, ce qui est négociable — la transparence complète.','Commission courtier immobilier Québec 2026 | Alain Brunelle','Taux de commission au Québec, partage entre courtiers, ce qui est inclus, ce qui est négociable. Explications transparentes par un courtier RE/MAX CRYSTAL.',`<p>La commission, c'est le point le plus mal compris du métier de courtier. Le mythe : « le courtier prend 5 % juste pour mettre une pancarte ». La réalité : la commission paie un service complet qui inclut habituellement plus de <strong>50 heures de travail spécialisé</strong>, des outils marketing professionnels et un réseau acheteur qualifié.</p>
 
 <h2>Taux typique au Québec en 2026</h2>
-<p>La commission résidentielle se situe entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes. Elle est entièrement payée par le vendeur, jamais par l'acheteur.</p>
+<p>La commission résidentielle se situe généralement entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes applicables. Elle est versée par le vendeur via le contrat de courtage exclusif et négociable selon le mandat. Depuis juin 2022, un acheteur peut également avoir une rétribution due en vertu de son propre contrat de courtage achat ; en pratique, celle-ci est habituellement couverte en tout ou en partie par le partage de la rétribution offert par le courtier inscripteur du vendeur.</p>
 <div class="stat-row">
 <div class="stat-mini"><div class="n">4-5 %</div><div class="l">commission typique vendeur</div></div>
 <div class="stat-mini"><div class="n">50/50</div><div class="l">partage inscripteur / collaborateur</div></div>
-<div class="stat-mini"><div class="n">+13 %</div><div class="l">prix moyen avec courtier vs DPP</div></div>
+<div class="stat-mini"><div class="n">3-7 %</div><div class="l">commission typique sur la Rive-Nord</div></div>
 </div>
 
 <h2>Exemple chiffré : vente à 600 000 $</h2>
@@ -2771,20 +2807,20 @@ const SUBPAGES = [
 
 <h2>FAQ — commission</h2>
 <h3>Puis-je vendre sans courtier pour économiser ?</h3>
-<p>Vous pouvez. Mais les statistiques APCIQ sont sans équivoque : les maisons vendues sans courtier (DPP) se vendent <strong>13 % moins cher en moyenne</strong>. Sur 600 k$, c'est 78 000 $ perdus pour économiser ~28 000 $ de commission.</p>
+<p>Vous pouvez. La vente directe par le propriétaire (DPP) reste une option légale. Cela demande toutefois de gérer la mise en marché, les visites, la qualification des acheteurs, la rédaction des promesses, les contre-propositions, l'inspection, la coordination notariale et les délais de financement. Mon rôle est de prendre en charge tout cela et de structurer une stratégie de prix qui maximise votre prix net après commission — discutons-en pour voir si ma valeur ajoutée correspond à votre situation.</p>
 <h3>Et si ma maison ne se vend pas, est-ce que je paie quand même ?</h3>
 <p>Non. La commission est payée à la signature de l'acte de vente uniquement. Si rien ne se vend, vous ne devez rien.</p>
 <h3>Puis-je négocier une commission par étapes ?</h3>
 <p>Oui — c'est conseillé dans certains cas. <a href="/rendez-vous/">Prendre rendez-vous</a> pour en discuter.</p>`],
-  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles aux 7 jours, zéro surprise — ma promesse.','Vendre sa maison sans stress sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sa maison sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
+  ['vendre/vendre-sans-stress','Vendre sereinement','Accompagnement complet','Un processus balisé, des nouvelles régulières, transparence en continu.','Vendre sereinement sa maison sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sereinement : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
 <p>Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
 
 <h2>Ma promesse en 4 engagements</h2>
 <div class="steps">
 <div class="step"><div><h3>Un point hebdomadaire fixe</h3><p>Chaque vendredi à la même heure. Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne.</p></div></div>
-<div class="step"><div><h3>Réponse à toute question en moins de 4 h</h3><p>En journée (24 h max le week-end). Texto, courriel ou téléphone — vous choisissez le canal.</p></div></div>
+<div class="step"><div><h3>Communication rapide, dans la mesure du raisonnable</h3><p>Je m'engage à répondre rapidement en jours ouvrables, par texto, courriel ou téléphone — vous choisissez le canal qui vous convient.</p></div></div>
 <div class="step"><div><h3>Deux à trois scénarios à chaque décision</h3><p>Prix, ajustements, offres reçues. Vous décidez avec les chiffres en main, jamais sur intuition.</p></div></div>
-<div class="step"><div><h3>Zéro surprise chez le notaire</h3><p>Tous les frais, délais et conditions sont sur la table dès la première rencontre.</p></div></div>
+<div class="step"><div><h3>Transparence dès la première rencontre</h3><p>Mon objectif : limiter les surprises au minimum. Tous les frais, délais et conditions connus sont mis sur la table dès le départ.</p></div></div>
 </div>
 
 <h2>Le calendrier-type d'une vente sereine</h2>
@@ -2800,7 +2836,7 @@ const SUBPAGES = [
 </tbody>
 </table>
 
-<h2>Les 3 sources de stress que j'élimine pour vous</h2>
+<h2>Trois leviers que j'utilise pour réduire votre stress</h2>
 <h3>L'incertitude sur la valeur réelle</h3>
 <p>Mon rapport d'évaluation comparative vous donne <strong>trois fourchettes</strong> (basse, médiane, optimiste) basées sur des données vérifiables — pas sur des promesses.</p>
 <h3>La peur des visites surprises</h3>
@@ -2814,7 +2850,7 @@ const SUBPAGES = [
 <h3>Combien de visites devrai-je accepter ?</h3>
 <p>En moyenne, mes inscriptions reçoivent 8 à 15 visites avant une offre acceptable. Toutes sont coordonnées et regroupées si possible.</p>
 <h3>Que se passe-t-il si je change d'idée en cours de route ?</h3>
-<p>Le mandat peut être résilié avec préavis. Aucune pénalité tant qu'il n'y a pas d'offre acceptée.</p>
+<p>Les conditions de résiliation sont prévues au contrat de courtage exclusif OACIQ. En général, le mandat peut être résilié sur préavis ; toutefois, certaines dépenses engagées par l'agence (photos professionnelles, vidéo, marketing) peuvent être facturées selon les modalités du contrat. Nous en discutons en toute transparence avant signature.</p>
 <h3>Et si je dois vendre rapidement pour un déménagement ?</h3>
 <p>Mon délai médian est de 28 jours. Avec un positionnement légèrement agressif (-3 à -5 %), on peut viser 14-21 jours sans sacrifier la qualité.</p>`],
   ['acheter/premier-acheteur','Premier acheteur','Acheteur · Guide','Acheter sa première maison à Sainte-Thérèse ou Blainville — sans jargon, sans surprise.','Premier acheteur Sainte-Thérèse Blainville 2026 | Alain Brunelle','Guide complet premier acheteur Rive-Nord : préapprobation, RAP, CELIAPP, frais cachés, négociation. Alain Brunelle vous accompagne pas à pas.',`<p>Vous achetez votre première propriété. C'est probablement la plus grosse décision financière de votre vie, et personne ne vous a vraiment appris à la prendre. Voici le guide que j'aurais aimé avoir quand j'ai acheté ma première maison.</p>
@@ -2830,7 +2866,7 @@ const SUBPAGES = [
 <div class="step"><div><h3>Connaître votre capacité réelle</h3><p>La banque vous prête jusqu'à 32 % de votre revenu brut en logement (ABD). Mais vivre à 32 %, c'est financièrement étranglé. <strong>Cible réaliste : 28 % max.</strong></p><p><a href="/acheter/calculatrices/">Utilisez ma calculatrice</a> pour un chiffre précis avant la banque.</p></div></div>
 <div class="step"><div><h3>Préapprobation hypothécaire</h3><p>Ne visitez jamais sans préapprobation écrite. Vous gelez votre taux 90-120 jours et vos offres sont prises au sérieux. Gratuite, n'engage à rien.</p></div></div>
 <div class="step"><div><h3>Mise de fonds</h3><p>Minimum 5 % sous 500 k$, 10 % entre 500 k$ et 1,5 M$, 20 % au-delà. Sous 20 % : assurance SCHL obligatoire (1,8-4 % du prêt).</p></div></div>
-<div class="step"><div><h3>Programmes gouvernementaux</h3><p>RAP + CELIAPP + crédits d'impôt fédéral et provincial. Combinés intelligemment, ces 3 programmes peuvent vous économiser 15 000-25 000 $.</p></div></div>
+<div class="step"><div><h3>Programmes gouvernementaux</h3><p>RAP, CELIAPP et crédits d'impôt fédéral/provincial peuvent représenter une économie significative pour un premier acheteur. <em>Les montants exacts dépendent de votre situation fiscale — à valider auprès d'un fiscaliste ou d'un planificateur financier.</em></p></div></div>
 <div class="step"><div><h3>Recherche, offre et fermeture</h3><p>Pré-sélection sur vos critères, visites accompagnées, rédaction de la promesse, inspection, notaire. 3-5 mois entre préapprobation et clés.</p></div></div>
 </div>
 
@@ -2860,18 +2896,18 @@ const SUBPAGES = [
 </div>
 
 <h2>Comment je vous accompagne</h2>
-<p>Mes services sont <strong>gratuits pour vous comme acheteur</strong> — je suis rémunéré par le vendeur via la commission Centris. Concrètement :</p>
+<p>Depuis juin 2022, le contrat de courtage achat (formulaire OACIQ) prévoit une rétribution due par l'acheteur. En pratique, cette rétribution est <strong>habituellement couverte en tout ou en partie par le partage de la rétribution offert par le courtier inscripteur du vendeur</strong>. Les modalités exactes sont précisées dans le contrat de courtage achat que nous signons ensemble. Concrètement, voici ce que je fais pour vous :</p>
 <ul>
 <li>Pré-sélection sur vos vrais critères (pas juste prix + nb chambres)</li>
 <li>Visites accompagnées : 33 ans d'expérience pour repérer les drapeaux rouges</li>
 <li>Référencement aux meilleurs courtiers hypothécaires, inspecteurs, notaires</li>
-<li>Rédaction et négociation de votre promesse — la majorité des primo-accédants payent 3-5 % trop cher faute de négociation</li>
+<li>Rédaction et négociation de votre promesse d'achat — un courtier expérimenté peut faire une différence importante sur le prix final et les conditions accordées</li>
 <li>Coordination jusqu'à la remise des clés</li>
 </ul>
 
 <h2>FAQ — premier acheteur</h2>
 <h3>Quel revenu faut-il pour acheter à Blainville en 2026 ?</h3>
-<p>Unifamiliale médiane (685 000 $) avec 20 % de mise de fonds : revenu ménage minimum <strong>135 000-150 000 $/an</strong>. Condo (380 000 $) : ~75 000 $/an.</p>
+<p>À titre indicatif : pour une unifamiliale médiane à 685 000 $ avec 20 % de mise de fonds et les taux 2026, un revenu ménage de l'ordre de 135 000-150 000 $/an permet de qualifier. Pour un condo à 380 000 $, environ 75 000 $/an. <em>Ces chiffres sont indicatifs — votre capacité réelle est déterminée par votre prêteur ou courtier hypothécaire après évaluation complète de votre dossier.</em></p>
 <h3>Combien de temps prend tout le processus ?</h3>
 <p>De la préapprobation à la prise de possession : <strong>3 à 5 mois</strong>.</p>
 <h3>Et si l'inspection révèle des problèmes ?</h3>
@@ -2898,18 +2934,16 @@ const SUBPAGES = [
 
 <h2>FAQ — étapes d'achat</h2>
 <h3>Combien de promesses d'achat faut-il en moyenne avant qu'une soit acceptée ?</h3>
-<p>Sur le marché Rive-Nord 2026, environ <strong>1 à 3 promesses</strong> sont nécessaires pour mes clients. La sélection en amont fait toute la différence.</p>
+<p>Selon mes données internes 2024-2025, généralement 1 à 3 promesses suffisent pour mes clients. La sélection en amont fait toute la différence — délais et nombre de promesses varient selon le marché et le secteur.</p>
 <h3>Que faire si je me fais surenchérir ?</h3>
 <p>Cas par cas. Parfois on garde la même offre (le vendeur revient si l'autre acheteur retire), parfois on monte modérément, parfois on passe. Décision basée sur la valeur réelle, pas l'émotion.</p>
 <h3>Combien coûtent les services d'un courtier acheteur ?</h3>
-<p><strong>Zéro pour vous.</strong> Ma rémunération vient du vendeur via la commission Centris.</p>`],
-  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque · Stratégie','Taux fixe ou variable, 25 ou 30 ans, SCHL ou non — les vraies questions.','Financement hypothécaire Québec 2026 | Alain Brunelle','Tout sur le financement hypothécaire : taux fixe vs variable, amortissement, stress test, assurance SCHL, courtier vs banque. Conseils pratiques.',`<p>Le taux d'intérêt n'est qu'une variable parmi cinq qui déterminent ce que votre hypothèque va vraiment vous coûter. Voici la lecture stratégique complète.</p>
-
-<div class="stat-row">
-<div class="stat-mini"><div class="n">4,89 %</div><div class="l">taux fixe 5 ans typique 2026</div></div>
-<div class="stat-mini"><div class="n">+2 %</div><div class="l">stress test fédéral imposé</div></div>
-<div class="stat-mini"><div class="n">-0,3 %</div><div class="l">économie typique courtier vs banque</div></div>
+<p>Depuis juin 2022, le contrat de courtage achat prévoit une rétribution due par l'acheteur. En pratique, cette rétribution est <strong>habituellement couverte en tout ou en partie par le partage de la rétribution offert par le courtier inscripteur du vendeur</strong>. Les modalités exactes sont précisées dans votre contrat de courtage achat.</p>`],
+  ['acheter/financement-hypothecaire','Financement hypothécaire','Hypothèque · Information générale','Comprendre les grandes lignes du financement hypothécaire avant de rencontrer un courtier hypothécaire.','Financement hypothécaire — information générale | Alain Brunelle','Aperçu informatif des notions de financement hypothécaire : taux fixe vs variable, amortissement, stress test, assurance SCHL. Pour un conseil personnalisé, consultez un courtier hypothécaire autorisé par l\'AMF.',`<div class="callout warn">
+<div><strong>Information générale uniquement.</strong> Alain Brunelle est courtier immobilier résidentiel, pas courtier hypothécaire. Le contenu de cette page est <strong>informatif et ne constitue pas un avis hypothécaire</strong>. Pour une cotation valide, un conseil personnalisé et une stratégie de financement adaptée à votre dossier, consultez un <a href="https://lautorite.qc.ca/" target="_blank" rel="noopener">courtier hypothécaire autorisé par l'AMF</a>.</div>
 </div>
+
+<p>Le taux d'intérêt n'est qu'une variable parmi plusieurs qui déterminent le coût réel d'une hypothèque. Voici un aperçu vulgarisé pour mieux préparer votre rencontre avec un courtier hypothécaire ou votre banquier.</p>
 
 <h2>Taux fixe ou taux variable ?</h2>
 <div class="compare">
@@ -2917,52 +2951,46 @@ const SUBPAGES = [
 <h4>TAUX FIXE</h4>
 <ul>
 <li>Paiement constant tout le terme</li>
-<li>Prévisibilité maximale</li>
-<li>Idéal premier achat ou budget serré</li>
-<li>Légèrement plus cher en moyenne historique</li>
-<li>4,89-5,29 % en mai 2026</li>
+<li>Prévisibilité maximale du budget</li>
+<li>Souvent choisi pour un premier achat ou un budget serré</li>
+<li>Historiquement légèrement plus cher en moyenne</li>
 </ul>
 </div>
 <div class="compare-col">
 <h4>TAUX VARIABLE</h4>
 <ul>
-<li>Suit le taux directeur Banque du Canada</li>
-<li>Plus bas historiquement (~80 % du temps)</li>
-<li>Peut monter brutalement (2022 a montré)</li>
-<li>Idéal 2e achat ou investisseur</li>
-<li>5,15-5,75 % en mai 2026</li>
+<li>Suit le taux directeur de la Banque du Canada</li>
+<li>Souvent plus bas historiquement, mais peut monter rapidement</li>
+<li>Mieux adapté aux acheteurs avec coussin financier</li>
+<li>Demande une tolérance à la fluctuation des paiements</li>
 </ul>
 </div>
 </div>
-<p><strong>Ma règle pragmatique :</strong> fixe pour le premier achat, variable possible pour l'investisseur avec coussin financier.</p>
+<p class="muted" style="font-size:.85rem;font-style:italic">Les taux applicables varient au quotidien. Pour une cotation valide à votre dossier, parlez à un courtier hypothécaire.</p>
 
 <h2>Amortissement : 25 ou 30 ans ?</h2>
-<p>Avec une mise de fonds ≥ 20 %, vous pouvez choisir 30 ans. Comparons sur 500 000 $ à 5 % :</p>
+<p>Avec une mise de fonds ≥ 20 %, l'amortissement 30 ans est possible chez la plupart des prêteurs. À titre d'exemple, sur un prêt de 500 000 $ à 5 % :</p>
 <table>
-<thead><tr><th>Durée</th><th>Paiement mensuel</th><th>Intérêts totaux</th></tr></thead>
+<thead><tr><th>Durée</th><th>Paiement mensuel approx.</th><th>Intérêts totaux approx.</th></tr></thead>
 <tbody>
-<tr><td>25 ans</td><td>2 908 $</td><td>372 400 $</td></tr>
-<tr><td>30 ans</td><td>2 669 $ (-239 $)</td><td>460 800 $ (+88 400 $)</td></tr>
+<tr><td>25 ans</td><td>~2 908 $</td><td>~372 400 $</td></tr>
+<tr><td>30 ans</td><td>~2 669 $</td><td>~460 800 $</td></tr>
 </tbody>
 </table>
-<div class="callout success">
-<div class="ico">💡</div>
-<div><p><strong>Compromis intelligent :</strong> prendre 30 ans pour la flexibilité, puis ajouter des paiements anticipés volontaires (+20 %/an permis sans pénalité chez la plupart des prêteurs).</p></div>
-</div>
+<p class="muted" style="font-size:.85rem;font-style:italic">Exemple illustratif. Les chiffres exacts dépendent de votre prêteur et de votre dossier.</p>
 
 <h2>Le stress test fédéral</h2>
-<p>Depuis 2018, tous les prêts sont qualifiés à <strong>max(taux contractuel + 2 %, 5,25 %)</strong>. Conséquence : votre capacité d'emprunt est environ <strong>15-20 % inférieure</strong> au calcul du taux contractuel. Utilisez ma <a href="/acheter/calculatrices/">calculatrice de capacité</a>.</p>
+<p>Tous les prêts hypothécaires sont actuellement qualifiés à <strong>max(taux contractuel + 2 %, 5,25 %)</strong>. Conséquence : votre capacité d'emprunt qualifiée peut être de 15 à 20 % inférieure au calcul basé sur le taux contractuel. Utilisez ma <a href="/acheter/calculatrices/">calculatrice de capacité</a> à titre indicatif.</p>
 
-<h2>Assurance SCHL — quand l'éviter</h2>
-<p>Sous 20 % de mise de fonds, l'assurance SCHL est obligatoire (1,8-4 % du prêt).</p>
-<div class="callout warn">
-<div class="ico">⚠️</div>
-<div><p>Sur 500 k$ empruntés à 10 % de mise : prime SCHL ~15 500 $ ajoutée à l'hypothèque. Vous payez intérêts dessus pendant 25-30 ans → vrai coût ~25 000 $. Vaut souvent mieux attendre 6-12 mois pour atteindre 20 %.</p></div>
+<h2>Assurance SCHL</h2>
+<p>Sous 20 % de mise de fonds, l'assurance prêt hypothécaire est obligatoire (SCHL, Sagen ou Canada Guaranty). La prime varie selon le pourcentage de mise de fonds et est ajoutée au capital emprunté.</p>
+<div class="callout">
+<div><strong>Bon à savoir :</strong> la prime d'assurance est financée sur la durée du prêt, donc des intérêts s'y appliquent. Plusieurs acheteurs choisissent de patienter pour atteindre 20 % de mise de fonds — d'autres préfèrent entrer plus tôt sur le marché. Le bon choix dépend de votre situation : un courtier hypothécaire peut chiffrer les deux scénarios pour vous.</div>
 </div>
 
 <h2>Courtier hypothécaire ou banque ?</h2>
-<p>Le courtier hypothécaire magasine parmi 20+ prêteurs — sans frais pour vous. Économie typique : <strong>0,15 à 0,40 %</strong> de taux par rapport au taux affiché bancaire. Sur 500 k$, ça représente <strong>10 000 à 25 000 $ d'intérêts économisés</strong> sur 5 ans.</p>
-<p>Mes partenaires courtiers hypothécaires sont disponibles dans les 48 h pour un appel découverte.</p>
+<p>Un courtier hypothécaire autorisé par l'AMF magasine pour vous parmi plusieurs prêteurs. Il est habituellement rémunéré par le prêteur retenu. Une banque propose ses propres produits seulement.</p>
+<p>Si vous voulez explorer le courtage hypothécaire, je peux vous mettre en lien avec des partenaires que je connais — vous restez libre de choisir avec qui vous travaillez.</p>
 
 <h2>Terme vs amortissement</h2>
 <p>Deux concepts souvent confondus :</p>
@@ -2979,7 +3007,7 @@ const SUBPAGES = [
 <p>De la promesse acceptée à la confirmation finale : <strong>7 à 14 jours</strong>.</p>
 <h3>Et si mon taux gelé expire avant la possession ?</h3>
 <p>Vous payez le taux en vigueur à la signature. Coordination des dates importe.</p>`],
-  ['acheter/inspection','Inspection pré-achat','Inspection · Garantie','Ce qu\'elle vérifie, ce qu\'elle ne couvre pas, et pourquoi il ne faut JAMAIS l\'omettre.','Inspection préachat Québec — guide 2026 | Alain Brunelle','Tout savoir sur l\'inspection préachat : déroulement, coût, vices cachés, recours. Le filet de sécurité non négociable avant d\'acheter.',`<p>L'inspection préachat, c'est votre dernière protection avant de signer un engagement de plusieurs centaines de milliers de dollars. Pourtant, <strong>1 acheteur sur 6 au Québec</strong> en fait l'économie pour « gagner le bidding war ». C'est le pari le plus risqué de toute la transaction.</p>
+  ['acheter/inspection','Inspection pré-achat','Inspection · Garantie','Ce qu\'elle vérifie, ce qu\'elle ne couvre pas, et pourquoi il ne faut JAMAIS l\'omettre.','Inspection préachat Québec — guide 2026 | Alain Brunelle','Tout savoir sur l\'inspection préachat : déroulement, coût, vices cachés, recours. Le filet de sécurité non négociable avant d\'acheter.',`<p>L'inspection préachat, c'est votre dernière protection avant de signer un engagement de plusieurs centaines de milliers de dollars. Plusieurs acheteurs choisissent pourtant d'y renoncer pour « gagner le bidding war » — c'est un pari risqué qu'il faut peser avec lucidité.</p>
 
 <div class="stat-row">
 <div class="stat-mini"><div class="n">2-4 h</div><div class="l">durée d'une inspection complète</div></div>
@@ -3039,8 +3067,8 @@ const SUBPAGES = [
 <div class="step"><div><h3>Annuler la promesse</h3><p>Sans pénalité (si condition d'inspection encore active). Réservée aux défauts majeurs.</p></div></div>
 </div>
 
-<h2>Mes inspecteurs partenaires</h2>
-<p>J'ai trois inspecteurs de confiance sur la Rive-Nord, tous membres en règle de l'AIBQ ou de l'InterNACHI. Ils ne sont <strong>jamais payés par moi</strong> — vous les payez directement, leur indépendance reste totale. Mon rôle : mise en contact rapide (48-72 h).</p>
+<h2>Inspecteurs en bâtiment — mes références</h2>
+<p>Je peux vous référer des inspecteurs en bâtiment de confiance sur la Rive-Nord, membres en règle de l'AIBQ ou de l'InterNACHI. <strong>Vous demeurez libre de choisir l'inspecteur de votre choix.</strong> Ils ne sont <strong>jamais payés par moi</strong> — vous les payez directement, leur indépendance professionnelle reste totale. L'évaluation technique du bâtiment relève de leur expertise, pas de la mienne.</p>
 
 <h2>FAQ — inspection</h2>
 <h3>Puis-je vraiment renoncer à l'inspection pour gagner un bidding war ?</h3>
@@ -3072,8 +3100,8 @@ for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
 
 // --- CALCULATRICES ---
 writePage('acheter/calculatrices/index.html', layout({
-  title: 'Calculatrices hypothécaires — paiement, capacité, rendement plex | Alain Brunelle',
-  description: 'Trois calculatrices gratuites : paiement hypothécaire mensuel, capacité d\'emprunt (ABD/ATD) et rendement d\'un plex. Résultats instantanés.',
+  title: 'Calculatrices hypothécaires — paiement et capacité | Alain Brunelle',
+  description: 'Deux calculatrices gratuites : paiement hypothécaire mensuel et capacité d\'emprunt (ABD/ATD). Outils à titre indicatif.',
   canonical: 'https://alainbrunelle.com/acheter/calculatrices/',
   body: `
 <section class="page-head container">
@@ -3134,30 +3162,12 @@ writePage('acheter/calculatrices/index.html', layout({
       </div>
     </div>
 
-    <!-- 3. Rendement plex -->
-    <div class="calc blue-block soft">
-      <div class="eye" style="color:var(--blue-2)">Calculatrice 3</div>
-      <h2 style="margin:.6rem 0 1.5rem">Rendement d'un plex.</h2>
-      <div class="calc-form">
-        <label>Prix d'achat <span data-out="p-price">650 000 $</span>
-          <input type="range" id="p-price-i" min="200000" max="3000000" step="10000" value="650000">
-        </label>
-        <label>Revenus locatifs bruts / mois <span data-out="p-rent">4 200 $</span>
-          <input type="range" id="p-rent-i" min="500" max="20000" step="100" value="4200">
-        </label>
-        <label>Dépenses annuelles (taxes, assurance, entretien) <span data-out="p-exp">12 000 $</span>
-          <input type="range" id="p-exp-i" min="0" max="50000" step="500" value="12000">
-        </label>
-        <label>Mise de fonds (%) <span data-out="p-dp">20 %</span>
-          <input type="range" id="p-dp-i" min="15" max="50" step="1" value="20">
-        </label>
-      </div>
-      <div class="calc-out">
-        <div><div class="k" id="p-caprate">—</div><div class="kl">Taux de capitalisation</div></div>
-        <div><div class="k" id="p-cashflow">—</div><div class="kl">Cashflow annuel</div></div>
-        <div><div class="k" id="p-coc">—</div><div class="kl">Rendement sur mise de fonds</div></div>
-      </div>
-    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="callout warn" style="margin-top:2rem">
+    <div><strong>Outils indicatifs.</strong> Ces calculatrices fournissent des estimations à titre informatif uniquement. Elles <strong>ne constituent ni un avis hypothécaire, ni un avis fiscal, ni un avis en placement</strong>. Pour votre capacité d'emprunt réelle, consultez un <a href="https://lautorite.qc.ca/" target="_blank" rel="noopener">courtier hypothécaire autorisé par l'AMF</a>. Pour l'analyse de rendement d'un immeuble à revenus, consultez un comptable ou un planificateur financier. La capacité d'emprunt finale est déterminée par le prêteur après évaluation complète de votre dossier.</div>
   </div>
 </section>
 
@@ -3218,26 +3228,6 @@ writePage('acheter/calculatrices/index.html', layout({
   ['c-income-i','c-down-i','c-debt-i','c-rate-i'].forEach(id=>bind(id,calcCapacity));
   calcCapacity();
 
-  // 3. Plex yield
-  function calcPlex(){
-    const price=val('p-price-i'), rent=val('p-rent-i'), exp=val('p-exp-i'), dp=val('p-dp-i')/100;
-    set('p-price', fmt(price)); set('p-rent', fmt(rent)); set('p-exp', fmt(exp));
-    set('p-dp', (dp*100)+' %');
-    const gross=rent*12;
-    const noi=gross-exp;
-    const capRate=noi/price*100;
-    // Mortgage payment on (1-dp) portion at 5.25 %, 25 yrs
-    const loan=price*(1-dp);
-    const r=Math.pow(1+0.0525/2,2/12)-1, n=25*12;
-    const pmt=loan*r/(1-Math.pow(1+r,-n));
-    const cashflow=noi-pmt*12;
-    const coc=(cashflow/(price*dp))*100;
-    put('p-caprate', fmtPct(capRate));
-    put('p-cashflow', fmt(cashflow));
-    put('p-coc', fmtPct(coc));
-  }
-  ['p-price-i','p-rent-i','p-exp-i','p-dp-i'].forEach(id=>bind(id,calcPlex));
-  calcPlex();
 })();
 </script>
 `,
@@ -3746,23 +3736,18 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
       <p style="font-size:.78rem;color:rgba(255,255,255,.65);margin-top:1.2rem">Estimation indicative basée sur les médianes 2026. Pour une évaluation précise rue par rue, réservez une analyse comparative gratuite.</p>
     </div>
 
-    <h2>4. Pourquoi Alain Brunelle à Sainte-Thérèse ?</h2>
-    <p>On peut être <strong>un</strong> courtier à Sainte-Thérèse. Être <strong>le</strong> courtier de Sainte-Thérèse, c'est autre chose. Voici le dossier, honnêtement.</p>
+    <h2>4. Pourquoi travailler avec Alain Brunelle à Sainte-Thérèse</h2>
+    <p>Voici ce qu'apporte concrètement un courtier qui pratique exclusivement sur la Rive-Nord depuis 1992.</p>
 
-    <div class="timeline">
-      <div class="timeline-item"><div class="year">1997</div><div class="t">Premières inscriptions dans <strong>l'En-Bas</strong> — les bungalows post-guerre. 37 transactions la première année.</div></div>
-      <div class="timeline-item"><div class="year">2004</div><div class="t">Ouverture du bureau <strong>RE/MAX CRYSTAL</strong> — devient point de référence pour le Vieux-Village.</div></div>
-      <div class="timeline-item"><div class="year">2012</div><div class="t">Spécialisation <strong>plex et condos neufs</strong> au moment où Sainte-Thérèse densifie son cœur.</div></div>
-      <div class="timeline-item"><div class="year">2018</div><div class="t">Top 1 % RE/MAX Québec — 7 années consécutives jusqu'à aujourd'hui.</div></div>
-      <div class="timeline-item"><div class="year">2026</div><div class="t"><strong>2 000+ transactions</strong> cumulées sur la Rive-Nord. Ratio vendu/demandé moyen : <strong>99,2 %</strong> (vs 97,1 % marché).</div></div>
-    </div>
-
-    <p>Concrètement, qu'est-ce que ça change pour vous ? Trois choses tangibles :</p>
     <ul>
-      <li><strong>Réseau acheteur qualifié</strong> — réseau d'acheteurs actifs Rive-Nord, segmentés par budget, typologie, secteur ciblé. Une inscription diffusée à ce réseau <em>avant</em> la mise sur Centris.</li>
-      <li><strong>Photographie et vidéo 4K incluses</strong> — drone, visite virtuelle, brochure imprimée. Zéro frais additionnel, pas de surclassement à payer.</li>
-      <li><strong>Analyse comparative rue par rue</strong> — je ne compare pas votre maison à « Sainte-Thérèse » en général, je la compare à votre côté de rue, sur les 24 derniers mois.</li>
+      <li><strong>Connaissance du terrain</strong> — chaque secteur de Sainte-Thérèse a sa propre dynamique. Vieux-Village, En-Haut et En-Bas se positionnent différemment : prix, profil acheteur, délais. Je connais ces nuances parce que j'y travaille tous les jours.</li>
+      <li><strong>Réseau d'acheteurs actifs sur la Rive-Nord</strong> — une inscription est diffusée à mon réseau <em>avant</em> la publication Centris, ce qui génère habituellement des visites privées rapides.</li>
+      <li><strong>Mise en marché complète</strong> — photographie HDR, vidéo drone, plan d'étage, visite virtuelle 360°, fiche Centris optimisée. Inclus dans le mandat, pas en supplément.</li>
+      <li><strong>Analyse comparative rue par rue</strong> — je positionne votre propriété sur son côté de rue précis, pas sur la moyenne municipale qui dilue les écarts.</li>
+      <li><strong>Équipe RE/MAX CRYSTAL</strong> — réseau de courtiers, photographes, stagers et notaires partenaires.</li>
     </ul>
+
+    <p class="muted" style="font-size:.85rem;font-style:italic">Mes statistiques de performance (délai médian, ratio vendu/demandé) sont disponibles sur demande, appuyées par mes données de transactions 2024-2025.</p>
 
     <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 33 ans à Sainte-Thérèse</cite></div>
 
@@ -4251,7 +4236,7 @@ const BLOG_CONTENT = {
 </div>
 
 <div class="callout success">
-  <div><strong>Personnalisez ces calculs à votre situation.</strong> Mes <a href="/acheter/calculatrices/">calculatrices gratuites</a> (paiement, capacité, rendement plex) tournent en temps réel avec vos chiffres. Aucun email demandé.</div>
+  <div><strong>Personnalisez ces calculs à votre situation.</strong> Mes <a href="/acheter/calculatrices/">calculatrices gratuites</a> (paiement et capacité d'emprunt) tournent en temps réel avec vos chiffres. Aucun email demandé.</div>
 </div>
 
 <p>Pour bâtir votre plan d'achat précis (avec ou sans pré-approbation), <a href="/rendez-vous/">prenez rendez-vous</a>. 20 minutes, sans engagement.</p>`
@@ -4463,6 +4448,278 @@ writePage('a-propos/index.html', layout({
     </div>
   </aside>
 </div></section>`
+}));
+
+// --- POLITIQUE DE CONFIDENTIALITÉ ---
+writePage('politique-confidentialite/index.html', contentPage({
+  eyebrow:'Légal · Politique de confidentialité',
+  h1:'Politique de confidentialité.',
+  lead:'Comment RE/MAX CRYSTAL et Alain Brunelle, courtier immobilier, gèrent et protègent vos renseignements personnels.',
+  title:'Politique de confidentialité | Alain Brunelle — RE/MAX CRYSTAL',
+  desc:'Politique de confidentialité de RE/MAX CRYSTAL — collecte, utilisation, conservation et protection des renseignements personnels.',
+  canonical:'https://alainbrunelle.com/politique-confidentialite/',
+  body:`<p class="muted" style="font-size:.85rem;font-style:italic">Dernière mise à jour : 23 octobre 2023</p>
+
+<h2>Introduction</h2>
+<p>Cette politique décrit comment RE/MAX CRYSTAL (« l'Agence ») gère et protège les informations personnelles de ses clients à travers les contacts directs avec ses représentants et son site web <a href="https://alainbrunelle.com">alainbrunelle.com</a>.</p>
+<p>La politique vise à informer les clients sur la collecte, l'utilisation, la communication et la conservation de leurs données personnelles.</p>
+
+<h2>1. Par quels moyens l'Agence recueille-t-elle des renseignements personnels ?</h2>
+<p>L'Agence collecte les informations par trois méthodes principales :</p>
+<ol>
+  <li>Transmission volontaire à un employé ou représentant (écrit, courriel ou conversation)</li>
+  <li>Collecte auprès d'autres entreprises et organismes publics, notamment les entités du groupe RE/MAX affiliées</li>
+  <li>Utilisation du Site Web (directe via formulaires ou automatique)</li>
+</ol>
+
+<h2>2. Quels renseignements personnels l'Agence recueille-t-elle ?</h2>
+<ul>
+  <li><strong>Données d'identification</strong> : nom, prénom, coordonnées (adresses, courriels, téléphones)</li>
+  <li><strong>Informations personnelles</strong> : date de naissance, genre, langue préférée</li>
+  <li><strong>Documents de vérification d'identité</strong> : pièces d'identité gouvernementales, documents d'adresse, confirmations de comptes bancaires/cartes de crédit</li>
+  <li><strong>Statut</strong> : citoyenneté ou résidence canadienne</li>
+  <li><strong>Données sensibles</strong> : détails des projets immobiliers, informations financières (numéros de carte de crédit, approbations hypothécaires, rapports de crédit)</li>
+  <li><strong>Communications</strong> : enregistrements d'appels, sessions de clavardage, messages instantanés</li>
+  <li><strong>Renseignements générés par l'utilisateur</strong> : plaintes, demandes, commentaires, réponses aux sondages</li>
+  <li><strong>Données d'emploi</strong> : curriculum vitae, scolarité, expérience professionnelle, affiliations</li>
+  <li><strong>Données administratives</strong> : numéro d'assurance sociale (employés), informations financières (employés), photographies (site web), pièces d'identité (administrateurs)</li>
+  <li><strong>Données automatiques</strong> : informations collectées lors de l'utilisation du site web</li>
+</ul>
+
+<h2>3. Renseignements recueillis automatiquement ou par fichiers témoins</h2>
+<p>L'Agence collecte automatiquement lors des visites au site web :</p>
+<ul>
+  <li>Nom de domaine du fournisseur d'accès à Internet</li>
+  <li>Adresse IP</li>
+  <li>Type de navigateur et système d'exploitation</li>
+  <li>Date et heure de la visite</li>
+  <li>Pays d'origine</li>
+  <li>Pages consultées et durée de consultation</li>
+  <li>Adresse du site référent</li>
+  <li>Données de plantage</li>
+</ul>
+<p>Ces informations sont recueillies via des « cookies » (fichiers témoins temporaires) et des « balises web » (pixels invisibles) pour améliorer la performance du site et ses fonctionnalités.</p>
+
+<h2>4. À quelles fins l'Agence recueille-t-elle des renseignements personnels ?</h2>
+<p>L'Agence collecte les données pour :</p>
+<ul>
+  <li>Fournir accompagnement, information, conseils et outils pour les transactions immobilières (« Services »)</li>
+  <li>Réaliser les transactions immobilières et être rémunérée</li>
+  <li>Respecter les lois et réglementations en vigueur</li>
+  <li>Émettre notifications et alertes via technologie de profilage (activée par le client)</li>
+  <li>Évaluer l'éligibilité à des programmes (Tranquilli-T, Intégri-T, Programme Clé)</li>
+  <li>Communiquer avec les clients sur les Services et proposer des produits/services pertinents</li>
+  <li>Effectuer des suivis périodiques de satisfaction</li>
+  <li>Développer, améliorer et promouvoir les Services</li>
+  <li>Générer et publier des données statistiques dépersonnalisées</li>
+  <li>Évaluer l'efficacité des démarches d'acquisition de visiteurs</li>
+  <li>Identifier les informations et démarches suscitant l'intérêt des visiteurs</li>
+  <li>Identifier lesquels des sites partenaires ont généré du trafic</li>
+  <li>Améliorer la performance et l'efficacité du site web</li>
+  <li>Identifier le régime législatif applicable aux visiteurs</li>
+  <li>Examiner les demandes d'emploi ou d'engagement</li>
+</ul>
+<p>L'Agence obtient le consentement pour toute utilisation autre que celles énumérées ci-dessus.</p>
+
+<h2>5. À qui l'Agence est-elle susceptible de communiquer vos renseignements personnels ?</h2>
+<p>L'Agence utilise les données à des fins internes, mais peut les communiquer à :</p>
+<ol>
+  <li><strong>Employés et représentants</strong> ayant besoin d'accès pour accomplir les fins énumérées</li>
+  <li><strong>Fournisseurs de services externes</strong> (via ententes contractuelles) tenus de :
+    <ul>
+      <li>Assurer la confidentialité</li>
+      <li>Utiliser les données uniquement aux fins contractuelles</li>
+      <li>Ne pas conserver les données après la fin du contrat</li>
+      <li>Aviser l'Agence de toute violation</li>
+      <li>Permettre les vérifications de confidentialité</li>
+    </ul>
+  </li>
+  <li><strong>Entités du groupe RE/MAX</strong> (RE/MAX Québec inc., Fonds promotionnel RE/MAX inc., RELONAT inc., RE/MAX LLC) dans la mesure nécessaire</li>
+  <li><strong>Autres personnes/entités</strong> si prescrit par la loi ou avec consentement du client</li>
+</ol>
+<div class="callout"><div><strong>Communication hors Québec.</strong> L'Agence ne communique les données à l'extérieur du Québec que si une évaluation démontre une protection adéquate des données, avec obligations contractuelles assurant le respect des conditions de protection.</div></div>
+
+<h2>6. Comment l'Agence protège-t-elle la confidentialité de vos renseignements personnels ?</h2>
+<p>L'Agence met en place des mesures physiques, technologiques et administratives :</p>
+<ul>
+  <li>Vérification d'identité et d'antécédents judiciaires de tous les employés et représentants</li>
+  <li>Engagement de confidentialité signé par tous les accédant à des données personnelles</li>
+  <li>Contrôle d'accès limité aux employés autorisés</li>
+  <li>Conservation des données physiques dans des locaux verrouillés</li>
+  <li>Conservation sécurisée des données électroniques via système d'identification et d'authentification</li>
+</ul>
+<h3>Sécurité du site web</h3>
+<ul>
+  <li>Chiffrement de tous les échanges entre serveurs et appareils utilisateurs</li>
+  <li>Chiffrement de tous les mots de passe utilisateurs</li>
+  <li>Obligations du fournisseur informatique incluant validation périodique des pratiques et veille continue des composantes logicielles</li>
+</ul>
+
+<h2>7. Mesures en cas d'incident de confidentialité</h2>
+<p>L'Agence maintient un registre des incidents de confidentialité en conformité avec la législation applicable. En cas d'incident présentant un risque de préjudice sérieux, l'Agence notifie les clients selon la loi. L'évaluation du risque considère la sensibilité des données, les conséquences appréhendées et la probabilité d'utilisation préjudiciable.</p>
+
+<h2>8. Durée de conservation de vos renseignements personnels</h2>
+<p>L'Agence conserve les données seulement aussi longtemps que nécessaire pour :</p>
+<ul>
+  <li>Accomplir les fins énumérées à la section 4</li>
+  <li>Se conformer aux obligations statutaires (selon la plus tardive de ces échéances)</li>
+</ul>
+<h3>Fermeture de dossier</h3>
+<ul>
+  <li>Pour les clients non-employés : habituellement 6 ans après la fermeture du dossier</li>
+  <li>Pour les employés : au moins 7 ans à compter de la fin de l'emploi</li>
+  <li>Sous réserve d'obligations statutaires prévoyant un délai minimal différent</li>
+</ul>
+<p>À la fermeture, les données sont complètement détruites ou anonymisées. <strong>L'anonymisation</strong> est le processus rendant impossible l'identification directe ou indirecte du client de façon irréversible.</p>
+
+<h2>9. Comment accéder à, rectifier, mettre à jour et obtenir une copie de vos renseignements personnels ?</h2>
+<p>Les clients ont le droit d'accéder, rectifier, mettre à jour et obtenir une copie de leurs données en adressant une demande écrite à l'Agence (coordonnées à la section 14).</p>
+<p><strong>Délai de réponse :</strong> maximum 30 jours après réception. Toute demande non traitée dans ce délai est réputée refusée après vérification d'identité.</p>
+<h3>Motifs d'une demande de rectification</h3>
+<ul>
+  <li>Données inexactes</li>
+  <li>Données périmées</li>
+  <li>Données équivoques</li>
+  <li>Données incomplètes</li>
+  <li>Données recueillies de façon injustifiée</li>
+</ul>
+<p><strong>Format de copie :</strong> pour les données informatisées, l'Agence fournit une copie dans un format technologique structuré et couramment utilisé (sauf si cela soulève des difficultés pratiques sérieuses).</p>
+<p><strong>Refus :</strong> l'Agence communique les raisons d'un refus et les recours disponibles, et aide le client à comprendre les motifs.</p>
+<p><strong>Désindexation :</strong> le client peut demander à cesser la diffusion d'une donnée personnelle et/ou désindexer les hyperliens à son nom, sous réserve de critères légaux.</p>
+<p><strong>Frais :</strong> en principe gratuit, mais des frais raisonnables peuvent être exigés pour transcription, reproduction ou transmission (le client est avisé avant traitement).</p>
+
+<h2>10. Comment retirer votre consentement</h2>
+<p>Sous réserve des engagements contractuels et de la législation applicable, le client peut retirer ou modifier son consentement en adressant une demande écrite à l'Agence (section 14).</p>
+<div class="callout warn"><div><strong>Important.</strong> Le retrait peut affecter la capacité de l'Agence à poursuivre adéquatement les fins énumérées à la section 4 et comporter des impacts sur les services.</div></div>
+
+<h2>11. Comment porter plainte ?</h2>
+<p>Les clients peuvent adresser une plainte sur les méthodes, pratiques et politiques de protection des données au Responsable de la protection des renseignements personnels (section 14).</p>
+<h3>Traitement</h3>
+<ul>
+  <li>Réponse dans les 30 jours</li>
+  <li>Si acceptée, résumé des changements apportés</li>
+  <li>Non-satisfaction : plainte possible auprès de la <a href="https://www.cai.gouv.qc.ca/" target="_blank" rel="noopener">Commission d'accès à l'information du Québec</a></li>
+</ul>
+
+<h2>12. Priorité de la protection au sein du Groupe RE/MAX Québec</h2>
+<p>Pour plus d'informations sur le traitement des données par d'autres entités du groupe RE/MAX :</p>
+<ul>
+  <li><strong>RE/MAX Québec inc.</strong> : <a href="https://www.remax-quebec.com/fr/politique-confidentialite" target="_blank" rel="noopener">remax-quebec.com/fr/politique-confidentialite</a></li>
+  <li><strong>Fonds promotionnel RE/MAX inc.</strong> : copie sur demande</li>
+  <li><strong>RELONAT inc.</strong> : <a href="https://www.relonat.com/confidentialite" target="_blank" rel="noopener">relonat.com/confidentialite</a></li>
+</ul>
+
+<h2>13. Aucune responsabilité à l'égard des Produits tiers</h2>
+<p>Le site web peut contenir des liens vers d'autres sites ou services tiers ayant leurs propres conditions d'utilisation et politiques de confidentialité.</p>
+<p>L'Agence <strong>n'est pas responsable</strong> des :</p>
+<ul>
+  <li>Conditions d'utilisation ou politiques de confidentialité de tiers</li>
+  <li>Données personnelles recueillies par des tiers</li>
+  <li>Qualité, sécurité, adéquation ou fiabilité des produits tiers</li>
+</ul>
+
+<h2>14. Communiquer avec le responsable de la protection des renseignements personnels</h2>
+<p>Pour exercer vos droits, poser des questions, formuler des commentaires ou déposer une plainte, contactez :</p>
+<div class="callout"><div>
+<strong>Responsable de la protection des renseignements personnels</strong><br>
+Mehdi Jamal<br>
+Téléphone : <a href="tel:4504304207">450 430-4207</a><br>
+Courriel : <a href="mailto:rp@remaxcrystal.com">rp@remaxcrystal.com</a>
+</div></div>
+<div class="callout"><div>
+<strong>Agence RE/MAX CRYSTAL — Sainte-Thérèse</strong><br>
+228 boul. du Curé-Labelle<br>
+Sainte-Thérèse, Québec J7E 2X7<br>
+Téléphone : <a href="tel:5149724207">514 972-4207</a><br>
+Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
+</div></div>
+<p class="muted" style="font-size:.82rem;margin-top:2rem">L'Agence vérifiera votre identité avant de traiter toute demande.</p>`
+}));
+
+// --- CONDITIONS D'UTILISATION ---
+writePage('conditions-utilisation/index.html', contentPage({
+  eyebrow:'Légal · Conditions d\'utilisation',
+  h1:'Conditions d\'utilisation.',
+  lead:'Règles d\'accès et d\'utilisation du site web d\'Alain Brunelle, courtier immobilier — RE/MAX CRYSTAL.',
+  title:'Conditions d\'utilisation | Alain Brunelle — RE/MAX CRYSTAL',
+  desc:'Conditions d\'utilisation du site alainbrunelle.com : licence, propriété intellectuelle, comportements interdits, limitation de responsabilité.',
+  canonical:'https://alainbrunelle.com/conditions-utilisation/',
+  body:`<h2>1. Acceptation des conditions</h2>
+<p>Ce contrat lie l'utilisateur à Alain Brunelle (« le Courtier ») et réglemente l'accès au site web. <em>« En accédant au Site Web, vous acceptez d'être lié par les Conditions alors en vigueur »</em> et confirmez votre capacité juridique. L'accès est refusé si vous n'acceptez pas les présentes Conditions.</p>
+
+<h2>2. Propriété intellectuelle</h2>
+<p>Tout contenu — textes, visuels, code, applications, éléments d'intelligence artificielle, marques — est protégé par les droits d'auteur canadiens et internationaux. <em>« Le Courtier conserve tous les droits, titres et intérêts sur le Contenu »</em> et aucun droit de propriété n'est transféré aux utilisateurs.</p>
+
+<h2>3. Licence d'utilisation limitée</h2>
+<p>Le Courtier accorde une licence personnelle, non exclusive et révocable pour un accès personnel et non commercial. <em>« Toute autre utilisation, notamment commerciale, automatisée, systématique ou massive »</em> est strictement interdite sans consentement écrit préalable.</p>
+
+<h2>4. Outils d'intelligence artificielle</h2>
+<p>Les contenus générés par intelligence artificielle sont fournis à titre informatif uniquement <em>« sans aucune garantie de fiabilité, d'exactitude ou d'adéquation aux normes réglementaires. »</em> L'utilisateur demeure responsable de la vérification de toute information avant utilisation.</p>
+
+<h2>5. Comportements interdits</h2>
+<p>Les utilisateurs s'engagent à ne pas :</p>
+<ul>
+  <li>Détourner le contenu à des fins commerciales</li>
+  <li>Perturber la sécurité du site</li>
+  <li>Publier du contenu illégal ou diffamatoire</li>
+  <li>Collecter des données sans consentement</li>
+  <li>Utiliser les services de façon frauduleuse</li>
+</ul>
+<div class="callout warn"><div><em>« Le Courtier se réserve le droit de suspendre l'accès à ses services sans préavis en cas de violation. »</em></div></div>
+
+<h2>6. Modifications</h2>
+<p>Alain Brunelle peut modifier les Conditions à tout moment. <em>« L'usage continu du Site Web après une mise à jour équivaut à une acceptation des Conditions modifiées. »</em></p>
+
+<h2>7. Liens externes</h2>
+<p>Le site peut contenir des hyperliens vers des tiers. <em>« Le Courtier n'assume aucune responsabilité quant au contenu ou aux pratiques de ces sites externes. »</em></p>
+
+<h2>8. Marques de commerce</h2>
+<p>Les noms, logos et marques sont la propriété du Courtier ou de leurs propriétaires respectifs. <em>« Toute utilisation non autorisée est strictement interdite. »</em></p>
+
+<h2>9. Protection des renseignements personnels</h2>
+<p>Les données sont traitées conformément à la <a href="/politique-confidentialite/">Politique de confidentialité</a>, à la Loi canadienne anti-pourriel et aux lois applicables. Les utilisateurs consentent à recevoir :</p>
+<ul>
+  <li><strong>Messages de confirmation et rappels</strong> : communications concernant les rendez-vous</li>
+  <li><strong>Messages promotionnels</strong> : offres, nouveautés et communications marketing</li>
+</ul>
+<p>Des frais de messagerie peuvent s'appliquer selon votre forfait mobile.</p>
+<p><strong>Désinscription :</strong> pour les textos, envoyez « STOP » pour vous désinscrire. Pour les courriels, utilisez le lien de désabonnement fourni dans chaque communication.</p>
+
+<h2>10. Concours et campagnes</h2>
+<p>Les concours sont régis par des règlements distincts accessibles sur les pages dédiées.</p>
+
+<h2>11. Limitation de responsabilité</h2>
+<p>Le site n'est pas garanti exempt d'erreurs ou d'interruptions. <em>« EN AUCUN CAS le Courtier, SES DIRIGEANTS, EMPLOYÉS, PARTENAIRES OU FOURNISSEURS NE POURRONT ÊTRE TENUS RESPONSABLES DES DOMMAGES DIRECTS OU INDIRECTS. »</em></p>
+
+<h2>12. Indemnisation</h2>
+<p>L'utilisateur accepte d'indemniser le Courtier pour toute perte, réclamation, dommage ou frais résultant de son usage ou de violations des présentes Conditions.</p>
+
+<h2>13. Résiliation</h2>
+<p>Le Courtier peut suspendre ou résilier l'accès sans préavis pour violation réelle ou suspectée. Certaines obligations subsistent après résiliation.</p>
+
+<h2>14. Droit applicable</h2>
+<p>Les présentes Conditions sont régies par les lois du Québec, Canada. <em>« Tout litige lié au Site Web ou aux présentes Conditions relève de la compétence exclusive des tribunaux du district de Montréal. »</em></p>
+
+<h2>15. Accessibilité</h2>
+<p>Le Courtier s'engage à rendre le site accessible aux personnes avec limitations fonctionnelles. Pour assistance, contactez <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>.</p>
+
+<h2>16. Sous-traitants et services tiers</h2>
+<p>Des fournisseurs peuvent accéder à certaines données uniquement si nécessaire, sous engagement de confidentialité.</p>
+
+<h2>17. Exportation et contrôle des données</h2>
+<p>L'utilisateur reconnaît que certains outils peuvent être soumis à des lois de contrôle à l'exportation canadiennes ou américaines.</p>
+
+<h2>18. Intégralité et dissociabilité</h2>
+<p>Si une disposition est invalide, les autres demeurent applicables. <em>« Ces Conditions constituent l'intégrité de l'accord entre le Courtier et l'Utilisateur. »</em></p>
+
+<h2>19. Contact</h2>
+<div class="callout"><div>
+<strong>Alain Brunelle, Courtier Immobilier Inc.</strong><br>
+228 boul. du Curé-Labelle<br>
+Sainte-Thérèse, Québec J7E 2X7<br>
+Téléphone : <a href="tel:5149724207">514 972-4207</a><br>
+Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
+</div></div>`
 }));
 
 writePage('contact/index.html', layout({

@@ -72,8 +72,13 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:1.5rem;padding:.85rem clamp(1rem,3vw,2.5rem);background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(230,235,242,.8);box-shadow:0 1px 0 rgba(255,255,255,.8),0 8px 24px -12px rgba(11,22,40,.08)}
-.nav .brand img{height:64px;width:auto}
-@media(max-width:980px){.nav .brand img{height:48px}}
+.nav .brand{display:inline-flex;align-items:center;gap:.85rem}
+.nav .brand-logo{height:64px;width:auto;flex-shrink:0}
+.nav .brand-remax{height:48px;width:auto;flex-shrink:0;opacity:.96;transition:opacity .3s var(--ease)}
+.nav .brand:hover .brand-remax{opacity:1;transform:scale(1.04)}
+.nav .brand-remax{transition:opacity .3s var(--ease),transform .3s var(--ease-spring)}
+@media(max-width:980px){.nav .brand-logo{height:48px}.nav .brand-remax{height:36px}}
+@media(max-width:540px){.nav .brand-remax{height:32px}}
 .nav-links{display:flex;gap:.2rem;justify-content:center;flex-wrap:wrap}
 .nav-item{position:relative;padding:.6rem .9rem;font-size:.95rem;font-weight:400;color:var(--ink-2);border-radius:999px;transition:background .3s var(--ease),color .3s var(--ease)}
 .nav-item:hover{background:var(--surface);color:var(--ink)}
@@ -407,15 +412,31 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 /* Footer */
 .footer{background:var(--ink);color:#cbd5ea;padding:clamp(3rem,5vw,4.5rem) 0 2rem;margin-top:clamp(3rem,6vw,5rem)}
 .footer{border-top-left-radius:var(--radius-lg);border-top-right-radius:var(--radius-lg)}
-.f-grid{max-width:var(--container);margin-inline:auto;padding-inline:var(--pad);display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem)}
-.footer h4{color:#fff;font-size:.9rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem;font-weight:500}
+.f-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem);align-items:start}
+.footer h4{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:1rem;font-weight:500}
 .footer ul{list-style:none;padding:0;margin:0}
 .footer li{margin-bottom:.5rem;font-size:.92rem}
+.footer a{color:#cbd5ea;transition:color .25s var(--ease)}
 .footer a:hover{color:#fff}
-.f-tag{font-size:.9rem;margin-top:1rem;color:#90a1c0}
-.f-contact li a{color:#cbd5ea}
-.f-bottom{max-width:var(--container);margin:3rem auto 0;padding:1.5rem var(--pad) 0;border-top:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#7a8aa8;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-@media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}}
+.f-brand{display:flex;flex-direction:column;gap:1.2rem;align-items:flex-start}
+.f-brand img{width:auto;max-width:200px}
+.f-remax-crystal{background:#fff;padding:.65rem .9rem;border-radius:8px;height:auto !important}
+.f-eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:#fff;font-weight:500;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+.f-address{font-style:normal;font-size:.9rem;line-height:1.7;color:#cbd5ea}
+.f-address .f-line{display:block;margin-top:.4rem}
+.f-address a{color:#cbd5ea;text-decoration:underline;text-decoration-color:rgba(203,213,234,.3);text-underline-offset:3px}
+.f-social{display:flex;gap:.6rem;margin-bottom:.4rem}
+.f-social-link{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;transition:background .25s var(--ease),transform .3s var(--ease-spring)}
+.f-social-link:hover{background:#fff;color:var(--ink);transform:translateY(-2px)}
+
+.f-bottom{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:#7a8aa8;line-height:1.6}
+.f-bottom-legal{max-width:78ch}
+.f-bottom-legal a{color:#9aabc7;text-decoration:underline;text-decoration-color:rgba(154,171,199,.3);text-underline-offset:3px}
+.f-bottom-legal .f-divider{margin:0 .35rem;opacity:.5}
+.f-bottom-credit{font-size:.75rem;color:#7a8aa8;text-transform:uppercase;letter-spacing:.12em}
+.f-bottom-credit a{color:#cbd5ea}
+.f-bottom-credit strong{font-weight:600;letter-spacing:.02em}
+@media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
 @media(max-width:540px){.f-grid{grid-template-columns:1fr}}
 
 /* Lead qualifier — segmente vendeur awareness/consideration/decision */
