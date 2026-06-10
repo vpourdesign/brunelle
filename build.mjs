@@ -474,7 +474,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     <span class="agency-bar-sep" aria-hidden="true">·</span>
     <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
     <span class="agency-bar-sep" aria-hidden="true">·</span>
-    <a class="agency-bar-tel" href="tel:4504305555">450&nbsp;430-5555</a>
+    <a class="agency-bar-tel" href="tel:4504304207">450&nbsp;430-4207</a>
   </div>
 </div>
 <main>
@@ -547,8 +547,8 @@ const CSS = `
   --muted:#6a7891;
   --line:#e6ebf2;
   --surface:#f4f7fc;
-  --blue:#0f2855;
-  --blue-2:#13357a;
+  --blue:#003DA5;
+  --blue-2:#002A75;
   --blue-soft:#e6ecf7;
   --blue-hi:oklch(55% 0.16 260);
   --accent:oklch(62% 0.17 255);
@@ -790,14 +790,14 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .reviews-title{font-weight:500;color:var(--ink);font-size:.95rem;letter-spacing:.01em}
 .reviews-stars{display:flex;align-items:center;gap:.15rem;color:#f5a623;font-size:.95rem;letter-spacing:.05em;margin-top:.15rem}
 .reviews-stars .reviews-rating{margin-left:.5rem;color:var(--muted);font-size:.82rem;letter-spacing:.02em}
-.reviews-link{font-size:.85rem;color:var(--blue,#0f2855);border-bottom:1px solid currentColor;padding-bottom:2px;text-decoration:none}
+.reviews-link{font-size:.85rem;color:var(--blue,#003DA5);border-bottom:1px solid currentColor;padding-bottom:2px;text-decoration:none}
 .reviews-track{position:relative;min-height:240px}
 .review-card{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .55s ease, transform .55s cubic-bezier(0.16,1,0.3,1)}
 .review-card.on{opacity:1;visibility:visible;transform:translateY(0)}
 .review-stars{color:#f5a623;letter-spacing:.12em;font-size:1rem;margin-bottom:1rem}
 .review-q{font-family:'Jost';font-size:clamp(1.15rem,2vw,1.55rem);font-weight:300;letter-spacing:-.015em;color:var(--ink);line-height:1.45;margin:0 0 1.6rem}
 .review-who{display:flex;align-items:center;gap:.9rem;font-style:normal}
-.review-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0f2855,#3a5fa6);color:#fff;display:grid;place-items:center;font-weight:500;font-size:1.05rem;flex:0 0 auto}
+.review-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#003DA5,#3a5fa6);color:#fff;display:grid;place-items:center;font-weight:500;font-size:1.05rem;flex:0 0 auto}
 .review-who strong{display:block;color:var(--ink);font-weight:500;font-size:.95rem}
 .review-who span{display:block;color:var(--muted);font-size:.8rem;letter-spacing:.04em;margin-top:.1rem}
 .reviews-nav{display:flex;align-items:center;justify-content:center;gap:1.2rem;margin-top:1.6rem}
@@ -1247,7 +1247,7 @@ const homeJsonld = JSON.stringify({
   "@context":"https://schema.org","@type":"RealEstateAgent",
   "name":"Alain Brunelle","url":"https://alainbrunelle.com",
   "image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg",
-  "telephone":"+1-450-430-5555","priceRange":"$$",
+  "telephone":"+1-450-430-4207","priceRange":"$$",
   "address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},
   "areaServed":["Sainte-Thérèse","Blainville","Saint-Eustache","Rosemère","Boisbriand","Mirabel"]
 });
@@ -3443,7 +3443,7 @@ for (const [s,t] of GUIDES) {
     title:`${t} — PDF gratuit | Alain Brunelle`,
     desc:`${t} — guide PDF gratuit pour comprendre l'immobilier Rive-Nord par Alain Brunelle.`,
     canonical:`https://alainbrunelle.com/guides/${s}/`,
-    body:content.body + `<div style="background:#e6ecf7;border-radius:14px;padding:1.5rem;margin-top:2rem"><p style="margin-bottom:1rem;color:#0f2855;font-weight:500">Téléchargez le guide gratuitement en échange de votre courriel.</p><form style="display:flex;gap:.5rem;flex-wrap:wrap"><input type="email" placeholder="votre@courriel.com" style="flex:1;min-width:200px;padding:.85rem 1rem;border:1px solid #cdd6e6;border-radius:12px;font-family:inherit"><button type="button" style="background:#0f2855;color:#fff;border:0;padding:.85rem 1.4rem;border-radius:12px;font-family:inherit;font-weight:500;cursor:pointer">Recevoir le PDF</button></form><p style="font-size:.78rem;color:#6a7891;margin-top:.8rem">Aucun spam. Désabonnement en 1 clic.</p></div>`
+    body:content.body + `<div style="background:#e6ecf7;border-radius:14px;padding:1.5rem;margin-top:2rem"><p style="margin-bottom:1rem;color:#003DA5;font-weight:500">Téléchargez le guide gratuitement en échange de votre courriel.</p><form style="display:flex;gap:.5rem;flex-wrap:wrap"><input type="email" placeholder="votre@courriel.com" style="flex:1;min-width:200px;padding:.85rem 1rem;border:1px solid #cdd6e6;border-radius:12px;font-family:inherit"><button type="button" style="background:#003DA5;color:#fff;border:0;padding:.85rem 1.4rem;border-radius:12px;font-family:inherit;font-weight:500;cursor:pointer">Recevoir le PDF</button></form><p style="font-size:.78rem;color:#6a7891;margin-top:.8rem">Aucun spam. Désabonnement en 1 clic.</p></div>`
   }));
 }
 
@@ -4880,27 +4880,27 @@ writePage('temoignages/index.html', contentPage({
   canonical:'https://alainbrunelle.com/temoignages/',
   body:`<div class="callout" style="margin-bottom:2rem"><div><strong>À propos de ces témoignages.</strong> Tous les extraits ci-dessous proviennent de clients réels. Les noms sont remplacés par un identifiant secteur/profil pour respecter leur vie privée. Pour des avis avec noms complets et photos, consultez <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">la fiche Google Business</a>.</div></div>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Alain a vendu notre maison de Fontainebleau en 11 jours, au prix demandé. Sa stratégie de mise en marché était tellement précise qu'on a eu 4 visites privées avant même la publication Centris. Rigueur exceptionnelle. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeurs · Fontainebleau, Blainville · 2025</cite></blockquote>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« On a acheté notre première maison à Sainte-Thérèse avec Alain. Il a passé des heures à expliquer chaque clause de la promesse, sans jamais nous brusquer. Il nous a même retenus d'enchérir sur deux propriétés où il sentait qu'on payait trop. Ces réflexes-là, ça vaut de l'or. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Premiers acheteurs · Sainte-Thérèse-en-Bas · 2025</cite></blockquote>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Analyse de marché impeccable. Alain m'a sorti un tableau comparatif rue par rue que je n'avais jamais vu de toute ma vie. Du coup, on a positionné la maison 18 000 $ plus haut que ce que j'envisageais — et on a vendu en 19 jours. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeur · Vieux Sainte-Thérèse · 2024</cite></blockquote>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Quand ma mère est décédée, vendre sa maison de Lorraine était la dernière chose dont j'avais l'énergie de m'occuper. Alain a tout coordonné — l'évaluation, le ménage, les photos, les visites, le notaire. Avec dignité et patience. Je le recommanderais à n'importe qui dans la même situation. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Vendeuse · Succession Lorraine · 2024</cite></blockquote>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« On a vendu et acheté la même semaine. Alain a coordonné les deux notaires, les financements, et notre déménagement avec une précision militaire. Stress total : zéro. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Famille · Rosemère → Blainville · 2024</cite></blockquote>
 
-<blockquote style="border-left:3px solid #0f2855;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
+<blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« J'ai acheté trois plex avec Alain depuis 2018. Il connaît le marché locatif Rive-Nord mieux que la plupart des investisseurs eux-mêmes. Mes trois acquisitions cashflowent positivement dès l'année 1 — c'est rare. »</p>
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Investisseur · Plex Blainville · 2024</cite></blockquote>
 
