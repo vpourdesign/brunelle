@@ -194,3 +194,13 @@ When in doubt — edit locally, do NOT call Stitch.
 - In Step 7, never replace marketing/layout elements with shadcn/ui — keep them custom
 - The Stitch MCP is connected globally — no extra setup needed
 - Skills are located in ~/.agents/skills/
+
+---
+
+<!-- project-notes-system -->
+## Système de notes
+
+Ce projet utilise le système de notes/todos universel V pour Design.
+**Convention :** `_AGENCY/CTO/conventions/project-notes.md`
+
+Quand Vincent écrit dans ce chat une note, todo, rappel ou idée — auto-classer dans `NOTES.md` selon les 6 catégories : 📅 Échéances · ✅ À faire · 💭 Long shots · 📝 Notes client · 🔍 Précisions · ✓ Fait. Confirmer en une ligne après chaque ajout.

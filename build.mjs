@@ -1388,7 +1388,7 @@ const homeBody = `
 
 <section class="container">
   <div class="about-grid reveal">
-    <div class="about-photo"><img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle"></div>
+    <div class="about-photo"><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle, courtier immobilier — analyse des données du marché"></div>
     <div>
       <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">À propos</div>
       <h2 style="max-width:26ch">Courtier immobilier sur la Rive-Nord depuis 1992, je mets les chiffres sur la table et on décide ensemble.</h2>
@@ -1404,7 +1404,7 @@ const homeBody = `
 <section class="section-light">
 <div class="container">
   <div class="testim reveal">
-    <div class="p"><img src="/photos/P21_5534-Edit.jpg" alt=""></div>
+    <div class="p"><img src="/photos/alain/Creationsdoz-00575_Final.jpg" alt=""></div>
     <div>
       <p class="q">« Alain a vendu notre maison de Blainville en 11 jours, au prix demandé. Sa stratégie de mise en marché, c'est du sur-mesure. On a rarement vu un courtier aussi rigoureux. »</p>
       <div class="who">Vendeurs · Fontainebleau, Blainville · 2025</div>
@@ -1457,14 +1457,8 @@ const listBody = `
 <section class="page-head container">
   <div class="eyebrow">Centris · Mis à jour quotidiennement</div>
   <h1>Nos propriétés à vendre</h1>
-  <p class="lead">${properties.length} propriétés actives · Rive-Nord et Laurentides. Filtrez par type ou ville pour affiner votre recherche.</p>
 </section>
 <section class="container">
-  <div class="filters">
-    <button data-filter="all" class="active">Toutes (${properties.length})</button>
-    ${Object.entries(stats.byType).map(([k,v])=>`<button data-filter="${k.toLowerCase()}">${k} (${v})</button>`).join('')}
-    ${Object.entries(stats.byCity).slice(0,6).map(([k,v])=>`<button data-filter="${k.toLowerCase()}">${k} (${v})</button>`).join('')}
-  </div>
   <div class="prop-grid">
     ${allProperties.map(propertyCard).join('')}
   </div>
@@ -2812,7 +2806,7 @@ const SUBPAGES = [
 <p>Non. La commission est payée à la signature de l'acte de vente uniquement. Si rien ne se vend, vous ne devez rien.</p>
 <h3>Puis-je négocier une commission par étapes ?</h3>
 <p>Oui — c'est conseillé dans certains cas. <a href="/rendez-vous/">Prendre rendez-vous</a> pour en discuter.</p>`],
-  ['vendre/vendre-sans-stress','Vendre sereinement','Accompagnement complet','Un processus balisé, des nouvelles régulières, transparence en continu.','Vendre sereinement sa maison sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sereinement : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
+  ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles régulières, transparence en continu.','Vendre sans stress sa maison sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
 <p>Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
 
 <h2>Ma promesse en 4 engagements</h2>
@@ -3087,7 +3081,7 @@ const SUBPAGE_HERO = {
   'acheter/premier-acheteur':        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop',
   'acheter/etapes-pour-acheter':     'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80&auto=format&fit=crop',
   'acheter/financement-hypothecaire':'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=900&q=80&auto=format&fit=crop',
-  'acheter/inspection':              'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80&auto=format&fit=crop'
+  'acheter/inspection':              'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=80&auto=format&fit=crop'
 };
 for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
   writePage(`${p}/index.html`, contentPage({
@@ -3350,7 +3344,7 @@ writePage('marche-immobilier/index.html', contentPage({
     <div><strong style="font-size:1.15rem;color:var(--blue)">Statistiques Blainville →</strong><br><span style="color:var(--ink-2)">Prix médian 715 000 $, délai 32 j, inventaire +29 %. Le marché unifamilial corrige légèrement (−4 %), le condo monte (+3 %).</span></div>
   </a>
   <a class="callout success" href="/marche-immobilier/statistiques-sainte-therese/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:#0f8c5b">Statistiques Sainte-Thérèse →</strong><br><span style="color:var(--ink-2)">Délais effondrés (23 j), condo +9 %, plex +17 %. Le marché le plus chaud des Laurentides Sud en Q1 2026.</span></div>
+    <div><strong style="font-size:1.15rem;color:#0f8c5b">Statistiques Sainte-Thérèse →</strong><br><span style="color:var(--ink-2)">Délais raccourcis de moitié (23 j), condo +9 %, plex +17 %. Le marché le plus chaud des Laurentides Sud en Q1 2026.</span></div>
   </a>
   <a class="callout" href="/marche-immobilier/rapport-mensuel/" style="text-decoration:none;color:inherit">
     <div><strong style="font-size:1.15rem;color:var(--blue)">Lecture du marché — Printemps 2026 →</strong><br><span style="color:var(--ink-2)">Le baromètre APCIQ Q1 2026 + mes observations terrain : ce que je vois bouger entre deux publications trimestrielles.</span></div>
@@ -3365,7 +3359,7 @@ writePage('marche-immobilier/index.html', contentPage({
 const MARCHE_HERO = {
   'statistiques-blainville':     '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
   'statistiques-sainte-therese': '/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg',
-  'rapport-mensuel':             '/photos/P21_5534-Edit.jpg'
+  'rapport-mensuel':             '/photos/alain/Creationsdoz-00584_Final.jpg'
 };
 const MARCHE_PAGES = {
   'statistiques-blainville': {
@@ -3437,7 +3431,7 @@ const MARCHE_PAGES = {
 </div>
 
 <h2>Le marché en Q1 2026</h2>
-<p>Sainte-Thérèse est en <strong>plein boom</strong>. Les délais se sont effondrés (23 j vs 47 j il y a un an), les condos s'envolent (+9 %), et les plex deviennent l'actif vedette des Laurentides Sud (+17 % sur 12 mois). Le prix unifamilial est stable mais l'activité ne ment pas : ce marché est nettement vendeur.</p>
+<p>Sainte-Thérèse est en <strong>plein boom</strong>. Les délais ont fondu de moitié (23 j vs 47 j il y a un an), les condos s'envolent (+9 %), et les plex deviennent l'actif vedette des Laurentides Sud (+17 % sur 12 mois). Le prix unifamilial est stable mais l'activité ne ment pas : ce marché est nettement vendeur.</p>
 
 <table>
   <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
@@ -3778,7 +3772,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     <p>Médiane secteur : 31 jours. Sur mes listings spécifiquement : <strong>24 jours</strong> en moyenne 2026. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
 
     <div class="a-footer-meta">
-      <img src="/photos/P21_5525-Edit.jpg" alt="Alain Brunelle">
+      <img src="/photos/alain/Creationsdoz-00647_Final.jpg" alt="Alain Brunelle">
       <div>
         <div class="who">Alain Brunelle</div>
         <div class="who-sub">Courtier immobilier résidentiel · RE/MAX CRYSTAL · Sainte-Thérèse, Blainville et Rive-Nord</div>
@@ -4027,14 +4021,14 @@ writePage('blog/index.html', layout({
 
     /* Blog grid — staggered magazine */
     .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(1.4rem,2.5vw,2rem)}
-    .blog-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease);color:var(--ink);text-decoration:none}
-    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
-    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft);border-radius:var(--radius-lg);box-shadow:inset 0 0 0 1px rgba(15,42,90,.04)}
+    .blog-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease),border-color .3s var(--ease);color:var(--ink);text-decoration:none}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent;color:var(--ink)}
+    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft)}
     .blog-card .bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
     .blog-card:hover .bc-img img{transform:scale(1.06)}
     .blog-card .bc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,22,40,.35) 100%);pointer-events:none}
     .blog-card .bc-tag{position:absolute;top:1rem;left:1rem;padding:.4rem .85rem;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:999px;font-size:.7rem;font-weight:500;color:var(--ink);letter-spacing:.04em;z-index:1}
-    .blog-card .bc-body{padding:1.4rem .25rem .25rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+    .blog-card .bc-body{padding:1.4rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
     .blog-card h3{font-size:1.15rem;font-weight:500;letter-spacing:-.012em;line-height:1.28;color:var(--ink);margin:0}
     .blog-card p{color:var(--ink-2);font-size:.93rem;line-height:1.55;margin:0;flex:1}
     .blog-card .bc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted);margin-top:.4rem;padding-top:.9rem;border-top:1px solid var(--line)}
@@ -4399,7 +4393,7 @@ writePage('a-propos/index.html', layout({
 <section class="page-head container"><div class="eyebrow">À propos · Courtier immobilier depuis 1992</div><h1>Alain Brunelle, courtier immobilier de la Rive-Nord depuis 33 ans.</h1><p class="lead">3 000+ transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse, Blainville, Rosemère, Lorraine.</p></section>
 
 <section class="container"><div class="about-grid">
-  <div class="about-photo"><img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
+  <div class="about-photo"><img src="/photos/alain/Creationsdoz-00336_pp.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
   <div>
     <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie.</p>
     <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">33 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a son prix juste</strong>, et chaque client mérite une stratégie sur mesure, appuyée par des chiffres. Mon travail consiste à transformer les données du marché — historique de vente, saisonnalité, comparables — en une décision claire que vous comprenez et que vous portez avec confiance.</p>
@@ -4435,7 +4429,10 @@ writePage('a-propos/index.html', layout({
     <p>Voir une famille accéder à sa première maison après deux ans d'épargne. Vendre la maison d'un parent décédé avec respect et fluidité. Aider un investisseur à structurer sa quatrième acquisition. Chaque transaction est une histoire — et c'est ce mélange d'humain et de méthode qui rend ce métier passionnant.</p>
 
     <h2>Hors du bureau</h2>
-    <p>Père, conjoint, ancré dans la communauté de la Rive-Nord depuis plus de 30 ans. Quand je ne suis pas en visite ou en évaluation, je suis quelque part entre Sainte-Thérèse et les Laurentides.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center;margin:1.5rem 0">
+      <p style="margin:0">Père, conjoint, ancré dans la communauté de la Rive-Nord depuis plus de 30 ans. Quand je ne suis pas en visite ou en évaluation, je suis quelque part entre Sainte-Thérèse et les Laurentides — souvent avec mon petit teckel pas loin.</p>
+      <figure style="margin:0;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/5"><img src="/photos/alain/Creationsdoz-00528_Final.jpg" alt="Alain Brunelle avec son chien" style="width:100%;height:100%;object-fit:cover"></figure>
+    </div>
   </article>
   <aside>
     <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
@@ -4727,7 +4724,16 @@ writePage('contact/index.html', layout({
   description:'Contactez Alain Brunelle : 450.430.5555 · alain@alainbrunelle.com · RE/MAX CRYSTAL Sainte-Thérèse.',
   canonical:'https://alainbrunelle.com/contact/',
   body:`
-<section class="page-head container"><div class="eyebrow">Contact</div><h1>Joindre Alain Brunelle, courtier immobilier RE/MAX CRYSTAL.</h1><p class="lead">Téléphone, courriel ou rendez-vous en ligne — je réponds personnellement en moins de 24 h ouvrables.</p></section>
+<section class="page-head container">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h1>Joindre Alain Brunelle, courtier immobilier RE/MAX CRYSTAL.</h1>
+      <p class="lead">Téléphone, courriel ou rendez-vous en ligne — je réponds personnellement en moins de 24 h ouvrables.</p>
+    </div>
+    <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-09819_Final.jpg" alt="Alain Brunelle, courtier immobilier accessible" loading="eager"></figure>
+  </div>
+</section>
 <section class="container"><div class="two-col">
   <div class="blue-block soft" style="padding:2.5rem">
     <h3>Téléphone</h3><p style="font-size:1.6rem;color:var(--blue);font-weight:400;margin:.5rem 0 1.5rem">450.430.5555</p>
@@ -4840,9 +4846,14 @@ writePage('rendez-vous/index.html', layout({
   </style>`,
   body:`
 <section class="page-head container">
-  <div class="eyebrow">Rendez-vous · Appel vidéo 20 minutes</div>
-  <h1>Réservez 20 minutes avec Alain Brunelle.</h1>
-  <p class="lead">Appel vidéo découverte, sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Lien Google Meet envoyé par courriel avec confirmation et rappel automatiques.</p>
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Rendez-vous · Appel vidéo 20 minutes</div>
+      <h1>Réservez 20 minutes avec Alain Brunelle.</h1>
+      <p class="lead">Appel vidéo découverte, sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Lien Google Meet envoyé par courriel avec confirmation et rappel automatiques.</p>
+    </div>
+    <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-00378_Final.jpg" alt="Alain Brunelle, joignable au téléphone" loading="eager"></figure>
+  </div>
 </section>
 <section class="container">
   <div class="rv-grid">
@@ -4922,11 +4933,16 @@ writePage('performance/index.html', layout({
   </div>
 </section>
 <section class="container">
-  <article class="prose">
-    <h2>Comment je mesure la performance</h2>
-    <p>Trois indicateurs comptent vraiment quand on évalue un courtier immobilier : <strong>délai médian de vente</strong>, <strong>ratio prix vendu/demandé</strong> et <strong>nombre de transactions dans votre secteur précis</strong>. Le reste, c'est du marketing.</p>
-    <p>Mes chiffres ci-dessus couvrent l'ensemble de mes inscriptions Rive-Nord. Pour une analyse de performance dans <em>votre secteur précis</em> (par exemple : combien de cottages 1995-2010 j'ai vendus dans Fontainebleau au cours des 36 derniers mois), <a href="/rendez-vous/">réservez 20 minutes</a> — je vous sors le rapport en direct.</p>
-  </article>
+  <div class="two-col">
+    <article class="prose">
+      <h2>Comment je mesure la performance</h2>
+      <p>Trois indicateurs comptent vraiment quand on évalue un courtier immobilier : <strong>délai médian de vente</strong>, <strong>ratio prix vendu/demandé</strong> et <strong>nombre de transactions dans votre secteur précis</strong>. Le reste, c'est du marketing.</p>
+      <p>Mes chiffres ci-dessus couvrent l'ensemble de mes inscriptions Rive-Nord (données internes 2024-2025). Pour une analyse de performance dans <em>votre secteur précis</em> (par exemple : combien de cottages 1995-2010 j'ai vendus dans Fontainebleau au cours des 36 derniers mois), <a href="/rendez-vous/">réservez 20 minutes</a> — je vous sors le rapport en direct.</p>
+    </article>
+    <aside>
+      <figure style="margin:0;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/5;position:sticky;top:100px"><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle analysant les données du marché" style="width:100%;height:100%;object-fit:cover"></figure>
+    </aside>
+  </div>
 </section>`
 }));
 

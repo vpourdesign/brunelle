@@ -54,14 +54,14 @@
 
     /* Blog grid — staggered magazine */
     .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:clamp(1.4rem,2.5vw,2rem)}
-    .blog-card{display:flex;flex-direction:column;background:#fff;border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease);color:var(--ink);text-decoration:none}
-    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);color:var(--ink)}
-    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft);border-radius:var(--radius-lg);box-shadow:inset 0 0 0 1px rgba(15,42,90,.04)}
+    .blog-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease-spring),box-shadow .4s var(--ease),border-color .3s var(--ease);color:var(--ink);text-decoration:none}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent;color:var(--ink)}
+    .blog-card .bc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--blue-soft)}
     .blog-card .bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
     .blog-card:hover .bc-img img{transform:scale(1.06)}
     .blog-card .bc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(11,22,40,.35) 100%);pointer-events:none}
     .blog-card .bc-tag{position:absolute;top:1rem;left:1rem;padding:.4rem .85rem;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:999px;font-size:.7rem;font-weight:500;color:var(--ink);letter-spacing:.04em;z-index:1}
-    .blog-card .bc-body{padding:1.4rem .25rem .25rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+    .blog-card .bc-body{padding:1.4rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
     .blog-card h3{font-size:1.15rem;font-weight:500;letter-spacing:-.012em;line-height:1.28;color:var(--ink);margin:0}
     .blog-card p{color:var(--ink-2);font-size:.93rem;line-height:1.55;margin:0;flex:1}
     .blog-card .bc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--muted);margin-top:.4rem;padding-top:.9rem;border-top:1px solid var(--line)}
