@@ -466,6 +466,17 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Réserver 20 min</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
+<div class="agency-bar" role="complementary" aria-label="Coordonnées de l'agence">
+  <div class="agency-bar-inner">
+    <img class="agency-bar-logo" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="28">
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">Agence immobilière</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <a class="agency-bar-tel" href="tel:4504305555">450&nbsp;430-5555</a>
+  </div>
+</div>
 <main>
 ${body}
 </main>
@@ -512,7 +523,7 @@ ${body}
 
     <div class="f-bottom">
       <div class="f-bottom-legal">
-        © ${new Date().getFullYear()} RE/MAX CRYSTAL — Franchisé indépendant et autonome de RE/MAX Québec — Tous droits réservés
+        © ${new Date().getFullYear()} RE/MAX CRYSTAL — Franchisé indépendant et autonome de <a href="https://www.remax-quebec.com" target="_blank" rel="noopener">RE/MAX Québec</a> — Tous droits réservés
         <span class="f-divider">·</span> <a href="/politique-confidentialite/">Politique de confidentialité</a>
         <span class="f-divider">·</span> <a href="/conditions-utilisation/">Conditions d'utilisation</a>
       </div>
@@ -625,6 +636,16 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .nav-cta:hover{color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px -4px rgba(15,40,85,.4),inset 0 1px 0 rgba(255,255,255,.12)}
 .nav-cta:hover::after{opacity:1}
 .nav-burger{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer}
+
+/* RE/MAX agency compliance bar — conforme normes RE/MAX Québec */
+.agency-bar{background:var(--surface);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink-2);position:relative;z-index:40}
+.agency-bar-inner{max-width:var(--container);margin-inline:auto;padding:.55rem var(--pad);display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap;line-height:1.4}
+.agency-bar-logo{height:24px;width:auto;flex-shrink:0;opacity:.95}
+.agency-bar-sep{color:var(--muted);opacity:.6}
+.agency-bar-meta{color:var(--ink-2)}
+.agency-bar-tel{color:var(--blue);font-weight:500;border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
+.agency-bar-tel:hover{border-bottom-color:var(--blue);color:var(--blue)}
+@media(max-width:760px){.agency-bar{font-size:.76rem}.agency-bar-inner{gap:.45rem;padding:.5rem var(--pad)}.agency-bar-sep:nth-of-type(2){display:none}.agency-bar-meta:nth-of-type(2){flex-basis:100%;text-align:center;margin-top:.1rem}}
 @media(max-width:980px){
   .nav{grid-template-columns:auto 1fr auto}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:1rem;border-bottom:1px solid var(--line)}
