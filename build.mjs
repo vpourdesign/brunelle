@@ -761,6 +761,32 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .testim .p{width:96px;height:96px;border-radius:50%;background:#eef2f8;overflow:hidden}
 .testim .p img{width:100%;height:100%;object-fit:cover}
 
+/* Google reviews slider */
+.reviews{background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,2.6rem);border:1px solid var(--line)}
+.reviews-head{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding-bottom:1.4rem;border-bottom:1px solid var(--line);margin-bottom:1.8rem;flex-wrap:wrap}
+.reviews-meta{display:flex;align-items:center;gap:.9rem}
+.reviews-meta .g-logo{flex:0 0 auto}
+.reviews-title{font-weight:500;color:var(--ink);font-size:.95rem;letter-spacing:.01em}
+.reviews-stars{display:flex;align-items:center;gap:.15rem;color:#f5a623;font-size:.95rem;letter-spacing:.05em;margin-top:.15rem}
+.reviews-stars .reviews-rating{margin-left:.5rem;color:var(--muted);font-size:.82rem;letter-spacing:.02em}
+.reviews-link{font-size:.85rem;color:var(--blue,#0f2855);border-bottom:1px solid currentColor;padding-bottom:2px;text-decoration:none}
+.reviews-track{position:relative;min-height:240px}
+.review-card{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .55s ease, transform .55s cubic-bezier(0.16,1,0.3,1)}
+.review-card.on{opacity:1;visibility:visible;transform:translateY(0)}
+.review-stars{color:#f5a623;letter-spacing:.12em;font-size:1rem;margin-bottom:1rem}
+.review-q{font-family:'Jost';font-size:clamp(1.15rem,2vw,1.55rem);font-weight:300;letter-spacing:-.015em;color:var(--ink);line-height:1.45;margin:0 0 1.6rem}
+.review-who{display:flex;align-items:center;gap:.9rem;font-style:normal}
+.review-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0f2855,#3a5fa6);color:#fff;display:grid;place-items:center;font-weight:500;font-size:1.05rem;flex:0 0 auto}
+.review-who strong{display:block;color:var(--ink);font-weight:500;font-size:.95rem}
+.review-who span{display:block;color:var(--muted);font-size:.8rem;letter-spacing:.04em;margin-top:.1rem}
+.reviews-nav{display:flex;align-items:center;justify-content:center;gap:1.2rem;margin-top:1.6rem}
+.reviews-prev,.reviews-next{background:transparent;border:1px solid var(--line);width:38px;height:38px;border-radius:50%;cursor:pointer;color:var(--ink);font-size:1rem;transition:border-color .25s, background .25s, transform .25s cubic-bezier(0.16,1,0.3,1)}
+.reviews-prev:hover,.reviews-next:hover{border-color:var(--ink);background:#f6f8fc;transform:translateY(-1px)}
+.reviews-dots{display:flex;gap:.5rem}
+.reviews-dot{width:8px;height:8px;border-radius:50%;border:none;background:#dde3ed;padding:0;cursor:pointer;transition:background .25s, transform .25s}
+.reviews-dot.on{background:var(--ink);transform:scale(1.25)}
+@media(max-width:560px){.reviews-track{min-height:300px}.reviews-head{flex-direction:column;align-items:flex-start}}
+
 /* About block */
 .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3rem);align-items:center}
 .about-photo{aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;background:#eef2f8}
@@ -1403,15 +1429,79 @@ const homeBody = `
 
 <section class="section-light">
 <div class="container">
-  <div class="testim reveal">
-    <div class="p"><img src="/photos/alain/Creationsdoz-00575_Final.jpg" alt=""></div>
-    <div>
-      <p class="q">« Alain a vendu notre maison de Blainville en 11 jours, au prix demandé. Sa stratégie de mise en marché, c'est du sur-mesure. On a rarement vu un courtier aussi rigoureux. »</p>
-      <div class="who">Vendeurs · Fontainebleau, Blainville · 2025</div>
+  <div class="reviews reveal" id="gbp-reviews">
+    <div class="reviews-head">
+      <div class="reviews-meta">
+        <svg class="g-logo" width="22" height="22" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+        <div>
+          <div class="reviews-title">Avis Google vérifiés</div>
+          <div class="reviews-stars" aria-label="5 étoiles sur 5">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span class="reviews-rating">5,0</span>
+          </div>
+        </div>
+      </div>
+      <a class="reviews-link" href="https://share.google/NTRzJq4dwAhYvneS9" target="_blank" rel="noopener">Voir tous les avis →</a>
+    </div>
+
+    <div class="reviews-track" data-active="0">
+      <article class="review-card on">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-q">« Très bon service et très professionnel. Il nous dit la vérité sur le prix de vente et d'achat. Il a très bien négocié l'achat de notre dernière propriété, nous sommes très satisfaits. Nous avons vendu 2 maisons et acheté 1 condo avec lui. Je vous le recommande. »</p>
+        <footer class="review-who">
+          <div class="review-avatar" aria-hidden="true">M</div>
+          <div><strong>Marie-Michelle Guay</strong><span>Local Guide</span></div>
+        </footer>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-q">« Excellent service. Nous avions vendu il y a 12 ans avec M. Brunelle et quand est venu le temps de revendre notre maison, nous n'avons pas hésité à choisir Alain Brunelle à nouveau. »</p>
+        <footer class="review-who">
+          <div class="review-avatar" aria-hidden="true">A</div>
+          <div><strong>Alexandre Laforest-Gaudreault</strong><span>Local Guide</span></div>
+        </footer>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-q">« Quelle chance d'avoir bénéficié des compétences et de l'expérience de monsieur Alain Brunelle. Vendre notre maison était une étape remplie d'émotions. Son savoir-faire et son soutien personnalisé nous ont aidés tout au long du processus de vente. Nous vous recommandons sans hésiter ce courtier de grande classe. Merci encore Alain ! »</p>
+        <footer class="review-who">
+          <div class="review-avatar" aria-hidden="true">A</div>
+          <div><strong>Annie Roberge</strong></div>
+        </footer>
+      </article>
+    </div>
+
+    <div class="reviews-nav">
+      <button type="button" class="reviews-prev" aria-label="Avis précédent">←</button>
+      <div class="reviews-dots" role="tablist">
+        <button type="button" class="reviews-dot on" aria-label="Avis 1"></button>
+        <button type="button" class="reviews-dot" aria-label="Avis 2"></button>
+        <button type="button" class="reviews-dot" aria-label="Avis 3"></button>
+      </div>
+      <button type="button" class="reviews-next" aria-label="Avis suivant">→</button>
     </div>
   </div>
 </div>
 </section>
+
+<script>
+(function(){
+  const root=document.getElementById('gbp-reviews'); if(!root) return;
+  const cards=root.querySelectorAll('.review-card');
+  const dots=root.querySelectorAll('.reviews-dot');
+  let i=0, timer;
+  function go(n){
+    i=(n+cards.length)%cards.length;
+    cards.forEach((c,k)=>c.classList.toggle('on', k===i));
+    dots.forEach((d,k)=>d.classList.toggle('on', k===i));
+  }
+  function auto(){ clearInterval(timer); timer=setInterval(()=>go(i+1), 6500); }
+  root.querySelector('.reviews-prev').addEventListener('click',()=>{go(i-1);auto();});
+  root.querySelector('.reviews-next').addEventListener('click',()=>{go(i+1);auto();});
+  dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k);auto();}));
+  auto();
+})();
+</script>
 
 <section class="container">
   <div class="cta-band reveal">
