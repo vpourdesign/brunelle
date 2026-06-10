@@ -31,10 +31,6 @@ const VIDEO_BASE = process.env.VIDEO_BASE || '';
 // continue d'utiliser ses propres pages détail générées depuis Centris.
 const REMAX_FOURNISSEUR = process.env.REMAX_FOURNISSEUR || '';
 const REMAX_SECRET = process.env.REMAX_SECRET || '';
-// Base URL des fiches RE/MAX. À confirmer avec RE/MAX en même temps que les
-// identifiants — typiquement de la forme https://www.remax-quebec.com/...{MLS}
-// (ils précisent le chemin exact avec le nom_fournisseur attribué).
-const REMAX_FICHE_BASE = process.env.REMAX_FICHE_BASE || 'https://www.remax-quebec.com/fr/proprietes-residentielles-a-vendre/centris-no';
 const REMAX_IFRAME_ENABLED = Boolean(REMAX_FOURNISSEUR && REMAX_SECRET);
 
 import crypto from 'node:crypto';
@@ -43,14 +39,41 @@ function remaxSha1(mls) {
     .update(`${REMAX_FOURNISSEUR}${REMAX_SECRET}${mls}`)
     .digest('hex');
 }
-function buildRemaxIframeUrl(mls, shareUrl) {
+// Pattern URL fiche RE/MAX (reverse-engineered depuis kimdichiaro.com) :
+//   https://www.remax-quebec.com/fr/{type}-a-vendre-{ville}/{rue}-{MLS}.rmx
+// Seul le MLS à la fin du slug compte côté serveur ; le préfixe est décoratif (SEO).
+const REMAX_TYPE_SLUG = {
+  'Maison unifamiliale': 'maison-a-vendre',
+  'Maison de ville':     'maison-de-ville-a-vendre',
+  'Condo':               'condo-a-vendre',
+  'Plex':                'plex-a-vendre',
+  'Terrain':             'terrain-a-vendre',
+  'Chalet / Villégiature': 'maison-a-vendre',
+  'Propriété':           'propriete-a-vendre',
+  'Propriété de prestige': 'maison-a-vendre'
+};
+function slugifyRemax(s) {
+  return (s || '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+function buildRemaxIframeUrl(p, shareUrl) {
+  const typeSlug = REMAX_TYPE_SLUG[p.typeLabel] || 'propriete-a-vendre';
+  const citySlug = slugifyRemax(p.city);
+  const streetSlug = slugifyRemax(p.street);
+  const baseUrl = `https://www.remax-quebec.com/fr/${typeSlug}-${citySlug}/${streetSlug}-${p.mls}.rmx`;
   const params = new URLSearchParams({
+    desjCalc: '0',
+    desjPub: '0',
     from: REMAX_FOURNISSEUR,
-    key: remaxSha1(mls),
+    key: remaxSha1(p.mls),
     model: 'v5',
-    shareUrl: shareUrl
+    pub: '0',
+    shareUrl
   });
-  return `${REMAX_FICHE_BASE}${mls}?${params.toString()}`;
+  return `${baseUrl}?${params.toString()}`;
 }
 
 function parseCSV(text) {
@@ -1634,7 +1657,7 @@ function similarProperties(p){ return properties.filter(x=>x.mls!==p.mls && x.ci
 
 function remaxIframeDetailPage(p) {
   const shareUrl = `https://alainbrunelle.com/nos-proprietes/${p.slug}/`;
-  const iframeUrl = buildRemaxIframeUrl(p.mls, encodeURIComponent(shareUrl));
+  const iframeUrl = buildRemaxIframeUrl(p, shareUrl);
   const jsonld = JSON.stringify({
     "@context":"https://schema.org","@type":"RealEstateListing",
     "name": `${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
