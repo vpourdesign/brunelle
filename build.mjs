@@ -15,7 +15,7 @@ const TARGET_BROKER = { firstName: 'Alain', lastName: 'Brunelle' };
 
 // Google Calendar Appointment Schedule — remplace par ton URL complète
 // (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
-const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1jp0v3sqPHnkxqbDx_5kSPLSBSBDTebM9-4ulplRyo47oVeYiP-JfPvhE-EWktfMF5nAPXplo8';
+const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0P1JjhmUHDnIDJm4ys15k1zoHqetBRG3uas3kdXGc-_sOvILQzFBgRCRY5h5-2UoOMIrBlAcuz';
 // Clé Web3Forms — créer un compte gratuit sur web3forms.com puis remplacer ici
 const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || 'REMPLACE_MOI_WEB3FORMS_KEY';
 // Base URL des vidéos. En local: '' → sert /videos/foo.mp4 depuis site/. En prod Vercel: pointer vers Vercel Blob.
