@@ -22,6 +22,37 @@ const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || 'REMPLACE_MOI_WEB3FORMS_KEY';
 // Ex: VIDEO_BASE=https://abc123.public.blob.vercel-storage.com/videos
 const VIDEO_BASE = process.env.VIDEO_BASE || '';
 
+// --- INTÉGRATION FICHE RE/MAX (conformité normes RE/MAX Québec) ---
+// Doc : Paramètres d'affichage de la fiche détaillée RE/MAX
+// Quand REMAX_FOURNISSEUR + REMAX_SECRET sont définis (via env vars ou ici),
+// les pages de détail de propriété (/nos-proprietes/<MLS>-<slug>/) basculent
+// sur un iframe pointant vers www.remax-quebec.com (conforme à la norme de
+// "passerelle de redirection"). Tant qu'ils ne sont pas définis, le site
+// continue d'utiliser ses propres pages détail générées depuis Centris.
+const REMAX_FOURNISSEUR = process.env.REMAX_FOURNISSEUR || '';
+const REMAX_SECRET = process.env.REMAX_SECRET || '';
+// Base URL des fiches RE/MAX. À confirmer avec RE/MAX en même temps que les
+// identifiants — typiquement de la forme https://www.remax-quebec.com/...{MLS}
+// (ils précisent le chemin exact avec le nom_fournisseur attribué).
+const REMAX_FICHE_BASE = process.env.REMAX_FICHE_BASE || 'https://www.remax-quebec.com/fr/proprietes-residentielles-a-vendre/centris-no';
+const REMAX_IFRAME_ENABLED = Boolean(REMAX_FOURNISSEUR && REMAX_SECRET);
+
+import crypto from 'node:crypto';
+function remaxSha1(mls) {
+  return crypto.createHash('sha1')
+    .update(`${REMAX_FOURNISSEUR}${REMAX_SECRET}${mls}`)
+    .digest('hex');
+}
+function buildRemaxIframeUrl(mls, shareUrl) {
+  const params = new URLSearchParams({
+    from: REMAX_FOURNISSEUR,
+    key: remaxSha1(mls),
+    model: 'v5',
+    shareUrl: shareUrl
+  });
+  return `${REMAX_FICHE_BASE}${mls}?${params.toString()}`;
+}
+
 function parseCSV(text) {
   const rows=[]; let row=[],f='',q=false,i=0;
   while(i<text.length){const c=text[i];
@@ -646,6 +677,10 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .agency-bar-tel{color:var(--blue);font-weight:500;border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
 .agency-bar-tel:hover{border-bottom-color:var(--blue);color:var(--blue)}
 @media(max-width:760px){.agency-bar{font-size:.76rem}.agency-bar-inner{gap:.45rem;padding:.5rem var(--pad)}.agency-bar-sep:nth-of-type(2){display:none}.agency-bar-meta:nth-of-type(2){flex-basis:100%;text-align:center;margin-top:.1rem}}
+
+/* RE/MAX iframe wrapper (fiche détaillée intégrée depuis www.remax-quebec.com) */
+.remax-frame-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+.remax-frame{width:100%;display:block;border:0;min-height:600px}
 @media(max-width:980px){
   .nav{grid-template-columns:auto 1fr auto}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:1rem;border-bottom:1px solid var(--line)}
@@ -1597,7 +1632,54 @@ writePage('nos-proprietes/index.html', layout({
 // --- PROPERTY DETAIL PAGES ---
 function similarProperties(p){ return properties.filter(x=>x.mls!==p.mls && x.city===p.city).slice(0,3); }
 
+function remaxIframeDetailPage(p) {
+  const shareUrl = `https://alainbrunelle.com/nos-proprietes/${p.slug}/`;
+  const iframeUrl = buildRemaxIframeUrl(p.mls, encodeURIComponent(shareUrl));
+  const jsonld = JSON.stringify({
+    "@context":"https://schema.org","@type":"RealEstateListing",
+    "name": `${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
+    "url": shareUrl,
+    "offers": p.sold ? undefined : { "@type":"Offer","price":p.price,"priceCurrency":"CAD" }
+  });
+  const body = `
+<section class="page-head container">
+  <div class="eyebrow">MLS ${p.mls} · Fiche RE/MAX officielle</div>
+  <h1>${p.typeLabel} à vendre — ${p.street}, ${p.city}</h1>
+  <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">réserver 20 minutes avec Alain</a> pour discuter de cette propriété.</p>
+</section>
+<section class="container" style="padding-top:0">
+  <div class="remax-frame-wrap">
+    <iframe id="remaxFrame" class="remax-frame" scrolling="no" src="${iframeUrl}" width="100%" height="3000" style="border:0;width:100%;display:block" title="Fiche détaillée RE/MAX — ${p.street}, ${p.city}"></iframe>
+  </div>
+</section>
+<script>
+(function(){
+  function receiveMessage(msg){
+    if (msg.origin !== "https://www.remax-quebec.com") return;
+    if (msg.data && msg.data.eventId === "remaxIframeHeight") {
+      var o = document.getElementById("remaxFrame");
+      if (o) o.height = msg.data.data;
+    }
+  }
+  if (window.addEventListener) window.addEventListener("message", receiveMessage, false);
+  else if (window.attachEvent) window.attachEvent("onmessage", receiveMessage);
+})();
+</script>`;
+  return layout({
+    title: `${p.typeLabel} à vendre — ${p.street}, ${p.city} · ${fmtPrice(p.price)} | Alain Brunelle`,
+    description: `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. Fiche RE/MAX officielle, photos et visite avec Alain Brunelle.`,
+    canonical: `https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
+    body,
+    jsonld
+  });
+}
+
 function detailPage(p) {
+  // --- Mode RE/MAX iframe ---
+  // Quand les credentials RE/MAX sont configurés, la fiche détaillée est servie
+  // depuis www.remax-quebec.com via iframe (conformité norme passerelle).
+  if (REMAX_IFRAME_ENABLED) return remaxIframeDetailPage(p);
+
   const photos = p.photos.slice(0,3);
   const mainPh = photos[0]?.url || '';
   const side = photos.slice(1,3);
