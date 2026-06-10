@@ -785,6 +785,10 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .reviews-dots{display:flex;gap:.5rem}
 .reviews-dot{width:8px;height:8px;border-radius:50%;border:none;background:#dde3ed;padding:0;cursor:pointer;transition:background .25s, transform .25s}
 .reviews-dot.on{background:var(--ink);transform:scale(1.25)}
+.reviews-cta{margin-top:2rem;padding-top:1.8rem;border-top:1px solid var(--line);text-align:center}
+.reviews-write{display:inline-flex;align-items:center;gap:.65rem;background:#fff;border:1.5px solid var(--line);color:var(--ink);padding:.85rem 1.5rem;border-radius:999px;font-weight:500;font-size:.92rem;transition:border-color .3s var(--ease),background .3s var(--ease),transform .3s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 1px 2px rgba(11,22,40,.04)}
+.reviews-write:hover{border-color:var(--ink);background:#f6f8fc;transform:translateY(-1px);box-shadow:0 6px 16px -4px rgba(11,22,40,.12);color:var(--ink)}
+.reviews-cta-sub{margin:.9rem 0 0;font-size:.85rem;color:var(--muted)}
 @media(max-width:560px){.reviews-track{min-height:300px}.reviews-head{flex-direction:column;align-items:flex-start}}
 
 /* About block */
@@ -1479,6 +1483,14 @@ const homeBody = `
         <button type="button" class="reviews-dot" aria-label="Avis 3"></button>
       </div>
       <button type="button" class="reviews-next" aria-label="Avis suivant">→</button>
+    </div>
+
+    <div class="reviews-cta">
+      <a class="reviews-write" href="https://www.google.com/search?q=Alain+Brunelle+courtier+immobilier+RE/MAX+Crystal#lrd=0x4cc927c54f5e4c03:0xd5524b5bc3ba5e64,3" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+        Donnez votre avis sur Google
+      </a>
+      <p class="reviews-cta-sub">Vous avez travaillé avec Alain ? Deux minutes pour partager votre expérience.</p>
     </div>
   </div>
 </div>
