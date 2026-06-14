@@ -1,14 +1,14 @@
 {
-  "total": 7,
-  "avgPrice": 746343,
-  "totalValue": 5224400,
+  "total": 6,
+  "avgPrice": 745750,
+  "totalValue": 4474500,
   "byCity": {
-    "Sainte-Thérèse": 4,
     "Saint-Joseph-du-Lac": 1,
+    "Sainte-Thérèse": 3,
     "Blainville": 2
   },
   "byType": {
-    "Propriété": 3,
+    "Propriété": 2,
     "Maison unifamiliale": 2,
     "Terrain": 1,
     "Maison de ville": 1
@@ -16,7 +16,7 @@
   "priceRanges": {
     "<300k": 0,
     "300-500k": 0,
-    "500-800k": 4,
+    "500-800k": 3,
     "800k-1.5M": 3,
     ">1.5M": 0
   }
