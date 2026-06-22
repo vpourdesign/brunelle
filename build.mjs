@@ -5,6 +5,21 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
+
+// Charge .env.local en local (Vercel fournit ses propres env vars en prod).
+// Fichier confidentiel, gitignored. Format : KEY=value (un par ligne).
+try {
+  const envFile = path.join(ROOT, '.env.local');
+  if (fs.existsSync(envFile)) {
+    for (const line of fs.readFileSync(envFile, 'utf8').split('\n')) {
+      const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/);
+      if (m && !line.trim().startsWith('#') && !process.env[m[1]]) {
+        process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, '');
+      }
+    }
+  }
+} catch {}
+
 const CENTRIS = path.join(ROOT, '_centris');
 const SITE = path.join(ROOT, 'site');
 // Fallback courtier (Maxime Beaulac) — utilisé tant qu'Alain Brunelle
