@@ -1,15 +1,14 @@
 {
-  "total": 8,
-  "avgPrice": 731163,
-  "totalValue": 5849300,
+  "total": 7,
+  "avgPrice": 762771,
+  "totalValue": 5339400,
   "byCity": {
     "Sainte-Thérèse": 4,
-    "Saint-Joseph-du-Lac": 1,
     "Saint-Eustache": 1,
     "Blainville": 2
   },
   "byType": {
-    "Propriété": 3,
+    "Propriété": 2,
     "Maison unifamiliale": 2,
     "Condo": 1,
     "Terrain": 1,
@@ -18,7 +17,7 @@
   "priceRanges": {
     "<300k": 0,
     "300-500k": 0,
-    "500-800k": 5,
+    "500-800k": 4,
     "800k-1.5M": 3,
     ">1.5M": 0
   }
