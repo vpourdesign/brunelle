@@ -960,6 +960,7 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .hero-photo::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.4;mix-blend-mode:overlay;pointer-events:none;z-index:1}
 .hero-photo .p-tag{position:absolute;top:1.2rem;left:1.2rem;padding:.5rem 1rem;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-radius:999px;font-size:.8rem;font-weight:500;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;z-index:2}
 .hero-photo .p-caption{position:absolute;bottom:1.6rem;left:1.6rem;right:1.6rem;color:#fff;font-weight:400;font-size:clamp(1rem,1.4vw,1.15rem);letter-spacing:-.005em;z-index:2;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.hero-photo img{object-position:50% 28%}
 .hero-card{background:linear-gradient(160deg,oklch(96% 0.025 258) 0%,var(--blue-soft) 100%);border-radius:var(--radius-lg);padding:clamp(1.5rem,3vw,2.5rem);display:flex;flex-direction:column;justify-content:center;color:var(--blue);position:relative;overflow:hidden;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.6)}
 .hero-card::after{content:"";position:absolute;top:-50%;right:-20%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5) 0%,transparent 60%);pointer-events:none;opacity:.8}
 .hero-card>*{position:relative;z-index:1}
@@ -976,7 +977,7 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .hero-cta strong{font-size:1.1rem;font-weight:500;position:relative}
 .hero-cta small{display:block;color:#b9c4d8;font-size:.8rem;font-weight:300;margin-top:.2rem;position:relative}
 .hero-cta .arrow{width:44px;height:44px;border-radius:999px;background:#fff;color:var(--ink);display:grid;place-items:center;font-size:1.1rem;transition:transform .4s var(--ease-spring),background .3s var(--ease),color .3s var(--ease);position:relative}
-@media(max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-photo{grid-row:auto;min-height:340px}}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-photo{grid-row:auto;min-height:460px}.hero-photo img{object-position:50% 18%}.hero-photo .p-tag{top:auto;bottom:5.2rem;left:1.2rem;right:1.2rem;text-align:center;font-size:.72rem;padding:.45rem .9rem}.hero-photo::after{background:linear-gradient(180deg,transparent 0%,transparent 45%,rgba(11,22,40,.55) 75%,rgba(11,22,40,.92) 100%)}}
 
 /* Paragraph row under hero */
 .hero-lead{display:grid;grid-template-columns:1fr .4fr;gap:var(--gap);align-items:end;margin-top:1.8rem}
