@@ -540,14 +540,14 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
       <div class="cb-text">
         <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
-          <h2 id="cb-title">Votre vie privée nous importe</h2>
-          <p id="cb-desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/">Loi 25</a>.</p>
+          <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
+          <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
         </div>
       </div>
       <div class="cb-actions">
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize">Personnaliser</button>
-        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize" data-cb-i18n="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
       </div>
     </div>
   </div>
@@ -555,37 +555,37 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     <div class="cb-modal-overlay" data-cb="close"></div>
     <div class="cb-modal-card">
       <header class="cb-modal-head">
-        <h2 id="cb-modal-title">Préférences de témoins</h2>
+        <h2 id="cb-modal-title" data-cb-i18n="prefs">Préférences de témoins</h2>
         <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
       </header>
       <div class="cb-modal-body">
-        <p class="cb-modal-intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <p class="cb-modal-intro" data-cb-i18n="intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Essentiels</strong><span class="cb-cat-tag">Toujours actifs</span></div>
+            <div><strong data-cb-i18n="essTitle">Essentiels</strong><span class="cb-cat-tag" data-cb-i18n="essTag">Toujours actifs</span></div>
             <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
           </div>
-          <p>Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+          <p data-cb-i18n="essDesc">Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
         </div>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Mesure d'audience</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <div><strong data-cb-i18n="anaTitle">Mesure d'audience</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
           </div>
-          <p>Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+          <p data-cb-i18n="anaDesc">Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
         </div>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Marketing</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p>Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save">Enregistrer mes choix</button>
-        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save" data-cb-i18n="saveBtn">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
       </footer>
     </div>
   </div>
@@ -597,51 +597,88 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   if(!root) return;
   const banner=root.querySelector('.cb-banner');
   const modal=root.querySelector('.cb-modal');
-  function getConsent(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch{return null;}}
-  function applyConsent(c){
-    if(typeof gtag!=='function') return;
-    gtag('consent','update',{
-      analytics_storage:c.analytics?'granted':'denied',
-      ad_storage:c.marketing?'granted':'denied',
-      ad_user_data:c.marketing?'granted':'denied',
-      ad_personalization:c.marketing?'granted':'denied'
+  // i18n EN — applied if <html lang> starts with "en"
+  const isEN=(document.documentElement.lang||'').toLowerCase().startsWith('en');
+  if(isEN){
+    const T={
+      title:'Your privacy matters',
+      desc:'We use cookies to run the site and, with your consent, to measure its audience. Compliant with Quebec\'s <a href="/en/politique-confidentialite/">Law 25</a>.',
+      refuse:'Reject all', customize:'Customize', accept:'Accept all',
+      prefs:'Cookie preferences',
+      intro:'You can choose which cookies you allow by category. Essential cookies are required for the site to function and cannot be disabled.',
+      essTitle:'Essential', essTag:'Always active',
+      essDesc:'Remember your cookie choices, secure forms and enable navigation. Without them, the site cannot work.',
+      anaTitle:'Audience measurement', optTag:'Optional',
+      anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
+      mktTitle:'Marketing',
+      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      saveBtn:'Save my choices'
+    };
+    root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
+      const k=el.dataset.cbI18n;if(T[k]){el.innerHTML=T[k];}
     });
   }
-  function save(analytics,marketing){
-    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
-    localStorage.setItem(KEY,JSON.stringify(c));
-    applyConsent(c);
-    hideBanner();closeModal();
+  function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
+  function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
+  function applyConsent(c){
+    try{
+      if(typeof gtag==='function'){
+        gtag('consent','update',{
+          analytics_storage:c.analytics?'granted':'denied',
+          ad_storage:c.marketing?'granted':'denied',
+          ad_user_data:c.marketing?'granted':'denied',
+          ad_personalization:c.marketing?'granted':'denied'
+        });
+      }
+    }catch(e){}
   }
-  function showBanner(){root.hidden=false;banner.classList.add('cb-banner--in');}
-  function hideBanner(){banner.classList.remove('cb-banner--in');setTimeout(()=>{if(modal.hidden)root.hidden=true;},350);}
+  function commit(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    safeSet(c);
+    applyConsent(c);
+    hideAll();
+  }
+  function showBanner(){root.hidden=false;requestAnimationFrame(()=>banner.classList.add('cb-banner--in'));}
+  function hideAll(){
+    banner.classList.remove('cb-banner--in');
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    setTimeout(()=>{modal.hidden=true;root.hidden=true;},600);
+  }
   function openModal(){
     root.hidden=false;modal.hidden=false;
-    const c=getConsent()||{analytics:false,marketing:false};
-    modal.querySelector('[data-cb-cat=analytics]').checked=!!c.analytics;
-    modal.querySelector('[data-cb-cat=marketing]').checked=!!c.marketing;
+    const c=safeGet()||{analytics:false,marketing:false};
+    const a=modal.querySelector('[data-cb-cat=analytics]');
+    const m=modal.querySelector('[data-cb-cat=marketing]');
+    if(a)a.checked=!!c.analytics;
+    if(m)m.checked=!!c.marketing;
     requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
     document.body.style.overflow='hidden';
   }
   function closeModal(){
     modal.classList.remove('cb-modal--in');
     document.body.style.overflow='';
-    setTimeout(()=>{modal.hidden=true;if(!banner.classList.contains('cb-banner--in'))root.hidden=true;},250);
+    setTimeout(()=>{
+      modal.hidden=true;
+      if(!banner.classList.contains('cb-banner--in'))root.hidden=true;
+    },250);
   }
-  root.addEventListener('click',(e)=>{
+  root.addEventListener('click',function(e){
     const t=e.target.closest('[data-cb]');if(!t)return;
+    e.preventDefault();
     const a=t.dataset.cb;
-    if(a==='accept')save(true,true);
-    else if(a==='refuse')save(false,false);
+    if(a==='accept')commit(true,true);
+    else if(a==='refuse')commit(false,false);
     else if(a==='customize')openModal();
     else if(a==='close')closeModal();
     else if(a==='save'){
-      save(modal.querySelector('[data-cb-cat=analytics]').checked,modal.querySelector('[data-cb-cat=marketing]').checked);
+      const an=modal.querySelector('[data-cb-cat=analytics]');
+      const mk=modal.querySelector('[data-cb-cat=marketing]');
+      commit(an&&an.checked,mk&&mk.checked);
     }
   });
   window.openCookiePreferences=openModal;
-  // Show banner on first visit or if consent version is outdated
-  const c=getConsent();
+  const c=safeGet();
   if(!c||c.version!==VER){
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
     else setTimeout(showBanner,400);
