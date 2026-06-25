@@ -638,15 +638,20 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     applyConsent(c);
     hideAll();
   }
-  function showBanner(){root.hidden=false;requestAnimationFrame(()=>banner.classList.add('cb-banner--in'));}
+  function showBanner(){root.style.display='block';root.hidden=false;banner.style.display='flex';requestAnimationFrame(()=>banner.classList.add('cb-banner--in'));}
   function hideAll(){
     banner.classList.remove('cb-banner--in');
     modal.classList.remove('cb-modal--in');
     document.body.style.overflow='';
-    setTimeout(()=>{modal.hidden=true;root.hidden=true;},600);
+    // Force-hide instantané (pas de dépendance sur la transition CSS)
+    banner.style.display='none';
+    modal.style.display='none';
+    modal.hidden=true;
+    root.hidden=true;
+    root.style.display='none';
   }
   function openModal(){
-    root.hidden=false;modal.hidden=false;
+    root.style.display='block';root.hidden=false;modal.style.display='grid';modal.hidden=false;
     const c=safeGet()||{analytics:false,marketing:false};
     const a=modal.querySelector('[data-cb-cat=analytics]');
     const m=modal.querySelector('[data-cb-cat=marketing]');
@@ -658,24 +663,26 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   function closeModal(){
     modal.classList.remove('cb-modal--in');
     document.body.style.overflow='';
-    setTimeout(()=>{
-      modal.hidden=true;
-      if(!banner.classList.contains('cb-banner--in'))root.hidden=true;
-    },250);
+    modal.style.display='none';
+    modal.hidden=true;
+    if(!banner.classList.contains('cb-banner--in')){root.hidden=true;root.style.display='none';}
   }
-  root.addEventListener('click',function(e){
-    const t=e.target.closest('[data-cb]');if(!t)return;
-    e.preventDefault();
-    const a=t.dataset.cb;
-    if(a==='accept')commit(true,true);
-    else if(a==='refuse')commit(false,false);
-    else if(a==='customize')openModal();
-    else if(a==='close')closeModal();
-    else if(a==='save'){
-      const an=modal.querySelector('[data-cb-cat=analytics]');
-      const mk=modal.querySelector('[data-cb-cat=marketing]');
-      commit(an&&an.checked,mk&&mk.checked);
-    }
+  // Handlers directs sur chaque [data-cb] — pas de délégation (évite les problèmes de pointer-events)
+  root.querySelectorAll('[data-cb]').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const a=el.getAttribute('data-cb');
+      if(a==='accept')commit(true,true);
+      else if(a==='refuse')commit(false,false);
+      else if(a==='customize')openModal();
+      else if(a==='close')closeModal();
+      else if(a==='save'){
+        const an=modal.querySelector('[data-cb-cat=analytics]');
+        const mk=modal.querySelector('[data-cb-cat=marketing]');
+        commit(an&&an.checked,mk&&mk.checked);
+      }
+    });
   });
   window.openCookiePreferences=openModal;
   const c=safeGet();
@@ -881,7 +888,8 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 @media(max-width:760px){.agency-bar{font-size:.76rem}.agency-bar-inner{gap:.45rem;padding:.5rem var(--pad)}.agency-bar-sep:nth-of-type(2){display:none}.agency-bar-meta:nth-of-type(2){flex-basis:100%;text-align:center;margin-top:.1rem}}
 
 /* Bandeau cookies — Loi 25 */
-#cb-root{position:fixed;inset:0;pointer-events:none;z-index:9990}
+#cb-root{position:static;z-index:9990}
+#cb-root[hidden]{display:none}
 .cb-banner{position:fixed;left:clamp(.75rem,2vw,1.5rem);right:clamp(.75rem,2vw,1.5rem);bottom:clamp(.75rem,2vw,1.5rem);background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(230,235,242,.7);border-radius:clamp(18px,2vw,22px);box-shadow:0 2px 6px rgba(11,22,40,.06),0 16px 48px -12px rgba(11,22,40,.18),0 40px 80px -20px rgba(11,22,40,.12);padding:clamp(1rem,2vw,1.4rem) clamp(1.1rem,2.4vw,1.8rem);pointer-events:auto;transform:translateY(120%);opacity:0;transition:transform .55s var(--ease),opacity .4s var(--ease);max-width:1080px;margin-inline:auto}
 .cb-banner--in{transform:translateY(0);opacity:1}
 .cb-banner-inner{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
