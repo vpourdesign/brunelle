@@ -602,7 +602,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   if(isEN){
     const T={
       title:'Your privacy matters',
-      desc:'We use cookies to run the site and, with your consent, to measure its audience. Compliant with Quebec\'s <a href="/en/politique-confidentialite/">Law 25</a>.',
+      desc:"We use cookies to run the site and, with your consent, to measure its audience. Compliant with Quebec's <a href=\"/en/politique-confidentialite/\">Law 25</a>.",
       refuse:'Reject all', customize:'Customize', accept:'Accept all',
       prefs:'Cookie preferences',
       intro:'You can choose which cookies you allow by category. Essential cookies are required for the site to function and cannot be disabled.',
