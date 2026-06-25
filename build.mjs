@@ -701,7 +701,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
   <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
-  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Réserver 20 min</a>
+  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Rendez-vous</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <div class="agency-bar" role="complementary" aria-label="Coordonnées de l'agence">
@@ -5313,8 +5313,8 @@ writePage('rendez-vous/index.html', layout({
 <section class="page-head container">
   <div class="page-head-grid">
     <div>
-      <div class="eyebrow">Rendez-vous · Appel vidéo 20 minutes</div>
-      <h1>Réservez 20 minutes avec Alain Brunelle.</h1>
+      <div class="eyebrow">Rendez-vous · Appel vidéo</div>
+      <h1>Prenez rendez-vous avec moi.</h1>
       <p class="lead">Appel vidéo découverte, sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Lien Google Meet envoyé par courriel avec confirmation et rappel automatiques.</p>
     </div>
     <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-00378_Final.jpg" alt="Alain Brunelle, joignable au téléphone" loading="eager"></figure>
