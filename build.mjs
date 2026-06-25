@@ -717,8 +717,8 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 @media(max-width:760px){.agency-bar{font-size:.76rem}.agency-bar-inner{gap:.45rem;padding:.5rem var(--pad)}.agency-bar-sep:nth-of-type(2){display:none}.agency-bar-meta:nth-of-type(2){flex-basis:100%;text-align:center;margin-top:.1rem}}
 
 /* RE/MAX iframe wrapper (fiche détaillée intégrée depuis www.remax-quebec.com) */
-.remax-frame-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
-.remax-frame{width:100%;display:block;border:0;min-height:600px}
+.remax-frame-wrap{background:transparent}
+.remax-frame{width:100%;display:block;border:0;min-height:600px;background:transparent}
 @media(max-width:980px){
   .nav{grid-template-columns:auto 1fr auto}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:1rem;border-bottom:1px solid var(--line)}
@@ -1680,12 +1680,12 @@ function remaxIframeDetailPage(p) {
     "offers": p.sold ? undefined : { "@type":"Offer","price":p.price,"priceCurrency":"CAD" }
   });
   const body = `
-<section class="page-head container">
+<section class="page-head container" style="border-bottom:0;padding-block-end:1rem">
   <div class="eyebrow">MLS ${p.mls} · Fiche RE/MAX officielle</div>
   <h1>${p.typeLabel} à vendre — ${p.street}, ${p.city}</h1>
   <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">réserver 20 minutes avec Alain</a> pour discuter de cette propriété.</p>
 </section>
-<section class="container" style="padding-top:0">
+<section class="container" style="padding-top:0;padding-block-start:0">
   <div class="remax-frame-wrap">
     <iframe id="remaxFrame" class="remax-frame" scrolling="no" src="${iframeUrl}" width="100%" height="3000" style="border:0;width:100%;display:block" title="Fiche détaillée RE/MAX — ${p.street}, ${p.city}"></iframe>
   </div>
