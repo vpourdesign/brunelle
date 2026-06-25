@@ -509,6 +509,14 @@ function layout({ title, description, canonical, body, extraHead='', bodyClass='
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) + Consent Mode v2 (Loi 25 — défaut refusé) -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.timestamp){gtag('consent','update',{analytics_storage:c.analytics?'granted':'denied',ad_storage:c.marketing?'granted':'denied',ad_user_data:c.marketing?'granted':'denied',ad_personalization:c.marketing?'granted':'denied'});}}catch(e){}
+gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>${title}</title>
 <meta name="description" content="${description}">
 ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
@@ -524,6 +532,121 @@ ${extraHead}
 ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
 </head>
 <body class="${bodyClass}">
+<!-- Bandeau cookies — conformité Loi 25 (Québec) -->
+<div id="cb-root" hidden>
+  <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
+    <div class="cb-banner-inner">
+      <div class="cb-text">
+        <div class="cb-icon" aria-hidden="true">🍪</div>
+        <div>
+          <h2 id="cb-title">Votre vie privée nous importe</h2>
+          <p id="cb-desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/">Loi 25</a>.</p>
+        </div>
+      </div>
+      <div class="cb-actions">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+  <div class="cb-modal" hidden role="dialog" aria-modal="true" aria-labelledby="cb-modal-title">
+    <div class="cb-modal-overlay" data-cb="close"></div>
+    <div class="cb-modal-card">
+      <header class="cb-modal-head">
+        <h2 id="cb-modal-title">Préférences de témoins</h2>
+        <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
+      </header>
+      <div class="cb-modal-body">
+        <p class="cb-modal-intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Essentiels</strong><span class="cb-cat-tag">Toujours actifs</span></div>
+            <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
+          </div>
+          <p>Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Mesure d'audience</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
+          </div>
+          <p>Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Marketing</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
+          </div>
+          <p>Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+        </div>
+      </div>
+      <footer class="cb-modal-foot">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </footer>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const KEY='cb_consent_v1', VER=1;
+  const root=document.getElementById('cb-root');
+  if(!root) return;
+  const banner=root.querySelector('.cb-banner');
+  const modal=root.querySelector('.cb-modal');
+  function getConsent(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch{return null;}}
+  function applyConsent(c){
+    if(typeof gtag!=='function') return;
+    gtag('consent','update',{
+      analytics_storage:c.analytics?'granted':'denied',
+      ad_storage:c.marketing?'granted':'denied',
+      ad_user_data:c.marketing?'granted':'denied',
+      ad_personalization:c.marketing?'granted':'denied'
+    });
+  }
+  function save(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    localStorage.setItem(KEY,JSON.stringify(c));
+    applyConsent(c);
+    hideBanner();closeModal();
+  }
+  function showBanner(){root.hidden=false;banner.classList.add('cb-banner--in');}
+  function hideBanner(){banner.classList.remove('cb-banner--in');setTimeout(()=>{if(modal.hidden)root.hidden=true;},350);}
+  function openModal(){
+    root.hidden=false;modal.hidden=false;
+    const c=getConsent()||{analytics:false,marketing:false};
+    modal.querySelector('[data-cb-cat=analytics]').checked=!!c.analytics;
+    modal.querySelector('[data-cb-cat=marketing]').checked=!!c.marketing;
+    requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    setTimeout(()=>{modal.hidden=true;if(!banner.classList.contains('cb-banner--in'))root.hidden=true;},250);
+  }
+  root.addEventListener('click',(e)=>{
+    const t=e.target.closest('[data-cb]');if(!t)return;
+    const a=t.dataset.cb;
+    if(a==='accept')save(true,true);
+    else if(a==='refuse')save(false,false);
+    else if(a==='customize')openModal();
+    else if(a==='close')closeModal();
+    else if(a==='save'){
+      save(modal.querySelector('[data-cb-cat=analytics]').checked,modal.querySelector('[data-cb-cat=marketing]').checked);
+    }
+  });
+  window.openCookiePreferences=openModal;
+  // Show banner on first visit or if consent version is outdated
+  const c=getConsent();
+  if(!c||c.version!==VER){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
+    else setTimeout(showBanner,400);
+  }
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -532,6 +655,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   <nav class="nav-links">
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
+  <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
   <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Réserver 20 min</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
@@ -595,6 +719,7 @@ ${body}
         © ${new Date().getFullYear()} RE/MAX CRYSTAL — Franchisé indépendant et autonome de <a href="https://www.remax-quebec.com" target="_blank" rel="noopener">RE/MAX Québec</a> — Tous droits réservés
         <span class="f-divider">·</span> <a href="/politique-confidentialite/">Politique de confidentialité</a>
         <span class="f-divider">·</span> <a href="/conditions-utilisation/">Conditions d'utilisation</a>
+        <span class="f-divider">·</span> <a href="#" onclick="event.preventDefault();window.openCookiePreferences&&window.openCookiePreferences();">Préférences cookies</a>
       </div>
       <div class="f-bottom-credit">
         Site web par <a href="https://vpourdesign.com" target="_blank" rel="noopener"><strong>vpourdesign</strong></a>
@@ -602,6 +727,7 @@ ${body}
     </div>
   </div>
 </footer>
+<script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>`;
@@ -715,6 +841,55 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .agency-bar-tel{color:var(--blue);font-weight:500;border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
 .agency-bar-tel:hover{border-bottom-color:var(--blue);color:var(--blue)}
 @media(max-width:760px){.agency-bar{font-size:.76rem}.agency-bar-inner{gap:.45rem;padding:.5rem var(--pad)}.agency-bar-sep:nth-of-type(2){display:none}.agency-bar-meta:nth-of-type(2){flex-basis:100%;text-align:center;margin-top:.1rem}}
+
+/* Bandeau cookies — Loi 25 */
+#cb-root{position:fixed;inset:0;pointer-events:none;z-index:9990}
+.cb-banner{position:fixed;left:clamp(.75rem,2vw,1.5rem);right:clamp(.75rem,2vw,1.5rem);bottom:clamp(.75rem,2vw,1.5rem);background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(230,235,242,.7);border-radius:clamp(18px,2vw,22px);box-shadow:0 2px 6px rgba(11,22,40,.06),0 16px 48px -12px rgba(11,22,40,.18),0 40px 80px -20px rgba(11,22,40,.12);padding:clamp(1rem,2vw,1.4rem) clamp(1.1rem,2.4vw,1.8rem);pointer-events:auto;transform:translateY(120%);opacity:0;transition:transform .55s var(--ease),opacity .4s var(--ease);max-width:1080px;margin-inline:auto}
+.cb-banner--in{transform:translateY(0);opacity:1}
+.cb-banner-inner{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
+.cb-text{display:flex;gap:1rem;align-items:flex-start;flex:1;min-width:280px}
+.cb-icon{font-size:1.6rem;line-height:1;flex-shrink:0;margin-top:.1rem}
+.cb-text h2{font-size:1rem;font-weight:500;margin:0 0 .35rem;color:var(--ink);letter-spacing:-.005em}
+.cb-text p{font-size:.86rem;line-height:1.5;color:var(--ink-2);margin:0;max-width:62ch}
+.cb-text p a{color:var(--blue);border-bottom:1px solid currentColor}
+.cb-actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.cb-btn{font:inherit;font-size:.88rem;font-weight:500;padding:.7rem 1.25rem;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .25s var(--ease-spring),background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);white-space:nowrap}
+.cb-btn-ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.cb-btn-ghost:hover{background:#f6f8fc;border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+.cb-btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 12px -2px rgba(0,61,165,.3)}
+.cb-btn-primary:hover{background:var(--blue-2);transform:translateY(-1px);box-shadow:0 8px 20px -4px rgba(0,61,165,.4)}
+.cb-btn:focus-visible{outline:0;box-shadow:0 0 0 4px var(--blue-soft)}
+@media(max-width:760px){.cb-banner-inner{flex-direction:column;align-items:stretch;gap:1.1rem}.cb-actions{justify-content:stretch}.cb-actions .cb-btn{flex:1}}
+@media(max-width:480px){.cb-actions{flex-direction:column-reverse}.cb-actions .cb-btn{width:100%}}
+
+/* Modal préférences */
+.cb-modal{position:fixed;inset:0;z-index:9991;display:grid;place-items:center;padding:1rem;pointer-events:auto}
+.cb-modal-overlay{position:absolute;inset:0;background:rgba(11,22,40,.55);backdrop-filter:blur(6px);opacity:0;transition:opacity .25s var(--ease)}
+.cb-modal--in .cb-modal-overlay{opacity:1}
+.cb-modal-card{position:relative;background:#fff;border-radius:clamp(20px,2.2vw,28px);max-width:560px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg);transform:translateY(20px) scale(.98);opacity:0;transition:transform .35s var(--ease-spring),opacity .25s var(--ease)}
+.cb-modal--in .cb-modal-card{transform:translateY(0) scale(1);opacity:1}
+.cb-modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.6rem 1rem;border-bottom:1px solid var(--line)}
+.cb-modal-head h2{font-size:1.2rem;font-weight:500;margin:0;color:var(--ink)}
+.cb-modal-close{background:transparent;border:0;font-size:1.6rem;line-height:1;color:var(--muted);cursor:pointer;width:36px;height:36px;border-radius:50%;transition:background .2s var(--ease),color .2s var(--ease)}
+.cb-modal-close:hover{background:var(--surface);color:var(--ink)}
+.cb-modal-body{padding:1.4rem 1.6rem;overflow-y:auto;flex:1}
+.cb-modal-intro{font-size:.9rem;color:var(--ink-2);line-height:1.55;margin:0 0 1.4rem}
+.cb-cat{padding:1rem 0;border-bottom:1px solid var(--line)}
+.cb-cat:last-child{border-bottom:0;padding-bottom:0}
+.cb-cat-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.4rem}
+.cb-cat-head strong{font-size:.95rem;font-weight:500;color:var(--ink)}
+.cb-cat-tag{display:inline-block;margin-left:.6rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500}
+.cb-cat p{font-size:.83rem;color:var(--ink-2);line-height:1.5;margin:0;max-width:55ch}
+.cb-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;cursor:pointer}
+.cb-switch input{position:absolute;opacity:0;width:0;height:0}
+.cb-switch span{position:absolute;inset:0;background:#dde3ed;border-radius:999px;transition:background .25s var(--ease)}
+.cb-switch span::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:transform .25s var(--ease-spring)}
+.cb-switch input:checked+span{background:var(--blue)}
+.cb-switch input:checked+span::after{transform:translateX(20px)}
+.cb-switch--locked{cursor:not-allowed;opacity:.7}
+.cb-switch--locked input:checked+span{background:var(--blue)}
+.cb-modal-foot{display:flex;gap:.6rem;padding:1.1rem 1.6rem;border-top:1px solid var(--line);background:#fafbfd;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:540px){.cb-modal-foot{flex-direction:column-reverse}.cb-modal-foot .cb-btn{width:100%}}
 
 /* RE/MAX iframe wrapper (fiche détaillée intégrée depuis www.remax-quebec.com) */
 .remax-frame-wrap{background:transparent}
@@ -5213,3 +5388,137 @@ writePage('sitemap.xml', sitemap);
 writePage('robots.txt', `User-agent: *\nAllow: /\nDisallow: /performance/\nSitemap: https://alainbrunelle.com/sitemap.xml\n`);
 
 console.log(`Generated ${allUrls.length} pages → ${SITE}`);
+
+// ============================================================
+//  i18n — version anglaise sous /en/  (zéro dépendance)
+//  Tokenizer texte + dictionnaire i18n/en.json (fallback FR).
+//  Le layout n'est jamais modifié : on ne remplace que des
+//  chaînes de texte et on préfixe les liens internes par /en.
+// ============================================================
+(function generateEnglish(){
+  const BASE='https://alainbrunelle.com';
+  let DICT={};
+  try{
+    const dir=path.join(ROOT,'i18n');
+    for(const f of fs.readdirSync(dir).sort()){
+      if(f.endsWith('.json')) Object.assign(DICT, JSON.parse(fs.readFileSync(path.join(dir,f),'utf8')));
+    }
+  }catch{}
+  const norm=s=>s.replace(/\s+/g,' ').trim();
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  const ATTRS=['alt','title','placeholder','aria-label'];
+  const ASSET_DIR=/^\/(assets|photos|brand_assets|videos|data)\//;
+  const FILE_EXT=/\.(jpg|jpeg|png|gif|webp|avif|svg|css|js|mjs|mp4|webm|pdf|xml|txt|ico|woff2?|ttf)$/i;
+
+  // Masque les blocs <script>/<style> pour ne jamais toucher au code
+  function withCodeProtected(html, fn){
+    const blocks=[];
+    const masked=html.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, m=>{blocks.push(m);return `@@CB${blocks.length-1}CB@@`;});
+    return fn(masked).replace(/@@CB(\d+)CB@@/g,(m,i)=>blocks[+i]);
+  }
+  function translateTag(tag){
+    if(/<meta\s/i.test(tag)){
+      const nm=tag.match(/(?:name|property)="([^"]+)"/i);
+      if(nm && /(^|:)description$|og:title|twitter:title/i.test(nm[1])){
+        tag=tag.replace(/content="([^"]*)"/i,(m,v)=>{const k=norm(v);return DICT[k]?`content="${esc(DICT[k])}"`:m;});
+      }
+    }
+    for(const a of ATTRS){
+      const re=new RegExp(`(\\b${a}=")([^"]*)(")`,'gi');
+      tag=tag.replace(re,(m,p1,v,p3)=>{const k=norm(v);return DICT[k]?p1+esc(DICT[k])+p3:m;});
+    }
+    return tag;
+  }
+  function translateText(html){
+    const parts=html.split(/(<[^>]+>)/);
+    for(let i=0;i<parts.length;i++){
+      if(i%2===1){ parts[i]=translateTag(parts[i]); continue; }
+      const raw=parts[i]; const t=norm(raw);
+      if(t && DICT[t]){
+        const lead=(raw.match(/^\s*/)||[''])[0], trail=(raw.match(/\s*$/)||[''])[0];
+        parts[i]=lead+DICT[t]+trail;
+      }
+    }
+    return parts.join('');
+  }
+  function prefixLinks(html){
+    return html.replace(/\b(href|action)="(\/[^"]*)"/g,(m,attr,url)=>{
+      if(url==='/en'||url.startsWith('/en/')) return m;
+      if(ASSET_DIR.test(url)) return m;
+      const bare=url.split('#')[0].split('?')[0];
+      if(FILE_EXT.test(bare)) return m;
+      return `${attr}="${url==='/'?'/en/':'/en'+url}"`;
+    });
+  }
+  // Traduit les chaînes de texte FR dans le JS inline + préfixe les liens internes en JS.
+  function translateScript(inner){
+    return inner.replace(/'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)"/g,(full,a,b)=>{
+      const q = full[0];
+      const raw = a!==undefined?a:b;
+      if(raw===undefined||raw==='') return full;
+      const uns = raw.replace(/\\'/g,"'").replace(/\\"/g,'"');
+      // Lien interne -> préfixe /en
+      if(/^\/(?!en\/|en$)/.test(uns) && !ASSET_DIR.test(uns) && !FILE_EXT.test(uns.split('#')[0].split('?')[0])){
+        const np = uns==='/'?'/en/':'/en'+uns;
+        return q + np.replace(new RegExp(q,'g'),'\\'+q) + q;
+      }
+      // Texte traduisible
+      if(DICT[uns]) return q + DICT[uns].replace(new RegExp(q,'g'),'\\'+q) + q;
+      return full;
+    });
+  }
+  function buildEnHtml(en){
+    // Protéger les <style> intégralement
+    const styles=[];
+    en=en.replace(/<style\b[\s\S]*?<\/style>/gi,m=>{styles.push(m);return `@@ST${styles.length-1}ST@@`;});
+    // Traduire le contenu des <script> (sauf switcher et JSON-LD)
+    en=en.replace(/<script\b[\s\S]*?<\/script>/gi,m=>{
+      if(/getElementById\('langSwitch'\)/.test(m)||/application\/ld\+json/i.test(m)) return m;
+      const open=m.indexOf('>')+1, close=m.lastIndexOf('</script>');
+      if(open<=0||close<0) return m;
+      return m.slice(0,open)+translateScript(m.slice(open,close))+m.slice(close);
+    });
+    // Protéger les <script> avant la passe texte/liens
+    const scripts=[];
+    en=en.replace(/<script\b[\s\S]*?<\/script>/gi,m=>{scripts.push(m);return `@@SC${scripts.length-1}SC@@`;});
+    en=prefixLinks(translateText(en));
+    en=en.replace(/@@SC(\d+)SC@@/g,(m,i)=>scripts[+i]);
+    en=en.replace(/@@ST(\d+)ST@@/g,(m,i)=>styles[+i]);
+    return en;
+  }
+  const relToPath=rel => rel==='index.html' ? '/' : rel.endsWith('/index.html') ? '/'+rel.slice(0,-10) : '/'+rel;
+  const hreflang=p=>{const en=p==='/'?'/en/':'/en'+p;return `<link rel="alternate" hreflang="fr-CA" href="${BASE}${p}"><link rel="alternate" hreflang="en-CA" href="${BASE}${en}"><link rel="alternate" hreflang="x-default" href="${BASE}${p}">`;};
+
+  const frFiles=[];
+  (function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const fp=path.join(d,e.name);if(e.isDirectory()){if(path.relative(SITE,fp).split(path.sep)[0]==='en')continue;walk(fp);}else if(e.name.endsWith('.html'))frFiles.push(fp);}})(SITE);
+
+  let n=0;
+  for(const fp of frFiles){
+    const rel=path.relative(SITE,fp).split(path.sep).join('/');
+    const p=relToPath(rel);
+    let fr=fs.readFileSync(fp,'utf8');
+    if(!fr.includes('hreflang="fr-CA"')) fr=fr.replace('</head>', hreflang(p)+'\n</head>');
+    fs.writeFileSync(fp,fr);
+    let en=fr.replace('<html lang="fr-CA">','<html lang="en-CA">');
+    const enUrl=p==='/'?'/en/':'/en'+p;
+    en=en.replace(`<link rel="canonical" href="${BASE}${p}">`,`<link rel="canonical" href="${BASE}${enUrl}">`);
+    en=buildEnHtml(en);
+    const out=path.join(SITE,'en',rel);
+    fs.mkdirSync(path.dirname(out),{recursive:true});
+    fs.writeFileSync(out,en);
+    n++;
+  }
+
+  // Sitemap : ajoute les URLs /en
+  try{
+    const sp=path.join(SITE,'sitemap.xml');
+    let sm=fs.readFileSync(sp,'utf8');
+    const locs=[...sm.matchAll(/<loc>https:\/\/alainbrunelle\.com([^<]*)<\/loc>/g)].map(m=>m[1]).filter(u=>!u.startsWith('/en'));
+    const enXml=locs.map(u=>`<url><loc>${BASE}${u==='/'?'/en/':'/en'+u}</loc><changefreq>weekly</changefreq></url>`).join('\n');
+    if(enXml) sm=sm.replace('</urlset>', enXml+'\n</urlset>');
+    fs.writeFileSync(sp,sm);
+  }catch{}
+
+  const dictN=Object.keys(DICT).length;
+  console.log(`✓ EN: ${n} pages → ${SITE}/en  (dictionnaire : ${dictN} entrées)`);
+})();
