@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) + Consent Mode v2 (Loi 25 — défaut refusé) -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.timestamp){gtag('consent','update',{analytics_storage:c.analytics?'granted':'denied',ad_storage:c.marketing?'granted':'denied',ad_user_data:c.marketing?'granted':'denied',ad_personalization:c.marketing?'granted':'denied'});}}catch(e){}
+gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
+<title>Free evaluation of your property — report within 48 h | Alain Brunelle</title>
+<meta name="description" content="Get a free, accurate evaluation of your property in Blainville, Sainte-Thérèse, Rosemère or Lorraine. Personalized report delivered within 48 h.">
+<link rel="canonical" href="https://alainbrunelle.com/en/vendre/evaluation-gratuite/">
+<meta property="og:title" content="Free evaluation of your property — report within 48 h | Alain Brunelle">
+<meta property="og:description" content="Get a free, accurate evaluation of your property in Blainville, Sainte-Thérèse, Rosemère or Lorraine. Personalized report delivered within 48 h.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+    .eval-wrap{max-width:780px;margin:0 auto;padding-block:clamp(2rem,4vw,3rem)}
+    .eval-progress{display:flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;padding:0 .5rem}
+    .eval-step-dot{flex:1;height:4px;background:var(--line);border-radius:999px;position:relative;overflow:hidden;transition:background .4s var(--ease)}
+    .eval-step-dot.done{background:var(--blue)}
+    .eval-step-dot.active{background:linear-gradient(90deg,var(--blue) 0%,var(--blue) 100%);background-size:200% 100%;animation:eval-fill 1.5s var(--ease) forwards}
+    @keyframes eval-fill{from{background-position:100% 0}to{background-position:0 0}}
+    .eval-meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:500;margin-bottom:.6rem}
+    .eval-card{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line);position:relative;overflow:hidden;min-height:420px}
+    .eval-step{display:none;animation:eval-slide .5s var(--ease)}
+    .eval-step.active{display:block}
+    @keyframes eval-slide{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+    .eval-step h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;letter-spacing:-.025em;line-height:1.15;margin-bottom:.8rem;color:var(--ink)}
+    .eval-step .sub{color:var(--ink-2);font-size:1.02rem;line-height:1.6;margin-bottom:2rem;max-width:50ch}
+    .eval-field{position:relative;margin-bottom:1.5rem}
+    .eval-field label{display:block;font-size:.85rem;font-weight:500;color:var(--ink-2);margin-bottom:.5rem;letter-spacing:.01em}
+    .eval-field input[type=text],.eval-field input[type=email],.eval-field input[type=tel]{width:100%;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:14px;font-family:inherit;font-size:1rem;background:#fff;color:var(--ink);transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+    .eval-field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+    .eval-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);max-height:280px;overflow-y:auto;z-index:10;display:none}
+    .eval-suggestions.open{display:block}
+    .eval-suggestion{padding:.85rem 1.1rem;cursor:pointer;font-size:.95rem;border-bottom:1px solid var(--line);transition:background .2s var(--ease)}
+    .eval-suggestion:last-child{border-bottom:0}
+    .eval-suggestion:hover,.eval-suggestion.active{background:var(--blue-soft);color:var(--blue)}
+    .eval-suggestion .sec{display:block;font-size:.78rem;color:var(--muted);margin-top:.15rem}
+    .eval-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.7rem}
+    .eval-option{padding:1.2rem .9rem;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;font-size:1rem;color:var(--ink);transition:all .3s var(--ease-spring);position:relative}
+    .eval-option:hover{border-color:var(--blue);transform:translateY(-2px)}
+    .eval-option.selected{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:500;box-shadow:0 0 0 4px rgba(15,40,85,.08)}
+    .eval-option .ico{display:block;font-size:1.6rem;margin-bottom:.4rem;opacity:.7}
+    .eval-option.selected .ico{opacity:1}
+    .eval-option .desc{display:block;font-size:.78rem;color:var(--muted);margin-top:.2rem;font-weight:400}
+    .eval-option.selected .desc{color:var(--blue-2)}
+    .eval-actions{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+    .eval-btn{font-family:inherit;font-size:1rem;font-weight:500;padding:1rem 1.8rem;border-radius:999px;border:0;cursor:pointer;transition:transform .3s var(--ease-spring),background .3s var(--ease),box-shadow .3s var(--ease);display:inline-flex;align-items:center;gap:.6rem}
+    .eval-btn.primary{background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;box-shadow:0 4px 12px -2px rgba(11,22,40,.25)}
+    .eval-btn.primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px -4px rgba(15,40,85,.35)}
+    .eval-btn.primary:disabled{opacity:.4;cursor:not-allowed}
+    .eval-btn.ghost{background:transparent;color:var(--muted)}
+    .eval-btn.ghost:hover{color:var(--ink)}
+    .eval-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:540px){.eval-row{grid-template-columns:1fr}}
+    .eval-success{text-align:center;padding:2rem 1rem}
+    .eval-success .check{width:88px;height:88px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:2.4rem;margin:0 auto 1.6rem;animation:eval-pop .6s var(--ease-spring)}
+    @keyframes eval-pop{from{transform:scale(0)}to{transform:scale(1)}}
+    .eval-success h2{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:400;letter-spacing:-.02em;margin-bottom:.8rem}
+    .eval-success p{color:var(--ink-2);line-height:1.7;max-width:46ch;margin:0 auto 1.5rem}
+    .eval-success .recap{background:var(--surface);border-radius:14px;padding:1.5rem;margin:2rem 0;text-align:left;font-size:.92rem;line-height:1.7}
+    .eval-success .recap strong{color:var(--blue);font-weight:500}
+    .eval-hint{font-size:.8rem;color:var(--muted);margin-top:.7rem;font-style:italic}
+  </style>
+
+<link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/vendre/evaluation-gratuite/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/vendre/evaluation-gratuite/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/vendre/evaluation-gratuite/">
+</head>
+<body class="">
+<!-- Bandeau cookies — conformité Loi 25 (Québec) -->
+<div id="cb-root" hidden>
+  <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
+    <div class="cb-banner-inner">
+      <div class="cb-text">
+        <div class="cb-icon" aria-hidden="true">🍪</div>
+        <div>
+          <h2 id="cb-title">Votre vie privée nous importe</h2>
+          <p id="cb-desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/">Loi 25</a>.</p>
+        </div>
+      </div>
+      <div class="cb-actions">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+  <div class="cb-modal" hidden role="dialog" aria-modal="true" aria-labelledby="cb-modal-title">
+    <div class="cb-modal-overlay" data-cb="close"></div>
+    <div class="cb-modal-card">
+      <header class="cb-modal-head">
+        <h2 id="cb-modal-title">Préférences de témoins</h2>
+        <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
+      </header>
+      <div class="cb-modal-body">
+        <p class="cb-modal-intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Essentiels</strong><span class="cb-cat-tag">Toujours actifs</span></div>
+            <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
+          </div>
+          <p>Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Mesure d'audience</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
+          </div>
+          <p>Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Marketing</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
+          </div>
+          <p>Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+        </div>
+      </div>
+      <footer class="cb-modal-foot">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </footer>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const KEY='cb_consent_v1', VER=1;
+  const root=document.getElementById('cb-root');
+  if(!root) return;
+  const banner=root.querySelector('.cb-banner');
+  const modal=root.querySelector('.cb-modal');
+  function getConsent(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch{return null;}}
+  function applyConsent(c){
+    if(typeof gtag!=='function') return;
+    gtag('consent','update',{
+      analytics_storage:c.analytics?'granted':'denied',
+      ad_storage:c.marketing?'granted':'denied',
+      ad_user_data:c.marketing?'granted':'denied',
+      ad_personalization:c.marketing?'granted':'denied'
+    });
+  }
+  function save(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    localStorage.setItem(KEY,JSON.stringify(c));
+    applyConsent(c);
+    hideBanner();closeModal();
+  }
+  function showBanner(){root.hidden=false;banner.classList.add('cb-banner--in');}
+  function hideBanner(){banner.classList.remove('cb-banner--in');setTimeout(()=>{if(modal.hidden)root.hidden=true;},350);}
+  function openModal(){
+    root.hidden=false;modal.hidden=false;
+    const c=getConsent()||{analytics:false,marketing:false};
+    modal.querySelector('[data-cb-cat=analytics]').checked=!!c.analytics;
+    modal.querySelector('[data-cb-cat=marketing]').checked=!!c.marketing;
+    requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    setTimeout(()=>{modal.hidden=true;if(!banner.classList.contains('cb-banner--in'))root.hidden=true;},250);
+  }
+  root.addEventListener('click',(e)=>{
+    const t=e.target.closest('[data-cb]');if(!t)return;
+    const a=t.dataset.cb;
+    if(a==='accept')save(true,true);
+    else if(a==='refuse')save(false,false);
+    else if(a==='customize')openModal();
+    else if(a==='close')closeModal();
+    else if(a==='save'){
+      save(modal.querySelector('[data-cb-cat=analytics]').checked,modal.querySelector('[data-cb-cat=marketing]').checked);
+    }
+  });
+  window.openCookiePreferences=openModal;
+  // Show banner on first visit or if consent version is outdated
+  const c=getConsent();
+  if(!c||c.version!==VER){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
+    else setTimeout(showBanner,400);
+  }
+})();
+</script>
+<header class="nav">
+  <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
+    <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
+    <img class="brand-remax" src="/brand_assets/digital_ballon.png" alt="RE/MAX" height="56">
+  </a>
+  <nav class="nav-links">
+    <a class="nav-item" href="/en/nos-proprietes/">Properties</a><div class="nav-item has-sub"><a href="/en/courtier-immobilier/blainville/">Cities</a><div class="sub"><a href="/en/courtier-immobilier/blainville/">Blainville</a><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/en/courtier-immobilier/rosemere/">Rosemère</a><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/en/vendre/evaluation-gratuite/">Sell</a><div class="sub"><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a><a href="/en/vendre/etapes-pour-vendre/">Steps to sell</a><a href="/en/vendre/preparer-sa-maison/">Prepare your home</a><a href="/en/vendre/commission-courtier/">Broker's commission</a><a href="/en/vendre/vendre-sans-stress/">Sell without stress</a></div></div><div class="nav-item has-sub"><a href="/en/acheter/premier-acheteur/">Buy</a><div class="sub"><a href="/en/acheter/premier-acheteur/">First-time buyer</a><a href="/en/acheter/etapes-pour-acheter/">Steps to buy</a><a href="/en/acheter/financement-hypothecaire/">Mortgage financing</a><a href="/en/acheter/inspection/">Inspection</a><a href="/en/acheter/calculatrices/">Calculators</a></div></div><div class="nav-item has-sub"><a href="/en/blog/">Resources</a><div class="sub"><a href="/en/blog/">Blog</a><a href="/en/marche-immobilier/">Real estate market</a><a href="/en/a-propos/">About</a><a href="/en/temoignages/">Testimonials</a></div></div>
+  </nav>
+  <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
+  <a class="nav-cta" href="/en/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Book 20 min</a>
+  <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+</header>
+<div class="agency-bar" role="complementary" aria-label="Agency contact details">
+  <div class="agency-bar-inner">
+    <img class="agency-bar-logo" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="28">
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">Real estate agency</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <a class="agency-bar-tel" href="tel:4504304207">450&nbsp;430-4207</a>
+  </div>
+</div>
+<main>
+
+<section class="page-head container">
+  <div class="eyebrow">Market value opinion · Free of charge</div>
+  <h1>What is your property worth in 2026?</h1>
+  <p class="lead">Five questions, 60 seconds. Receive a <strong>market value opinion</strong> by email, usually within 48 business hours — with recent comparable sales from your street, and a read of your <strong>real estate broker</strong> on the North Shore since 1992.</p>
+  <div class="callout" style="margin-top:1.8rem;max-width:62ch">
+    <div style="font-size:.88rem;line-height:1.55">The value opinion provided by a real estate broker <strong>does not constitute an appraisal</strong> within the meaning of the <em>Chartered Appraisers Act</em>. For an appraisal recognized by a financial institution or a court, consult a <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">OEAQ chartered appraiser</a>.</div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="eval-wrap">
+    <div class="eval-progress" aria-label="Growth">
+      <div class="eval-step-dot active" data-dot="1"></div>
+      <div class="eval-step-dot" data-dot="2"></div>
+      <div class="eval-step-dot" data-dot="3"></div>
+      <div class="eval-step-dot" data-dot="4"></div>
+      <div class="eval-step-dot" data-dot="5"></div>
+    </div>
+
+    <form class="eval-card" id="eval-form" onsubmit="return false">
+      <!-- ÉTAPE 1 — Adresse -->
+      <div class="eval-step active" data-step="1">
+        <div class="eval-meta">Step 1 of 5</div>
+        <h2>What is your property's address?</h2>
+        <p class="sub">Start typing — suggestions appear automatically.</p>
+        <div class="eval-field">
+          <label for="eval-addr">Full address</label>
+          <input type="text" id="eval-addr" name="address" placeholder="e.g. 245 rue Fontainebleau, Blainville" autocomplete="off" required>
+          <div class="eval-suggestions" id="eval-suggestions"></div>
+          <p class="eval-hint">📍 Suggestions powered by OpenStreetMap — your data stays private.</p>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 — Type & étages & sous-sol -->
+      <div class="eval-step" data-step="2">
+        <div class="eval-meta">Step 2 of 5</div>
+        <h2>What is the layout?</h2>
+        <p class="sub">The type and structure significantly influence the value.</p>
+        <div class="eval-field">
+          <label>Property type</label>
+          <div class="eval-options" data-group="type">
+            <button type="button" class="eval-option" data-val="unifamiliale"><span class="ico">🏡</span>Single-family home</button>
+            <button type="button" class="eval-option" data-val="condo"><span class="ico">🏢</span>Condo</button>
+            <button type="button" class="eval-option" data-val="maison-ville"><span class="ico">🏘️</span>Townhouse</button>
+            <button type="button" class="eval-option" data-val="plex"><span class="ico">🏬</span>Plex</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Number of storeys</label>
+          <div class="eval-options" data-group="etages">
+            <button type="button" class="eval-option" data-val="1">1 storey</button>
+            <button type="button" class="eval-option" data-val="1.5">1½</button>
+            <button type="button" class="eval-option" data-val="2">2 storeys</button>
+            <button type="button" class="eval-option" data-val="3+">3+</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Basement</label>
+          <div class="eval-options" data-group="soussol">
+            <button type="button" class="eval-option" data-val="fini">Finishing</button>
+            <button type="button" class="eval-option" data-val="semi">Semi-finished</button>
+            <button type="button" class="eval-option" data-val="non-fini">Unfinished</button>
+            <button type="button" class="eval-option" data-val="aucun">None</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 — Chambres & salles de bain -->
+      <div class="eval-step" data-step="3">
+        <div class="eval-meta">Step 3 of 5</div>
+        <h2>How many rooms?</h2>
+        <p class="sub">A major criterion when comparing with recent sales in the district.</p>
+        <div class="eval-field">
+          <label>Bedrooms</label>
+          <div class="eval-options" data-group="chambres">
+            <button type="button" class="eval-option" data-val="1">1</button>
+            <button type="button" class="eval-option" data-val="2">2</button>
+            <button type="button" class="eval-option" data-val="3">3</button>
+            <button type="button" class="eval-option" data-val="4">4</button>
+            <button type="button" class="eval-option" data-val="5+">5 +</button>
+          </div>
+        </div>
+        <div class="eval-field">
+          <label>Full bathrooms</label>
+          <div class="eval-options" data-group="sdb">
+            <button type="button" class="eval-option" data-val="1">1</button>
+            <button type="button" class="eval-option" data-val="2">2</button>
+            <button type="button" class="eval-option" data-val="3">3</button>
+            <button type="button" class="eval-option" data-val="4+">4 +</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 — Rénovations -->
+      <div class="eval-step" data-step="4">
+        <div class="eval-meta">Step 4 of 5</div>
+        <h2>Renovation status</h2>
+        <p class="sub">A kitchen redone 3 years ago doesn't have the same value as one from 1995.</p>
+        <div class="eval-field">
+          <label>Most recent major renovations (kitchen, bathroom, roof, windows)</label>
+          <div class="eval-options" data-group="renos" style="grid-template-columns:1fr">
+            <button type="button" class="eval-option" data-val="-5"><strong>Less than 5 years</strong><span class="desc">Kitchen, bathroom or roof recently redone</span></button>
+            <button type="button" class="eval-option" data-val="5-10"><strong>5 to 10 years</strong><span class="desc">Renovations still modern but starting to date</span></button>
+            <button type="button" class="eval-option" data-val="10-25"><strong>10 to 25 years</strong><span class="desc">Renovations to plan for in the medium term</span></button>
+            <button type="button" class="eval-option" data-val="25+"><strong>More than 25 years</strong><span class="desc">Property to keep or renovate</span></button>
+            <button type="button" class="eval-option" data-val="aucune"><strong>No major renovation</strong><span class="desc">Property to keep or fully renovate</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 5 — Coordonnées -->
+      <div class="eval-step" data-step="5">
+        <div class="eval-meta">Step 5 of 5 — Last step</div>
+        <h2>Where should we send your report?</h2>
+        <p class="sub">I prepare it personally and deliver it to you within 48 h, with no commitment on your part.</p>
+        <div class="eval-row">
+          <div class="eval-field">
+            <label for="eval-name">Full name</label>
+            <input type="text" id="eval-name" name="name" required>
+          </div>
+          <div class="eval-field">
+            <label for="eval-phone">Phone</label>
+            <input type="tel" id="eval-phone" name="phone" placeholder="450 000-0000">
+          </div>
+        </div>
+        <div class="eval-field">
+          <label for="eval-email">Email</label>
+          <input type="email" id="eval-email" name="email" required>
+        </div>
+        <div class="eval-field" style="background:var(--blue-soft);padding:1rem 1.2rem;border-radius:12px;font-size:.82rem;line-height:1.55;color:var(--ink-2);margin-top:1rem">
+          <p style="margin:0 0 .6rem"><strong>Purpose of collection (Law 25):</strong> your contact details are collected for the sole purpose of sending you your market value opinion and following up on the project. No sharing with third parties. Retention: 6 years after the file is closed, in accordance with the <a href="/en/politique-confidentialite/" style="color:var(--blue);text-decoration:underline">privacy policy</a>.</p>
+          <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--ink);cursor:pointer">
+            <input type="checkbox" name="consent" required style="margin-top:.2rem;flex-shrink:0">
+            <span>I authorize Alain Brunelle to collect my personal information to process my request for a value opinion. <span style="color:var(--muted);font-size:.78rem">(mandatory)</span></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 6 — Succès (cachée) -->
+      <div class="eval-step" data-step="6">
+        <div class="eval-success">
+          <div class="check">✓</div>
+          <h2>Thank you. Your request has been received.</h2>
+          <p>I personally prepare your market value opinion. Within 1 to 3 business days you'll receive by email your price range, the most relevant comparable sales and my preparation recommendations.</p>
+          <div class="recap" id="eval-recap"></div>
+          <a class="eval-btn primary" href="/en/" style="text-decoration:none">Back to home →</a>
+        </div>
+      </div>
+
+      <!-- Actions (cachées sur étape 6) -->
+      <div class="eval-actions" id="eval-actions">
+        <button type="button" class="eval-btn ghost" id="eval-back" style="visibility:hidden">← Back</button>
+        <button type="button" class="eval-btn primary" id="eval-next" disabled>Continue →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+(function(){
+  const TOTAL=5;
+  let current=1;
+  const answers={type:null,etages:null,soussol:null,chambres:null,sdb:null,renos:null,address:'',name:'',email:'',phone:''};
+  const $=s=>document.querySelector(s);
+  const $$=s=>document.querySelectorAll(s);
+  const stepEl=n=>$('.eval-step[data-step="'+n+'"]');
+  const dotEl=n=>$('.eval-step-dot[data-dot="'+n+'"]');
+
+  // Option button selection
+  $$('.eval-options').forEach(grp=>{
+    grp.addEventListener('click',e=>{
+      const btn=e.target.closest('.eval-option'); if(!btn)return;
+      const group=grp.dataset.group;
+      grp.querySelectorAll('.eval-option').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[group]=btn.dataset.val;
+      validate();
+    });
+  });
+
+  // Text inputs
+  ['eval-addr','eval-name','eval-email','eval-phone'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener('input',()=>{
+      if(id==='eval-addr')answers.address=el.value;
+      if(id==='eval-name')answers.name=el.value;
+      if(id==='eval-email')answers.email=el.value;
+      if(id==='eval-phone')answers.phone=el.value;
+      validate();
+    });
+  });
+
+  function isValid(step){
+    if(step===1)return answers.address.trim().length>=8;
+    if(step===2)return answers.type&&answers.etages&&answers.soussol;
+    if(step===3)return answers.chambres&&answers.sdb;
+    if(step===4)return answers.renos;
+    if(step===5)return answers.name.trim().length>=2 && /\S+@\S+\.\S+/.test(answers.email);
+    return false;
+  }
+  function validate(){
+    $('#eval-next').disabled=!isValid(current);
+  }
+
+  function go(n){
+    stepEl(current).classList.remove('active');
+    current=n;
+    stepEl(current).classList.add('active');
+    for(let i=1;i<=TOTAL;i++){
+      dotEl(i).classList.toggle('done',i<current);
+      dotEl(i).classList.toggle('active',i===current);
+    }
+    $('#eval-back').style.visibility=current===1?'hidden':'visible';
+    $('#eval-next').textContent=current===TOTAL?'Recevoir mon rapport →':'Continue →';
+    if(current>TOTAL){finalize();return;}
+    validate();
+    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
+  }
+
+  $('#eval-next').addEventListener('click',()=>{
+    if(!isValid(current))return;
+    if(current===TOTAL){submit();return;}
+    go(current+1);
+  });
+  $('#eval-back').addEventListener('click',()=>{
+    if(current>1)go(current-1);
+  });
+
+  // Submit
+  function submit(){
+    // For now, no backend — show success state with summary.
+    // To wire backend later: POST answers to /api/evaluation or Formspree.
+    const labels={
+      type:{unifamiliale:'Single-family home',condo:'Condo','maison-ville':'Townhouse',plex:'Plex'},
+      etages:{'1':'1 storey','1.5':'1½','2':'2 storeys','3+':'3+ storeys'},
+      soussol:{fini:'fini',semi:'semi-fini','non-fini':'non fini',aucun:'aucun sous-sol'},
+      renos:{'-5':'recent (< 5 years)','5-10':'5 to 10 years','10-25':'10 to 25 years','25+':'plus de 25 ans',aucune:'aucune'}
+    };
+    const recap='<strong>Summary</strong><br>'+
+      '📍 '+answers.address+'<br>'+
+      '🏡 '+(labels.type[answers.type]||answers.type)+' · '+(labels.etages[answers.etages]||answers.etages)+' · sous-sol '+(labels.soussol[answers.soussol]||answers.soussol)+'<br>'+
+      '🛏️ '+answers.chambres+' chambre(s) · '+answers.sdb+' salle(s) de bain<br>'+
+      '🔧 Renovations: '+(labels.renos[answers.renos]||answers.renos);
+    $('#eval-recap').innerHTML=recap;
+    $('#eval-actions').style.display='none';
+    stepEl(current).classList.remove('active');
+    current=6;
+    stepEl(6).classList.add('active');
+    document.querySelectorAll('.eval-step-dot').forEach(d=>{d.classList.add('done');d.classList.remove('active');});
+    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
+  }
+
+  // Address autocomplete via Photon (OpenStreetMap) — gratuit, sans clé
+  const addrInput=$('#eval-addr');
+  const sugBox=$('#eval-suggestions');
+  let suggestions=[],activeIdx=-1,debounceTimer;
+
+  function renderSug(){
+    if(!suggestions.length){sugBox.classList.remove('open');return;}
+    sugBox.innerHTML=suggestions.map((s,i)=>'<div class="eval-suggestion'+(i===activeIdx?' active':'')+'" data-i="'+i+'">'+s.label+(s.sec?'<span class="sec">'+s.sec+'</span>':'')+'</div>').join('');
+    sugBox.classList.add('open');
+  }
+  async function fetchSug(q){
+    if(q.length<3){suggestions=[];renderSug();return;}
+    try{
+      // Bbox approximatif Rive-Nord + Laurentides QC
+      const url='https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=6&bbox=-75.5,45.4,-73.4,46.5';
+      const res=await fetch(url);
+      const data=await res.json();
+      suggestions=(data.features||[]).filter(f=>f.properties.country==='Canada').map(f=>{
+        const p=f.properties;
+        const label=[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||(p.name||'');
+        const sec=[p.city||p.town||p.village,p.state].filter(Boolean).join(', ');
+        return {label,sec};
+      }).filter(s=>s.label.length>0);
+    }catch{suggestions=[];}
+    activeIdx=-1;
+    renderSug();
+  }
+  addrInput.addEventListener('input',()=>{
+    clearTimeout(debounceTimer);
+    debounceTimer=setTimeout(()=>fetchSug(addrInput.value.trim()),250);
+  });
+  addrInput.addEventListener('keydown',e=>{
+    if(!suggestions.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,suggestions.length-1);renderSug();}
+    if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);renderSug();}
+    if(e.key==='Enter'&&activeIdx>=0){e.preventDefault();pick(activeIdx);}
+    if(e.key==='Escape'){suggestions=[];renderSug();}
+  });
+  function pick(i){
+    const s=suggestions[i];
+    addrInput.value=s.label+(s.sec?', '+s.sec:'');
+    answers.address=addrInput.value;
+    suggestions=[];renderSug();
+    validate();
+  }
+  sugBox.addEventListener('click',e=>{
+    const it=e.target.closest('.eval-suggestion');
+    if(it)pick(+it.dataset.i);
+  });
+  document.addEventListener('click',e=>{
+    if(!sugBox.contains(e.target)&&e.target!==addrInput){sugBox.classList.remove('open');}
+  });
+
+  // Init
+  validate();
+})();
+</script>
+
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
+        <img class="f-remax-crystal" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="52">
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">📍 Sainte-Thérèse</div>
+        <address class="f-address">
+          228 boul. du Curé-Labelle<br>
+          Sainte-Thérèse, Québec J7E 2X7<br>
+          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
+        </address>
+      </div>
+      <div class="f-col">
+        <h4>Territories</h4>
+        <ul>
+          <li><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
+          <li><a href="/en/courtier-immobilier/blainville/">Blainville</a></li>
+          <li><a href="/en/courtier-immobilier/rosemere/">Rosemère</a></li>
+          <li><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">🔗 Let's stay in touch</div>
+        <div class="f-social">
+          <a href="https://www.facebook.com/AlainBrunelleCourtier/" target="_blank" rel="noopener" aria-label="Facebook" class="f-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+        </div>
+        <h4 style="margin-top:1.8rem">Services</h4>
+        <ul>
+          <li><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a></li>
+          <li><a href="/en/acheter/calculatrices/">Calculators</a></li>
+          <li><a href="/en/rendez-vous/">Book 20 minutes</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="f-bottom">
+      <div class="f-bottom-legal">
+        © 2026 RE/MAX CRYSTAL — Independent and autonomous franchisee of <a href="https://www.remax-quebec.com" target="_blank" rel="noopener">RE/MAX Québec</a> — All rights reserved
+        <span class="f-divider">·</span> <a href="/en/politique-confidentialite/">Privacy policy</a>
+        <span class="f-divider">·</span> <a href="/en/conditions-utilisation/">Terms of use</a>
+        <span class="f-divider">·</span> <a href="#" onclick="event.preventDefault();window.openCookiePreferences&&window.openCookiePreferences();">Préférences cookies</a>
+      </div>
+      <div class="f-bottom-credit">
+        Website by <a href="https://vpourdesign.com" target="_blank" rel="noopener"><strong>vpourdesign</strong></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) + Consent Mode v2 (Loi 25 — défaut refusé) -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.timestamp){gtag('consent','update',{analytics_storage:c.analytics?'granted':'denied',ad_storage:c.marketing?'granted':'denied',ad_user_data:c.marketing?'granted':'denied',ad_personalization:c.marketing?'granted':'denied'});}}catch(e){}
+gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
+<title>X-ray of Sainte-Thérèse: what 2,000 transactions taught me about your neighbourhood | Alain Brunelle</title>
+<meta name="description" content="A real estate broker who knows Sainte-Thérèse street by street decodes the 2026 market: prices by district, Vieux-Village / En-Haut / En-Bas comparison, calculation tools. 33 years, 3,000+ transactions.">
+<link rel="canonical" href="https://alainbrunelle.com/en/blog/radioscopie-sainte-therese-marche-2026/">
+<meta property="og:title" content="X-ray of Sainte-Thérèse: what 2,000 transactions taught me about your neighbourhood | Alain Brunelle">
+<meta property="og:description" content="A real estate broker who knows Sainte-Thérèse street by street decodes the 2026 market: prices by district, Vieux-Village / En-Haut / En-Bas comparison, calculation tools. 33 years, 3,000+ transactions.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+    .a-hero{position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:clamp(420px,55vw,640px);margin-bottom:3rem}
+    .a-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .a-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,22,40,.15) 0%,rgba(11,22,40,.85) 100%)}
+    .a-hero-inner{position:relative;z-index:2;color:#fff;padding:clamp(1.8rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:flex-end;min-height:inherit}
+    .a-hero .eye{color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:500;margin-bottom:1.2rem}
+    .a-hero h1{color:#fff;font-size:clamp(2rem,4vw,3.4rem);font-weight:400;letter-spacing:-.025em;line-height:1.08;max-width:28ch;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+    .a-hero .meta{margin-top:1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.85rem;color:rgba(255,255,255,.8)}
+    .a-lead{font-size:clamp(1.15rem,1.8vw,1.35rem);font-weight:300;color:var(--ink-2);max-width:62ch;line-height:1.6;margin-bottom:3rem}
+    .a-lead strong{font-weight:500;color:var(--ink)}
+    .a-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:3rem}
+    .a-summary .card{background:var(--surface);border-radius:var(--radius);padding:1.4rem;border-left:3px solid var(--blue)}
+    .a-summary .n{font-size:clamp(1.6rem,2.4vw,2rem);font-weight:400;letter-spacing:-.025em;color:var(--blue);font-variant-numeric:tabular-nums}
+    .a-summary .l{font-size:.82rem;color:var(--ink-2);margin-top:.35rem;line-height:1.4}
+    .a-body{max-width:760px;margin:0 auto}
+    .a-body h2{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:400;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--ink)}
+    .a-body h3{font-size:1.2rem;font-weight:500;margin:2rem 0 .6rem}
+    .a-body p{color:var(--ink-2);line-height:1.75;font-size:1.02rem}
+    .a-body p strong{color:var(--ink);font-weight:500}
+    .a-body ul{color:var(--ink-2);line-height:1.8;padding-left:1.2rem}
+    .a-figure{margin:2.5rem -2rem;border-radius:var(--radius-lg);overflow:hidden;position:relative}
+    .a-figure img{width:100%;display:block}
+    .a-figure figcaption{position:absolute;bottom:1.2rem;left:1.4rem;right:1.4rem;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:.8rem 1.2rem;border-radius:14px;font-size:.85rem;color:var(--ink);font-weight:400}
+    @media(max-width:820px){.a-figure{margin:2.5rem 0}}
+    .sector-tbl{width:100%;border-collapse:separate;border-spacing:0;margin:1.5rem 0 2rem;font-size:.95rem;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+    .sector-tbl th,.sector-tbl td{padding:.95rem 1rem;text-align:left;border-bottom:1px solid var(--line)}
+    .sector-tbl thead th{background:var(--ink);color:#fff;font-weight:500;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+    .sector-tbl tbody tr{transition:background .2s var(--ease);cursor:pointer}
+    .sector-tbl tbody tr:hover,.sector-tbl tbody tr.active{background:var(--blue-soft)}
+    .sector-tbl td strong{color:var(--blue);font-weight:500}
+    .sector-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+    .sector-tbl tbody tr:last-child td{border-bottom:0}
+    .chart-card{background:var(--surface);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0 2.5rem;border:1px solid var(--line)}
+    .chart-card h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500;margin-bottom:1.2rem}
+    .quiz{background:var(--blue);color:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,3.5vw,2.8rem);margin:2.5rem -2rem;position:relative;overflow:hidden}
+    .quiz::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 260px at 85% 0%,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
+    .quiz>*{position:relative}
+    .quiz .eye{color:rgba(255,255,255,.65)}
+    .quiz h3{color:#fff;font-size:clamp(1.4rem,2.4vw,1.8rem);font-weight:400;letter-spacing:-.02em;margin:.5rem 0 1.5rem}
+    .quiz-fields{display:grid;gap:1.4rem;margin-bottom:1.5rem}
+    .quiz-fields label{display:block;font-size:.85rem;color:rgba(255,255,255,.85);margin-bottom:.5rem;font-weight:500}
+    .quiz-fields .row{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .quiz-fields input[type=range]{width:100%;accent-color:#fff;margin-top:.3rem}
+    .quiz-fields .v{font-variant-numeric:tabular-nums;color:#fff;font-weight:500}
+    .quiz-out{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}
+    .quiz-out .verdict{font-size:clamp(1.2rem,2vw,1.5rem);font-weight:400;letter-spacing:-.015em;line-height:1.3}
+    .quiz-out .delta{font-size:2rem;font-weight:400;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-align:right}
+    .quiz-out .delta.pos{color:#9fe5b5}
+    .quiz-out .delta.neg{color:#ff9fb0}
+    @media(max-width:820px){.quiz{margin:2.5rem 0}.quiz-out{grid-template-columns:1fr}}
+    .timeline{margin:2rem 0 3rem;border-left:2px solid var(--blue-soft);padding-left:1.6rem}
+    .timeline-item{margin-bottom:1.5rem;position:relative}
+    .timeline-item::before{content:"";position:absolute;left:-1.78rem;top:.4rem;width:12px;height:12px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px var(--blue)}
+    .timeline-item .year{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:500}
+    .timeline-item .t{font-size:1.05rem;margin-top:.2rem;color:var(--ink)}
+    .timeline-item .t strong{color:var(--blue);font-weight:500}
+    .pullquote{border-left:3px solid var(--blue);padding:1rem 0 1rem 1.5rem;margin:2.5rem 0;font-family:'Jost';font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:300;letter-spacing:-.01em;color:var(--ink);line-height:1.4}
+    .pullquote cite{display:block;margin-top:.8rem;font-size:.85rem;color:var(--muted);font-style:normal;text-transform:uppercase;letter-spacing:.06em}
+    .a-cta{background:var(--ink);color:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);margin:3rem 0;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+    .a-cta h3{color:#fff;margin:0;font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:400;letter-spacing:-.02em;max-width:22ch}
+    .a-cta .btn{background:#fff;color:var(--ink);padding:1rem 1.8rem;border-radius:999px;font-weight:500;white-space:nowrap;transition:transform .3s var(--ease)}
+    .a-cta .btn:hover{transform:translateY(-2px);color:var(--ink)}
+    @media(max-width:720px){.a-cta{grid-template-columns:1fr}}
+    .a-footer-meta{padding:2rem;background:var(--surface);border-radius:var(--radius);margin:3rem 0 2rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center}
+    .a-footer-meta img{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#eef2f8}
+    .a-footer-meta .who{font-weight:500}
+    .a-footer-meta .who-sub{font-size:.88rem;color:var(--muted);margin-top:.2rem}
+  </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier","author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://alainbrunelle.com/a-propos/"},"image":"https://alainbrunelle.com/photos/stetherese1.jpg","datePublished":"2026-04-23","dateModified":"2026-06-25","publisher":{"@type":"Organization","name":"Alain Brunelle — RE/MAX CRYSTAL"},"mainEntityOfPage":"https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"}</script>
+<link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/blog/radioscopie-sainte-therese-marche-2026/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/">
+</head>
+<body class="">
+<!-- Bandeau cookies — conformité Loi 25 (Québec) -->
+<div id="cb-root" hidden>
+  <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
+    <div class="cb-banner-inner">
+      <div class="cb-text">
+        <div class="cb-icon" aria-hidden="true">🍪</div>
+        <div>
+          <h2 id="cb-title">Votre vie privée nous importe</h2>
+          <p id="cb-desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/">Loi 25</a>.</p>
+        </div>
+      </div>
+      <div class="cb-actions">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+  <div class="cb-modal" hidden role="dialog" aria-modal="true" aria-labelledby="cb-modal-title">
+    <div class="cb-modal-overlay" data-cb="close"></div>
+    <div class="cb-modal-card">
+      <header class="cb-modal-head">
+        <h2 id="cb-modal-title">Préférences de témoins</h2>
+        <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
+      </header>
+      <div class="cb-modal-body">
+        <p class="cb-modal-intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Essentiels</strong><span class="cb-cat-tag">Toujours actifs</span></div>
+            <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
+          </div>
+          <p>Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Mesure d'audience</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
+          </div>
+          <p>Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong>Marketing</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
+          </div>
+          <p>Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+        </div>
+      </div>
+      <footer class="cb-modal-foot">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+      </footer>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const KEY='cb_consent_v1', VER=1;
+  const root=document.getElementById('cb-root');
+  if(!root) return;
+  const banner=root.querySelector('.cb-banner');
+  const modal=root.querySelector('.cb-modal');
+  function getConsent(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch{return null;}}
+  function applyConsent(c){
+    if(typeof gtag!=='function') return;
+    gtag('consent','update',{
+      analytics_storage:c.analytics?'granted':'denied',
+      ad_storage:c.marketing?'granted':'denied',
+      ad_user_data:c.marketing?'granted':'denied',
+      ad_personalization:c.marketing?'granted':'denied'
+    });
+  }
+  function save(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    localStorage.setItem(KEY,JSON.stringify(c));
+    applyConsent(c);
+    hideBanner();closeModal();
+  }
+  function showBanner(){root.hidden=false;banner.classList.add('cb-banner--in');}
+  function hideBanner(){banner.classList.remove('cb-banner--in');setTimeout(()=>{if(modal.hidden)root.hidden=true;},350);}
+  function openModal(){
+    root.hidden=false;modal.hidden=false;
+    const c=getConsent()||{analytics:false,marketing:false};
+    modal.querySelector('[data-cb-cat=analytics]').checked=!!c.analytics;
+    modal.querySelector('[data-cb-cat=marketing]').checked=!!c.marketing;
+    requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    setTimeout(()=>{modal.hidden=true;if(!banner.classList.contains('cb-banner--in'))root.hidden=true;},250);
+  }
+  root.addEventListener('click',(e)=>{
+    const t=e.target.closest('[data-cb]');if(!t)return;
+    const a=t.dataset.cb;
+    if(a==='accept')save(true,true);
+    else if(a==='refuse')save(false,false);
+    else if(a==='customize')openModal();
+    else if(a==='close')closeModal();
+    else if(a==='save'){
+      save(modal.querySelector('[data-cb-cat=analytics]').checked,modal.querySelector('[data-cb-cat=marketing]').checked);
+    }
+  });
+  window.openCookiePreferences=openModal;
+  // Show banner on first visit or if consent version is outdated
+  const c=getConsent();
+  if(!c||c.version!==VER){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
+    else setTimeout(showBanner,400);
+  }
+})();
+</script>
+<header class="nav">
+  <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
+    <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
+    <img class="brand-remax" src="/brand_assets/digital_ballon.png" alt="RE/MAX" height="56">
+  </a>
+  <nav class="nav-links">
+    <a class="nav-item" href="/en/nos-proprietes/">Properties</a><div class="nav-item has-sub"><a href="/en/courtier-immobilier/blainville/">Cities</a><div class="sub"><a href="/en/courtier-immobilier/blainville/">Blainville</a><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/en/courtier-immobilier/rosemere/">Rosemère</a><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/en/vendre/evaluation-gratuite/">Sell</a><div class="sub"><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a><a href="/en/vendre/etapes-pour-vendre/">Steps to sell</a><a href="/en/vendre/preparer-sa-maison/">Prepare your home</a><a href="/en/vendre/commission-courtier/">Broker's commission</a><a href="/en/vendre/vendre-sans-stress/">Sell without stress</a></div></div><div class="nav-item has-sub"><a href="/en/acheter/premier-acheteur/">Buy</a><div class="sub"><a href="/en/acheter/premier-acheteur/">First-time buyer</a><a href="/en/acheter/etapes-pour-acheter/">Steps to buy</a><a href="/en/acheter/financement-hypothecaire/">Mortgage financing</a><a href="/en/acheter/inspection/">Inspection</a><a href="/en/acheter/calculatrices/">Calculators</a></div></div><div class="nav-item has-sub"><a href="/en/blog/">Resources</a><div class="sub"><a href="/en/blog/">Blog</a><a href="/en/marche-immobilier/">Real estate market</a><a href="/en/a-propos/">About</a><a href="/en/temoignages/">Testimonials</a></div></div>
+  </nav>
+  <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
+  <a class="nav-cta" href="/en/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Book 20 min</a>
+  <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+</header>
+<div class="agency-bar" role="complementary" aria-label="Agency contact details">
+  <div class="agency-bar-inner">
+    <img class="agency-bar-logo" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="28">
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">Real estate agency</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
+    <span class="agency-bar-sep" aria-hidden="true">·</span>
+    <a class="agency-bar-tel" href="tel:4504304207">450&nbsp;430-4207</a>
+  </div>
+</div>
+<main>
+
+<article class="container" style="padding-top:2rem">
+  <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.5rem"><a href="/en/">Home</a> › <a href="/en/blog/">Blog</a> › <span>Sainte-Thérèse X-ray</span></div>
+
+  <figure class="a-hero">
+    <img src="/photos/stetherese1.jpg" alt="Sainte-Thérèse, North Shore — overview" loading="eager">
+    <div class="a-hero-inner">
+      <div class="eye">Market analysis · Sainte-Thérèse · 2026</div>
+      <h1>X-ray of Sainte-Thérèse: what 2,000 transactions taught me about your neighbourhood.</h1>
+      <div class="meta">
+        <span>By <strong>Alain Brunelle</strong>, residential real estate broker</span>
+        <span>· 12 min read · Updated April 2026</span>
+      </div>
+    </div>
+  </figure>
+
+  <div class="a-body">
+    <p class="a-lead">In Sainte-Thérèse, the difference between selling fast and selling well comes down to <strong>three numbers no one gives you</strong> — except one <strong>local real estate broker</strong> who has 33 years of transactions in the area. This interactive guide puts those numbers on the table, street by street, district by district, with the tools to interrogate them.</p>
+
+    <div class="a-summary">
+      <div class="card"><div class="n">582 k$</div><div class="l">Median price 2026 (single-family)</div></div>
+      <div class="card"><div class="n">+5,2 %</div><div class="l">YoY growth</div></div>
+      <div class="card"><div class="n">31 j</div><div class="l">Median time to sell</div></div>
+      <div class="card"><div class="n">99,1 %</div><div class="l">Sold / asking ratio</div></div>
+    </div>
+
+    <h2>1. The market at a glance — 5 years of Sainte-Thérèse</h2>
+    <p>Since 2021, the median single-family price in Sainte-Thérèse has risen by <strong>38,6 %</strong>, despite the 2023 mortgage tightening. The trajectory is nothing like a plateau — it's a disciplined climb, driven by two engines: land scarcity in Vieux-Village and steady demand from young families fleeing Laval prices.</p>
+
+    <div class="chart-card">
+      <h4>Median single-family price — Sainte-Thérèse 2021 → 2026</h4>
+      <div class="chart" id="chart-5y"></div>
+    </div>
+
+    <h2>2. The three districts — decoded</h2>
+    <p>Sainte-Thérèse is not <em>a</em> city, it's <strong>three distinct markets</strong>. A triplex in Vieux-Village doesn't sell like a bungalow in En-Bas. Here's the comparison I use, updated from my latest listings and 2026 APCIQ transactions.</p>
+
+    <table class="sector-tbl" id="sector-table">
+      <thead><tr><th>District</th><th class="num">Median price</th><th class="num">Days on market</th><th class="num">S/A ratio</th><th class="num">Inventory</th></tr></thead>
+      <tbody>
+        <tr data-s="vieux"><td><strong>Vieux-Village</strong><br><span style="font-size:.82rem;color:var(--muted)">Historic core, character, new condos</span></td><td class="num">624 000 $</td><td class="num">24</td><td class="num">100,3 %</td><td class="num">Very low</td></tr>
+        <tr data-s="haut"><td><strong>En-Haut</strong><br><span style="font-size:.82rem;color:var(--muted)">Family-oriented, 1990-2010 cottages, parks</span></td><td class="num">575 000 $</td><td class="num">32</td><td class="num">98,9 %</td><td class="num">Balanced</td></tr>
+        <tr data-s="bas"><td><strong>En-Bas</strong><br><span style="font-size:.82rem;color:var(--muted)">Accessible, bungalows, first-time buyers</span></td><td class="num">498 000 $</td><td class="num">38</td><td class="num">98,2 %</td><td class="num">Higher</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.85rem;color:var(--muted);margin-top:-.5rem">Click a row to bring up the corresponding chart below.</p>
+
+    <div class="chart-card">
+      <h4 id="chart-sector-title">Sales volume — the 3 districts (past 12 months)</h4>
+      <div class="chart" id="chart-sector"></div>
+    </div>
+
+    <figure class="a-figure">
+      <img src="/photos/stetherese2.jpg" alt="Old Sainte-Thérèse — historic architecture" loading="lazy">
+      <figcaption>Vieux-Village: 12% of listings, 31% of transacted value in 2026.</figcaption>
+    </figure>
+
+    <h2>3. Is your property well positioned? (interactive tool)</h2>
+    <p>The classic trap of marketing in Sainte-Thérèse: positioning the price by comparing to the neighbouring municipality rather than to your own street. The result — <strong>+ 13 days of waiting, − 2.4% on the final price</strong>. Here's the quick tool I use to estimate the gap between your target price and the reality of the district.</p>
+
+    <div class="quiz">
+      <div class="eye" style="text-transform:uppercase;letter-spacing:.18em;font-size:.72rem">Tool 1 · Price positioning</div>
+      <h3>Is my target price aligned with my district?</h3>
+      <div class="quiz-fields">
+        <div>
+          <div class="row"><label>Your property's district</label></div>
+          <select id="q-sector" style="width:100%;padding:.8rem 1rem;border-radius:12px;border:0;background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:1rem">
+            <option value="vieux">Vieux-Village</option>
+            <option value="haut" selected>Sainte-Thérèse-en-Haut</option>
+            <option value="bas">Sainte-Thérèse-en-Bas</option>
+          </select>
+        </div>
+        <div>
+          <div class="row"><label>Living area (sq ft)</label><span class="v" id="q-area-v">1,800 sq ft</span></div>
+          <input type="range" id="q-area" min="800" max="4000" step="50" value="1800">
+        </div>
+        <div>
+          <div class="row"><label>Year of construction</label><span class="v" id="q-year-v">1995</span></div>
+          <input type="range" id="q-year" min="1900" max="2026" step="1" value="1995">
+        </div>
+        <div>
+          <div class="row"><label>Target price</label><span class="v" id="q-price-v">620 000 $</span></div>
+          <input type="range" id="q-price" min="300000" max="1500000" step="5000" value="620000">
+        </div>
+      </div>
+      <div class="quiz-out">
+        <div class="verdict" id="q-verdict">Enter your parameters —</div>
+        <div class="delta" id="q-delta">—</div>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.65);margin-top:1.2rem">An indicative estimate based on 2026 medians. For a precise street-by-street evaluation, book a free comparative analysis.</p>
+    </div>
+
+    <h2>4. Why work with Alain Brunelle in Sainte-Thérèse</h2>
+    <p>Here's what a broker who has practised exclusively on the North Shore since 1992 concretely brings.</p>
+
+    <ul>
+      <li><strong>On-the-ground knowledge</strong> — every district of Sainte-Thérèse has its own dynamic. Vieux-Village, En-Haut and En-Bas position differently: price, buyer profile, timelines. I know these nuances because I work here every day.</li>
+      <li><strong>Network of active North Shore buyers</strong> — a listing is shared with my network <em>before</em> the Centris publication, which usually generates quick private showings.</li>
+      <li><strong>Complete marketing</strong> — HDR photography, drone video, floor plan, 360° virtual tour, optimized Centris listing. Included in the mandate, not as an extra.</li>
+      <li><strong>Street-by-street comparative analysis</strong> — I position your property on its exact side of the street, not on the municipal average that blurs the gaps.</li>
+      <li><strong>RE/MAX CRYSTAL team</strong> — a network of partner brokers, photographers, stagers and notaries.</li>
+    </ul>
+
+    <p class="muted" style="font-size:.85rem;font-style:italic">My performance statistics (median timeline, sold/asking ratio) are available on request, backed by my 2024-2025 transaction data.</p>
+
+    <div class="pullquote">“An average broker gives you a price. A real estate broker who knows your street gives you the three scenarios — and the ‘why’ of each.”<cite>— Alain Brunelle, 33 years in Sainte-Thérèse</cite></div>
+
+    <h2>5. What I'm watching right now — April 2026</h2>
+    <p>Sainte-Thérèse's seasonality is underestimated. Unlike Blainville, the sales peak is <strong>early May</strong>, not late April. Main reason: Vieux-Village draws many buyers from Laval and Montreal who visit after the Easter break.</p>
+    <ul>
+      <li><strong>New-condo inventory</strong> declining: 3 projects delivered, nothing new announced for 2026-2027 in Vieux-Village → upward pressure within 18 months.</li>
+      <li><strong>First-time-buyer demand</strong> in En-Bas: strong, but capped by the stress test at ~5.25%. Estimated ceiling of $520K for a median household.</li>
+      <li><strong>Seller window</strong> optimal: April 28 — June 20. Beyond that, downward pressure measured historically at -1.8% per month.</li>
+    </ul>
+
+    <div class="a-cta">
+      <h3>Your Sainte-Thérèse property deserves the finest analysis of its market.</h3>
+      <a class="btn" href="/en/rendez-vous/">Book an appointment with Alain</a>
+    </div>
+
+    <h2>6. FAQ — Sainte-Thérèse in 2026</h2>
+    <h3>How to choose your real estate broker in Sainte-Thérèse?</h3>
+    <p>The question isn't <em>who is the best</em> in absolute terms, but <em>who is the right real estate broker for your property and your exact neighbourhood</em>. The criteria that matter: number of transactions in <strong>your district</strong> (not across the whole city), median timeline on recent listings, sold/asking ratio, and the quality of the marketing strategy. My numbers: 33 years in Sainte-Thérèse, 3,000+ transactions, Top 5% RE/MAX Québec for 20 years, 99.2% ratio, 28-day median timeline.</p>
+
+    <h3>What is the average home price in Sainte-Thérèse?</h3>
+    <p>$582,000 median single-family price in 2026. But <strong>the median sells nothing</strong> : what sells is the right price for your street, with your build year, your renovations. Possible spread: ± $80,000 depending on the district.</p>
+
+    <h3>Sainte-Thérèse or Blainville?</h3>
+    <p>Sainte-Thérèse offers Vieux-Village character you won't find in Blainville, with an entry ticket 12% lower. Blainville offers larger lots and statistically better-rated schools. For families with young children, Blainville. For younger or more urban buyers, Sainte-Thérèse.</p>
+
+    <h3>How long to sell in Sainte-Thérèse?</h3>
+    <p>District median: 31 days. On my listings specifically: <strong>24 days</strong> on average in 2026. The difference comes from the initial positioning and the quality of the marketing.</p>
+
+    <div class="a-footer-meta">
+      <img src="/photos/alain/Creationsdoz-00647_Final.jpg" alt="Alain Brunelle">
+      <div>
+        <div class="who">Alain Brunelle</div>
+        <div class="who-sub">Residential real estate broker · RE/MAX CRYSTAL · Sainte-Thérèse, Blainville and North Shore</div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script>
+(function(){
+  // Chart 1 — 5-year median prices
+  const y5 = [['2021','420 000 $',420],['2022','478 000 $',478],['2023','512 000 $',512],['2024','538 000 $',538],['2025','562 000 $',562],['2026','582 000 $',582]];
+  const max5 = Math.max(...y5.map(r=>r[2]));
+  document.getElementById('chart-5y').innerHTML = y5.map(([y,l,v])=>
+    '<div class="bar-row"><span class="label">'+y+'</span><div class="bar"><span style="width:'+((v/max5)*100)+'%"></span></div><span class="val">'+l+'</span></div>'
+  ).join('');
+
+  // Sector volumes
+  const sectorVol = {
+    vieux: {name:'Vieux-Village', data:[['Condos',38],['Unifam.',14],['Plex',19]]},
+    haut:  {name:'Sainte-Thérèse-en-Haut', data:[['Cottages',52],['Jumelés',28],['Condos',9]]},
+    bas:   {name:'Sainte-Thérèse-en-Bas', data:[['Bungalows',41],['Cottages',17],['Plex',8]]}
+  };
+  function renderSectorChart(key){
+    const s=sectorVol[key];
+    document.getElementById('chart-sector-title').textContent = 'Répartition des ventes — '+s.name;
+    const max=Math.max(...s.data.map(d=>d[1]));
+    document.getElementById('chart-sector').innerHTML = s.data.map(([l,v])=>
+      '<div class="bar-row"><span class="label">'+l+'</span><div class="bar"><span style="width:'+((v/max)*100)+'%"></span></div><span class="val">'+v+'</span></div>'
+    ).join('');
+  }
+  renderSectorChart('haut');
+  document.querySelectorAll('#sector-table tbody tr').forEach(tr=>{
+    tr.addEventListener('click',()=>{
+      document.querySelectorAll('#sector-table tbody tr').forEach(x=>x.classList.remove('active'));
+      tr.classList.add('active');
+      renderSectorChart(tr.dataset.s);
+    });
+  });
+  document.querySelector('#sector-table tbody tr[data-s=haut]').classList.add('active');
+
+  // Quiz — price positioning
+  const fmt = n=>new Intl.NumberFormat('fr-CA',{maximumFractionDigits:0}).format(Math.round(n))+' $';
+  const medPpf = { vieux:345, haut:298, bas:258 };
+  const update = ()=>{
+    const sec = document.getElementById('q-sector').value;
+    const area = +document.getElementById('q-area').value;
+    const year = +document.getElementById('q-year').value;
+    const price = +document.getElementById('q-price').value;
+    document.getElementById('q-area-v').textContent = area.toLocaleString('fr-CA')+' pi²';
+    document.getElementById('q-year-v').textContent = year;
+    document.getElementById('q-price-v').textContent = fmt(price);
+    let est = medPpf[sec]*area;
+    // Age adjustment
+    const age = 2026-year;
+    if (age<5) est*=1.08;
+    else if (age<15) est*=1.02;
+    else if (age<30) est*=1.00;
+    else if (age<50) est*=0.93;
+    else est*=0.88;
+    const delta = price - est;
+    const pct = delta/est*100;
+    const el = document.getElementById('q-delta');
+    const v = document.getElementById('q-verdict');
+    el.textContent = (delta>=0?'+':'')+fmt(delta).replace(' $','')+' $';
+    el.classList.remove('pos','neg');
+    if (Math.abs(pct)<3){ v.textContent='Excellent — your price is aligned with the district.'; el.classList.add('pos'); }
+    else if (pct>=3 && pct<8){ v.textContent='Slightly overpriced — feasible for very high-end properties.'; el.classList.add('neg'); }
+    else if (pct>=8){ v.textContent='Marked overpricing — risk of a longer time to sell.'; el.classList.add('neg'); }
+    else if (pct<=-3 && pct>-8){ v.textContent='Undervalued — you\'re leaving money on the table.'; el.classList.add('pos'); }
+    else { v.textContent='Strongly undervalued — book an analysis before listing.'; el.classList.add('pos'); }
+  };
+  ['q-sector','q-area','q-year','q-price'].forEach(id=>document.getElementById(id).addEventListener('input',update));
+  update();
+})();
+</script>
+
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <img src="/brand_assets/logoblanc.png" alt="Alain Brunelle" height="56">
+        <img class="f-remax-crystal" src="/brand_assets/ucarecdn.avif" alt="RE/MAX CRYSTAL" height="52">
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">📍 Sainte-Thérèse</div>
+        <address class="f-address">
+          228 boul. du Curé-Labelle<br>
+          Sainte-Thérèse, Québec J7E 2X7<br>
+          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
+        </address>
+      </div>
+      <div class="f-col">
+        <h4>Territories</h4>
+        <ul>
+          <li><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a></li>
+          <li><a href="/en/courtier-immobilier/blainville/">Blainville</a></li>
+          <li><a href="/en/courtier-immobilier/rosemere/">Rosemère</a></li>
+          <li><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <div class="f-eyebrow">🔗 Let's stay in touch</div>
+        <div class="f-social">
+          <a href="https://www.facebook.com/AlainBrunelleCourtier/" target="_blank" rel="noopener" aria-label="Facebook" class="f-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+        </div>
+        <h4 style="margin-top:1.8rem">Services</h4>
+        <ul>
+          <li><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a></li>
+          <li><a href="/en/acheter/calculatrices/">Calculators</a></li>
+          <li><a href="/en/rendez-vous/">Book 20 minutes</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="f-bottom">
+      <div class="f-bottom-legal">
+        © 2026 RE/MAX CRYSTAL — Independent and autonomous franchisee of <a href="https://www.remax-quebec.com" target="_blank" rel="noopener">RE/MAX Québec</a> — All rights reserved
+        <span class="f-divider">·</span> <a href="/en/politique-confidentialite/">Privacy policy</a>
+        <span class="f-divider">·</span> <a href="/en/conditions-utilisation/">Terms of use</a>
+        <span class="f-divider">·</span> <a href="#" onclick="event.preventDefault();window.openCookiePreferences&&window.openCookiePreferences();">Préférences cookies</a>
+      </div>
+      <div class="f-bottom-credit">
+        Website by <a href="https://vpourdesign.com" target="_blank" rel="noopener"><strong>vpourdesign</strong></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
