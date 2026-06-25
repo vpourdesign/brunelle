@@ -500,7 +500,8 @@ const NAV = [
     ['Marché immobilier','/marche-immobilier/'],
     ['À propos','/a-propos/'],
     ['Témoignages','/temoignages/']
-  ]}
+  ]},
+  { label: 'Me joindre', href: '/rendez-vous/' }
 ];
 
 function layout({ title, description, canonical, body, extraHead='', bodyClass='', jsonld='' }) {
