@@ -312,7 +312,8 @@ const SOLD_FORCE_REMOVE = new Set([
 // MLS à RETIRER du flux actif (utile quand Centris est en retard et garde
 // encore une vieille fiche relistée — évite le doublon vieux MLS + nouveau MLS).
 const ACTIVE_FORCE_REMOVE = new Set([
-  '11097983'  // ancien MLS de 912 Louis-Maron — remplacé par 13138023
+  '11097983', // ancien MLS de 912 Louis-Maron — remplacé par 13138023
+  '25953161'  // 56 Rue des Ducats, Blainville — retirée chez RE/MAX (listingnotfound), Centris pas synchronisé
 ]);
 
 if (HAS_CENTRIS) {
@@ -351,16 +352,23 @@ if (HAS_CENTRIS) {
     ) delete soldArchive[mls];
   }
   // Ajoute les MLS disparus depuis le dernier build → marqués sold aujourd'hui
-  // (sauf si une autre fiche du flux courant a la même adresse = relisting)
+  // (sauf si une autre fiche du flux courant a la même adresse = relisting,
+  // ou si le MLS est dans ACTIVE_FORCE_REMOVE = retrait, pas vente)
   for (const prev of prevProps) {
     if (
       !currentMlsSet.has(prev.mls)
       && !soldArchive[prev.mls]
       && !currentAddrSet.has(addrKey(prev))
       && !SOLD_FORCE_REMOVE.has(prev.mls)
+      && !ACTIVE_FORCE_REMOVE.has(prev.mls)
     ) {
       soldArchive[prev.mls] = { soldDate: today, data: prev };
     }
+  }
+  // Nettoie aussi les MLS d'ACTIVE_FORCE_REMOVE qui auraient été archivés
+  // antérieurement (avant l'override). Évite qu'ils traînent comme "vendus".
+  for (const mls of ACTIVE_FORCE_REMOVE) {
+    if (soldArchive[mls]) delete soldArchive[mls];
   }
   // Force-add : MLS encore présents dans le flux Centris mais marqués vendus
   // sur RE/MAX (Centris en retard). On les marque vendus ET on les retire du
