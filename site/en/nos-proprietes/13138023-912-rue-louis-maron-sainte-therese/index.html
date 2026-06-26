@@ -318,6 +318,28 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -385,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="from">Alain Brunelle · RE/MAX CRYSTAL</div>
       <div class="amount">749 900 $</div>
            <a class="btn" href="/en/rendez-vous/">Réserver une visite</a>
-           <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+           <a class="ph-obs btn alt" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">📞 <span class="ph-obs-txt">Cliquez pour afficher</span></a>
            <button type="button" class="cta-interest"
              data-property-address="912 Rue Louis-Maron, Sainte-Thérèse"
              data-property-price="749 900 $"
@@ -494,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell.: <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>

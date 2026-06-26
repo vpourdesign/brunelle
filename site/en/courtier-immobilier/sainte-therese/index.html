@@ -186,6 +186,28 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -302,7 +324,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
 <li><strong>Pre-release to my network of active buyers</strong> before Centris publication (on average 3-5 private showings from the start)</li>
 <li><strong>Full RE/MAX CRYSTAL team</strong> : partner brokers, photographers, stagers, notaries</li></ul>
       <h2>Most active property types in Sainte-Thérèse</h2>
-      <p>The new condo and townhouse dominate in Vieux-Village (buyers 35-50, professionals working in Laval or Montreal). The 1990-2010 single-family cottage leads in En-Haut. The renovated bungalow remains the safe bet in En-Bas. See <a href="/en/types-de-propriete/">all categories</a>.</p>
+      <p>Le condo neuf et la maison de ville dominent dans le Vieux-Village (acheteurs 35-50 ans, professionnels travaillant à Laval ou Montréal). Le cottage unifamilial 1990-2010 mène En-Haut. Le bungalow rénové reste la valeur sûre En-Bas.</p>
       <h2>FAQ — selling and buying in Sainte-Thérèse</h2>
       <h3>What is the average home price in Sainte-Thérèse in 2026?</h3>
 <p>Median single-family price Q1 2026: <strong>579 000 $</strong>. Range: ~$498K (En-Bas) to ~$700K+ (Vieux-Village, restored heritage properties).</p>
@@ -332,7 +354,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell.: <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>

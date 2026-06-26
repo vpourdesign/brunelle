@@ -186,6 +186,28 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -289,7 +311,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
       </div>
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
-        <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0"><a href="tel:4504305555">450.430.5555</a></p>
+        <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0"><a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></p>
         <p style="font-size:.88rem;color:var(--ink-2);margin:0"><a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></p>
       </div></aside>
   </div>
@@ -313,7 +335,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell. : <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell. : <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>

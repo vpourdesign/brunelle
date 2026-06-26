@@ -28,6 +28,21 @@ const SITE = path.join(ROOT, 'site');
 const FALLBACK_BROKER_NO = '111464';
 const TARGET_BROKER = { firstName: 'Alain', lastName: 'Brunelle' };
 
+// Téléphone d'Alain (cell) — obscurci en HTML, révélé par JS pour limiter
+// le scraping par bots/harvesters d'emails-numéros sans exécution JS.
+const ALAIN_PHONE_DIGITS = '5149724207';
+// Génère un <a> obscurci. Le href et le texte visible sont écrits en base64
+// dans data-attrs ; le JS dans layout() les décode au DOMContentLoaded.
+function obscuredPhone(opts = {}) {
+  const { display, prefix = '', cls = '', style = '', label = 'Cliquez pour afficher' } = opts;
+  const d = ALAIN_PHONE_DIGITS;
+  // Format d'affichage par défaut : 514 972-4207
+  const formatted = display || `${d.slice(0,3)} ${d.slice(3,6)}-${d.slice(6)}`;
+  const b64Tel = Buffer.from(`tel:${d}`).toString('base64');
+  const b64Txt = Buffer.from(formatted).toString('base64');
+  return `<a class="ph-obs ${cls}" data-ph-h="${b64Tel}" data-ph-t="${b64Txt}" href="#" rel="nofollow"${style?` style="${style}"`:''}>${prefix}<span class="ph-obs-txt">${label}</span></a>`;
+}
+
 // Google Calendar Appointment Schedule — remplace par ton URL complète
 // (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
 const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0P1JjhmUHDnIDJm4ys15k1zoHqetBRG3uas3kdXGc-_sOvILQzFBgRCRY5h5-2UoOMIrBlAcuz';
@@ -706,6 +721,28 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -744,7 +781,7 @@ ${body}
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell. : <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell. : ${obscuredPhone()}</span>
           <span class="f-line">Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>
@@ -2055,11 +2092,11 @@ function detailPage(p) {
         ? `<div class="sold-stamp">Vendu</div>
            <div class="sold-meta">Vendu le ${new Date(p.soldDate).toLocaleDateString('fr-CA',{day:'numeric',month:'long',year:'numeric'})}</div>
            <a class="btn" href="/vendre/evaluation-gratuite/">Évaluation gratuite</a>
-           <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+           ${obscuredPhone({cls:'btn alt',prefix:'📞 '})}
            <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Une propriété similaire vous intéresse ?</strong> Parlons-en — j'ai souvent des inscriptions à venir avant Centris.</div>`
         : `<div class="amount">${fmtPrice(p.price)}</div>
            <a class="btn" href="/rendez-vous/">Réserver une visite</a>
-           <a class="btn alt" href="tel:4504305555">📞 450.430.5555</a>
+           ${obscuredPhone({cls:'btn alt',prefix:'📞 '})}
            <button type="button" class="cta-interest"
              data-property-address="${p.street}, ${p.city}"
              data-property-price="${fmtPrice(p.price)}"
@@ -2309,7 +2346,7 @@ function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg,
       </div>
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
-        <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0"><a href="tel:4504305555">450.430.5555</a></p>
+        <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0">${obscuredPhone()}</p>
         <p style="font-size:.88rem;color:var(--ink-2);margin:0"><a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></p>
       </div>`;
 
@@ -2385,7 +2422,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Mise en marché complète incluse</strong> : photographie HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°, fiche Centris optimisée</li>
 <li><strong>Pré-diffusion à mon réseau d'acheteurs actifs</strong> avant publication Centris (en moyenne 3-5 visites privées dès le départ)</li>
 <li><strong>Équipe RE/MAX CRYSTAL complète</strong> : courtiers, photographes, stagers, notaires partenaires</li>`,
-      types: `<p>Le condo neuf et la maison de ville dominent dans le Vieux-Village (acheteurs 35-50 ans, professionnels travaillant à Laval ou Montréal). Le cottage unifamilial 1990-2010 mène En-Haut. Le bungalow rénové reste la valeur sûre En-Bas. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      types: `<p>Le condo neuf et la maison de ville dominent dans le Vieux-Village (acheteurs 35-50 ans, professionnels travaillant à Laval ou Montréal). Le cottage unifamilial 1990-2010 mène En-Haut. Le bungalow rénové reste la valeur sûre En-Bas.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Sainte-Thérèse en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>579 000 $</strong>. Fourchette : ~498 k$ (En-Bas) à ~700 k$+ (Vieux-Village, propriétés patrimoniales restaurées).</p>
 <h3>Combien de temps prend la vente d'une propriété à Sainte-Thérèse ?</h3>
@@ -2399,7 +2436,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> — je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
 <li><strong>Mise en marché complète incluse</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> — réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
-      types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois). Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Blainville en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>. La fourchette s'étend de ~580 000 $ (Côte-Saint-Louis, Alençon) à ~1,2 M$ (Fontainebleau secteur boisé, Chambéry haut de gamme).</p>
 <h3>Combien de temps prend la vente d'une propriété à Blainville ?</h3>
@@ -2413,7 +2450,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>33 ans à courtier dans le secteur</strong> — je connais l'historique de vente des principales propriétés et le profil typique des acheteurs Rosemère</li>
 <li><strong>Mise en marché haut de gamme</strong> : photo HDR 4K, vidéo drone, visite virtuelle 360°, brochure imprimée sur place</li>
 <li><strong>Discrétion totale</strong> : option de pré-diffusion privée avant Centris pour les propriétés sensibles à la confidentialité</li>`,
-      types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Rosemère en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>830 888 $</strong> (+13 % a/a). Fourchette typique : 700 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
 <h3>Combien de temps prend la vente d'une propriété à Rosemère ?</h3>
@@ -2427,7 +2464,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>33 ans d'expérience sur la Rive-Nord</strong>, dont une connaissance approfondie de l'architecture et de l'urbanisme particulier de Lorraine</li>
 <li><strong>Mise en marché complète</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li>`,
-      types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>`,
+      types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Lorraine en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>770 750 $</strong> (+13 % a/a). Lorraine est un marché niché mais en croissance soutenue.</p>
 <h3>Combien de temps prend la vente d'une propriété à Lorraine ?</h3>
@@ -4375,13 +4412,6 @@ const BLOG_POSTS = [
    'Trois scénarios chiffrés (condo 380 k$, cottage 580 k$, unifamiliale 720 k$) avec le revenu requis, mise de fonds et coûts cachés.',
    '9 min',
    '2026-04-20'],
-  ['plex-blainville-rendement',
-   'Plex à Blainville : rendement réel en 2026',
-   '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
-   'Blainville · Investissement',
-   'Cap rate, cash-flow, ratio dette-revenu — les vraies métriques pour évaluer un plex Blainville en 2026, sans illusion.',
-   '10 min',
-   '2026-04-12'],
   ['vieux-sainte-therese-vivre-village',
    'Vieux Sainte-Thérèse : vivre au cœur du village',
    '/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg',
@@ -4728,71 +4758,6 @@ const BLOG_CONTENT = {
 <p>Pour bâtir votre plan d'achat précis (avec ou sans pré-approbation), <a href="/rendez-vous/">prenez rendez-vous</a>. 20 minutes, sans engagement.</p>`
   },
 
-  'plex-blainville-rendement': {
-    lead: 'Rendement réel d\'un plex à Blainville en 2026 — exemple chiffré, cap rate, cash flow.',
-    body: `<p class="lead">Le plex Blainville reste un véhicule d'investissement intéressant en 2026, mais le cap rate s'est compressé sur 5 ans. Voici un exemple chiffré actuel — <strong>sans illusion</strong>.</p>
-
-<div class="stat-row">
-  <div class="stat-mini"><div class="n">786 k$</div><div class="l">Prix médian plex Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">+10 %</div><div class="l">Variation a/a (4 trim.)</div></div>
-  <div class="stat-mini"><div class="n">4,3 %</div><div class="l">Cap rate type aujourd'hui</div></div>
-  <div class="stat-mini"><div class="n">5,8 %</div><div class="l">Cap rate effectif après 5 ans</div></div>
-</div>
-
-<h2>L'exemple — triplex 870 000 $</h2>
-<table>
-  <thead><tr><th>Poste</th><th>Montant</th></tr></thead>
-  <tbody>
-    <tr><td>3 unités 4½ — loyers actuels</td><td>4 350 $/mois (1 450 $ chacun)</td></tr>
-    <tr><td>Revenus annuels bruts</td><td>52 200 $</td></tr>
-    <tr><td>Dépenses (taxes, assurance, entretien, vacance 5 %)</td><td>14 800 $</td></tr>
-    <tr><td><strong>Revenu net opération (NOI)</strong></td><td><strong>37 400 $</strong></td></tr>
-    <tr><td><strong>Cap rate brut</strong></td><td><strong>4,3 %</strong></td></tr>
-  </tbody>
-</table>
-
-<h2>Avec financement — la réalité du cash-flow</h2>
-<table>
-  <tbody>
-    <tr><td>Mise de fonds 20 %</td><td>174 000 $</td></tr>
-    <tr><td>Hypothèque commerciale 696 000 $ à 5,5 % / 25 ans</td><td>~4 230 $/mois</td></tr>
-    <tr><td>Service de la dette annuel</td><td>~50 760 $</td></tr>
-    <tr><td><strong>Cash-flow année 1</strong></td><td style="color:#c8364a"><strong>−13 360 $ (négatif)</strong></td></tr>
-  </tbody>
-</table>
-
-<div class="callout warn">
-  <div><strong>Année 1 : vous êtes en perte d'opération.</strong> C'est la réalité d'un plex à Blainville au prix médian actuel avec les taux 2026. Acheter un plex aujourd'hui en espérant un cash-flow positif immédiat, c'est se mentir. Si c'est votre stratégie, regardez ailleurs (Trois-Rivières, Drummondville).</div>
-</div>
-
-<h2>L'angle gagnant — pourquoi acheter quand même</h2>
-<div class="compare">
-  <div class="compare-col good">
-    <h3>Les 3 leviers qui transforment le rendement</h3>
-    <ul>
-      <li><strong>Hausse des loyers à la valeur marché.</strong> Les loyers Blainville sont sous-marché de 12-18 %. Sur 3-5 ans, le NOI peut grimper à 44-46 k$</li>
-      <li><strong>Appréciation du capital.</strong> +4 à +6 % par an historiquement à Blainville. Sur 5 ans = +20 à +33 %</li>
-      <li><strong>Amortissement de l'hypothèque.</strong> ~25 000 $ de principal payés en 5 ans — c'est de l'équité bâtie</li>
-    </ul>
-  </div>
-  <div class="compare-col bad">
-    <h3>Les risques à mesurer</h3>
-    <ul>
-      <li><strong>Vacance et défauts de paiement.</strong> Un mois vide annule 4 mois de cash-flow positif</li>
-      <li><strong>Travaux majeurs.</strong> Toit, fenêtres, mécanique — prévoir 1-2 % du prix en réserve par an</li>
-      <li><strong>Taux variables.</strong> Au renouvellement 5 ans, si les taux montent encore, le service de la dette enfle</li>
-      <li><strong>Législation des loyers.</strong> Hausses encadrées par le TAL — pas de hausse libre</li>
-    </ul>
-  </div>
-</div>
-
-<div class="callout success">
-  <div><strong>La vraie valeur est composite.</strong> Cap rate effectif sur 5 ans : 5,2-5,8 %. Combiné à l'appréciation du capital et à l'amortissement, le rendement total annualisé peut dépasser 10-12 % sur 5 ans — meilleur que la plupart des placements liquides. À condition de gérer le plex comme un actif, pas comme un projet passif.</div>
-</div>
-
-<p>Pour modéliser votre propre scénario plex, utilisez ma <a href="/acheter/calculatrices/">calculatrice de rendement</a> (cap rate, cash-flow, ratio dette-revenu) ou <a href="/rendez-vous/">parlons stratégie</a>.</p>`
-  },
-
   'vieux-sainte-therese-vivre-village': {
     lead: 'Vivre au Vieux Sainte-Thérèse en 2026 — vie de quartier, prix, qualité de vie.',
     body: `<p class="lead">Le Vieux Sainte-Thérèse n'est pas qu'un secteur immobilier — c'est un <strong>mode de vie</strong>. Voici à quoi ça ressemble en 2026, et pour quel profil c'est fait.</p>
@@ -4931,7 +4896,7 @@ writePage('a-propos/index.html', layout({
       <div class="eye" style="color:var(--blue-2)">Coordonnées</div>
       <h3 style="margin:.7rem 0 1rem">Alain Brunelle</h3>
       <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
-      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 <a href="tel:4504305555" style="color:var(--blue)">450.430.5555</a></p>
+      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 ${obscuredPhone({style:'color:var(--blue)'})}</p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
       <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Réserver 20 minutes</a>
     </div>
@@ -5119,7 +5084,7 @@ Courriel : <a href="mailto:rp@remaxcrystal.com">rp@remaxcrystal.com</a>
 <strong>Agence RE/MAX CRYSTAL — Sainte-Thérèse</strong><br>
 228 boul. du Curé-Labelle<br>
 Sainte-Thérèse, Québec J7E 2X7<br>
-Téléphone : <a href="tel:5149724207">514 972-4207</a><br>
+Téléphone : ${obscuredPhone()}<br>
 Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
 </div></div>
 <p class="muted" style="font-size:.82rem;margin-top:2rem">L'Agence vérifiera votre identité avant de traiter toute demande.</p>`
@@ -5206,7 +5171,7 @@ writePage('conditions-utilisation/index.html', contentPage({
 <strong>Alain Brunelle, Courtier Immobilier Inc.</strong><br>
 228 boul. du Curé-Labelle<br>
 Sainte-Thérèse, Québec J7E 2X7<br>
-Téléphone : <a href="tel:5149724207">514 972-4207</a><br>
+Téléphone : ${obscuredPhone()}<br>
 Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
 </div></div>`
 }));
@@ -5283,7 +5248,7 @@ const gcalEmbed = GCAL_APPOINTMENT_URL.includes('REMPLACE_MOI')
        <div>
          <h3 style="margin-bottom:.5rem">Agenda en configuration</h3>
          <p style="color:var(--ink-2);max-width:42ch;margin:0 auto 1.5rem">L'agenda sera activé dès qu'Alain aura partagé son lien Google Calendar Appointment Schedule.</p>
-         <a class="btn" href="tel:4504305555" style="display:inline-block;background:var(--ink);color:#fff;padding:1rem 1.6rem;border-radius:999px;font-weight:500">📞 450.430.5555</a>
+         ${obscuredPhone({cls:'btn',prefix:'📞 ',style:'display:inline-block;background:var(--ink);color:#fff;padding:1rem 1.6rem;border-radius:999px;font-weight:500'})}
        </div>
      </div>`
   : (() => {
@@ -5359,7 +5324,7 @@ writePage('rendez-vous/index.html', layout({
           <li>La prochaine étape concrète — pas de blabla, pas de pression</li>
         </ul>
         <h3 style="margin-top:1.5rem">Préférez le téléphone ?</h3>
-        <p style="font-size:1.2rem;color:var(--blue);margin:.3rem 0 0"><a href="tel:4504305555" style="color:inherit">450.430.5555</a></p>
+        <p style="font-size:1.2rem;color:var(--blue);margin:.3rem 0 0">${obscuredPhone({style:'color:inherit'})}</p>
       </div>
     </aside>
   </div>
@@ -5372,7 +5337,7 @@ writePage('rendez-vous/index.html', layout({
         <h2 style="max-width:18ch">Vous avez des questions ? Écrivez-moi.</h2>
         <p style="color:var(--ink-2);margin-top:1.2rem;max-width:42ch;font-size:1.02rem;line-height:1.7">Pas prêt à réserver un créneau ? Envoyez-moi votre question directement. Je réponds personnellement en moins de 24 h, jours ouvrables.</p>
         <div style="margin-top:1.8rem;display:grid;gap:.6rem;font-size:.95rem;color:var(--ink-2)">
-          <div>📞 <a href="tel:4504305555" style="color:var(--blue)">450.430.5555</a></div>
+          <div>📞 ${obscuredPhone({style:'color:var(--blue)'})}</div>
           <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
         </div>
       </div>

@@ -186,6 +186,28 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -260,7 +282,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
       <div class="eye" style="color:var(--blue-2)">Contact details</div>
       <h3 style="margin:.7rem 0 1rem">Alain Brunelle</h3>
       <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Residential real estate broker<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
-      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 <a href="tel:4504305555" style="color:var(--blue)">450.430.5555</a></p>
+      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow" style="color:var(--blue)"><span class="ph-obs-txt">Cliquez pour afficher</span></a></p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
       <a class="btn" href="/en/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Book 20 minutes</a>
     </div>
@@ -279,7 +301,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell.: <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>

@@ -186,6 +186,28 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -244,7 +266,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
 <li><strong>Mise en marché complète</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li></ul>
       <h2>Types de propriétés les plus actifs à Lorraine</h2>
-      <p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière. Voir <a href="/types-de-propriete/">toutes les catégories</a>.</p>
+      <p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière.</p>
       <h2>FAQ — vendre et acheter à Lorraine</h2>
       <h3>Quel est le prix moyen d'une maison à Lorraine en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>770 750 $</strong> (+13 % a/a). Lorraine est un marché niché mais en croissance soutenue.</p>
@@ -274,7 +296,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell. : <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell. : <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>

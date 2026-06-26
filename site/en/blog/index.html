@@ -241,6 +241,28 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
   }
 })();
 </script>
+<script>
+// Révélation des téléphones obscurcis — masqués en HTML statique (base64),
+// décodés et rendus cliquables par JS pour limiter le scraping
+(function(){
+  function reveal(){
+    document.querySelectorAll('a.ph-obs[data-ph-h]').forEach(function(el){
+      try{
+        var h=atob(el.getAttribute('data-ph-h'));
+        var t=atob(el.getAttribute('data-ph-t'));
+        el.setAttribute('href',h);
+        var span=el.querySelector('.ph-obs-txt');
+        if(span)span.textContent=t;
+        el.removeAttribute('data-ph-h');
+        el.removeAttribute('data-ph-t');
+        el.removeAttribute('rel');
+      }catch(e){}
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',reveal);
+  else reveal();
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/en/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
@@ -273,7 +295,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
       <h1>Understand the North Shore market — before you act.</h1>
       <p class="lead">Street-by-street analyses, interactive tools and guides. For sellers, buyers and investors in Sainte-Thérèse, Blainville, Rosemère and Lorraine.</p>
       <div class="bh-meta">
-        <span>7 articles</span>
+        <span>6 articles</span>
         <span class="dot"></span>
         <span>Updated May 2026</span>
         <span class="dot"></span>
@@ -343,15 +365,6 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         </div>
       </a>
     
-      <a class="blog-card" href="/en/blog/plex-blainville-rendement/" data-tag="Blainville · Investissement">
-        <div class="bc-img"><img src="/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg" alt="Plex in Blainville: real yield in 2026" loading="lazy"><span class="bc-tag">Blainville · Investment</span></div>
-        <div class="bc-body">
-          <h3>Plex in Blainville: real yield in 2026</h3>
-          <p>Cap rate, cash flow, debt-to-income ratio — the real metrics to evaluate a Blainville plex in 2026, no illusions.</p>
-          <div class="bc-foot"><span>10 min · Apr 12, 2026</span><span class="bc-arrow">→</span></div>
-        </div>
-      </a>
-    
       <a class="blog-card" href="/en/blog/vieux-sainte-therese-vivre-village/" data-tag="Sainte-Thérèse · Quartiers">
         <div class="bc-img"><img src="/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg" alt="Old Sainte-Thérèse: living in the heart of the village" loading="lazy"><span class="bc-tag">Sainte-Thérèse · Neighbourhoods</span></div>
         <div class="bc-body">
@@ -398,7 +411,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
         <address class="f-address">
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
-          <span class="f-line">Cell.: <a href="tel:5149724207">514 972-4207</a></span>
+          <span class="f-line">Cell.: <a class="ph-obs " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><span class="ph-obs-txt">Cliquez pour afficher</span></a></span>
           <span class="f-line">Email: <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
         </address>
       </div>
