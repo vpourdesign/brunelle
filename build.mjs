@@ -1898,7 +1898,6 @@ const homeBody = `
 <div class="container">
   <div class="sec-head reveal">
     <div><div class="eye">33 ans d'expérience · Rive-Nord</div><h2>Le marché expliqué sans compromis.</h2></div>
-    <a href="https://youtube.com" class="more">Voir la chaîne YouTube →</a>
   </div>
   <div class="vid-grid reveal">
     ${videos.map(v => `
