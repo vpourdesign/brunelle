@@ -46,8 +46,8 @@ function obscuredPhone(opts = {}) {
 // Google Calendar Appointment Schedule — remplace par ton URL complète
 // (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
 const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0P1JjhmUHDnIDJm4ys15k1zoHqetBRG3uas3kdXGc-_sOvILQzFBgRCRY5h5-2UoOMIrBlAcuz';
-// Clé Web3Forms — créer un compte gratuit sur web3forms.com puis remplacer ici
-const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY || 'REMPLACE_MOI_WEB3FORMS_KEY';
+// Endpoint Formspree — tous les formulaires du site envoient ici
+const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/xlgyblyk';
 // Base URL des vidéos. En local: '' → sert /videos/foo.mp4 depuis site/. En prod Vercel: pointer vers Vercel Blob.
 // Ex: VIDEO_BASE=https://abc123.public.blob.vercel-storage.com/videos
 const VIDEO_BASE = process.env.VIDEO_BASE || '';
@@ -2344,9 +2344,8 @@ function detailPage(p) {
         <p class="pi-context">À propos de : <strong data-slot="address">—</strong></p>
         <h2 id="pi-title">Cette propriété vous intéresse?</h2>
         <p class="pi-sub">Alain vous répond personnellement en moins de 24 h ouvrables.</p>
-        <form class="pi-form" id="pi-form" novalidate>
-          <input type="hidden" name="access_key" value="${WEB3FORMS_KEY}">
-          <input type="hidden" name="from_name" value="Site alainbrunelle.com">
+        <form class="pi-form" id="pi-form" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Demande de propriété — alainbrunelle.com">
           <input type="hidden" name="subject" data-slot="subject" value="Nouveau lead">
           <input type="hidden" name="property_address" data-slot="hAddress" value="">
           <input type="hidden" name="property_price" data-slot="hPrice" value="">
@@ -2501,19 +2500,13 @@ document.addEventListener('DOMContentLoaded', function(){
       errEl.textContent = bad==='name'?'Veuillez saisir votre nom complet.' : bad==='email'?'Adresse courriel invalide.' : 'Numéro de téléphone invalide (10 chiffres minimum).';
       errEl.hidden=false; return;
     }
-    if(data.get('access_key')==='REMPLACE_MOI_WEB3FORMS_KEY'){
-      errEl.textContent="Le formulaire n'est pas encore configuré (clé Web3Forms manquante). Veuillez appeler le 450.430.5555.";
-      errEl.hidden=false; return;
-    }
     submitBtn.disabled=true; submitBtn.textContent='Envoi…';
     try{
-      const json=Object.fromEntries(data.entries());
-      const res=await fetch('https://api.web3forms.com/submit',{ method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(json) });
-      const out=await res.json().catch(()=>({success:false}));
-      if(!res.ok || !out.success) throw new Error(out.message||'Erreur serveur');
+      const res=await fetch(form.action,{ method:'POST', headers:{'Accept':'application/json'}, body:data });
+      if(!res.ok) throw new Error('Erreur serveur');
       fieldsWrap.hidden=true; ok.hidden=false;
     }catch(err){
-      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez le 450.430.5555.";
+      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez Alain directement.";
       errEl.hidden=false;
     }finally{
       submitBtn.disabled=false; submitBtn.textContent='Envoyer ma demande';
@@ -3052,7 +3045,8 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
       <div class="eval-step-dot" data-dot="5"></div>
     </div>
 
-    <form class="eval-card" id="eval-form" onsubmit="return false">
+    <form class="eval-card" id="eval-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="return false">
+      <input type="hidden" name="_subject" value="Demande d'évaluation — alainbrunelle.com">
       <!-- ÉTAPE 1 — Adresse -->
       <div class="eval-step active" data-step="1">
         <div class="eval-meta">Étape 1 sur 5</div>
@@ -3261,16 +3255,37 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
     if(current>1)go(current-1);
   });
 
-  // Submit
-  function submit(){
-    // For now, no backend — show success state with summary.
-    // To wire backend later: POST answers to /api/evaluation or Formspree.
+  // Submit — POST à Formspree
+  async function submit(){
     const labels={
       type:{unifamiliale:'Unifamiliale',condo:'Condo','maison-ville':'Maison de ville',plex:'Plex'},
       etages:{'1':'1 étage','1.5':'1½','2':'2 étages','3+':'3+ étages'},
       soussol:{fini:'fini',semi:'semi-fini','non-fini':'non fini',aucun:'aucun sous-sol'},
       renos:{'-5':'récentes (< 5 ans)','5-10':'5 à 10 ans','10-25':'10 à 25 ans','25+':'plus de 25 ans',aucune:'aucune'}
     };
+    const btn=$('#eval-next');
+    btn.disabled=true; const oldLabel=btn.textContent; btn.textContent='Envoi…';
+    const form=$('#eval-form');
+    const fd=new FormData();
+    fd.append('_subject',"Demande d'évaluation — alainbrunelle.com");
+    fd.append('Adresse',answers.address||'');
+    fd.append('Type',labels.type[answers.type]||answers.type||'');
+    fd.append('Étages',labels.etages[answers.etages]||answers.etages||'');
+    fd.append('Sous-sol',labels.soussol[answers.soussol]||answers.soussol||'');
+    fd.append('Chambres',answers.chambres||'');
+    fd.append('Salles de bain',answers.sdb||'');
+    fd.append('Rénovations',labels.renos[answers.renos]||answers.renos||'');
+    fd.append('Nom',answers.name||'');
+    fd.append('Téléphone',answers.phone||'');
+    fd.append('Courriel',answers.email||'');
+    try{
+      const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:fd});
+      if(!res.ok) throw new Error('Erreur serveur');
+    }catch(e){
+      btn.disabled=false; btn.textContent=oldLabel;
+      alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alainbrunelle@alainbrunelle.com.");
+      return;
+    }
     const recap='<strong>Récapitulatif</strong><br>'+
       '📍 '+answers.address+'<br>'+
       '🏡 '+(labels.type[answers.type]||answers.type)+' · '+(labels.etages[answers.etages]||answers.etages)+' · sous-sol '+(labels.soussol[answers.soussol]||answers.soussol)+'<br>'+
@@ -5556,7 +5571,8 @@ writePage('rendez-vous/index.html', layout({
           <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
         </div>
       </div>
-      <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.f-ok').hidden=false; this.querySelector('.f-fields').hidden=true;">
+      <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alainbrunelle@alainbrunelle.com.');}})(event);return false;">
+        <input type="hidden" name="_subject" value="Message contact — alainbrunelle.com">
         <div class="f-fields">
           <label>Nom complet<input type="text" name="name" required></label>
           <div class="f-row">
