@@ -1,21 +1,21 @@
 {
-  "total": 6,
-  "avgPrice": 748250,
-  "totalValue": 4489500,
+  "total": 4,
+  "avgPrice": 793675,
+  "totalValue": 3174700,
   "byCity": {
-    "Sainte-Thérèse": 3,
+    "Sainte-Thérèse": 2,
     "Boisbriand": 1,
-    "Blainville": 2
+    "Blainville": 1
   },
   "byType": {
     "Propriété": 2,
-    "Maison de ville": 2,
-    "Maison unifamiliale": 2
+    "Maison de ville": 1,
+    "Maison unifamiliale": 1
   },
   "priceRanges": {
     "<300k": 0,
     "300-500k": 0,
-    "500-800k": 4,
+    "500-800k": 2,
     "800k-1.5M": 2,
     ">1.5M": 0
   }
