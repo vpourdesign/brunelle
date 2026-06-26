@@ -296,6 +296,19 @@ let soldArchive = {};
 if (fs.existsSync(SOLD_ARCHIVE_PATH)) {
   try { soldArchive = JSON.parse(fs.readFileSync(SOLD_ARCHIVE_PATH, 'utf8')); } catch {}
 }
+// Overrides manuels sold-archive : utiles quand le flux Centris est en retard
+// par rapport à la réalité (RE/MAX a déjà marqué vendu mais Centris pas encore,
+// ou Centris a archivé un MLS qui était en fait juste re-listé).
+const SOLD_FORCE_ADD = new Set([
+  // MLS à forcer "vendu" même s'ils sont encore actifs dans le flux Centris
+  '27394044',  // 26 Rue Jeanne-Bonfond, Blainville (vendu sur RE/MAX)
+  '22593073'   // 38 Rue Ouimet, Sainte-Thérèse (vendu sur RE/MAX)
+]);
+const SOLD_FORCE_REMOVE = new Set([
+  // MLS à RETIRER du sold-archive (relistings sous nouveau MLS, etc.)
+  '11097983',  // 912 Rue Louis-Maron — re-listé sous MLS 13138023
+  '21147996'   // 2745 Rue des Francs-Bourgeois, Boisbriand — toujours actif sur RE/MAX
+]);
 
 if (HAS_CENTRIS) {
   console.log('Mode A · Reading Centris zip…');
@@ -308,19 +321,60 @@ if (HAS_CENTRIS) {
     ? (() => { try { return JSON.parse(fs.readFileSync(prevPath, 'utf8')); } catch { return []; } })()
     : [];
   const currentMlsSet = new Set(properties.map(p => p.mls));
+  // Index par adresse (street+city normalisés) pour détecter les relistings
+  const addrKey = p => `${(p.street||'').toLowerCase().trim()}|${(p.city||'').toLowerCase().trim()}`;
+  const currentAddrSet = new Set(properties.map(addrKey));
   const today = new Date().toISOString().slice(0, 10);
   // Élague l'archive (>30 jours) + réintègre les MLS qui sont revenus dans le flux
   const nowMs = Date.now();
   const retentionMs = SOLD_RETENTION_DAYS * 86400000;
   for (const mls of Object.keys(soldArchive)) {
     const t = new Date(soldArchive[mls].soldDate).getTime();
-    if (isNaN(t) || nowMs - t > retentionMs || currentMlsSet.has(mls)) delete soldArchive[mls];
+    const sameAddrActive = currentAddrSet.has(addrKey(soldArchive[mls].data || {}));
+    if (
+      isNaN(t)
+      || nowMs - t > retentionMs
+      || currentMlsSet.has(mls)
+      || SOLD_FORCE_REMOVE.has(mls)
+      || sameAddrActive  // re-listing détecté : même adresse réapparue sous un autre MLS
+    ) delete soldArchive[mls];
   }
   // Ajoute les MLS disparus depuis le dernier build → marqués sold aujourd'hui
+  // (sauf si une autre fiche du flux courant a la même adresse = relisting)
   for (const prev of prevProps) {
-    if (!currentMlsSet.has(prev.mls) && !soldArchive[prev.mls]) {
+    if (
+      !currentMlsSet.has(prev.mls)
+      && !soldArchive[prev.mls]
+      && !currentAddrSet.has(addrKey(prev))
+      && !SOLD_FORCE_REMOVE.has(prev.mls)
+    ) {
       soldArchive[prev.mls] = { soldDate: today, data: prev };
     }
+  }
+  // Force-add : MLS encore présents dans le flux Centris mais marqués vendus
+  // sur RE/MAX (Centris en retard). On les marque vendus ET on les retire du
+  // flux actif pour éviter le doublon active/sold.
+  for (const mls of SOLD_FORCE_ADD) {
+    const idx = properties.findIndex(p => p.mls === mls);
+    if (idx >= 0) {
+      if (!soldArchive[mls]) soldArchive[mls] = { soldDate: today, data: properties[idx] };
+      properties.splice(idx, 1);
+    }
+  }
+  // Manual-active : propriétés actives sur RE/MAX mais en retard dans Centris.
+  // Quand Centris rattrape (MLS apparaît dans le flux), l'entrée manuelle est
+  // automatiquement ignorée (le MLS du flux a priorité).
+  const MANUAL_ACTIVE_PATH = path.join(ROOT, 'data', 'manual-active.json');
+  if (fs.existsSync(MANUAL_ACTIVE_PATH)) {
+    try {
+      const manual = JSON.parse(fs.readFileSync(MANUAL_ACTIVE_PATH, 'utf8'));
+      for (const m of manual) {
+        if (!currentMlsSet.has(m.mls) && !soldArchive[m.mls]) {
+          properties.push(m);
+          currentMlsSet.add(m.mls);
+        }
+      }
+    } catch (e) { console.warn('manual-active.json invalid:', e.message); }
   }
   fs.mkdirSync(path.dirname(SOLD_ARCHIVE_PATH), { recursive: true });
   fs.writeFileSync(SOLD_ARCHIVE_PATH, JSON.stringify(soldArchive, null, 2));
@@ -553,6 +607,8 @@ ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="/brand_assets/digital_ballon.png">
+<link rel="apple-touch-icon" href="/brand_assets/digital_ballon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
