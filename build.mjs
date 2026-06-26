@@ -309,11 +309,22 @@ const SOLD_FORCE_REMOVE = new Set([
   '11097983',  // 912 Rue Louis-Maron — re-listé sous MLS 13138023
   '21147996'   // 2745 Rue des Francs-Bourgeois, Boisbriand — toujours actif sur RE/MAX
 ]);
+// MLS à RETIRER du flux actif (utile quand Centris est en retard et garde
+// encore une vieille fiche relistée — évite le doublon vieux MLS + nouveau MLS).
+const ACTIVE_FORCE_REMOVE = new Set([
+  '11097983'  // ancien MLS de 912 Louis-Maron — remplacé par 13138023
+]);
 
 if (HAS_CENTRIS) {
   console.log('Mode A · Reading Centris zip…');
   const membres = read('MEMBRES.TXT');
   ({ properties, stats } = ingestFromCentris(membres));
+  // Filtrage des MLS bannis (relistings vieux MLS encore présents dans le zip)
+  if (ACTIVE_FORCE_REMOVE.size > 0) {
+    const before = properties.length;
+    properties = properties.filter(p => !ACTIVE_FORCE_REMOVE.has(p.mls));
+    if (before !== properties.length) console.log(`🚫 ${before-properties.length} MLS retiré(s) du flux actif via ACTIVE_FORCE_REMOVE`);
+  }
 
   // Détection sold : compare avec le précédent build avant d'écraser
   const prevPath = path.join(SITE, 'data', 'properties.json');
