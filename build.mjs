@@ -974,7 +974,7 @@ h2{font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:400}
 h3{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:500}
 p{margin:0 0 1em}
 .container{max-width:var(--container);margin-inline:auto;padding-inline:var(--pad)}
-section{padding-block:clamp(3rem,7vw,6rem)}
+section{padding-block:clamp(2.25rem,6vw,6rem)}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:1.5rem;padding:.85rem clamp(1rem,3vw,2.5rem);background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(230,235,242,.8);box-shadow:0 1px 0 rgba(255,255,255,.8),0 8px 24px -12px rgba(11,22,40,.08)}
@@ -1498,7 +1498,106 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .lq-restart{margin-top:.2rem;background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(15,42,90,.2);text-underline-offset:3px;align-self:flex-start;padding:0}
 .lq-restart:hover{color:var(--blue);text-decoration-color:var(--blue)}
 @media(max-width:760px){.lq-result{grid-template-columns:1fr;gap:1.4rem;text-align:left}.lq-result::before{display:none}.lq-result h3{max-width:none}.lq-result .lq-left{padding-right:0}}
-@media(max-width:540px){.lq-opt{padding:1rem 1.1rem;font-size:.95rem}.lq-progress span{width:36px}}
+@media(max-width:540px){.lq-opt{padding:1.1rem 1.2rem;font-size:.95rem;min-height:56px;gap:1rem}.lq-progress span{width:36px}}
+
+/* ============================================================
+   MOBILE POLISH — calibrations < 540px (smartphones standard)
+   Senior mobile design : touch targets ≥ 48px, typographie
+   confortable, padding adapté pour ne pas étouffer le contenu
+   ============================================================ */
+@media(max-width:540px){
+  /* Headings — éviter le mur de texte */
+  h1{font-size:clamp(2rem,8vw,2.6rem);line-height:1.1;letter-spacing:-.025em}
+  h2{font-size:clamp(1.5rem,6vw,2rem);line-height:1.15}
+  p{line-height:1.6}
+
+  /* Hero — photo moins dominante sur petit écran */
+  .hero-photo{min-height:420px;border-radius:clamp(18px,5vw,28px)}
+  .hero-photo .p-tag{bottom:5.8rem;font-size:.68rem;letter-spacing:.08em;padding:.4rem .85rem}
+  .hero-photo .p-caption{font-size:.95rem;bottom:1.4rem;left:1.2rem;right:1.2rem;line-height:1.4}
+
+  /* Hero card — éviter que le H1 prenne toute la place */
+  .hero-card{padding:1.6rem 1.4rem}
+  .hero-cities{gap:.4rem}
+  .hero-cities span{font-size:.78rem;padding:.32rem .7rem}
+
+  /* Hero CTA dark — proportions confortables */
+  .hero-cta{padding:1.2rem 1.3rem}
+  .hero-cta strong{font-size:1rem;line-height:1.3}
+  .hero-cta small{font-size:.76rem;margin-top:.25rem}
+  .hero-cta .arrow{width:42px;height:42px;flex-shrink:0}
+
+  /* Nav — burger touch target */
+  .nav{padding:.75rem 1rem;gap:.75rem}
+  .nav-burger{font-size:1.6rem;padding:.4rem .6rem;min-height:44px;min-width:44px;display:grid;place-items:center}
+  .nav-cta{padding:.65rem 1rem .65rem .85rem;font-size:.85rem}
+
+  /* Stats grid (section dark) — chiffres plus serrés */
+  .stat{padding:1.3rem 1.2rem}
+  .stat .n{font-size:1.9rem}
+  .stat .l{font-size:.8rem;line-height:1.35}
+
+  /* Proof bar — texte plus lisible */
+  .proof-bar{padding-block:1.5rem}
+  .proof-grid{gap:1.6rem 1rem}
+  .proof-v{font-size:.95rem}
+  .proof-l{font-size:.74rem;line-height:1.4}
+
+  /* Reviews — slider plus compact */
+  .reviews{padding:1.5rem 1.3rem}
+  .reviews-head{padding-bottom:1rem;margin-bottom:1.3rem}
+  .reviews-title{font-size:.88rem}
+  .review-q{font-size:1.05rem;margin-bottom:1.2rem;line-height:1.5}
+  .reviews-prev,.reviews-next{width:42px;height:42px}
+  .reviews-cta{padding-top:1.4rem;margin-top:1.5rem}
+  .reviews-write{font-size:.85rem;padding:.75rem 1.2rem}
+
+  /* Property cards — éviter de prendre toute la hauteur viewport */
+  .prop-grid{gap:1rem}
+  .pcard .body{padding:1rem 1.1rem 1.2rem}
+  .pcard .addr{font-size:1rem}
+  .pcard .price{font-size:1.3rem}
+
+  /* Lead qualifier (questionnaire) — déjà géré au-dessus mais on raffine */
+  .lq{padding:1.6rem 1.3rem}
+  .lq-head{margin-bottom:1.5rem}
+  .lq-step-tag{font-size:.68rem;padding:.4rem .9rem .4rem .5rem;margin-bottom:1rem}
+  .lq-q{font-size:1.3rem;line-height:1.25}
+  .lq-opts{gap:.7rem}
+
+  /* CTA bands — pleins largeur, padding fluide */
+  .cta-band{padding:1.6rem 1.4rem;gap:1rem}
+  .cta-band h2{font-size:1.3rem;line-height:1.2}
+  .cta-band .btn{width:100%;text-align:center}
+
+  /* About grid — photo + texte */
+  .about-photo{aspect-ratio:5/4;border-radius:clamp(18px,5vw,28px)}
+
+  /* Vidéo grid — meilleurs touch targets */
+  .vid{aspect-ratio:9/14}
+  .vid .t{font-size:.85rem;padding:.7rem .9rem}
+  .vid .play{width:48px;height:48px;font-size:1rem}
+
+  /* Footer — espacement plus tight */
+  .footer{padding-top:2.5rem}
+  .f-grid{gap:2rem}
+  .f-bottom{font-size:.78rem;gap:.6rem}
+  .f-bottom-legal{line-height:1.55}
+
+  /* Agency bar — pile verticale propre */
+  .agency-bar-inner{flex-direction:column;gap:.3rem;text-align:center}
+  .agency-bar-sep{display:none}
+  .agency-bar-tel{margin-top:.15rem;font-size:.88rem;padding:.25rem .5rem}
+
+  /* Section padding — plus respectueux du viewport */
+  section{padding-block:clamp(2rem,7vw,3rem)}
+}
+
+/* Respect prefers-reduced-motion — pause auto-play du slider */
+@media (prefers-reduced-motion: reduce){
+  .review-card{transition:opacity .15s linear,transform .15s linear}
+  .reviews-prev,.reviews-next,.reviews-dot,.reviews-write{transition:none}
+}
 
 /* Reveal anim on scroll */
 @media (prefers-reduced-motion: no-preference) {
@@ -2002,7 +2101,8 @@ const homeBody = `
     cards.forEach((c,k)=>c.classList.toggle('on', k===i));
     dots.forEach((d,k)=>d.classList.toggle('on', k===i));
   }
-  function auto(){ clearInterval(timer); timer=setInterval(()=>go(i+1), 6500); }
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function auto(){ if(reduceMotion) return; clearInterval(timer); timer=setInterval(()=>go(i+1), 6500); }
   root.querySelector('.reviews-prev').addEventListener('click',()=>{go(i-1);auto();});
   root.querySelector('.reviews-next').addEventListener('click',()=>{go(i+1);auto();});
   dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k);auto();}));
