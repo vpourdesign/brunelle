@@ -306,13 +306,12 @@ const SOLD_FORCE_ADD = new Set([
 ]);
 const SOLD_FORCE_REMOVE = new Set([
   // MLS à RETIRER du sold-archive (relistings sous nouveau MLS, etc.)
-  '11097983',  // 912 Rue Louis-Maron — re-listé sous MLS 13138023
-  '21147996'   // 2745 Rue des Francs-Bourgeois, Boisbriand — toujours actif sur RE/MAX
+  // (vide pour l'instant — historiquement on avait 11097983 et 21147996,
+  // mais ces deux MLS sont en fait les bons actifs)
 ]);
 // MLS à RETIRER du flux actif (utile quand Centris est en retard et garde
 // encore une vieille fiche relistée — évite le doublon vieux MLS + nouveau MLS).
 const ACTIVE_FORCE_REMOVE = new Set([
-  '11097983', // ancien MLS de 912 Louis-Maron — remplacé par 13138023
   '25953161'  // 56 Rue des Ducats, Blainville — retirée chez RE/MAX (listingnotfound), Centris pas synchronisé
 ]);
 
