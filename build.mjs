@@ -1444,6 +1444,9 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 .lq{background:linear-gradient(160deg,#fff 0%,var(--blue-soft) 100%);border-radius:var(--radius-lg);padding:clamp(2rem,4vw,3.5rem);position:relative;overflow:hidden;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.5)}
 .lq--framed{border:1.5px solid var(--blue);box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.7),0 0 0 1px rgba(0,61,165,.05)}
 
+/* Section fond gris pâle pour le questionnaire vendeur */
+.lq-section{background:var(--surface);padding-block:clamp(2.5rem,5vw,4.5rem)}
+
 /* Bandeau preuves — entre hero et questionnaire vendeur */
 .proof-bar{padding-block:clamp(1.4rem,3vw,2.2rem);background:linear-gradient(180deg,#fafbfd 0%,var(--surface) 100%);border-top:1px solid #eef2f8;border-bottom:1px solid #eef2f8;margin-block:clamp(.5rem,1.5vw,1rem)}
 .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);align-items:center;gap:1rem}
@@ -1746,8 +1749,9 @@ const homeBody = `
   </div>
 </section>
 
-<section class="container" id="lead-qualifier" aria-label="Profil vendeur">
-  <div class="lq reveal lq--framed">
+<section class="lq-section" id="lead-qualifier" aria-label="Profil vendeur">
+  <div class="container">
+    <div class="lq reveal lq--framed">
     <div class="lq-head">
       <div class="eye">Pour les vendeurs</div>
       <h2>Vous songez <em>vendre</em>?</h2>
@@ -1804,6 +1808,7 @@ const homeBody = `
           <button type="button" class="lq-restart">Recommencer le test</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
