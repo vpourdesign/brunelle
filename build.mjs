@@ -879,7 +879,7 @@ ${body}
         <ul>
           <li><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a></li>
           <li><a href="/acheter/calculatrices/">Calculatrices</a></li>
-          <li><a href="/rendez-vous/">Réserver 20 minutes</a></li>
+          <li><a href="/rendez-vous/">Prendre rendez-vous avec moi</a></li>
         </ul>
       </div>
     </div>
@@ -1715,7 +1715,7 @@ const homeBody = `
       <p class="cities">33 ans de transactions locales · Personne ne connaît mieux le marché local.</p>
     </div>
     <a class="hero-cta reveal" href="/rendez-vous/">
-      <div><strong>Réservez 20 minutes avec Alain Brunelle</strong><small>Appel vidéo — sans pression, sans engagement</small></div>
+      <div><strong>Prendre rendez-vous avec moi</strong><small>Appel vidéo — sans pression, sans engagement</small></div>
       <span class="arrow">→</span>
     </a>
   </div>
@@ -1838,7 +1838,7 @@ const homeBody = `
       badge:'Stade 3 · Prêt à passer à l\\'action',
       title:'Vous êtes prêt — parlons 20 minutes, stratégie en main.',
       desc:'Réservez un créneau directement dans l\\'agenda d\\'Alain. 20 minutes pour valider votre stratégie de mise en marché, votre prix cible et votre échéancier.',
-      ctaLabel:'Réserver 20 minutes avec Alain',
+      ctaLabel:'Prendre rendez-vous avec moi',
       href:'/rendez-vous/'
     }
   };
@@ -1920,7 +1920,7 @@ const homeBody = `
       <p style="margin-top:1.5rem;color:var(--ink-2);font-size:1.05rem;line-height:1.7;max-width:58ch">J'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine dans ce qui est souvent la plus grosse décision financière de leur vie. Concrètement, ça veut dire trois choses : je connais bien chaque quartier, je fixe un prix qui tient la route grâce aux ventes comparables récentes, et je reste transparent avec vous du premier appel jusqu'à la signature chez le notaire.</p>
       <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
         <a href="/a-propos/" class="hero-cta" style="display:inline-flex;padding:1rem 1.6rem;border-radius:999px">En savoir plus <span class="arrow" style="width:32px;height:32px;margin-left:.8rem">→</span></a>
-        <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Réserver 20 minutes</a>
+        <a href="/rendez-vous/" style="align-self:center;color:var(--blue);border-bottom:1px solid var(--blue);padding-bottom:2px">Prendre rendez-vous avec moi</a>
       </div>
     </div>
   </div>
@@ -2084,7 +2084,7 @@ function remaxIframeDetailPage(p) {
 <section class="page-head container" style="border-bottom:0;padding-block-end:1rem">
   <div class="eyebrow">MLS ${p.mls} · Fiche RE/MAX officielle</div>
   <h1>${p.typeLabel} à vendre — ${p.street}, ${p.city}</h1>
-  <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">réserver 20 minutes avec Alain</a> pour discuter de cette propriété.</p>
+  <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">prendre rendez-vous avec moi</a> pour discuter de cette propriété.</p>
 </section>
 <section class="container" style="padding-top:0;padding-block-start:0">
   <div class="remax-frame-wrap">
@@ -2615,7 +2615,7 @@ ${cityBlock}
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>Vendre ou acheter à ${cityName} — parlons-en.</h2><a class="btn" href="/rendez-vous/">Réserver 20 minutes</a></div></section>`;
+<section class="container"><div class="cta-band"><h2>Vendre ou acheter à ${cityName} — parlons-en.</h2><a class="btn" href="/rendez-vous/">Prendre rendez-vous avec moi</a></div></section>`;
 
   writePage(`courtier-immobilier/${slugC}/index.html`, layout({
     title: `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
@@ -2706,7 +2706,7 @@ ${cityBlock}
         <h3 style="margin-bottom:.6rem;font-weight:500">Vendez-vous à ${n}&nbsp;?</h3>
         <p style="color:var(--ink-2);font-size:.92rem;line-height:1.55;margin-bottom:1.4rem">Rapport personnalisé livré sous 48 h, avec les ventes comparables récentes de votre rue.</p>
         <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem">Obtenir mon évaluation</a>
-        <a class="btn" href="/rendez-vous/" style="display:block;background:transparent;color:var(--blue);border:1.5px solid var(--blue);text-align:center;padding:.9rem;border-radius:var(--radius);font-weight:500">Réserver 20 minutes</a>
+        <a class="btn" href="/rendez-vous/" style="display:block;background:transparent;color:var(--blue);border:1.5px solid var(--blue);text-align:center;padding:.9rem;border-radius:var(--radius);font-weight:500">Prendre rendez-vous avec moi</a>
         <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-2);line-height:1.55">
           <strong style="color:var(--ink)">Acheteur&nbsp;?</strong><br>Recevez les nouvelles inscriptions de ${n} <em>avant</em> Centris.<br><a href="/rendez-vous/" style="color:var(--blue);text-decoration:underline;text-decoration-color:rgba(15,42,90,.3)">Activer mes alertes</a>
         </div>
@@ -5013,7 +5013,7 @@ writePage('a-propos/index.html', layout({
       <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 ${obscuredPhone({style:'color:var(--blue)'})}</p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
-      <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Réserver 20 minutes</a>
+      <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Prendre rendez-vous avec moi</a>
     </div>
   </aside>
 </div></section>`
