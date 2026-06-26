@@ -1442,6 +1442,18 @@ section{padding-block:clamp(3rem,7vw,6rem)}
 
 /* Lead qualifier — segmente vendeur awareness/consideration/decision */
 .lq{background:linear-gradient(160deg,#fff 0%,var(--blue-soft) 100%);border-radius:var(--radius-lg);padding:clamp(2rem,4vw,3.5rem);position:relative;overflow:hidden;box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.5)}
+.lq--framed{border:1.5px solid var(--blue);box-shadow:var(--shadow-sm),inset 0 1px 0 rgba(255,255,255,.7),0 0 0 1px rgba(0,61,165,.05)}
+
+/* Bandeau preuves — entre hero et questionnaire vendeur */
+.proof-bar{padding-block:clamp(1.4rem,3vw,2.2rem);background:linear-gradient(180deg,#fafbfd 0%,var(--surface) 100%);border-top:1px solid #eef2f8;border-bottom:1px solid #eef2f8;margin-block:clamp(.5rem,1.5vw,1rem)}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);align-items:center;gap:1rem}
+.proof-item{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 .6rem;position:relative}
+.proof-item+.proof-item::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:36px;background:#dde3ed}
+.proof-stars{color:#f5a623;font-size:.95rem;letter-spacing:.12em;margin-bottom:.4rem}
+.proof-ico{color:var(--blue);margin-bottom:.4rem;display:block}
+.proof-v{font-size:clamp(.95rem,1.3vw,1.05rem);font-weight:500;color:var(--blue);letter-spacing:-.005em;line-height:1.2}
+.proof-l{font-size:.78rem;color:var(--muted);margin-top:.3rem;letter-spacing:.02em;line-height:1.35}
+@media(max-width:760px){.proof-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem 1rem}.proof-item+.proof-item::before{display:none}}
 .lq::after{content:"";position:absolute;top:-30%;right:-10%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.6) 0%,transparent 60%);pointer-events:none}
 .lq>*{position:relative;z-index:1}
 .lq-head{text-align:center;max-width:42ch;margin:0 auto clamp(1.6rem,3vw,2.4rem)}
@@ -1709,8 +1721,33 @@ const homeBody = `
   </div>
 </section>
 
+<section class="proof-bar reveal" aria-label="Preuves de crédibilité">
+  <div class="container proof-grid">
+    <div class="proof-item">
+      <div class="proof-stars" aria-hidden="true">★★★★★</div>
+      <div class="proof-v">5,0 / 5</div>
+      <div class="proof-l">Avis Google vérifiés</div>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h2a2 2 0 0 1 0 4h-2M7 5H5a2 2 0 0 0 0 4h2"/></svg>
+      <div class="proof-v">Top 5 %</div>
+      <div class="proof-l">RE/MAX Québec · 20 ans</div>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div class="proof-v">OACIQ</div>
+      <div class="proof-l">Membre · permis D6020</div>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M6 16V8m6 8V4m6 12v-6"/></svg>
+      <div class="proof-v">Centris · APCIQ</div>
+      <div class="proof-l">Données officielles</div>
+    </div>
+  </div>
+</section>
+
 <section class="container" id="lead-qualifier" aria-label="Profil vendeur">
-  <div class="lq reveal">
+  <div class="lq reveal lq--framed">
     <div class="lq-head">
       <div class="eye">Pour les vendeurs</div>
       <h2>Vous songez <em>vendre</em>?</h2>
