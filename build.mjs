@@ -448,6 +448,20 @@ function ingestFromCentris(membres) {
     };
   }).filter(p => p.price > 0 && p.photos.length >= 3);
 
+  // Overrides manuels — corrections quand le flux Centris a une mauvaise ville
+  // ou que inferTypeFromDesc se trompe sur le type. Indexé par MLS.
+  const PROPERTY_OVERRIDES = {
+    '21147996': { city: 'Boisbriand', typeLabel: 'Maison de ville' },
+    '21784930': { typeLabel: 'Maison unifamiliale' }
+  };
+  for (const p of properties) {
+    const o = PROPERTY_OVERRIDES[p.mls];
+    if (!o) continue;
+    if (o.city) p.city = o.city;
+    if (o.typeLabel) p.typeLabel = o.typeLabel;
+    p.slug = `${p.mls}-${slug(p.street)}-${slug(p.city)}`;
+  }
+
   console.log(`Loaded ${properties.length} active properties`);
 
   const stats = {
@@ -1520,6 +1534,19 @@ const soldProperties = Object.entries(soldArchive).map(([mls, entry]) => ({
 }));
 // Liste complète pour génération de pages + cartes
 const allProperties = [...properties, ...soldProperties];
+
+// Re-applique les overrides à allProperties (couvre actives + vendues archivées)
+const PROPERTY_OVERRIDES_FULL = {
+  '21147996': { city: 'Boisbriand', typeLabel: 'Maison de ville' },
+  '21784930': { typeLabel: 'Maison unifamiliale' }
+};
+for (const p of allProperties) {
+  const o = PROPERTY_OVERRIDES_FULL[p.mls];
+  if (!o) continue;
+  if (o.city) p.city = o.city;
+  if (o.typeLabel) p.typeLabel = o.typeLabel;
+  p.slug = `${p.mls}-${slug(p.street)}-${slug(p.city)}`;
+}
 
 // --- HOMEPAGE — priorité Blainville/Sainte-Thérèse, fallback autres ---
 const PRIORITY_CITIES = ['Blainville', 'Sainte-Thérèse'];

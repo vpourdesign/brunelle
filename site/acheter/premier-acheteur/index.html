@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) + Consent Mode v2 (Loi 25 — défaut refusé) -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.timestamp){gtag('consent','update',{analytics_storage:c.analytics?'granted':'denied',ad_storage:c.marketing?'granted':'denied',ad_user_data:c.marketing?'granted':'denied',ad_personalization:c.marketing?'granted':'denied'});}}catch(e){}
+gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Premier acheteur Sainte-Thérèse Blainville 2026 | Alain Brunelle</title>
 <meta name="description" content="Guide complet premier acheteur Rive-Nord : préapprobation, RAP, CELIAPP, frais cachés, négociation. Alain Brunelle vous accompagne pas à pas.">
 <link rel="canonical" href="https://alainbrunelle.com/acheter/premier-acheteur/">
@@ -16,17 +24,178 @@
 <link rel="stylesheet" href="/assets/site.css">
 
 
+<link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/acheter/premier-acheteur/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/acheter/premier-acheteur/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/acheter/premier-acheteur/">
 </head>
 <body class="">
+<!-- Bandeau cookies — conformité Loi 25 (Québec) -->
+<div id="cb-root" hidden>
+  <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
+    <div class="cb-banner-inner">
+      <div class="cb-text">
+        <div class="cb-icon" aria-hidden="true">🍪</div>
+        <div>
+          <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
+          <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
+        </div>
+      </div>
+      <div class="cb-actions">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize" data-cb-i18n="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+  <div class="cb-modal" hidden role="dialog" aria-modal="true" aria-labelledby="cb-modal-title">
+    <div class="cb-modal-overlay" data-cb="close"></div>
+    <div class="cb-modal-card">
+      <header class="cb-modal-head">
+        <h2 id="cb-modal-title" data-cb-i18n="prefs">Préférences de témoins</h2>
+        <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
+      </header>
+      <div class="cb-modal-body">
+        <p class="cb-modal-intro" data-cb-i18n="intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong data-cb-i18n="essTitle">Essentiels</strong><span class="cb-cat-tag" data-cb-i18n="essTag">Toujours actifs</span></div>
+            <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
+          </div>
+          <p data-cb-i18n="essDesc">Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong data-cb-i18n="anaTitle">Mesure d'audience</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
+          </div>
+          <p data-cb-i18n="anaDesc">Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+        </div>
+        <div class="cb-cat">
+          <div class="cb-cat-head">
+            <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
+            <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
+          </div>
+          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+        </div>
+      </div>
+      <footer class="cb-modal-foot">
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save" data-cb-i18n="saveBtn">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
+      </footer>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const KEY='cb_consent_v1', VER=1;
+  const root=document.getElementById('cb-root');
+  if(!root) return;
+  const banner=root.querySelector('.cb-banner');
+  const modal=root.querySelector('.cb-modal');
+  // i18n EN — applied if <html lang> starts with "en"
+  const isEN=(document.documentElement.lang||'').toLowerCase().startsWith('en');
+  if(isEN){
+    const T={
+      title:'Your privacy matters',
+      desc:"We use cookies to run the site and, with your consent, to measure its audience. Compliant with Quebec's <a href='/en/politique-confidentialite/'>Law 25</a>.",
+      refuse:'Reject all', customize:'Customize', accept:'Accept all',
+      prefs:'Cookie preferences',
+      intro:'You can choose which cookies you allow by category. Essential cookies are required for the site to function and cannot be disabled.',
+      essTitle:'Essential', essTag:'Always active',
+      essDesc:'Remember your cookie choices, secure forms and enable navigation. Without them, the site cannot work.',
+      anaTitle:'Audience measurement', optTag:'Optional',
+      anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
+      mktTitle:'Marketing',
+      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      saveBtn:'Save my choices'
+    };
+    root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
+      const k=el.dataset.cbI18n;if(T[k]){el.innerHTML=T[k];}
+    });
+  }
+  function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
+  function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
+  function applyConsent(c){
+    try{
+      if(typeof gtag==='function'){
+        gtag('consent','update',{
+          analytics_storage:c.analytics?'granted':'denied',
+          ad_storage:c.marketing?'granted':'denied',
+          ad_user_data:c.marketing?'granted':'denied',
+          ad_personalization:c.marketing?'granted':'denied'
+        });
+      }
+    }catch(e){}
+  }
+  function commit(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    safeSet(c);
+    applyConsent(c);
+    hideAll();
+  }
+  function showBanner(){root.style.display='block';root.hidden=false;banner.style.display='flex';requestAnimationFrame(()=>banner.classList.add('cb-banner--in'));}
+  function hideAll(){
+    banner.classList.remove('cb-banner--in');
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    // Force-hide instantané (pas de dépendance sur la transition CSS)
+    banner.style.display='none';
+    modal.style.display='none';
+    modal.hidden=true;
+    root.hidden=true;
+    root.style.display='none';
+  }
+  function openModal(){
+    root.style.display='block';root.hidden=false;modal.style.display='grid';modal.hidden=false;
+    const c=safeGet()||{analytics:false,marketing:false};
+    const a=modal.querySelector('[data-cb-cat=analytics]');
+    const m=modal.querySelector('[data-cb-cat=marketing]');
+    if(a)a.checked=!!c.analytics;
+    if(m)m.checked=!!c.marketing;
+    requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    modal.style.display='none';
+    modal.hidden=true;
+    if(!banner.classList.contains('cb-banner--in')){root.hidden=true;root.style.display='none';}
+  }
+  // Handlers directs sur chaque [data-cb] — pas de délégation (évite les problèmes de pointer-events)
+  root.querySelectorAll('[data-cb]').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const a=el.getAttribute('data-cb');
+      if(a==='accept')commit(true,true);
+      else if(a==='refuse')commit(false,false);
+      else if(a==='customize')openModal();
+      else if(a==='close')closeModal();
+      else if(a==='save'){
+        const an=modal.querySelector('[data-cb-cat=analytics]');
+        const mk=modal.querySelector('[data-cb-cat=marketing]');
+        commit(an&&an.checked,mk&&mk.checked);
+      }
+    });
+  });
+  window.openCookiePreferences=openModal;
+  const c=safeGet();
+  if(!c||c.version!==VER){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
+    else setTimeout(showBanner,400);
+  }
+})();
+</script>
 <header class="nav">
   <a class="brand" href="/" aria-label="Alain Brunelle · RE/MAX CRYSTAL">
     <img class="brand-logo" src="/brand_assets/logo.png" alt="Alain Brunelle" height="64">
     <img class="brand-remax" src="/brand_assets/digital_ballon.png" alt="RE/MAX" height="56">
   </a>
   <nav class="nav-links">
-    <a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/vendre/evaluation-gratuite/">Vendre</a><div class="sub"><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a><a href="/vendre/preparer-sa-maison/">Préparer sa maison</a><a href="/vendre/commission-courtier/">Commission du courtier</a><a href="/vendre/vendre-sans-stress/">Vendre sans stress</a></div></div><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><div class="nav-item has-sub"><a href="/blog/">Ressources</a><div class="sub"><a href="/blog/">Blog</a><a href="/marche-immobilier/">Marché immobilier</a><a href="/a-propos/">À propos</a><a href="/temoignages/">Témoignages</a></div></div>
+    <a class="nav-item" href="/nos-proprietes/">Propriétés</a><div class="nav-item has-sub"><a href="/courtier-immobilier/blainville/">Villes</a><div class="sub"><a href="/courtier-immobilier/blainville/">Blainville</a><a href="/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/courtier-immobilier/rosemere/">Rosemère</a><a href="/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/vendre/evaluation-gratuite/">Vendre</a><div class="sub"><a href="/vendre/evaluation-gratuite/">Évaluation gratuite</a><a href="/vendre/etapes-pour-vendre/">Étapes pour vendre</a><a href="/vendre/preparer-sa-maison/">Préparer sa maison</a><a href="/vendre/commission-courtier/">Commission du courtier</a><a href="/vendre/vendre-sans-stress/">Vendre sans stress</a></div></div><div class="nav-item has-sub"><a href="/acheter/premier-acheteur/">Acheter</a><div class="sub"><a href="/acheter/premier-acheteur/">Premier acheteur</a><a href="/acheter/etapes-pour-acheter/">Étapes pour acheter</a><a href="/acheter/financement-hypothecaire/">Financement hypothécaire</a><a href="/acheter/inspection/">Inspection</a><a href="/acheter/calculatrices/">Calculatrices</a></div></div><div class="nav-item has-sub"><a href="/blog/">Ressources</a><div class="sub"><a href="/blog/">Blog</a><a href="/marche-immobilier/">Marché immobilier</a><a href="/a-propos/">À propos</a><a href="/temoignages/">Témoignages</a></div></div><a class="nav-item" href="/rendez-vous/">Me joindre</a>
   </nav>
-  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Réserver 20 min</a>
+  <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
+  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Rendez-vous</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <div class="agency-bar" role="complementary" aria-label="Coordonnées de l'agence">
@@ -178,6 +347,7 @@
         © 2026 RE/MAX CRYSTAL — Franchisé indépendant et autonome de <a href="https://www.remax-quebec.com" target="_blank" rel="noopener">RE/MAX Québec</a> — Tous droits réservés
         <span class="f-divider">·</span> <a href="/politique-confidentialite/">Politique de confidentialité</a>
         <span class="f-divider">·</span> <a href="/conditions-utilisation/">Conditions d'utilisation</a>
+        <span class="f-divider">·</span> <a href="#" onclick="event.preventDefault();window.openCookiePreferences&&window.openCookiePreferences();">Préférences cookies</a>
       </div>
       <div class="f-bottom-credit">
         Site web par <a href="https://vpourdesign.com" target="_blank" rel="noopener"><strong>vpourdesign</strong></a>
@@ -185,6 +355,7 @@
     </div>
   </div>
 </footer>
+<script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>

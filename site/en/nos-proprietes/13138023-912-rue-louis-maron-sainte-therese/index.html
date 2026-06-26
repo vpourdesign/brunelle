@@ -166,14 +166,14 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="cb-text">
         <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
-          <h2 id="cb-title">Votre vie privée nous importe</h2>
-          <p id="cb-desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/">Loi 25</a>.</p>
+          <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
+          <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
         </div>
       </div>
       <div class="cb-actions">
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize">Personnaliser</button>
-        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="customize" data-cb-i18n="customize">Personnaliser</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
       </div>
     </div>
   </div>
@@ -181,37 +181,37 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="cb-modal-overlay" data-cb="close"></div>
     <div class="cb-modal-card">
       <header class="cb-modal-head">
-        <h2 id="cb-modal-title">Préférences de témoins</h2>
+        <h2 id="cb-modal-title" data-cb-i18n="prefs">Préférences de témoins</h2>
         <button type="button" class="cb-modal-close" data-cb="close" aria-label="Fermer">×</button>
       </header>
       <div class="cb-modal-body">
-        <p class="cb-modal-intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
+        <p class="cb-modal-intro" data-cb-i18n="intro">Vous pouvez choisir, par catégorie, les témoins que vous autorisez. Les témoins essentiels sont requis pour que le site fonctionne et ne peuvent être désactivés.</p>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Essentiels</strong><span class="cb-cat-tag">Toujours actifs</span></div>
+            <div><strong data-cb-i18n="essTitle">Essentiels</strong><span class="cb-cat-tag" data-cb-i18n="essTag">Toujours actifs</span></div>
             <label class="cb-switch cb-switch--locked"><input type="checkbox" checked disabled><span></span></label>
           </div>
-          <p>Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
+          <p data-cb-i18n="essDesc">Mémorisent votre choix de témoins, sécurisent les formulaires et permettent la navigation. Sans eux, le site ne peut fonctionner.</p>
         </div>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Mesure d'audience</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <div><strong data-cb-i18n="anaTitle">Mesure d'audience</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="analytics"><span></span></label>
           </div>
-          <p>Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
+          <p data-cb-i18n="anaDesc">Google Analytics (anonymisé). Nous aide à comprendre quelles pages sont utiles pour améliorer le site. Aucune donnée publicitaire.</p>
         </div>
         <div class="cb-cat">
           <div class="cb-cat-head">
-            <div><strong>Marketing</strong><span class="cb-cat-tag">Optionnel</span></div>
+            <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p>Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse">Tout refuser</button>
-        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save">Enregistrer mes choix</button>
-        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept">Tout accepter</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="refuse" data-cb-i18n="refuse">Tout refuser</button>
+        <button type="button" class="cb-btn cb-btn-ghost" data-cb="save" data-cb-i18n="saveBtn">Enregistrer mes choix</button>
+        <button type="button" class="cb-btn cb-btn-primary" data-cb="accept" data-cb-i18n="accept">Tout accepter</button>
       </footer>
     </div>
   </div>
@@ -223,51 +223,95 @@ document.addEventListener('DOMContentLoaded', function(){
   if(!root) return;
   const banner=root.querySelector('.cb-banner');
   const modal=root.querySelector('.cb-modal');
-  function getConsent(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch{return null;}}
-  function applyConsent(c){
-    if(typeof gtag!=='function') return;
-    gtag('consent','update',{
-      analytics_storage:c.analytics?'granted':'denied',
-      ad_storage:c.marketing?'granted':'denied',
-      ad_user_data:c.marketing?'granted':'denied',
-      ad_personalization:c.marketing?'granted':'denied'
+  // i18n EN — applied if <html lang> starts with "en"
+  const isEN=(document.documentElement.lang||'').toLowerCase().startsWith('en');
+  if(isEN){
+    const T={
+      title:'Your privacy matters',
+      desc:"We use cookies to run the site and, with your consent, to measure its audience. Compliant with Quebec's <a href='/en/politique-confidentialite/'>Law 25</a>.",
+      refuse:'Reject all', customize:'Customize', accept:'Accept all',
+      prefs:'Cookie preferences',
+      intro:'You can choose which cookies you allow by category. Essential cookies are required for the site to function and cannot be disabled.',
+      essTitle:'Essential', essTag:'Always active',
+      essDesc:'Remember your cookie choices, secure forms and enable navigation. Without them, the site cannot work.',
+      anaTitle:'Audience measurement', optTag:'Optional',
+      anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
+      mktTitle:'Marketing',
+      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      saveBtn:'Save my choices'
+    };
+    root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
+      const k=el.dataset.cbI18n;if(T[k]){el.innerHTML=T[k];}
     });
   }
-  function save(analytics,marketing){
-    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
-    localStorage.setItem(KEY,JSON.stringify(c));
-    applyConsent(c);
-    hideBanner();closeModal();
+  function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
+  function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
+  function applyConsent(c){
+    try{
+      if(typeof gtag==='function'){
+        gtag('consent','update',{
+          analytics_storage:c.analytics?'granted':'denied',
+          ad_storage:c.marketing?'granted':'denied',
+          ad_user_data:c.marketing?'granted':'denied',
+          ad_personalization:c.marketing?'granted':'denied'
+        });
+      }
+    }catch(e){}
   }
-  function showBanner(){root.hidden=false;banner.classList.add('cb-banner--in');}
-  function hideBanner(){banner.classList.remove('cb-banner--in');setTimeout(()=>{if(modal.hidden)root.hidden=true;},350);}
+  function commit(analytics,marketing){
+    const c={version:VER,timestamp:new Date().toISOString(),analytics:!!analytics,marketing:!!marketing};
+    safeSet(c);
+    applyConsent(c);
+    hideAll();
+  }
+  function showBanner(){root.style.display='block';root.hidden=false;banner.style.display='flex';requestAnimationFrame(()=>banner.classList.add('cb-banner--in'));}
+  function hideAll(){
+    banner.classList.remove('cb-banner--in');
+    modal.classList.remove('cb-modal--in');
+    document.body.style.overflow='';
+    // Force-hide instantané (pas de dépendance sur la transition CSS)
+    banner.style.display='none';
+    modal.style.display='none';
+    modal.hidden=true;
+    root.hidden=true;
+    root.style.display='none';
+  }
   function openModal(){
-    root.hidden=false;modal.hidden=false;
-    const c=getConsent()||{analytics:false,marketing:false};
-    modal.querySelector('[data-cb-cat=analytics]').checked=!!c.analytics;
-    modal.querySelector('[data-cb-cat=marketing]').checked=!!c.marketing;
+    root.style.display='block';root.hidden=false;modal.style.display='grid';modal.hidden=false;
+    const c=safeGet()||{analytics:false,marketing:false};
+    const a=modal.querySelector('[data-cb-cat=analytics]');
+    const m=modal.querySelector('[data-cb-cat=marketing]');
+    if(a)a.checked=!!c.analytics;
+    if(m)m.checked=!!c.marketing;
     requestAnimationFrame(()=>modal.classList.add('cb-modal--in'));
     document.body.style.overflow='hidden';
   }
   function closeModal(){
     modal.classList.remove('cb-modal--in');
     document.body.style.overflow='';
-    setTimeout(()=>{modal.hidden=true;if(!banner.classList.contains('cb-banner--in'))root.hidden=true;},250);
+    modal.style.display='none';
+    modal.hidden=true;
+    if(!banner.classList.contains('cb-banner--in')){root.hidden=true;root.style.display='none';}
   }
-  root.addEventListener('click',(e)=>{
-    const t=e.target.closest('[data-cb]');if(!t)return;
-    const a=t.dataset.cb;
-    if(a==='accept')save(true,true);
-    else if(a==='refuse')save(false,false);
-    else if(a==='customize')openModal();
-    else if(a==='close')closeModal();
-    else if(a==='save'){
-      save(modal.querySelector('[data-cb-cat=analytics]').checked,modal.querySelector('[data-cb-cat=marketing]').checked);
-    }
+  // Handlers directs sur chaque [data-cb] — pas de délégation (évite les problèmes de pointer-events)
+  root.querySelectorAll('[data-cb]').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const a=el.getAttribute('data-cb');
+      if(a==='accept')commit(true,true);
+      else if(a==='refuse')commit(false,false);
+      else if(a==='customize')openModal();
+      else if(a==='close')closeModal();
+      else if(a==='save'){
+        const an=modal.querySelector('[data-cb-cat=analytics]');
+        const mk=modal.querySelector('[data-cb-cat=marketing]');
+        commit(an&&an.checked,mk&&mk.checked);
+      }
+    });
   });
   window.openCookiePreferences=openModal;
-  // Show banner on first visit or if consent version is outdated
-  const c=getConsent();
+  const c=safeGet();
   if(!c||c.version!==VER){
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(showBanner,400));
     else setTimeout(showBanner,400);
@@ -280,10 +324,10 @@ document.addEventListener('DOMContentLoaded', function(){
     <img class="brand-remax" src="/brand_assets/digital_ballon.png" alt="RE/MAX" height="56">
   </a>
   <nav class="nav-links">
-    <a class="nav-item" href="/en/nos-proprietes/">Properties</a><div class="nav-item has-sub"><a href="/en/courtier-immobilier/blainville/">Cities</a><div class="sub"><a href="/en/courtier-immobilier/blainville/">Blainville</a><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/en/courtier-immobilier/rosemere/">Rosemère</a><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/en/vendre/evaluation-gratuite/">Sell</a><div class="sub"><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a><a href="/en/vendre/etapes-pour-vendre/">Steps to sell</a><a href="/en/vendre/preparer-sa-maison/">Prepare your home</a><a href="/en/vendre/commission-courtier/">Broker's commission</a><a href="/en/vendre/vendre-sans-stress/">Sell without stress</a></div></div><div class="nav-item has-sub"><a href="/en/acheter/premier-acheteur/">Buy</a><div class="sub"><a href="/en/acheter/premier-acheteur/">First-time buyer</a><a href="/en/acheter/etapes-pour-acheter/">Steps to buy</a><a href="/en/acheter/financement-hypothecaire/">Mortgage financing</a><a href="/en/acheter/inspection/">Inspection</a><a href="/en/acheter/calculatrices/">Calculators</a></div></div><div class="nav-item has-sub"><a href="/en/blog/">Resources</a><div class="sub"><a href="/en/blog/">Blog</a><a href="/en/marche-immobilier/">Real estate market</a><a href="/en/a-propos/">About</a><a href="/en/temoignages/">Testimonials</a></div></div>
+    <a class="nav-item" href="/en/nos-proprietes/">Properties</a><div class="nav-item has-sub"><a href="/en/courtier-immobilier/blainville/">Cities</a><div class="sub"><a href="/en/courtier-immobilier/blainville/">Blainville</a><a href="/en/courtier-immobilier/sainte-therese/">Sainte-Thérèse</a><a href="/en/courtier-immobilier/rosemere/">Rosemère</a><a href="/en/courtier-immobilier/lorraine/">Lorraine</a></div></div><div class="nav-item has-sub"><a href="/en/vendre/evaluation-gratuite/">Sell</a><div class="sub"><a href="/en/vendre/evaluation-gratuite/">Free evaluation</a><a href="/en/vendre/etapes-pour-vendre/">Steps to sell</a><a href="/en/vendre/preparer-sa-maison/">Prepare your home</a><a href="/en/vendre/commission-courtier/">Broker's commission</a><a href="/en/vendre/vendre-sans-stress/">Sell without stress</a></div></div><div class="nav-item has-sub"><a href="/en/acheter/premier-acheteur/">Buy</a><div class="sub"><a href="/en/acheter/premier-acheteur/">First-time buyer</a><a href="/en/acheter/etapes-pour-acheter/">Steps to buy</a><a href="/en/acheter/financement-hypothecaire/">Mortgage financing</a><a href="/en/acheter/inspection/">Inspection</a><a href="/en/acheter/calculatrices/">Calculators</a></div></div><div class="nav-item has-sub"><a href="/en/blog/">Resources</a><div class="sub"><a href="/en/blog/">Blog</a><a href="/en/marche-immobilier/">Real estate market</a><a href="/en/a-propos/">About</a><a href="/en/temoignages/">Testimonials</a></div></div><a class="nav-item" href="/en/rendez-vous/">Me joindre</a>
   </nav>
   <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
-  <a class="nav-cta" href="/en/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Book 20 min</a>
+  <a class="nav-cta" href="/en/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Rendez-vous</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <div class="agency-bar" role="complementary" aria-label="Agency contact details">
@@ -369,8 +413,8 @@ document.addEventListener('DOMContentLoaded', function(){
         <span>📷 44</span>
       </div>
     </div>
-  </a><a class="pcard" href="/en/nos-proprietes/21784930-856-rue-bergeron-sainte-therese/" data-prop="terrain sainte-thérèse">
-    <div class="ph"><span class="badge">Land</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE63F317D1C7AFA4D11&t=pi&f=I" alt="856 Rue Bergeron, Sainte-Thérèse"></div>
+  </a><a class="pcard" href="/en/nos-proprietes/21784930-856-rue-bergeron-sainte-therese/" data-prop="maison unifamiliale sainte-thérèse">
+    <div class="ph"><span class="badge">Single-family home</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE63F317D1C7AFA4D11&t=pi&f=I" alt="856 Rue Bergeron, Sainte-Thérèse"></div>
     <div class="body">
       <div class="loc">Sainte-Thérèse · MLS 21784930</div>
       <div class="addr">856 Rue Bergeron</div>
