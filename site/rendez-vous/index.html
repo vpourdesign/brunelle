@@ -313,7 +313,8 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
           <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
         </div>
       </div>
-      <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.f-ok').hidden=false; this.querySelector('.f-fields').hidden=true;">
+      <form class="contact-form" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alainbrunelle@alainbrunelle.com.');}})(event);return false;">
+        <input type="hidden" name="_subject" value="Message contact — alainbrunelle.com">
         <div class="f-fields">
           <label>Nom complet<input type="text" name="name" required></label>
           <div class="f-row">

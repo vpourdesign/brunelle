@@ -137,19 +137,13 @@ document.addEventListener('DOMContentLoaded', function(){
       errEl.textContent = bad==='name'?'Veuillez saisir votre nom complet.' : bad==='email'?'Adresse courriel invalide.' : 'Numéro de téléphone invalide (10 chiffres minimum).';
       errEl.hidden=false; return;
     }
-    if(data.get('access_key')==='REMPLACE_MOI_WEB3FORMS_KEY'){
-      errEl.textContent="Le formulaire n'est pas encore configuré (clé Web3Forms manquante). Veuillez appeler le 450.430.5555.";
-      errEl.hidden=false; return;
-    }
     submitBtn.disabled=true; submitBtn.textContent='Envoi…';
     try{
-      const json=Object.fromEntries(data.entries());
-      const res=await fetch('https://api.web3forms.com/submit',{ method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(json) });
-      const out=await res.json().catch(()=>({success:false}));
-      if(!res.ok || !out.success) throw new Error(out.message||'Erreur serveur');
+      const res=await fetch(form.action,{ method:'POST', headers:{'Accept':'application/json'}, body:data });
+      if(!res.ok) throw new Error('Erreur serveur');
       fieldsWrap.hidden=true; ok.hidden=false;
     }catch(err){
-      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez le 450.430.5555.";
+      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez Alain directement.";
       errEl.hidden=false;
     }finally{
       submitBtn.disabled=false; submitBtn.textContent='Envoyer ma demande';
@@ -452,9 +446,8 @@ document.addEventListener('DOMContentLoaded', function(){
         <p class="pi-context">À propos de : <strong data-slot="address">—</strong></p>
         <h2 id="pi-title">Cette propriété vous intéresse?</h2>
         <p class="pi-sub">Alain vous répond personnellement en moins de 24 h ouvrables.</p>
-        <form class="pi-form" id="pi-form" novalidate>
-          <input type="hidden" name="access_key" value="REMPLACE_MOI_WEB3FORMS_KEY">
-          <input type="hidden" name="from_name" value="Site alainbrunelle.com">
+        <form class="pi-form" id="pi-form" action="https://formspree.io/f/xlgyblyk" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Demande de propriété — alainbrunelle.com">
           <input type="hidden" name="subject" data-slot="subject" value="Nouveau lead">
           <input type="hidden" name="property_address" data-slot="hAddress" value="">
           <input type="hidden" name="property_price" data-slot="hPrice" value="">

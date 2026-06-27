@@ -596,7 +596,8 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
     cards.forEach((c,k)=>c.classList.toggle('on', k===i));
     dots.forEach((d,k)=>d.classList.toggle('on', k===i));
   }
-  function auto(){ clearInterval(timer); timer=setInterval(()=>go(i+1), 6500); }
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function auto(){ if(reduceMotion) return; clearInterval(timer); timer=setInterval(()=>go(i+1), 6500); }
   root.querySelector('.reviews-prev').addEventListener('click',()=>{go(i-1);auto();});
   root.querySelector('.reviews-next').addEventListener('click',()=>{go(i+1);auto();});
   dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k);auto();}));

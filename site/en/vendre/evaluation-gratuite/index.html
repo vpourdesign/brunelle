@@ -303,7 +303,8 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
       <div class="eval-step-dot" data-dot="5"></div>
     </div>
 
-    <form class="eval-card" id="eval-form" onsubmit="return false">
+    <form class="eval-card" id="eval-form" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="return false">
+      <input type="hidden" name="_subject" value="Demande d'évaluation — alainbrunelle.com">
       <!-- ÉTAPE 1 — Adresse -->
       <div class="eval-step active" data-step="1">
         <div class="eval-meta">Step 1 of 5</div>
@@ -512,16 +513,37 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
     if(current>1)go(current-1);
   });
 
-  // Submit
-  function submit(){
-    // For now, no backend — show success state with summary.
-    // To wire backend later: POST answers to /api/evaluation or Formspree.
+  // Submit — POST à Formspree
+  async function submit(){
     const labels={
       type:{unifamiliale:'Single-family home',condo:'Condo','maison-ville':'Townhouse',plex:'Plex'},
       etages:{'1':'1 storey','1.5':'1½','2':'2 storeys','3+':'3+ storeys'},
       soussol:{fini:'fini',semi:'semi-fini','non-fini':'non fini',aucun:'aucun sous-sol'},
       renos:{'-5':'recent (< 5 years)','5-10':'5 to 10 years','10-25':'10 to 25 years','25+':'plus de 25 ans',aucune:'aucune'}
     };
+    const btn=$('#eval-next');
+    btn.disabled=true; const oldLabel=btn.textContent; btn.textContent='Envoi…';
+    const form=$('#eval-form');
+    const fd=new FormData();
+    fd.append('_subject',"Demande d'évaluation — alainbrunelle.com");
+    fd.append('Adresse',answers.address||'');
+    fd.append('Type',labels.type[answers.type]||answers.type||'');
+    fd.append('Étages',labels.etages[answers.etages]||answers.etages||'');
+    fd.append('Basement',labels.soussol[answers.soussol]||answers.soussol||'');
+    fd.append('Chambres',answers.chambres||'');
+    fd.append('Salles de bain',answers.sdb||'');
+    fd.append('Rénovations',labels.renos[answers.renos]||answers.renos||'');
+    fd.append('Name',answers.name||'');
+    fd.append('Phone',answers.phone||'');
+    fd.append('Email',answers.email||'');
+    try{
+      const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:fd});
+      if(!res.ok) throw new Error('Erreur serveur');
+    }catch(e){
+      btn.disabled=false; btn.textContent=oldLabel;
+      alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alainbrunelle@alainbrunelle.com.");
+      return;
+    }
     const recap='<strong>Summary</strong><br>'+
       '📍 '+answers.address+'<br>'+
       '🏡 '+(labels.type[answers.type]||answers.type)+' · '+(labels.etages[answers.etages]||answers.etages)+' · sous-sol '+(labels.soussol[answers.soussol]||answers.soussol)+'<br>'+
