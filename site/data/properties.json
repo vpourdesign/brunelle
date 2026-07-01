@@ -428,6 +428,440 @@
     "slug": "11097983-912-rue-louis-maron-sainte-therese"
   },
   {
+    "mls": "13947292",
+    "price": 649900,
+    "typeCode": "",
+    "typeLabel": "Condo",
+    "street": "2745Z Rue des Francs-Bourgeois",
+    "city": "Saint-Eustache",
+    "postalCode": "J7H0E0",
+    "yearBuilt": "2014",
+    "areaTerrain": "",
+    "lat": 45.63025252,
+    "lon": -73.85622524,
+    "descFr": "Superbe cottage anglais en unité de coin situé dans le recherché secteur Faubourg-Boisbriand. À quelques pas des épiceries, restaurants, services, d'un charmant lac et d'un parc, il offre une qualité de vie exceptionnelle. Très lumineux, il propose des planchers de bois franc sur deux étages, des plafonds de 9 pieds et une aire de vie ouverte conviviale. La cuisine moderne et fonctionnelle s'intègre parfaitement à cet espace impeccablement entretenu et très bien insonorisé. Vous y trouverez deux chambres spacieuses, une salle de bain avec douche et bain podium, ainsi qu'un sous-sol entièrement aménagé avec grande salle familiale et rangement. Garage double et immense terrasse arrière avec vue sur un boisé privé. Le parfait équilibre entre condo et maison, près des autoroutes 15 et 640.",
+    "remFr": "Magnifique cottage anglais situé dans le prisé secteur Faubourg-Boisbriand, à proximité de tous les services, commerces et restaurants. Profitez d'une qualité de vie exceptionnelle dans un environnement paisible, adjacent à un lac artificiel. Cette lumineuse unité de coin offre des planchers de bois franc sur deux étages, des plafonds de 9 pieds et une aire de vie ouverte parfaitement aménagée. Cuisine moderne, excellente insonorisation, deux grandes chambres et salle de bain avec douche et bain podium. Sous-sol entièrement aménagé, garage double et vaste terrasse privée avec vue sur un boisé. Un véritable bijou confortable.",
+    "photos": [
+      {
+        "seq": 1,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9B0DD3C31F7D1A&t=pi&f=I"
+      },
+      {
+        "seq": 2,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9DFDD3C31F7D41&t=pi&f=I"
+      },
+      {
+        "seq": 3,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9D9DD3C31F7D21&t=pi&f=I"
+      },
+      {
+        "seq": 4,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9D7DD3C31F7DC2&t=pi&f=I"
+      },
+      {
+        "seq": 5,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9D6DD3C31F7DE0&t=pi&f=I"
+      },
+      {
+        "seq": 6,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A912DD3C31F7DAD&t=pi&f=I"
+      },
+      {
+        "seq": 7,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A911DD3C31F7D0F&t=pi&f=I"
+      },
+      {
+        "seq": 8,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A918DD3C31F7DBA&t=pi&f=I"
+      },
+      {
+        "seq": 9,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A910DD3C31F7DF0&t=pi&f=I"
+      },
+      {
+        "seq": 10,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A944DD3C31F7D81&t=pi&f=I"
+      },
+      {
+        "seq": 11,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A917DD3C31F7D9B&t=pi&f=I"
+      },
+      {
+        "seq": 12,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A916DD3C31F7D74&t=pi&f=I"
+      },
+      {
+        "seq": 13,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A94CDD3C31F7D3A&t=pi&f=I"
+      },
+      {
+        "seq": 14,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A94ADD3C31F7D5F&t=pi&f=I"
+      },
+      {
+        "seq": 15,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A94FDD3C31F7D62&t=pi&f=I"
+      },
+      {
+        "seq": 16,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A949DD3C31F71D1&t=pi&f=I"
+      },
+      {
+        "seq": 17,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A945DD3C31F711E&t=pi&f=I"
+      },
+      {
+        "seq": 18,
+        "type": "S-E",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A92DDD3C31F714A&t=pi&f=I"
+      },
+      {
+        "seq": 19,
+        "type": "CORRIDOR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A92CDD3C31F7121&t=pi&f=I"
+      },
+      {
+        "seq": 20,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A92ADD3C31F71CC&t=pi&f=I"
+      },
+      {
+        "seq": 21,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A92BDD3C31F71E0&t=pi&f=I"
+      },
+      {
+        "seq": 22,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A929DD3C31F71AB&t=pi&f=I"
+      },
+      {
+        "seq": 23,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A927DD3C31F710D&t=pi&f=I"
+      },
+      {
+        "seq": 24,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A925DD3C31F71B2&t=pi&f=I"
+      },
+      {
+        "seq": 25,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A926DD3C31F71FE&t=pi&f=I"
+      },
+      {
+        "seq": 26,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9CDDD3C31F7184&t=pi&f=I"
+      },
+      {
+        "seq": 27,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9C1DD3C31F719C&t=pi&f=I"
+      },
+      {
+        "seq": 28,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9C4DD3C31F717A&t=pi&f=I"
+      },
+      {
+        "seq": 29,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9C9DD3C31F7132&t=pi&f=I"
+      },
+      {
+        "seq": 30,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9CCDD3C31F715D&t=pi&f=I"
+      },
+      {
+        "seq": 31,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9CBDD3C31F716E&t=pi&f=I"
+      },
+      {
+        "seq": 32,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9C6DD3C31F74DB&t=pi&f=I"
+      },
+      {
+        "seq": 33,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9E4DD3C31F741D&t=pi&f=I"
+      },
+      {
+        "seq": 34,
+        "type": "SDL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9E0DD3C31F744A&t=pi&f=I"
+      },
+      {
+        "seq": 35,
+        "type": "RAN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9E7DD3C31F742F&t=pi&f=I"
+      },
+      {
+        "seq": 36,
+        "type": "RAN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9E6DD3C31F74C2&t=pi&f=I"
+      },
+      {
+        "seq": 37,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9ACDD3C31F74E0&t=pi&f=I"
+      },
+      {
+        "seq": 38,
+        "type": "TERA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9ABDD3C31F74A4&t=pi&f=I"
+      },
+      {
+        "seq": 39,
+        "type": "TERA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9A7DD3C31F740C&t=pi&f=I"
+      },
+      {
+        "seq": 40,
+        "type": "TERA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A901DD3C31F74BB&t=pi&f=I"
+      },
+      {
+        "seq": 41,
+        "type": "TERA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A90ADD3C31F74FC&t=pi&f=I"
+      },
+      {
+        "seq": 42,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A907DD3C31F748E&t=pi&f=I"
+      },
+      {
+        "seq": 43,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9B5DD3C31F749F&t=pi&f=I"
+      },
+      {
+        "seq": 44,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9FEDD3C31F747E&t=pi&f=I"
+      },
+      {
+        "seq": 45,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A9F3DD3C31F7431&t=pi&f=I"
+      },
+      {
+        "seq": 46,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A98DDD3C31F745D&t=pi&f=I"
+      },
+      {
+        "seq": 47,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A984DD3C31F7462&t=pi&f=I"
+      },
+      {
+        "seq": 48,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A98EDD3C31F72DE&t=pi&f=I"
+      },
+      {
+        "seq": 49,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A98BDD3C31F721F&t=pi&f=I"
+      },
+      {
+        "seq": 50,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A98FDD3C31F7241&t=pi&f=I"
+      },
+      {
+        "seq": 51,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A987DD3C31F7224&t=pi&f=I"
+      },
+      {
+        "seq": 52,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A989DD3C31F72C4&t=pi&f=I"
+      },
+      {
+        "seq": 53,
+        "type": "PROX",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA17A986DD3C31F72E0&t=pi&f=I"
+      }
+    ],
+    "features": [
+      {
+        "code": "CHAU",
+        "value": "AIRS"
+      },
+      {
+        "code": "CHAU",
+        "value": "PELC"
+      },
+      {
+        "code": "EAU",
+        "value": "AMU"
+      },
+      {
+        "code": "ENER",
+        "value": "GAZN"
+      },
+      {
+        "code": "EQUI",
+        "value": "CLMC"
+      },
+      {
+        "code": "EQUI",
+        "value": "EAIR"
+      },
+      {
+        "code": "EQUI",
+        "value": "THEC"
+      },
+      {
+        "code": "GARA",
+        "value": "DOUB"
+      },
+      {
+        "code": "PARE",
+        "value": "BRIQ"
+      },
+      {
+        "code": "SS",
+        "value": "6"
+      },
+      {
+        "code": "SS",
+        "value": "AMNT"
+      },
+      {
+        "code": "STAT",
+        "value": "GARA"
+      },
+      {
+        "code": "SYEG",
+        "value": "EGMU"
+      },
+      {
+        "code": "ZONG",
+        "value": "RES"
+      }
+    ],
+    "rooms": [
+      {
+        "seq": 1,
+        "code": "CUI",
+        "level": "RC",
+        "dim": "11.6x9.4 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 2,
+        "code": "SAM",
+        "level": "RC",
+        "dim": "14.5x8.6 P",
+        "rev": "BOIS"
+      },
+      {
+        "seq": 3,
+        "code": "SAL",
+        "level": "RC",
+        "dim": "15.1x10.2 P",
+        "rev": "BOIS"
+      },
+      {
+        "seq": 4,
+        "code": "S-E",
+        "level": "RC",
+        "dim": "6.6x5.0 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 5,
+        "code": "CCP",
+        "level": "2",
+        "dim": "19.0x10.3 P",
+        "rev": "BOIS"
+      },
+      {
+        "seq": 6,
+        "code": "CAC",
+        "level": "2",
+        "dim": "14.4x12.0 P",
+        "rev": "BOIS"
+      },
+      {
+        "seq": 7,
+        "code": "SDB",
+        "level": "2",
+        "dim": "10.7x8.0 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 8,
+        "code": "SFM",
+        "level": "0",
+        "dim": "15.8x13.0 P",
+        "rev": "PFLO"
+      },
+      {
+        "seq": 9,
+        "code": "SDL",
+        "level": "0",
+        "dim": "9.6x5.6 P",
+        "rev": "PFLO"
+      },
+      {
+        "seq": 10,
+        "code": "SDB",
+        "level": "0",
+        "dim": "7.6x4.7 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 11,
+        "code": "ATE",
+        "level": "0",
+        "dim": "9.6x9.6 P",
+        "rev": "BETO"
+      }
+    ],
+    "links": [],
+    "isCoBroker": false,
+    "primaryBrokerNo": "65704",
+    "primaryBroker": {
+      "no": "65704",
+      "firstName": "Alain",
+      "lastName": "Brunelle",
+      "fullName": "Alain Brunelle",
+      "phone": "5149724207",
+      "email": "alainbrunelle@alainbrunelle.com",
+      "website": "http://www.alainbrunelle.com",
+      "photo": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDDD14139DDD1DD8BDDE&t=c&f=I",
+      "firm": "Alain Brunelle, Courtier Immobilier Inc."
+    },
+    "slug": "13947292-2745z-rue-des-francs-bourgeois-saint-eustache"
+  },
+  {
     "mls": "21147996",
     "price": 649900,
     "typeCode": "",
