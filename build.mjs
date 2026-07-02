@@ -837,7 +837,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     <span class="agency-bar-sep" aria-hidden="true">·</span>
     <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
     <span class="agency-bar-sep" aria-hidden="true">·</span>
-    <a class="agency-bar-tel" href="tel:4504304207">450&nbsp;430-4207</a>
+    ${obscuredPhone({cls:'agency-bar-tel'})}
   </div>
 </div>
 <main>
