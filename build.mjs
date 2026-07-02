@@ -3569,7 +3569,7 @@ const SUBPAGES = [
 
 <h2>Ma promesse en 4 engagements</h2>
 <div class="steps">
-<div class="step"><div><h3>Un point hebdomadaire fixe</h3><p>Chaque vendredi à la même heure. Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne.</p></div></div>
+<div class="step"><div><h3>Un point hebdomadaire fixe</h3><p>Visites de la semaine, feedback des acheteurs, ajustements proposés. 15 minutes, par téléphone ou en personne.</p></div></div>
 <div class="step"><div><h3>Communication rapide, dans la mesure du raisonnable</h3><p>Je m'engage à répondre rapidement en jours ouvrables, par texto, courriel ou téléphone — vous choisissez le canal qui vous convient.</p></div></div>
 <div class="step"><div><h3>Deux à trois scénarios à chaque décision</h3><p>Prix, ajustements, offres reçues. Vous décidez avec les chiffres en main, jamais sur intuition.</p></div></div>
 <div class="step"><div><h3>Transparence dès la première rencontre</h3><p>Mon objectif : limiter les surprises au minimum. Tous les frais, délais et conditions connus sont mis sur la table dès le départ.</p></div></div>
