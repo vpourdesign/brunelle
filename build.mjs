@@ -3593,8 +3593,6 @@ const SUBPAGES = [
 <h3>La panique des offres « time-bombs »</h3>
 <p>Quand une offre arrive avec un délai de 24 h, l'instinct est de céder à la pression. Mon rôle est de vous montrer froidement les options : accepter, contre-proposer, refuser. Et de vous dire ce que je ferais si c'était la mienne.</p>
 
-<blockquote>« Quand on a vendu notre maison à Sainte-Thérèse, j'avais perdu le sommeil pendant des mois en pensant à toute la paperasse. Alain a tout pris en main. Il m'envoyait un texto le vendredi avec le résumé de la semaine. Je n'ai jamais eu à courir après lui. »<cite>Marie-Claude · Vendu en 22 jours</cite></blockquote>
-
 <h2>FAQ — vendre sans stress</h2>
 <h3>Combien de visites devrai-je accepter ?</h3>
 <p>En moyenne, mes inscriptions reçoivent 8 à 15 visites avant une offre acceptable. Toutes sont coordonnées et regroupées si possible.</p>
