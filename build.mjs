@@ -3575,18 +3575,15 @@ const SUBPAGES = [
 <div class="step"><div><h3>Transparence dès la première rencontre</h3><p>Mon objectif : limiter les surprises au minimum. Tous les frais, délais et conditions connus sont mis sur la table dès le départ.</p></div></div>
 </div>
 
-<h2>Le calendrier-type d'une vente sereine</h2>
-<table>
-<thead><tr><th>Semaine</th><th>Étape</th></tr></thead>
-<tbody>
-<tr><td><strong>S-4</strong></td><td>Première rencontre, signature du mandat, évaluation</td></tr>
-<tr><td><strong>S-3 à S-2</strong></td><td>Préparation de la propriété, désencombrement, peinture si requise</td></tr>
-<tr><td><strong>S-1</strong></td><td>Photos, vidéo drone, plan d'étage, rédaction de la fiche</td></tr>
-<tr><td><strong>Jour J</strong></td><td>Mise en marché Centris + pré-diffusion à mon réseau (72 h en avant-première)</td></tr>
-<tr><td><strong>Semaines 1-4</strong></td><td>Visites, feedback, ajustements, négociation des premières offres</td></tr>
-<tr><td><strong>Semaines 5-9</strong></td><td>Inspection, financement de l'acheteur, signature notaire</td></tr>
-</tbody>
-</table>
+<h2>Les étapes d'une vente sereine</h2>
+<ol>
+<li>Première rencontre, signature du mandat, évaluation.</li>
+<li>Préparation de la propriété, désencombrement, peinture si requise.</li>
+<li>Photos, vidéo drone, plan d'étage, rédaction de la fiche.</li>
+<li>Mise en marché Centris + pré-diffusion à mon réseau (72 h en avant-première).</li>
+<li>Visites, feedback, ajustements, négociation des premières offres.</li>
+<li>Inspection, financement de l'acheteur, signature chez le notaire.</li>
+</ol>
 
 <h2>Trois leviers que j'utilise pour réduire votre stress</h2>
 <h3>L'incertitude sur la valeur réelle</h3>
