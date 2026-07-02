@@ -1977,7 +1977,6 @@ const homeBody = `
     <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>33 ans à mesurer le marché — les chiffres qui le prouvent.</h2></div></div>
     <div class="stats-grid reveal">
       <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
-      <div class="stat"><div class="n">28 j</div><div class="l">Délai médian sur mes inscriptions (vs 52 j marché)</div></div>
       <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
     </div>
   </div>
