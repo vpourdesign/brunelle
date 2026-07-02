@@ -21,6 +21,8 @@
   ],
   "redirects": [
     { "source": "/contact", "destination": "/rendez-vous/", "permanent": true },
+    { "source": "/vendre/commission-courtier", "destination": "/vendre/evaluation-gratuite/", "permanent": true },
+    { "source": "/en/vendre/commission-courtier", "destination": "/en/vendre/evaluation-gratuite/", "permanent": true },
 
     { "source": "/fr/temoignages", "destination": "/temoignages/", "permanent": true },
     { "source": "/fr/achat-vente", "destination": "/", "permanent": true },

@@ -586,7 +586,6 @@ const NAV = [
     ['Évaluation gratuite','/vendre/evaluation-gratuite/'],
     ['Étapes pour vendre','/vendre/etapes-pour-vendre/'],
     ['Préparer sa maison','/vendre/preparer-sa-maison/'],
-    ['Commission du courtier','/vendre/commission-courtier/'],
     ['Vendre sans stress','/vendre/vendre-sans-stress/']
   ]},
   { label: 'Acheter', href: '/acheter/premier-acheteur/', children: [
@@ -3433,7 +3432,7 @@ const SUBPAGES = [
 <h3>Dois-je vraiment passer par un courtier ?</h3>
 <p>Vendre seul (DPP / FSBO) demande de gérer la mise en marché, la photographie, les visites, la qualification des acheteurs, la rédaction des offres et la coordination notariale. Au Québec, plusieurs études — dont celles publiées par l'APCIQ — suggèrent que les propriétés vendues avec un courtier obtiennent en moyenne un meilleur prix net après commission, mais les résultats varient selon le marché local et la propriété. Ce qui compte le plus, à mon avis : avoir un positionnement de prix juste, une mise en marché professionnelle et de la disponibilité pour les acheteurs.</p>
 <h3>Combien coûte la commission ?</h3>
-<p>Voir <a href="/vendre/commission-courtier/">notre page dédiée</a>. La fourchette typique au Québec : 4 % à 5 %, négociable selon le mandat.</p>`],
+<p>La commission n'est pas fixée par la loi : elle se discute lors de la signature du contrat de courtage. J'en parle en toute transparence dès notre première rencontre, en fonction du mandat, de la propriété et du marché.</p>`],
   ['vendre/preparer-sa-maison','Préparer sa maison pour la vente','Home staging · Préparation','1 500 $ investis rapportent en moyenne 25 000 $ sur le prix final — voici la méthode.','Préparer sa maison pour la vente · home staging Rive-Nord | Alain Brunelle','Guide complet pour préparer sa maison à la vente : désencombrement, peinture, éclairage, home staging. ROI moyen documenté.',`<p>L'acheteur prend sa décision dans les <strong>90 premières secondes</strong> d'une visite. Pas pendant l'inspection, pas pendant la négociation — dès qu'il franchit la porte. C'est pourquoi la préparation visuelle est l'investissement au rendement le plus garanti avant la vente.</p>
 
 <div class="stat-row">
@@ -3496,74 +3495,6 @@ const SUBPAGES = [
 <p>Sauf cas extrême, vendez telle quelle. Rénover prend 6-12 semaines (perte de temps de mise en marché), coûte 30-80 k$ pour une cuisine, et l'acheteur préfère personnaliser lui-même.</p>
 <h3>Quand commencer la préparation ?</h3>
 <p>Idéalement 4 à 6 semaines avant la mise en marché. <a href="/rendez-vous/">Parlons-en avant les premiers travaux</a>.</p>`],
-  ['vendre/commission-courtier','Commission d\'un courtier immobilier','Commission & honoraires','Ce qui est inclus, ce qui est négociable — la transparence complète.','Commission courtier immobilier Québec 2026 | Alain Brunelle','Taux de commission au Québec, partage entre courtiers, ce qui est inclus, ce qui est négociable. Explications transparentes par un courtier RE/MAX CRYSTAL.',`<p>La commission, c'est le point le plus mal compris du métier de courtier. Le mythe : « le courtier prend 5 % juste pour mettre une pancarte ». La réalité : la commission paie un service complet qui inclut habituellement plus de <strong>50 heures de travail spécialisé</strong>, des outils marketing professionnels et un réseau acheteur qualifié.</p>
-
-<h2>Taux typique au Québec en 2026</h2>
-<p>La commission résidentielle se situe généralement entre <strong>4 % et 5 % du prix de vente final</strong>, plus taxes applicables. Elle est versée par le vendeur via le contrat de courtage exclusif et négociable selon le mandat. Depuis juin 2022, un acheteur peut également avoir une rétribution due en vertu de son propre contrat de courtage achat ; en pratique, celle-ci est habituellement couverte en tout ou en partie par le partage de la rétribution offert par le courtier inscripteur du vendeur.</p>
-<div class="stat-row">
-<div class="stat-mini"><div class="n">4-5 %</div><div class="l">commission typique vendeur</div></div>
-<div class="stat-mini"><div class="n">50/50</div><div class="l">partage inscripteur / collaborateur</div></div>
-<div class="stat-mini"><div class="n">3-7 %</div><div class="l">commission typique sur la Rive-Nord</div></div>
-</div>
-
-<h2>Exemple chiffré : vente à 600 000 $</h2>
-<table>
-<thead><tr><th>Élément</th><th>Montant</th></tr></thead>
-<tbody>
-<tr><td>Commission brute (5 %)</td><td>30 000 $</td></tr>
-<tr><td>+ TPS (5 %)</td><td>1 500 $</td></tr>
-<tr><td>+ TVQ (9,975 %)</td><td>2 992 $</td></tr>
-<tr><td><strong>Total payable</strong></td><td><strong>34 492 $</strong></td></tr>
-</tbody>
-</table>
-
-<h2>Comment la commission est partagée</h2>
-<p>Dans 92 % des transactions, deux courtiers sont impliqués :</p>
-<div class="compare">
-<div class="compare-col">
-<h4>COURTIER INSCRIPTEUR</h4>
-<ul><li>Représente le vendeur</li><li>~50 % de la commission brute</li><li>Évaluation, mise en marché, négociation</li><li>Coordination notaire</li></ul>
-</div>
-<div class="compare-col">
-<h4>COURTIER COLLABORATEUR</h4>
-<ul><li>Apporte l'acheteur</li><li>~50 % de la commission brute</li><li>Accompagnement acheteur</li><li>Gestion promesse d'achat</li></ul>
-</div>
-</div>
-<p>Chaque courtier reverse ensuite une partie à sa bannière et son agence. Le <strong>revenu net</strong> du courtier inscripteur sur une commission de 30 000 $ tourne autour de 9 000-12 000 $.</p>
-
-<h2>Ce qui est inclus dans ma commission</h2>
-<ul>
-<li>Évaluation comparative avant inscription (rapport 48 h)</li>
-<li>Photos HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
-<li>Inscription Centris + réseau RE/MAX international</li>
-<li>Campagne sociale (Facebook + Instagram + LinkedIn) avec budget publicitaire</li>
-<li>Brochure imprimée sur place</li>
-<li>Pré-mise en marché à réseau d'acheteurs actifs Rive-Nord</li>
-<li>Gestion complète des visites et feedback structuré</li>
-<li>Négociation de toutes les offres et contre-offres</li>
-<li>Coordination inspection, financement, notaire</li>
-<li>Présence au notaire le jour de la signature</li>
-</ul>
-
-<h2>Ce qui est négociable</h2>
-<div class="steps">
-<div class="step"><div><h3>Le taux global</h3><p>Selon le prix de la propriété. Les ventes au-dessus de 1 M$ sont souvent à 3-4 %.</p></div></div>
-<div class="step"><div><h3>Le partage avec le collaborateur</h3><p>Détermine la motivation des autres courtiers à amener leurs acheteurs chez vous.</p></div></div>
-<div class="step"><div><h3>La durée du mandat</h3><p>3, 6 ou 12 mois selon le contexte. Clauses d'exclusivité variables.</p></div></div>
-</div>
-
-<div class="callout success">
-<div class="ico">✓</div>
-<div><p><strong>Mon approche.</strong> Je propose toujours la structure qui maximise <em>votre prix net</em>, pas celle qui maximise ma commission. Parfois ça veut dire augmenter le partage au collaborateur pour mobiliser plus d'agents acheteurs.</p></div>
-</div>
-
-<h2>FAQ — commission</h2>
-<h3>Puis-je vendre sans courtier pour économiser ?</h3>
-<p>Vous pouvez. La vente directe par le propriétaire (DPP) reste une option légale. Cela demande toutefois de gérer la mise en marché, les visites, la qualification des acheteurs, la rédaction des promesses, les contre-propositions, l'inspection, la coordination notariale et les délais de financement. Mon rôle est de prendre en charge tout cela et de structurer une stratégie de prix qui maximise votre prix net après commission — discutons-en pour voir si ma valeur ajoutée correspond à votre situation.</p>
-<h3>Et si ma maison ne se vend pas, est-ce que je paie quand même ?</h3>
-<p>Non. La commission est payée à la signature de l'acte de vente uniquement. Si rien ne se vend, vous ne devez rien.</p>
-<h3>Puis-je négocier une commission par étapes ?</h3>
-<p>Oui — c'est conseillé dans certains cas. <a href="/rendez-vous/">Prendre rendez-vous</a> pour en discuter.</p>`],
   ['vendre/vendre-sans-stress','Vendre sans stress','Accompagnement complet','Un processus balisé, des nouvelles régulières, transparence en continu.','Vendre sans stress sa maison sur la Rive-Nord | Alain Brunelle','Méthode pour vendre sans stress : planning hebdomadaire, checklist par étape, communication transparente. Alain Brunelle RE/MAX CRYSTAL.',`<p>Vendre une maison, c'est rarement juste une transaction financière. C'est un déménagement, un changement de vie, parfois une séparation, parfois un deuil. L'émotion fait partie du processus, et l'ignorer ne la fait pas disparaître.</p>
 <p>Mon rôle, ce n'est pas seulement de vendre votre propriété — c'est de transformer une période émotionnellement chargée en un processus <strong>prévisible</strong>.</p>
 
@@ -3829,7 +3760,6 @@ const SUBPAGES = [
 const SUBPAGE_HERO = {
   'vendre/etapes-pour-vendre':       'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=80&auto=format&fit=crop',
   'vendre/preparer-sa-maison':       'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80&auto=format&fit=crop',
-  'vendre/commission-courtier':      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80&auto=format&fit=crop',
   'vendre/vendre-sans-stress':       'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&q=80&auto=format&fit=crop',
   'acheter/premier-acheteur':        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop',
   'acheter/etapes-pour-acheter':     'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80&auto=format&fit=crop',
