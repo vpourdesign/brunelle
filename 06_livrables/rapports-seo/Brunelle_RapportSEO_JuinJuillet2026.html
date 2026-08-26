@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<title>Alain Brunelle — Rapport SEO juin–juillet 2026</title>
+<style>
+  @font-face { font-family:'Jost'; font-weight:400; src:url('node_modules/@fontsource/jost/files/jost-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Jost'; font-weight:500; src:url('node_modules/@fontsource/jost/files/jost-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Jost'; font-weight:600; src:url('node_modules/@fontsource/jost/files/jost-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Jost'; font-weight:700; src:url('node_modules/@fontsource/jost/files/jost-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Jost'; font-weight:800; src:url('node_modules/@fontsource/jost/files/jost-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:400; src:url('node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:500; src:url('node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:600; src:url('node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:700; src:url('node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2') format('woff2'); }
+
+  @page { size: A4; margin: 0; }
+  :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --line: #e3e8f0;
+    --ink: #0b1628;
+    --muted: #5f6b7d;
+    --blue: #003DA5;
+    --blue-soft: #e9eef9;
+    --rust: #b5432a;
+    --rust-soft: #f9ece8;
+    --green: #1a7f5a;
+    --green-soft: #e7f4ee;
+    --amber-soft: #fdf3e2;
+    --amber-ink: #8a6116;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Inter',sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page {
+    width: 210mm; height: 297mm; background: var(--bg);
+    padding: 11mm 12mm 8mm; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- header ---------- */
+  .hdr { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom: 4.5mm; border-bottom: 2.5px solid var(--blue); margin-bottom: 6mm; }
+  .brand .nm { font-family:'Jost'; font-weight:800; font-size: 21px; letter-spacing:-0.01em; line-height:1; }
+  .brand .nm .dot { color: var(--rust); }
+  .brand .sub { font-size: 8px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-top: 3px; }
+  .hdr-r { text-align:right; }
+  .hdr-r .t { font-size: 10.5px; font-weight:700; letter-spacing:0.22em; color: var(--blue); }
+  .hdr-r .s { font-size: 9px; color: var(--muted); margin-top: 3px; }
+
+  h1 { font-family:'Jost'; font-size: 27px; font-weight:700; letter-spacing:-0.015em; margin-bottom: 3.5mm; }
+  .intro { font-size: 11.5px; line-height: 1.62; color: #2a3648; max-width: 178mm; margin-bottom: 6mm; }
+  .intro b { color: var(--ink); }
+
+  /* ---------- KPI ---------- */
+  .kpis { display:grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin-bottom: 5mm; }
+  .kpi { background: var(--surface); border:1px solid var(--line); border-radius: 10px; padding: 5mm 4.5mm 4.5mm; box-shadow: 0 1px 4px rgba(20,40,80,.05); }
+  .kpi .v { font-family:'Jost'; font-size: 25px; font-weight:700; line-height:1; }
+  .kpi .v small { font-size: 14px; color: var(--muted); font-weight:600; }
+  .kpi .l { font-size: 9.3px; color: var(--muted); line-height:1.45; margin-top: 2.5mm; min-height: 10.5mm; }
+  .kpi .b { display:inline-block; font-size: 8.4px; font-weight:600; background: var(--blue-soft); color: var(--blue); border-radius: 99px; padding: 2px 8px; margin-top: 2mm; }
+  .kpi .b.up { background: var(--green-soft); color: var(--green); }
+
+  /* ---------- panels ---------- */
+  .row2 { display:grid; grid-template-columns: 1fr 1.1fr; gap: 4mm; margin-bottom: 5mm; }
+  .panel { background: var(--surface); border:1px solid var(--line); border-radius: 12px; padding: 5mm; box-shadow: 0 1px 4px rgba(20,40,80,.05); }
+  .panel h3 { font-family:'Jost'; font-size: 12.5px; font-weight:700; margin-bottom: 3mm; }
+  .tagup { display:inline-block; font-size: 8.4px; font-weight:700; background: var(--green-soft); color: var(--green); border-radius: 99px; padding: 1.5px 7px; vertical-align: 1px; }
+
+  .legend { font-size: 9.5px; color: var(--ink); display:grid; gap: 2.2mm; }
+  .legend .pct { color: var(--muted); }
+  .ldot { display:inline-block; width: 8px; height: 8px; border-radius: 99px; margin-right: 5px; }
+
+  /* ---------- daily ---------- */
+  .daily { background: var(--surface); border:1px solid var(--line); border-radius: 12px; padding: 5mm; box-shadow: 0 1px 4px rgba(20,40,80,.05); }
+  .daily h3 { font-family:'Jost'; font-size: 12.5px; font-weight:700; }
+  .daily .s { font-size: 9px; color: var(--muted); margin: 1mm 0 2mm; }
+
+  /* ---------- glossary footer ---------- */
+  .gloss { margin-top: auto; background: #eef2f8; border-radius: 10px; padding: 4mm 5mm; display:grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+  .gloss .t { font-size: 8.5px; font-weight:700; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 1.5mm; }
+  .gloss p { font-size: 8.8px; color: #3c4759; line-height: 1.5; }
+  .pageno { position:absolute; bottom: 3.5mm; right: 12mm; font-size: 8px; color: var(--muted); }
+
+  /* ---------- page 2 ---------- */
+  .sec-t { font-size: 11px; font-weight:700; letter-spacing: 0.18em; color: var(--blue); margin-bottom: 3mm; }
+  table.q { width:100%; border-collapse: collapse; margin-bottom: 6mm; background: var(--surface); border-radius: 12px; overflow:hidden; box-shadow: 0 1px 4px rgba(20,40,80,.05); }
+  table.q th { text-align:left; font-size: 8.3px; font-weight:600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 3mm 3.5mm; border-bottom: 1.5px solid var(--line); background: #fbfcfe; }
+  table.q th.n, table.q td.n { text-align: right; }
+  table.q td { font-size: 10px; padding: 2.4mm 3.5mm; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  table.q tr:last-child td { border-bottom:none; }
+  .qname { font-weight: 600; }
+  .qtag { font-weight:400; color: var(--muted); font-size: 9px; }
+  .mv { white-space: nowrap; }
+  .mv .from { color: var(--muted); }
+  .mv .arr { color: var(--muted); padding: 0 2px; }
+  .mv .to { font-weight: 700; }
+  .mv .to.good { color: var(--green); }
+  .badge { display:inline-block; font-size: 8.2px; font-weight:700; border-radius: 99px; padding: 2.5px 9px; white-space:nowrap; }
+  .badge.first { background: var(--blue); color:#fff; }
+  .badge.top   { background: var(--blue-soft); color: var(--blue); }
+  .badge.new   { background: var(--green-soft); color: var(--green); }
+  .badge.p2    { background: var(--rust-soft); color: var(--rust); }
+  .badge.wip   { background: #eef1f6; color: var(--muted); }
+  .tbl-note { font-size: 8.6px; color: var(--muted); line-height:1.5; margin: -4mm 0 6mm; padding: 0 1mm; }
+
+  .pages-panel { background: var(--surface); border:1px solid var(--line); border-radius: 12px; padding: 5mm 6mm; box-shadow: 0 1px 4px rgba(20,40,80,.05); margin-bottom: 6mm; }
+  .bar-row { display: grid; grid-template-columns: 62mm 1fr 10mm; align-items: center; gap: 3mm; margin: 2.3mm 0; }
+  .bar-row .lb { font-size: 9.6px; }
+  .bar-row .lb small { color: var(--muted); }
+  .bar-row .track { height: 5.2mm; }
+  .bar-row .bar { height: 100%; background: var(--blue); border-radius: 0 4px 4px 0; }
+  .bar-row .val { font-size: 10px; font-weight: 700; }
+
+  .faits { }
+  .fait { display: grid; grid-template-columns: 6mm 1fr; gap: 3mm; margin-bottom: 2.6mm; }
+  .fait .ck { width: 4.6mm; height: 4.6mm; border-radius: 99px; background: var(--blue); color: #fff; font-size: 8.5px; display:flex; align-items:center; justify-content:center; margin-top: 0.4mm; }
+  .fait p { font-size: 10px; line-height: 1.5; color: #2a3648; }
+  .fait p b { color: var(--ink); }
+  .next { margin-top: auto; background: var(--blue-soft); border-radius: 10px; padding: 3.5mm 5mm; font-size: 9.3px; color: var(--blue); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="brand">
+      <div class="nm">Alain Brunelle<span class="dot">.</span></div>
+      <div class="sub">Courtier immobilier résidentiel · RE/MAX Crystal</div>
+    </div>
+    <div class="hdr-r">
+      <div class="t">RAPPORT SEO · JUIN – JUILLET 2026</div>
+      <div class="s">Période du 1<sup>er</sup> juin au 31 juillet 2026 · alainbrunelle.com</div>
+    </div>
+  </div>
+
+  <h1>Votre visibilité sur Google décolle</h1>
+  <p class="intro">
+    Mis en ligne à la fin juin, alainbrunelle.com est apparu <b>3&#8239;766 fois</b> dans les résultats de recherche Google en juillet
+    — son premier mois complet — contre 574 en juin. Le site a reçu <b>55 visites</b> depuis Google (3 en juin), la recherche Google est
+    déjà devenue <b>la première source de visiteurs</b> du site, et les recherches stratégiques « courtier immobilier + ville »
+    commencent à entrer dans le top 10.
+  </p>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="v">55</div>
+      <div class="l">visites depuis Google en juillet</div>
+      <div class="b up">×18 vs juin</div>
+    </div>
+    <div class="kpi">
+      <div class="v">3&#8239;766</div>
+      <div class="l">apparitions dans Google en juillet</div>
+      <div class="b up">+556&#8239;% vs juin</div>
+    </div>
+    <div class="kpi">
+      <div class="v">57&#8239;%</div>
+      <div class="l">du trafic de juillet provient de la recherche Google</div>
+      <div class="b">1<sup>re</sup> source de trafic</div>
+    </div>
+    <div class="kpi">
+      <div class="v">44</div>
+      <div class="l">recherches classent le site dans le top 10 Google</div>
+      <div class="b">dont 16 dans le top 3 · 0 en juin</div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="panel">
+      <h3>Juin → juillet : l'indexation porte fruit</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4mm;">
+        <div>
+          <div style="font-size:9.5px; font-weight:600; margin-bottom:1mm;">Visites (clics) <span class="tagup">×18</span></div>
+          <div id="bars-clicks"></div>
+        </div>
+        <div>
+          <div style="font-size:9.5px; font-weight:600; margin-bottom:1mm;">Apparitions <span class="tagup">+556&#8239;%</span></div>
+          <div id="bars-imps"></div>
+        </div>
+      </div>
+      <p style="font-size:8.6px; color:var(--muted); margin-top:2.5mm; line-height:1.45;">
+        Site indexé par Google à partir du 24 juin — juin est un point de départ, pas un mois complet.
+      </p>
+    </div>
+    <div class="panel">
+      <h3>D'où viennent les visiteurs du site <span style="color:var(--muted); font-weight:500;">(juillet)</span></h3>
+      <div style="display:flex; align-items:center; gap:7mm;">
+        <div id="donut"></div>
+        <div class="legend">
+          <div><span class="ldot" style="background:#003DA5;"></span>Recherche Google <span class="pct">57&#8239;%</span></div>
+          <div><span class="ldot" style="background:#9aa4b5;"></span>Accès direct <span class="pct">38&#8239;%</span></div>
+          <div><span class="ldot" style="background:#c9cfda;"></span>Réseaux sociaux <span class="pct">3&#8239;%</span></div>
+          <div><span class="ldot" style="background:#e4e8ef;"></span>Autres <span class="pct">1&#8239;%</span></div>
+        </div>
+      </div>
+      <p style="font-size:8.6px; color:var(--muted); margin-top:2.8mm; line-height:1.45;">
+        En juin, Google représentait 17&#8239;% du trafic. En juillet, il est passé devant l'accès direct — c'est le signe d'un site qui commence à être trouvé, pas juste consulté.
+      </p>
+    </div>
+  </div>
+
+  <div class="daily">
+    <h3>Google montre le site de plus en plus souvent</h3>
+    <div class="s">Nombre d'apparitions par jour dans les résultats Google (moyenne mobile sur 7 jours)</div>
+    <div id="dailychart"></div>
+  </div>
+
+  <div class="gloss">
+    <div>
+      <div class="t">APPARITION (IMPRESSION)</div>
+      <p>Chaque fois que le site s'affiche dans les résultats Google d'une personne.</p>
+    </div>
+    <div>
+      <div class="t">VISITE (CLIC)</div>
+      <p>Une personne qui clique sur le site dans Google et arrive sur alainbrunelle.com.</p>
+    </div>
+    <div>
+      <div class="t">POSITION</div>
+      <p>Le rang du site dans les résultats. Position #1 = tout en haut de la page.</p>
+    </div>
+  </div>
+  <div class="pageno">1 / 2</div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+  <div class="hdr">
+    <div class="brand">
+      <div class="nm">Alain Brunelle<span class="dot">.</span></div>
+      <div class="sub">Courtier immobilier résidentiel · RE/MAX Crystal</div>
+    </div>
+    <div class="hdr-r">
+      <div class="t">RAPPORT SEO · JUIN – JUILLET 2026</div>
+      <div class="s">Période du 1<sup>er</sup> juin au 31 juillet 2026 · alainbrunelle.com</div>
+    </div>
+  </div>
+
+  <div class="sec-t">LES RECHERCHES STRATÉGIQUES — JUIN → JUILLET</div>
+  <table class="q">
+    <thead>
+      <tr>
+        <th style="width:62mm;">Recherche tapée dans Google</th>
+        <th class="n">Apparitions</th>
+        <th class="n">Position moyenne</th>
+        <th style="width:30mm; text-align:right;">Classement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="qname">« alain brunelle » <span class="qtag">— recherche de la marque</span></td>
+        <td class="n mv"><span class="from">3</span><span class="arr">→</span><span class="to good">42</span></td>
+        <td class="n mv"><span class="from">4,7</span><span class="arr">→</span><span class="to good">3,3</span></td>
+        <td style="text-align:right;"><span class="badge first">Top 3</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« alain brunelle remax »</td>
+        <td class="n mv"><span class="from">1</span><span class="arr">→</span><span class="to good">12</span></td>
+        <td class="n mv"><span class="from">7,0</span><span class="arr">→</span><span class="to good">4,8</span></td>
+        <td style="text-align:right;"><span class="badge top">Top 5</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« courtier immobilier blainville »</td>
+        <td class="n mv"><span class="from">absent</span><span class="arr">→</span><span class="to good">18</span></td>
+        <td class="n mv"><span class="from">—</span><span class="arr">→</span><span class="to good">9,7</span></td>
+        <td style="text-align:right;"><span class="badge new">Entrée top 10 ✓</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« agent immobilier blainville »</td>
+        <td class="n mv"><span class="from">absent</span><span class="arr">→</span><span class="to good">21</span></td>
+        <td class="n mv"><span class="from">—</span><span class="arr">→</span><span class="to good">8,6</span></td>
+        <td style="text-align:right;"><span class="badge new">Entrée top 10 ✓</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« courtier immobilier lorraine »</td>
+        <td class="n mv"><span class="from">12</span><span class="arr">→</span><span class="to good">25</span></td>
+        <td class="n mv"><span class="from">8,3</span><span class="arr">→</span><span class="to good">7,9</span></td>
+        <td style="text-align:right;"><span class="badge top">Top 10</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« agent immobilier rosemère »</td>
+        <td class="n mv"><span class="from">1</span><span class="arr">→</span><span class="to good">21</span></td>
+        <td class="n mv"><span class="from">9,0</span><span class="arr">→</span><span class="to">14,5</span></td>
+        <td style="text-align:right;"><span class="badge p2">Page 2</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« courtier immobilier rosemère »</td>
+        <td class="n mv"><span class="from">6</span><span class="arr">→</span><span class="to good">32</span></td>
+        <td class="n mv"><span class="from">7,0</span><span class="arr">→</span><span class="to">23,0</span></td>
+        <td style="text-align:right;"><span class="badge p2">Page 2–3</span></td>
+      </tr>
+      <tr>
+        <td class="qname">« courtier immobilier sainte-thérèse »</td>
+        <td class="n mv"><span class="from">3</span><span class="arr">→</span><span class="to good">42</span></td>
+        <td class="n mv"><span class="from">28,3</span><span class="arr">→</span><span class="to">36,0</span></td>
+        <td style="text-align:right;"><span class="badge wip">En construction</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="tbl-note">
+    Note : quand Google se met à tester le site sur beaucoup plus de recherches (apparitions ×5 à ×14), la position <em>moyenne</em> peut
+    reculer temporairement — c'est le comportement normal d'un site neuf qui gagne du terrain. Les recherches où le site est établi
+    (marque, Blainville, Lorraine) montent, elles, en position.
+  </p>
+
+  <div class="sec-t">LES PAGES LES PLUS VISITÉES DEPUIS GOOGLE — JUILLET</div>
+  <div class="pages-panel" id="pagesbars"></div>
+
+  <div class="sec-t">FAITS SAILLANTS</div>
+  <div class="faits">
+    <div class="fait"><div class="ck">✓</div><p><b>Google apprend le site :</b> 199 recherches différentes ont affiché alainbrunelle.com en juillet, contre 63 en juin — trois fois plus de portes d'entrée.</p></div>
+    <div class="fait"><div class="ck">✓</div><p><b>Les pages ville travaillent :</b> « Courtier immobilier Blainville » est passée de 20 à 228 apparitions et Rosemère de 25 à 155 — le cœur de la stratégie locale est en place et Google le prend au sérieux.</p></div>
+    <div class="fait"><div class="ck">✓</div><p><b>La marque est verrouillée :</b> « alain brunelle » sort en position 3 — toute personne qui cherche Alain le trouve immédiatement.</p></div>
+    <div class="fait"><div class="ck">✓</div><p><b>Les fiches attirent :</b> la propriété du 38, rue Ouimet (Sainte-Thérèse) est la page la plus visitée depuis Google — 16 visites en comptant sa version anglaise. Chaque inscription devient une porte d'entrée.</p></div>
+    <div class="fait"><div class="ck">✓</div><p><b>Les visiteurs restent :</b> une visite venant de Google dure en moyenne 2&#8239;min&#8239;43, et 56&#8239;% des visites sont « engagées » — le contenu répond à leurs questions. 73&#8239;% des visites se font sur mobile.</p></div>
+    <div class="fait"><div class="ck">✓</div><p><b>Élan pour août :</b> +27&#8239;% de visites dans la dernière semaine de juillet par rapport à la première — et le site est aussi apparu 442 fois dans les recherches aux États-Unis grâce à sa version anglaise.</p></div>
+  </div>
+
+  <div class="next">Prochain rapport : début septembre — comparaison juin · juillet · août, avec l'évolution des positions sur chaque recherche stratégique.</div>
+  <div class="pageno">2 / 2</div>
+</div>
+
+<script>
+// ---------- petites barres juin/juillet ----------
+function pairBars(el, vJun, vJul, fmt) {
+  const max = Math.max(vJun, vJul);
+  const H = 68, W = 120, bw = 34;
+  const h = v => Math.max(2, (v / max) * (H - 18));
+  const svg = `<svg width="${W}" height="${H + 14}" xmlns="http://www.w3.org/2000/svg">
+    <text x="${20 + bw/2}" y="${H - h(vJun) - 5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0b1628">${fmt(vJun)}</text>
+    <rect x="20" y="${H - h(vJun)}" width="${bw}" height="${h(vJun)}" rx="3" fill="#b8c6e2"/>
+    <text x="${20 + bw/2}" y="${H + 10}" text-anchor="middle" font-size="8.5" fill="#5f6b7d">Juin</text>
+    <text x="${66 + bw/2}" y="${H - h(vJul) - 5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0b1628">${fmt(vJul)}</text>
+    <rect x="66" y="${H - h(vJul)}" width="${bw}" height="${h(vJul)}" rx="3" fill="#003DA5"/>
+    <text x="${66 + bw/2}" y="${H + 10}" text-anchor="middle" font-size="8.5" fill="#5f6b7d">Juillet</text>
+  </svg>`;
+  document.getElementById(el).innerHTML = svg;
+}
+const fmtN = n => n.toLocaleString('fr-CA').replace(/ /g, ' ');
+pairBars('bars-clicks', 3, 55, fmtN);
+pairBars('bars-imps', 574, 3766, fmtN);
+
+// ---------- donut juillet ----------
+(function donut() {
+  const parts = [
+    { v: 51, c: '#003DA5' }, { v: 34, c: '#9aa4b5' }, { v: 3, c: '#c9cfda' }, { v: 1, c: '#e4e8ef' }
+  ];
+  const tot = parts.reduce((s, p) => s + p.v, 0);
+  const R = 34, r = 21, CX = 42, CY = 42;
+  let a0 = -Math.PI / 2, svg = '';
+  for (const p of parts) {
+    const a1 = a0 + (p.v / tot) * Math.PI * 2;
+    const big = (a1 - a0) > Math.PI ? 1 : 0;
+    const x0 = CX + R * Math.cos(a0), y0 = CY + R * Math.sin(a0);
+    const x1 = CX + R * Math.cos(a1), y1 = CY + R * Math.sin(a1);
+    const xi1 = CX + r * Math.cos(a1), yi1 = CY + r * Math.sin(a1);
+    const xi0 = CX + r * Math.cos(a0), yi0 = CY + r * Math.sin(a0);
+    svg += `<path d="M${x0},${y0} A${R},${R} 0 ${big} 1 ${x1},${y1} L${xi1},${yi1} A${r},${r} 0 ${big} 0 ${xi0},${yi0} Z" fill="${p.c}"/>`;
+    a0 = a1;
+  }
+  svg += `<text x="${CX}" y="${CY - 1}" text-anchor="middle" font-size="15" font-weight="700" font-family="Jost" fill="#0b1628">57&#8239;%</text>
+          <text x="${CX}" y="${CY + 9}" text-anchor="middle" font-size="5.4" fill="#5f6b7d">du trafic vient</text>
+          <text x="${CX}" y="${CY + 15.5}" text-anchor="middle" font-size="5.4" fill="#5f6b7d">de Google</text>`;
+  document.getElementById('donut').innerHTML = `<svg width="118" height="118" viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+})();
+
+// ---------- courbe quotidienne (moyenne mobile 7 j sur les apparitions) ----------
+(function daily() {
+  const raw = [["06-24",0],["06-25",0],["06-26",1],["06-27",29],["06-28",125],["06-29",181],["06-30",238],
+  ["07-01",128],["07-02",150],["07-03",155],["07-04",128],["07-05",158],["07-06",157],["07-07",162],
+  ["07-08",167],["07-09",124],["07-10",110],["07-11",127],["07-12",133],["07-13",139],["07-14",129],
+  ["07-15",121],["07-16",132],["07-17",117],["07-18",81],["07-19",81],["07-20",97],["07-21",89],
+  ["07-22",90],["07-23",93],["07-24",99],["07-25",84],["07-26",102],["07-27",105],["07-28",130],
+  ["07-29",154],["07-30",112],["07-31",112]];
+  const avg = raw.map((_, i) => {
+    const w = raw.slice(Math.max(0, i - 6), i + 1);
+    return w.reduce((s, r) => s + r[1], 0) / w.length;
+  });
+  const W = 680, H = 130, PL = 30, PR = 118, PT = 12, PB = 20;
+  const max = 160;
+  const x = i => PL + (i / (raw.length - 1)) * (W - PL - PR);
+  const y = v => H - PB - (v / max) * (H - PT - PB);
+  let svg = '';
+  [0, 50, 100, 150].forEach(v => {
+    svg += `<line x1="${PL}" y1="${y(v)}" x2="${W - PR}" y2="${y(v)}" stroke="#e3e8f0" stroke-width="1"/>
+            <text x="${PL - 6}" y="${y(v) + 3}" text-anchor="end" font-size="8" fill="#5f6b7d">${v}</text>`;
+  });
+  svg += `<text x="${x(3)}" y="${H - 5}" text-anchor="middle" font-size="8" fill="#5f6b7d">Fin juin</text>
+          <text x="${x(21)}" y="${H - 5}" text-anchor="middle" font-size="8" fill="#5f6b7d">Juillet</text>`;
+  const pts = avg.map((v, i) => [x(i), y(v)]);
+  const area = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L') + ` L${x(raw.length-1)},${y(0)} L${x(0)},${y(0)} Z`;
+  const line = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L');
+  svg += `<path d="${area}" fill="#e9eef9"/>`;
+  svg += `<path d="${line}" stroke="#003DA5" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  const lp = pts[pts.length - 1];
+  svg += `<circle cx="${lp[0]}" cy="${lp[1]}" r="3.4" fill="#b5432a"/>
+          <text x="${lp[0] + 7}" y="${lp[1] - 6}" font-size="9.5" font-weight="700" fill="#b5432a">≈115 / jour</text>
+          <text x="${lp[0] + 7}" y="${lp[1] + 5}" font-size="8" fill="#5f6b7d">0 il y a 5 semaines</text>`;
+  document.getElementById('dailychart').innerHTML =
+    `<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+})();
+
+// ---------- pages les plus visitées ----------
+(function pages() {
+  const rows = [
+    ['Fiche — 38, rue Ouimet, Sainte-Thérèse', 12, ''],
+    ['Page ville — Courtier immobilier Rosemère', 4, ''],
+    ['Fiche — 38, rue Ouimet (EN)', 4, ''],
+    ['Commission de courtier (EN)', 3, ''],
+    ['Fiche — 856, rue Bergeron (EN)', 3, ''],
+    ['Le marché immobilier', 3, ''],
+    ['Quartier — Jardins de Blainville', 3, ''],
+    ['Page ville — Courtier immobilier Blainville', 2, '']
+  ];
+  const max = rows[0][1];
+  document.getElementById('pagesbars').innerHTML = rows.map(r => `
+    <div class="bar-row">
+      <div class="lb">${r[0]}</div>
+      <div class="track"><div class="bar" style="width:${(r[1] / max) * 100}%;"></div></div>
+      <div class="val">${r[1]}</div>
+    </div>`).join('');
+})();
+</script>
+</body>
+</html>

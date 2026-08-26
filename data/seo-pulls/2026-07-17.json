@@ -1,0 +1,188 @@
+{
+  "period": "2026-06-16 → 2026-07-14",
+  "clicks": 29,
+  "impressions": 2541,
+  "ctr": 1.1,
+  "position": 22.1,
+  "top_queries": [
+    {
+      "q": "alain brunelle",
+      "clicks": 2,
+      "impressions": 19,
+      "position": 4.3
+    },
+    {
+      "q": "courtier immobilier blainville",
+      "clicks": 1,
+      "impressions": 4,
+      "position": 7.5
+    },
+    {
+      "q": "10120 avenue d'auteuil",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 29
+    },
+    {
+      "q": "12247 rue ranger",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 38
+    },
+    {
+      "q": "3040 rue de la comtesse",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 32
+    },
+    {
+      "q": "3875 56e rue laval",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 58
+    },
+    {
+      "q": "975 romeo vachon",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 27.5
+    },
+    {
+      "q": "achat maison processus",
+      "clicks": 0,
+      "impressions": 8,
+      "position": 60.1
+    },
+    {
+      "q": "acheteur de maison blainville",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 20
+    },
+    {
+      "q": "agent immobilier blainville",
+      "clicks": 0,
+      "impressions": 17,
+      "position": 8.4
+    },
+    {
+      "q": "agent immobilier lorraine",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 13
+    },
+    {
+      "q": "agent immobilier rosemère",
+      "clicks": 0,
+      "impressions": 8,
+      "position": 8.5
+    },
+    {
+      "q": "agent immobilier ste-thérèse",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 45.3
+    },
+    {
+      "q": "alain brunelle remax",
+      "clicks": 0,
+      "impressions": 5,
+      "position": 6.2
+    },
+    {
+      "q": "are there experts for luxury property marketing strategies in kirkland under 5% commission?",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 1
+    },
+    {
+      "q": "b&w blainville",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 100
+    },
+    {
+      "q": "blainville",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 1
+    },
+    {
+      "q": "blainville immobilier",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 11
+    },
+    {
+      "q": "blainvillier",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 4.5
+    },
+    {
+      "q": "bois franc",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 32
+    },
+    {
+      "q": "buying a house",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 2
+    },
+    {
+      "q": "calculateur commission courtier immobilier",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 40.3
+    },
+    {
+      "q": "chante-bois",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 6
+    },
+    {
+      "q": "commission agent immeuble",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 27
+    },
+    {
+      "q": "commission agent immobilier quebec",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 20
+    }
+  ],
+  "tracked": {
+    "cib": {
+      "clicks": 1,
+      "impressions": 4,
+      "position": 7.5
+    },
+    "cist": {
+      "clicks": 0,
+      "impressions": 26,
+      "position": 33.8
+    },
+    "cir": {
+      "clicks": 0,
+      "impressions": 24,
+      "position": 20.8
+    },
+    "cil": {
+      "clicks": 0,
+      "impressions": 28,
+      "position": 8.1
+    },
+    "vmb": null,
+    "cvm": null
+  },
+  "ga": {
+    "sessions": 81,
+    "users": 45,
+    "pageviews": 280
+  }
+}

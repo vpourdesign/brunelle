@@ -11,3 +11,6 @@ _tmp.zip
 videos/
 site/videos/
 videos-opt/
+
+# Clés API locales (jamais committées)
+.secrets/

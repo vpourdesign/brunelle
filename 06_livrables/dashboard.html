@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alain Brunelle — Dashboard Meta 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230EA5E9'/><text x='16' y='22' font-family='system-ui,-apple-system,sans-serif' font-size='14' font-weight='900' text-anchor='middle' fill='white'>PVM</text></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        colors: {
+          ac: {
+            bg: '#FAFAF7',
+            surface: '#FFFFFF',
+            line: '#E5E5E0',
+            ink: '#1A1A1A',
+            muted: '#6B7280',
+            accent: '#FF5E5E',
+          }
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>window.CREATIVES = {};</script>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; background: #FAFAF7; color: #1A1A1A; -webkit-font-smoothing: antialiased; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #F5F5F0; }
+  ::-webkit-scrollbar-thumb { background: #D5D5D0; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #B5B5B0; }
+  .card { transition: box-shadow 0.2s, transform 0.2s; }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .pill { font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+  [data-drawer="open"] { animation: slide-in 0.3s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+  .fade-in { animation: fade 0.3s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="application/json" id="dashboard-data">{"meta":{"project":"BRUNELLE","month":"<PÉRIODE — ex: Saison 2026 ou Juin 2026>","period":"<YYYY-MM-DD to YYYY-MM-DD>","duration_days":0,"budget_total":0.0,"budget_per_campaign":{"notoriete":0.0,"traffic":0.0,"conversion":0.0,"ig_profil":0.0},"generated_at":"<YYYY-MM-DD>","source_file":"<Référence brief ou stratégie>","allocation_method":"<Description méthode d'allocation>","pacing_note":"<Notes sur le pacing, contexte spécifique>","business_manager":"<ID ou nom Business Manager>"},"events":[{"id":"<slug>","name":"<Nom de l'événement>","date":"<YYYY-MM-DD ou null>","flagship":false,"has_tickets":false}],"audiences":[{"id":"main","label":"<Description courte de l'audience principale>","composition":[{"type":"cold_geo","label":"<Cold geo label>","description":"<Description ciblage géo + intérêts>"},{"type":"warm_custom","label":"<Warm engagers label>","description":"<Description audience warm/retargeting>"},{"type":"lookalike","label":"<Lookalike label>","description":"<Description LAL, taille, source>"}]}],"campaign_types":{"notoriete":{"label":"Notoriété","meta_objective":"Awareness / Reach","budget":0.0},"traffic":{"label":"Trafic","meta_objective":"Traffic (clics vers landing)","budget":0.0},"conversion":{"label":"Conversion","meta_objective":"Engagement / RSVP / Achat","budget":0.0},"ig_profil":{"label":"IG Profil","meta_objective":"Profile Visits / Follows","budget":0.0}},"phases":[{"id":"P1","label":"P1 — <Nom court>","name":"<Nom complet de la phase>","date_start":"<YYYY-MM-DD>","date_end":"<YYYY-MM-DD>","duration_days":0,"objective":"<Objectif de la phase>","campaign_focus":["notoriete","ig_profil"],"color":"rose"}],"phase_budgets":{"P1":{"total":0.0,"notoriete":0.0,"traffic":0.0,"conversion":0.0,"ig_profil":0.0,"ad_count":0,"ad_ids":[]}},"ads":[{"id":"<projet>-001","phase":"P1 — <Nom phase>","status":"DRAFT","approval_status":"pending","campaign_types":["notoriete"],"campaign_types_display":["NOTORIÉTÉ"],"event_id":"<event slug>","date_start":"<YYYY-MM-DD>","date_end":"<YYYY-MM-DD>","duration_days":0,"audience_id":"main","audience_raw":"<Description verbale audience>","format":"statique","headline":"<Titre>","description":"<Sous-titre>","copy":"<Texte principal du post>","link":"<URL destination>","creative_assets":{"visual_1x1_ready":false,"story_9x16_ready":false,"notes":["<Note de production>"]},"content_complete":false,"budget_allocation":{"notoriete":0.0,"traffic":0.0,"conversion":0.0,"ig_profil":0.0,"total":0.0},"daily_budget_per_campaign":{}}],"summary":{"by_campaign_type":{},"by_event":{},"by_format":{},"by_phase":{},"totals":{"ads_count":0,"budget_total":0.0,"allocated_total":0.0,"events_count":0,"phases_count":0}},"gaps":[{"severity":"high","type":"<type>","message":"<Description du gap>","count":0}],"client_questions":[{"id":"q1","category":"<Accès / Audiences / Programmation / Créatifs / Stratégie / Mesure / Budget>","priority":"<critical / high / medium / low>","status":"open","question":"<Question à poser au client>","why_it_matters":"<Pourquoi cette réponse débloque le démarrage>"}]}</script>
+<script type="text/babel" data-presets="react">
+const { useState, useMemo, useEffect, useCallback } = React;
+
+const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+
+// ------------------ Constants ------------------
+const CAMPAIGN_COLORS = {
+  notoriete:  { bg:'bg-rose-50',    text:'text-rose-700',    ring:'ring-rose-200',    dot:'bg-rose-500',    bar:'bg-rose-500',    name:'Notoriété' },
+  traffic:    { bg:'bg-sky-50',     text:'text-sky-700',     ring:'ring-sky-200',     dot:'bg-sky-500',     bar:'bg-sky-500',     name:'Trafic' },
+  conversion: { bg:'bg-emerald-50', text:'text-emerald-700', ring:'ring-emerald-200', dot:'bg-emerald-500', bar:'bg-emerald-500', name:'Conversion' },
+  ig_profil:  { bg:'bg-amber-50',   text:'text-amber-700',   ring:'ring-amber-200',   dot:'bg-amber-500',   bar:'bg-amber-500',   name:'IG Profil' },
+};
+const FORMAT_COLORS = {
+  statique:  { bg:'bg-stone-100', text:'text-stone-700' },
+  video:     { bg:'bg-violet-100', text:'text-violet-700' },
+  carrousel: { bg:'bg-cyan-100', text:'text-cyan-700' },
+};
+const APPROVAL_COLORS = {
+  pending:  { bg:'bg-amber-50',    text:'text-amber-700',    border:'border-amber-200',    label:'En attente' },
+  approved: { bg:'bg-emerald-50',  text:'text-emerald-700',  border:'border-emerald-200',  label:'Approuvé' },
+  rejected: { bg:'bg-rose-50',     text:'text-rose-700',     border:'border-rose-200',     label:'Rejeté' },
+};
+const PRIORITY_COLORS = {
+  critical: { bg:'bg-red-50',    text:'text-red-700',    dot:'bg-red-500',    label:'Critique' },
+  high:     { bg:'bg-orange-50', text:'text-orange-700', dot:'bg-orange-500', label:'Haute' },
+  medium:   { bg:'bg-yellow-50', text:'text-yellow-700', dot:'bg-yellow-500', label:'Moyenne' },
+  low:      { bg:'bg-gray-50',   text:'text-gray-700',   dot:'bg-gray-400',   label:'Basse' },
+};
+const SEVERITY_COLORS = {
+  high:   { bg:'bg-red-50',    border:'border-red-200',    text:'text-red-800',    icon:'🚨' },
+  medium: { bg:'bg-orange-50', border:'border-orange-200', text:'text-orange-800', icon:'⚠️' },
+  info:   { bg:'bg-sky-50',    border:'border-sky-200',    text:'text-sky-800',    icon:'ℹ️' },
+};
+
+const EVENTS_MAP = Object.fromEntries(DATA.events.map(e => [e.id, e]));
+
+// ------------------ Budget advisor ------------------
+// Chaque pub est splittée en N audiences (ad sets) lors du setup Meta
+const AUDIENCES_PER_AD = 2;
+
+// Seuils de budget journalier PAR AUDIENCE (ad set) en $ CAD
+// Calibrés pour un contexte de petit budget, mais assez pour que Meta puisse optimiser
+const BUDGET_THRESHOLDS = {
+  conversion: { critical: 1.0, warning: 3.0, label: 'Conversion' },
+  traffic:    { critical: 0.5, warning: 1.5, label: 'Trafic' },
+  notoriete:  { critical: 0.3, warning: 0.8, label: 'Notoriété' },
+  ig_profil:  { critical: 0.5, warning: 1.5, label: 'IG Profil' },
+};
+
+const auditBudget = (ad) => {
+  const warnings = [];
+  for (const camp of ad.campaign_types) {
+    const daily = ad.daily_budget_per_campaign[camp] || 0;
+    const dailyPerAudience = daily / AUDIENCES_PER_AD;
+    const t = BUDGET_THRESHOLDS[camp];
+    if (!t) continue;
+    let severity = null;
+    if (dailyPerAudience < t.critical) severity = 'critical';
+    else if (dailyPerAudience < t.warning) severity = 'warning';
+    if (!severity) continue;
+
+    const total = ad.budget_allocation[camp];
+    const targetDaily = t.warning; // target = le seuil OK minimum
+    const neededTotal = Math.ceil(targetDaily * AUDIENCES_PER_AD * ad.duration_days);
+    const newDuration = Math.max(1, Math.floor(total / (targetDaily * AUDIENCES_PER_AD)));
+    const mergedDaily = daily; // si on fusionne en 1 audience, daily reste daily mais va à 1 ad set
+    warnings.push({
+      campaign: camp, severity, daily, dailyPerAudience, total,
+      threshold_critical: t.critical, threshold_warning: t.warning,
+      suggestions: {
+        increase: { newTotal: neededTotal, delta: neededTotal - total, targetDaily },
+        shorten:  { newDuration, daysShaved: ad.duration_days - newDuration, targetDaily },
+        merge:    { dailyIfMerged: mergedDaily, worksIfMerged: mergedDaily >= t.warning },
+      }
+    });
+  }
+  return warnings;
+};
+
+const worstSeverity = (warnings) => {
+  if (warnings.some(w => w.severity === 'critical')) return 'critical';
+  if (warnings.length > 0) return 'warning';
+  return null;
+};
+
+// ------------------ Reach estimator ------------------
+// CPM moyens Montréal 18-34, 2024-2025, en CAD
+const CPM_ESTIMATES = {
+  notoriete:  { low: 4,  high: 10 },  // Awareness / Reach
+  traffic:    { low: 8,  high: 18 },  // Link clicks
+  conversion: { low: 15, high: 45 },  // Purchase — Meta cible les acheteurs
+  ig_profil:  { low: 10, high: 25 },  // Profile visits
+};
+
+const estimateReach = (ad) => {
+  const days = ad.duration_days;
+  // Fréquence moyenne selon la durée du flight
+  let frequency = 1.75;
+  if (days > 7 && days <= 21) frequency = 2.5;
+  else if (days > 21) frequency = 3.5;
+
+  let impressionsLow = 0, impressionsHigh = 0;
+  for (const camp of ad.campaign_types) {
+    const budget = ad.budget_allocation[camp];
+    const cpm = CPM_ESTIMATES[camp];
+    if (!cpm || !budget) continue;
+    impressionsLow  += budget * 1000 / cpm.high; // haut CPM = moins d'impressions
+    impressionsHigh += budget * 1000 / cpm.low;  // bas CPM = plus d'impressions
+  }
+  // Facteur de chevauchement si plusieurs campagnes (même pub vue dans plusieurs contextes)
+  const overlap = ad.campaign_types.length > 1 ? 0.7 : 1.0;
+  const reachLow  = Math.round(impressionsLow  / frequency * overlap);
+  const reachHigh = Math.round(impressionsHigh / frequency * overlap);
+  return { low: reachLow, high: reachHigh, frequency, impressionsLow, impressionsHigh };
+};
+
+const fmtReach = (n) => {
+  if (n < 1000) return Math.round(n).toLocaleString('fr-CA');
+  if (n < 10000) return (n/1000).toFixed(1).replace('.',',') + ' k';
+  return Math.round(n/1000).toLocaleString('fr-CA') + ' k';
+};
+
+// ------------------ Creative mapping ------------------
+// Creatives produced: 14 mai (Soirée d'ouverture) + 21 mai (FRIKITON). Autres événements → placeholder.
+const CR = window.CREATIVES || {};
+
+// Build 14 mai carousel (AD-004) — 5 slides feed (carre.png + 4 ACS) + 5 slides story (story.png + 4 ACS)
+const FEED_14_SLIDES = [
+  { type:'image', src: CR.carre_png_14mai, label:'carre.png' },
+  { type:'image', src: CR.acs_14mai_feed_1, label:'ACS/feed1.png' },
+  { type:'image', src: CR.acs_14mai_feed_2, label:'ACS/feed2.png' },
+  { type:'image', src: CR.acs_14mai_feed_3, label:'ACS/feed3.png' },
+  { type:'image', src: CR.acs_14mai_feed_4, label:'ACS/feed4.png' },
+];
+const STORY_14_SLIDES = [
+  { type:'image', src: CR.story_png_14mai, label:'story.png' },
+  { type:'image', src: CR.acs_14mai_story_1, label:'ACS/1.png' },
+  { type:'image', src: CR.acs_14mai_story_2, label:'ACS/2.png' },
+  { type:'image', src: CR.acs_14mai_story_3, label:'ACS/3.png' },
+  { type:'image', src: CR.acs_14mai_story_4, label:'ACS/4.png' },
+];
+
+// Build 21 mai story slideshow: story.png + 6 artist cards
+const STORY_21_SLIDES = [
+  { type:'image', src: CR.story_png_21mai, label:'story.png' },
+  { type:'image', src: CR.acs_21mai_1, label:'ACS/1.png' },
+  { type:'image', src: CR.acs_21mai_2, label:'ACS/2.png' },
+  { type:'image', src: CR.acs_21mai_3, label:'ACS/3.png' },
+  { type:'image', src: CR.acs_21mai_4, label:'ACS/4.png' },
+  { type:'image', src: CR.acs_21mai_5, label:'ACS/5.png' },
+  { type:'image', src: CR.acs_21mai_6, label:'ACS/6.png' },
+];
+
+// Build 22 mai story slideshow: story.png + 1 artist card
+const STORY_22_SLIDES = [
+  { type:'image', src: CR.story_png_22mai, label:'story.png' },
+  { type:'image', src: CR.acs_22mai_1, label:'ACS/1.png' },
+];
+
+// Build 28 mai story slideshow: story.png + 2 artist cards
+const STORY_28_SLIDES = [
+  { type:'image', src: CR.story_png_28mai, label:'story.png' },
+  { type:'image', src: CR.acs_28mai_1, label:'ACS/1.png' },
+  { type:'image', src: CR.acs_28mai_2, label:'ACS/2.png' },
+];
+
+// Build 29 mai story slideshow: story.png + 1 artist card
+const STORY_29_SLIDES = [
+  { type:'image', src: CR.story_png_29mai, label:'story.png' },
+  { type:'image', src: CR.acs_29mai_1, label:'ACS/1.png' },
+];
+
+const CREATIVE_MAP = {
+  // ---- Saison 2026 — teaser global (PROG MAI) ----
+  'ad-001': { // statique — affiche PROG MAI
+    one_one:   { type:'image', src: CR.carre_png_prog, label:'prog/carre.jpg' },
+    nine_sixteen: { type:'image', src: CR.story_png_prog, label:'prog/story.png' },
+  },
+  // ---- 14 mai — Soirée d'ouverture ----
+  'ad-002': { // statique
+    one_one:   { type:'image', src: CR.carre_png_14mai, label:'carre.png' },
+    nine_sixteen: { type:'image', src: CR.story_png_14mai, label:'story.png' },
+  },
+  'ad-003': { // vidéo
+    one_one:   { type:'video', src: CR.carre_mp4_14mai_relative, poster: CR.carre_png_14mai, label:'carre.mp4' },
+    nine_sixteen: { type:'video', src: CR.story_mp4_14mai_relative, poster: CR.story_png_14mai, label:'story.mp4' },
+  },
+  'ad-004': { // carrousel — 5 slides feed (carre + 4 ACS) + 5 slides story (story + 4 ACS)
+    one_one:   { type:'slideshow', slides: FEED_14_SLIDES, label:'carre.png + 4 ACS feed' },
+    nine_sixteen: { type:'slideshow', slides: STORY_14_SLIDES, label:'story.png + 4 ACS' },
+  },
+  // ---- 21 mai — FRIKITON ----
+  'ad-008': { // statique
+    one_one:   { type:'image', src: CR.carre_png_21mai, label:'carre.png' },
+    nine_sixteen: { type:'slideshow', slides: STORY_21_SLIDES, label:'story.png + 6 ACS' },
+  },
+  'ad-009': { // vidéo — pas encore produite
+    one_one:   { type:'image', src: CR.carre_png_21mai, label:'carre.png (placeholder)', note:'Vidéo 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_21_SLIDES, label:'story.png + 6 ACS (placeholder vidéo)', note:'Vidéo 9:16 à produire' },
+  },
+  'ad-010': { // carrousel — artists card 1:1 manquant
+    one_one:   { type:'image', src: CR.carre_png_21mai, label:'carre.png (placeholder)', note:'Artists cards 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_21_SLIDES, label:'story.png + 6 ACS' },
+  },
+  // ---- 22 mai — Soirée 2K16 High Klassified ----
+  'ad-011': { // statique (complet)
+    one_one:   { type:'image', src: CR.carre_png_22mai, label:'carre.png' },
+    nine_sixteen: { type:'slideshow', slides: STORY_22_SLIDES, label:'story.png + 1 ACS' },
+  },
+  'ad-012': { // statique v2 — artists card 1:1 manquant
+    one_one:   { type:'image', src: CR.carre_png_22mai, label:'carre.png (placeholder)', note:'Artists card 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_22_SLIDES, label:'story.png + 1 ACS' },
+  },
+  'ad-013': { // vidéo — pas encore produite
+    one_one:   { type:'image', src: CR.carre_png_22mai, label:'carre.png (placeholder)', note:'Vidéo 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_22_SLIDES, label:'story.png + 1 ACS (placeholder vidéo)', note:'Vidéo 9:16 à produire' },
+  },
+  'ad-014': { // carrousel — artists card 1:1 manquant
+    one_one:   { type:'image', src: CR.carre_png_22mai, label:'carre.png (placeholder)', note:'Artists cards 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_22_SLIDES, label:'story.png + 1 ACS' },
+  },
+  // ---- 28 mai — 90s/2000s Fly Ladies ----
+  'ad-015': { // statique (complet)
+    one_one:   { type:'image', src: CR.carre_png_28mai, label:'carre.png' },
+    nine_sixteen: { type:'slideshow', slides: STORY_28_SLIDES, label:'story.png + 2 ACS' },
+  },
+  'ad-016': { // vidéo — pas encore produite
+    one_one:   { type:'image', src: CR.carre_png_28mai, label:'carre.png (placeholder)', note:'Vidéo 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_28_SLIDES, label:'story.png + 2 ACS (placeholder vidéo)', note:'Vidéo 9:16 à produire' },
+  },
+  'ad-017': { // carrousel — artists card 1:1 manquant
+    one_one:   { type:'image', src: CR.carre_png_28mai, label:'carre.png (placeholder)', note:'Artists cards 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_28_SLIDES, label:'story.png + 2 ACS' },
+  },
+  // ---- 29 mai — Céline est Amazing ----
+  'ad-018': { // statique (complet)
+    one_one:   { type:'image', src: CR.carre_png_29mai, label:'carre.png' },
+    nine_sixteen: { type:'slideshow', slides: STORY_29_SLIDES, label:'story.png + 1 ACS' },
+  },
+  'ad-019': { // statique v2 — angle Ian Jackman (images dédiées)
+    one_one:   { type:'image', src: CR.carreian_29mai, label:'carreian.png' },
+    nine_sixteen: { type:'image', src: CR.storyyan_29mai, label:'storyyan.png' },
+  },
+  'ad-020': { // vidéo — pas encore produite
+    one_one:   { type:'image', src: CR.carre_png_29mai, label:'carre.png (placeholder)', note:'Vidéo 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_29_SLIDES, label:'story.png + 1 ACS (placeholder vidéo)', note:'Vidéo 9:16 à produire' },
+  },
+  'ad-021': { // carrousel — artists card 1:1 manquant
+    one_one:   { type:'image', src: CR.carre_png_29mai, label:'carre.png (placeholder)', note:'Artists cards 1:1 à produire' },
+    nine_sixteen: { type:'slideshow', slides: STORY_29_SLIDES, label:'story.png + 1 ACS' },
+  },
+};
+
+const fmt$ = (n) => (n === 0 || n == null) ? '—' : new Intl.NumberFormat('fr-CA', { style:'currency', currency:'CAD', maximumFractionDigits: 0 }).format(n);
+const fmt$2 = (n) => new Intl.NumberFormat('fr-CA', { style:'currency', currency:'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+const fmtDate = (iso) => {
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-');
+  return `${d} ${['jan','fév','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'][+m-1]}`;
+};
+
+// ------------------ Icons (inline SVG) ------------------
+const Icon = ({ name, size=16, className='' }) => {
+  const paths = {
+    check: 'M5 13l4 4L19 7',
+    x: 'M6 18L18 6M6 6l12 12',
+    alert: 'M12 9v2m0 4h.01M5.07 19h13.86a2 2 0 001.74-3L13.74 4a2 2 0 00-3.48 0L3.33 16a2 2 0 001.74 3z',
+    info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    clock: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+    link: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+    filter: 'M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z',
+    chart: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    question: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    dollar: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    calendar: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+    download: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4',
+    search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+    close: 'M6 18L18 6M6 6l12 12',
+  };
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d={paths[name] || paths.info} />
+    </svg>
+  );
+};
+
+// ------------------ LocalStorage ------------------
+const LS_KEYS = {
+  approvals: 'pvm_dashboard_approvals_2026',
+  questions: 'pvm_dashboard_questions_2026',
+  deletedQuestions: 'pvm_dashboard_deleted_questions_2026',
+};
+const loadLS = (key, fallback) => {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
+};
+const saveLS = (key, val) => {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+};
+
+// ------------------ Sub-components ------------------
+const Pill = ({ children, className='' }) => (
+  <span className={`pill inline-flex items-center gap-1 px-2 py-0.5 rounded-full ring-1 ring-inset ${className}`}>{children}</span>
+);
+
+const CampaignPill = ({ id }) => {
+  const c = CAMPAIGN_COLORS[id];
+  if (!c) return null;
+  return <Pill className={`${c.bg} ${c.text} ${c.ring}`}><span className={`w-1.5 h-1.5 rounded-full ${c.dot}`}></span>{c.name}</Pill>;
+};
+
+const FormatPill = ({ format }) => {
+  const c = FORMAT_COLORS[format] || FORMAT_COLORS.statique;
+  return <Pill className={`${c.bg} ${c.text} ring-transparent`}>{format}</Pill>;
+};
+
+const ApprovalPill = ({ status }) => {
+  const c = APPROVAL_COLORS[status] || APPROVAL_COLORS.pending;
+  return <Pill className={`${c.bg} ${c.text} ring-transparent border ${c.border}`}>{c.label}</Pill>;
+};
+
+const KPICard = ({ label, value, sub, accent='text-ac-ink' }) => (
+  <div className="card bg-white rounded-2xl p-5 border border-ac-line">
+    <div className="text-xs font-medium uppercase tracking-wider text-ac-muted">{label}</div>
+    <div className={`mt-2 text-3xl font-bold ${accent}`}>{value}</div>
+    {sub && <div className="mt-1 text-xs text-ac-muted">{sub}</div>}
+  </div>
+);
+
+const BudgetBar = ({ label, allocated, total, colorKey }) => {
+  const pct = total > 0 ? (allocated / total) * 100 : 0;
+  const c = CAMPAIGN_COLORS[colorKey];
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-1.5">
+        <div className="flex items-center gap-2">
+          <span className={`w-2 h-2 rounded-full ${c.dot}`}></span>
+          <span className="text-sm font-semibold">{c.name}</span>
+        </div>
+        <div className="text-sm tabular-nums">
+          <span className="font-semibold">{fmt$(allocated)}</span>
+          <span className="text-ac-muted"> / {fmt$(total)}</span>
+        </div>
+      </div>
+      <div className="h-2 bg-stone-100 rounded-full overflow-hidden">
+        <div className={`h-full ${c.bar} transition-all duration-500`} style={{ width: `${pct}%` }}></div>
+      </div>
+      {total > allocated && (
+        <div className="mt-1 text-xs text-ac-muted">{fmt$(total-allocated)} non alloués</div>
+      )}
+    </div>
+  );
+};
+
+const GapCard = ({ gap }) => {
+  const s = SEVERITY_COLORS[gap.severity] || SEVERITY_COLORS.info;
+  return (
+    <div className={`rounded-xl p-4 border ${s.border} ${s.bg}`}>
+      <div className="flex items-start gap-3">
+        <span className="text-xl leading-none">{s.icon}</span>
+        <div className="flex-1 min-w-0">
+          <div className={`text-sm font-semibold ${s.text}`}>{gap.message}</div>
+          {gap.budget_at_risk && (
+            <div className="mt-1 text-xs font-medium text-ac-muted">Budget concerné: {fmt$(gap.budget_at_risk)}</div>
+          )}
+          {gap.count != null && (
+            <div className="mt-1 text-xs font-medium text-ac-muted">Nombre de pubs: {gap.count}</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Budget warning badge + modal ------------------
+const BudgetWarningBadge = ({ warnings, onClick }) => {
+  if (!warnings?.length) return null;
+  const worst = worstSeverity(warnings);
+  const color = worst === 'critical' ? 'bg-red-500 ring-red-200' : 'bg-amber-500 ring-amber-200';
+  return (
+    <button onClick={(e)=>{ e.stopPropagation(); onClick(); }}
+      className={`relative inline-flex items-center justify-center w-6 h-6 rounded-full text-white font-bold ring-4 ${color} animate-pulse hover:animate-none`}
+      title="Budget insuffisant — cliquer pour voir">!</button>
+  );
+};
+
+const BudgetWarningModal = ({ ad, warnings, onClose }) => {
+  if (!warnings?.length) return null;
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/40 z-[60] fade-in" onClick={onClose}></div>
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 pointer-events-none">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[85vh] overflow-y-auto pointer-events-auto">
+          <div className="sticky top-0 bg-white border-b border-ac-line px-6 py-4 flex items-center justify-between">
+            <div>
+              <div className="text-xs text-ac-muted font-mono">{ad.id}</div>
+              <div className="font-bold text-lg">⚠ Diagnostic budget</div>
+            </div>
+            <button onClick={onClose} className="p-2 rounded-lg hover:bg-stone-100"><Icon name="close" size={20} /></button>
+          </div>
+
+          <div className="p-6 space-y-5">
+            <div className="bg-stone-50 rounded-xl p-4 text-sm">
+              <div className="font-semibold mb-1">Contexte</div>
+              <div className="text-ac-muted">
+                Cette pub est diffusée sur <strong>{ad.duration_days} jours</strong>, et le budget est réparti sur <strong>{AUDIENCES_PER_AD} audiences</strong> (ad sets).
+                Meta a besoin d'un minimum de dépense quotidienne par ad set pour optimiser correctement.
+              </div>
+            </div>
+
+            {warnings.map((w, i) => {
+              const tLabel = BUDGET_THRESHOLDS[w.campaign]?.label;
+              const sev = w.severity === 'critical' ? { color:'text-red-700', bg:'bg-red-50', border:'border-red-300', label:'CRITIQUE' } : { color:'text-amber-700', bg:'bg-amber-50', border:'border-amber-300', label:'AVERTISSEMENT' };
+              return (
+                <div key={i} className={`rounded-xl border ${sev.border} ${sev.bg} p-5`}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <CampaignPill id={w.campaign} />
+                    <Pill className={`${sev.color} bg-white ring-transparent border ${sev.border}`}>{sev.label}</Pill>
+                  </div>
+
+                  <div className="text-sm space-y-2 mb-4">
+                    <div className="flex justify-between">
+                      <span className="text-ac-muted">Total alloué</span>
+                      <span className="font-semibold tabular-nums">{fmt$2(w.total)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-ac-muted">Quotidien total</span>
+                      <span className="font-semibold tabular-nums">{fmt$2(w.daily)}/jour</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className={`${sev.color} font-semibold`}>Quotidien par audience ({AUDIENCES_PER_AD})</span>
+                      <span className={`${sev.color} font-bold tabular-nums`}>{fmt$2(w.dailyPerAudience)}/jour</span>
+                    </div>
+                    <div className="flex justify-between pt-2 border-t border-ac-line">
+                      <span className="text-ac-muted text-xs">Seuil recommandé {tLabel}</span>
+                      <span className="text-ac-muted text-xs tabular-nums">≥ {fmt$2(w.threshold_warning)}/jour/audience</span>
+                    </div>
+                  </div>
+
+                  <div className={`rounded-lg bg-white p-4 border ${sev.border}`}>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-2">Problème</div>
+                    <div className="text-sm mb-4">
+                      {w.severity === 'critical'
+                        ? <>À <strong>{fmt$2(w.dailyPerAudience)}/jour/audience</strong>, Meta ne peut pas sortir de la phase d'apprentissage. La pub risque de <strong className={sev.color}>ne pas délivrer</strong> ou de consommer le budget sans optimiser.</>
+                        : <>À <strong>{fmt$2(w.dailyPerAudience)}/jour/audience</strong>, l'algorithme Meta a peu de signaux pour optimiser. La perfo sera <strong className={sev.color}>sous son potentiel</strong> et le CPA plus élevé que ce qu'on pourrait obtenir.</>}
+                    </div>
+
+                    <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-2">Suggestions (au choix)</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-emerald-50">
+                        <span className="text-emerald-600 font-bold">A.</span>
+                        <div className="flex-1">
+                          <div className="font-semibold">Raccourcir la durée de la pub</div>
+                          <div className="text-ac-muted text-xs mt-0.5">Diffuser sur <strong>{w.suggestions.shorten.newDuration} jours</strong> au lieu de {ad.duration_days} (−{w.suggestions.shorten.daysShaved} jours). Permet d'atteindre {fmt$2(w.suggestions.shorten.targetDaily)}/audience/jour sans changer le budget.</div>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-sky-50">
+                        <span className="text-sky-600 font-bold">B.</span>
+                        <div className="flex-1">
+                          <div className="font-semibold">Augmenter le budget</div>
+                          <div className="text-ac-muted text-xs mt-0.5">Porter le budget {tLabel} à <strong>{fmt$2(w.suggestions.increase.newTotal)}</strong> (+{fmt$2(w.suggestions.increase.delta)}) pour tenir {fmt$2(w.suggestions.increase.targetDaily)}/audience/jour sur la durée actuelle.</div>
+                        </div>
+                      </div>
+                      <div className={`flex items-start gap-2 p-3 rounded-lg ${w.suggestions.merge.worksIfMerged ? 'bg-violet-50' : 'bg-stone-50 opacity-60'}`}>
+                        <span className="text-violet-600 font-bold">C.</span>
+                        <div className="flex-1">
+                          <div className="font-semibold">Fusionner les 2 audiences en 1 ad set</div>
+                          <div className="text-ac-muted text-xs mt-0.5">
+                            {w.suggestions.merge.worksIfMerged
+                              ? <>Avec 1 seule audience, le budget journalier atteint <strong>{fmt$2(w.suggestions.merge.dailyIfMerged)}/jour</strong> — au-dessus du seuil. Moins de contrôle sur la perfo froid vs chaud mais Meta optimise mieux.</>
+                              : <>Même fusionné en 1 ad set, le budget reste insuffisant ({fmt$2(w.suggestions.merge.dailyIfMerged)}/jour). Pas une solution ici.</>}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// ------------------ Lightbox ------------------
+// Build full gallery for an ad: 1:1 creative + 9:16 creative(s) (including all slideshow slides)
+const buildGallery = (adId) => {
+  const map = CREATIVE_MAP[adId];
+  if (!map) return [];
+  const gallery = [];
+  const push = (creative, aspect, sectionLabel, slideIdx, slideTotal) => {
+    if (!creative) return;
+    if (creative.type === 'slideshow' && creative.slides) {
+      creative.slides.forEach((s, i) => gallery.push({ ...s, aspect, section: sectionLabel, slideIdx: i, slideTotal: creative.slides.length }));
+    } else {
+      gallery.push({ ...creative, aspect, section: sectionLabel });
+    }
+  };
+  push(map.one_one, 'square', 'Feed 1:1');
+  push(map.nine_sixteen, 'portrait', 'Story 9:16');
+  return gallery;
+};
+
+const Lightbox = ({ gallery, startIdx=0, onClose }) => {
+  const [idx, setIdx] = useState(startIdx);
+  const total = gallery.length;
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'ArrowLeft') setIdx(i => (i-1+total)%total);
+      if (e.key === 'ArrowRight') setIdx(i => (i+1)%total);
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [total, onClose]);
+  if (!total) return null;
+  const item = gallery[idx];
+  return (
+    <div className="fixed inset-0 z-[70] bg-black/95 flex items-center justify-center fade-in">
+      {/* Close */}
+      <button onClick={onClose} aria-label="Fermer"
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center z-10">
+        <Icon name="close" size={20} />
+      </button>
+
+      {/* Prev */}
+      <button onClick={()=>setIdx((idx-1+total)%total)} aria-label="Précédent"
+        className="absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-2xl font-light z-10">‹</button>
+
+      {/* Next */}
+      <button onClick={()=>setIdx((idx+1)%total)} aria-label="Suivant"
+        className="absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-2xl font-light z-10">›</button>
+
+      {/* Media */}
+      <div className="max-w-[85vw] max-h-[85vh] flex items-center justify-center" onClick={(e)=>e.stopPropagation()}>
+        {item.type === 'video' ? (
+          <video src={item.src} poster={item.poster} controls autoPlay className="max-w-full max-h-[85vh] rounded-lg shadow-2xl" />
+        ) : (
+          <img src={item.src} alt="" className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" />
+        )}
+      </div>
+
+      {/* Caption bar */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/70 backdrop-blur rounded-full px-5 py-3 text-white text-sm">
+        <span className="font-semibold">{item.section}</span>
+        {item.slideIdx != null && <span className="text-white/60">· slide {item.slideIdx+1}/{item.slideTotal}</span>}
+        {item.label && <span className="text-white/60 font-mono text-xs">· {item.label}</span>}
+        <span className="text-white/40 mx-2">|</span>
+        <span className="tabular-nums text-white/80">{idx+1}/{total}</span>
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Creative Preview ------------------
+const CreativePlaceholder = ({ aspect='square', label='À produire', className='' }) => (
+  <div className={`flex items-center justify-center bg-stone-100 border-2 border-dashed border-stone-300 text-stone-400 ${className}`}
+    style={{ aspectRatio: aspect==='square' ? '1 / 1' : '9 / 16' }}>
+    <div className="text-center px-2">
+      <div className="text-2xl mb-1">🎨</div>
+      <div className="text-[10px] font-medium uppercase tracking-wider">{label}</div>
+    </div>
+  </div>
+);
+
+const CreativePreview = ({ creative, aspect='square', size='small', controls=false, className='' }) => {
+  if (!creative) {
+    return <CreativePlaceholder aspect={aspect} className={className} />;
+  }
+  // Slideshow: show first slide only in this component (full slideshow = SlideshowPlayer)
+  if (creative.type === 'slideshow') {
+    const first = creative.slides?.[0];
+    return first ? (
+      <CreativePreview creative={first} aspect={aspect} className={className} />
+    ) : <CreativePlaceholder aspect={aspect} className={className} />;
+  }
+  if (!creative.src) return <CreativePlaceholder aspect={aspect} className={className} />;
+  const aspectStyle = { aspectRatio: aspect==='square' ? '1 / 1' : '9 / 16' };
+  if (creative.type === 'image') {
+    return (
+      <img src={creative.src} alt="" className={`object-cover ${className}`} style={aspectStyle}
+        onError={(e)=>{ e.target.style.display='none'; }} />
+    );
+  }
+  if (creative.type === 'video') {
+    return (
+      <video src={creative.src} poster={creative.poster} controls={controls} preload="metadata"
+        className={`object-cover bg-black ${className}`} style={aspectStyle}
+        onError={(e)=>{
+          e.target.outerHTML = `<div class="flex items-center justify-center bg-stone-900 text-white text-xs text-center p-3" style="aspect-ratio:${aspect==='square'?'1/1':'9/16'}"><div>🎬<br/>Vidéo indisponible<br/><span class='text-[10px] text-stone-400'>${creative.src}</span></div></div>`;
+        }} />
+    );
+  }
+  return <CreativePlaceholder aspect={aspect} className={className} />;
+};
+
+// Slideshow player with navigation — used in the drawer
+const SlideshowPlayer = ({ slides, aspect='portrait', className='' }) => {
+  const [idx, setIdx] = useState(0);
+  const total = slides?.length || 0;
+  if (!total) return <CreativePlaceholder aspect={aspect} className={className} />;
+  const slide = slides[idx];
+  return (
+    <div className={`relative ${className}`}>
+      <div className="rounded-xl overflow-hidden border border-ac-line">
+        <CreativePreview creative={slide} aspect={aspect} />
+      </div>
+      {/* Nav */}
+      <div className="absolute inset-y-0 left-0 flex items-center">
+        <button onClick={(e)=>{ e.stopPropagation(); setIdx((idx-1+total)%total); }}
+          className="ml-1 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center font-bold text-ac-ink"
+          aria-label="Précédent">‹</button>
+      </div>
+      <div className="absolute inset-y-0 right-0 flex items-center">
+        <button onClick={(e)=>{ e.stopPropagation(); setIdx((idx+1)%total); }}
+          className="mr-1 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center font-bold text-ac-ink"
+          aria-label="Suivant">›</button>
+      </div>
+      {/* Dots */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+        {slides.map((_, i) => (
+          <button key={i} onClick={(e)=>{ e.stopPropagation(); setIdx(i); }}
+            className={`w-1.5 h-1.5 rounded-full transition-all ${i===idx ? 'bg-white w-4' : 'bg-white/50'}`} />
+        ))}
+      </div>
+      {/* Slide counter + label */}
+      <div className="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-semibold px-2 py-1 rounded-full">
+        {idx+1} / {total}
+      </div>
+      {slide?.label && (
+        <div className="absolute top-2 left-2 bg-black/70 text-white text-[10px] font-mono px-2 py-1 rounded-full max-w-[60%] truncate">
+          {slide.label}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const CreativeStrip = ({ adId, className='' }) => {
+  const map = CREATIVE_MAP[adId];
+  const renderThumb = (creative, aspect, width) => {
+    const hasContent = !!creative;
+    const isSlideshow = creative?.type === 'slideshow';
+    const isVideo = creative?.type === 'video';
+    const slideCount = isSlideshow ? creative.slides?.length : 0;
+    return (
+      <div className="relative" style={{ width }}>
+        <div className="absolute top-1 left-1 z-10 bg-black/60 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">{aspect==='square' ? '1:1' : '9:16'}</div>
+        {isSlideshow && (
+          <div className="absolute top-1 right-1 z-10 bg-white/90 text-stone-800 text-[9px] font-bold px-1.5 py-0.5 rounded">⊞ {slideCount}</div>
+        )}
+        <div className="rounded-lg overflow-hidden">
+          {hasContent
+            ? <CreativePreview creative={creative} aspect={aspect} />
+            : <CreativePlaceholder aspect={aspect} />}
+        </div>
+        {isVideo && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className={`${aspect==='square' ? 'w-8 h-8' : 'w-7 h-7'} bg-white/90 rounded-full flex items-center justify-center shadow`}>
+              <span className="text-stone-800">▶</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+  return (
+    <div className={`flex gap-2 ${className}`}>
+      {renderThumb(map?.one_one, 'square', 88)}
+      {renderThumb(map?.nine_sixteen, 'portrait', 50)}
+    </div>
+  );
+};
+
+// ------------------ Ad Card ------------------
+// Build groups by headline (used in grouped view + Gantt)
+const buildHeadlineGroups = (ads) => {
+  const map = new Map();
+  for (const ad of ads) {
+    const key = (ad.headline || '(sans titre)').trim();
+    if (!map.has(key)) {
+      map.set(key, {
+        headline: key, event_id: ad.event_id, ads: [],
+        minStart: ad.date_start, maxEnd: ad.date_end, totalBudget: 0,
+        campaignTypesSet: new Set(), formatsSet: new Set(),
+      });
+    }
+    const g = map.get(key);
+    g.ads.push(ad);
+    if (new Date(ad.date_start + 'T00:00:00') < new Date(g.minStart + 'T00:00:00')) g.minStart = ad.date_start;
+    if (new Date(ad.date_end + 'T00:00:00') > new Date(g.maxEnd + 'T00:00:00')) g.maxEnd = ad.date_end;
+    g.totalBudget += ad.budget_allocation.total;
+    ad.campaign_types.forEach(c => g.campaignTypesSet.add(c));
+    g.formatsSet.add(ad.format);
+  }
+  return [...map.values()].map(g => {
+    const days = Math.round((new Date(g.maxEnd + 'T00:00:00') - new Date(g.minStart + 'T00:00:00')) / 86400000) + 1;
+    return {
+      ...g,
+      campaign_types: [...g.campaignTypesSet],
+      formats: [...g.formatsSet],
+      duration_days: days,
+      dailyBudget: g.totalBudget / days,
+      flagship: !!EVENTS_MAP[g.event_id]?.flagship,
+    };
+  });
+};
+
+// ------------------ Grouped Ad Card (same-headline ads collapsed) ------------------
+const GroupedAdCard = ({ group, approvals, setApprovals, onFirstAdClick, onLightbox, onBudgetWarning }) => {
+  const event = EVENTS_MAP[group.event_id];
+  const ids = group.ads.map(a => a.id);
+  const multi = ids.length > 1;
+
+  // Combined budget allocation
+  const comb = { notoriete: 0, traffic: 0, conversion: 0, ig_profil: 0, total: 0 };
+  for (const ad of group.ads) {
+    for (const k of Object.keys(comb)) comb[k] += ad.budget_allocation[k] || 0;
+  }
+
+  // Approval state
+  const statuses = group.ads.map(a => approvals[a.id] || 'pending');
+  const aCount = statuses.filter(s => s === 'approved').length;
+  const rCount = statuses.filter(s => s === 'rejected').length;
+  let combStatus = 'pending';
+  if (aCount === group.ads.length) combStatus = 'approved';
+  else if (rCount === group.ads.length) combStatus = 'rejected';
+  else if (aCount > 0 || rCount > 0) combStatus = 'mixed';
+
+  const approveAll = () => {
+    const next = { ...approvals };
+    const target = combStatus === 'approved' ? 'pending' : 'approved';
+    ids.forEach(id => next[id] = target);
+    setApprovals(next);
+  };
+  const rejectAll = () => {
+    const next = { ...approvals };
+    const target = combStatus === 'rejected' ? 'pending' : 'rejected';
+    ids.forEach(id => next[id] = target);
+    setApprovals(next);
+  };
+
+  // Creative status
+  const allOneOne = group.ads.every(a => a.creative_assets.visual_1x1_ready);
+  const allStory  = group.ads.every(a => a.creative_assets.story_9x16_ready);
+
+  // Reach estimate on combined pseudo-ad
+  const reach = estimateReach({
+    campaign_types: group.campaign_types,
+    budget_allocation: comb,
+    duration_days: group.duration_days,
+  });
+
+  // Audit budget — aggregate warnings per campaign (use combined daily for warnings)
+  const pseudoAdForAudit = {
+    campaign_types: group.campaign_types,
+    budget_allocation: comb,
+    daily_budget_per_campaign: Object.fromEntries(group.campaign_types.map(c => [c, comb[c] / group.duration_days])),
+    duration_days: group.duration_days,
+  };
+  const warnings = auditBudget(pseudoAdForAudit);
+
+  const onWarnClick = () => onBudgetWarning({
+    ...pseudoAdForAudit,
+    id: ids.join(' + '),
+    headline: group.headline,
+  }, warnings);
+
+  // Pick first ad for creative preview & click
+  const firstAd = group.ads[0];
+
+  return (
+    <div className="card bg-white rounded-2xl border border-ac-line overflow-hidden fade-in">
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="text-xs font-mono text-ac-muted">
+                {multi ? `${ids.length} pubs · ${ids.join(' + ')}` : ids[0]}
+              </span>
+              {group.flagship && <Pill className="bg-yellow-100 text-yellow-800 ring-transparent">⭐ Flagship</Pill>}
+              <BudgetWarningBadge warnings={warnings} onClick={onWarnClick} />
+            </div>
+            <div className="font-semibold text-[15px] leading-snug line-clamp-2">{group.headline}</div>
+            {event && (
+              <div className="mt-1 text-xs text-ac-muted">{event.name}{event.date ? ` · ${fmtDate(event.date)}` : ''}</div>
+            )}
+          </div>
+          <ApprovalPill status={combStatus === 'mixed' ? 'pending' : combStatus} />
+        </div>
+
+        <div className="mb-3 cursor-zoom-in" onClick={(e)=>{ e.stopPropagation(); onLightbox(firstAd.id, 0); }} title="Cliquer pour agrandir (pub principale)">
+          <CreativeStrip adId={firstAd.id} />
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {group.campaign_types.map(c => <CampaignPill key={c} id={c} />)}
+          {group.formats.map(f => <FormatPill key={f} format={f} />)}
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 mb-3 text-xs">
+          <div>
+            <div className="text-ac-muted">Dates</div>
+            <div className="font-medium">{fmtDate(group.minStart)} → {fmtDate(group.maxEnd)}</div>
+            <div className="text-ac-muted">{group.duration_days} jours</div>
+          </div>
+          <div>
+            <div className="text-ac-muted">Budget combiné</div>
+            <div className="font-semibold text-base tabular-nums">{fmt$2(comb.total)}</div>
+            <div className="text-ac-muted tabular-nums">{fmt$2(comb.total / group.duration_days)}/jour</div>
+          </div>
+          <div title={`Fréquence ~${reach.frequency}x · ${Math.round(reach.impressionsLow).toLocaleString('fr-CA')}–${Math.round(reach.impressionsHigh).toLocaleString('fr-CA')} impressions`}>
+            <div className="text-ac-muted">Reach estimé</div>
+            <div className="font-semibold text-base tabular-nums">{fmtReach(reach.low)}–{fmtReach(reach.high)}</div>
+            <div className="text-ac-muted tabular-nums">freq. ~{reach.frequency}x</div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-3 text-xs">
+          {comb.notoriete > 0 && <div className="px-2 py-1 rounded bg-rose-50 text-rose-700 tabular-nums">N: {fmt$(comb.notoriete)}</div>}
+          {comb.traffic > 0 && <div className="px-2 py-1 rounded bg-sky-50 text-sky-700 tabular-nums">T: {fmt$(comb.traffic)}</div>}
+          {comb.conversion > 0 && <div className="px-2 py-1 rounded bg-emerald-50 text-emerald-700 tabular-nums">C: {fmt$(comb.conversion)}</div>}
+          {comb.ig_profil > 0 && <div className="px-2 py-1 rounded bg-amber-50 text-amber-700 tabular-nums">IG: {fmt$(comb.ig_profil)}</div>}
+        </div>
+
+        <div className="flex flex-wrap gap-2 text-xs mb-4">
+          <Pill className={allOneOne ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>1:1 {allOneOne ? '✓' : '✗'}</Pill>
+          <Pill className={allStory ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>9:16 {allStory ? '✓' : '✗'}</Pill>
+          {combStatus === 'mixed' && <Pill className="bg-violet-50 text-violet-700 ring-transparent">⚠ Approbations mixtes</Pill>}
+        </div>
+
+        <div className="flex items-center gap-2 pt-3 border-t border-ac-line">
+          <button onClick={onFirstAdClick} className="flex-1 px-3 py-2 rounded-lg text-xs font-semibold bg-stone-50 hover:bg-stone-100 text-ac-ink transition-colors">
+            Détails ({ids.length})
+          </button>
+          <button onClick={approveAll} className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${combStatus==='approved' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700'}`}>
+            ✓ Approuver {multi ? 'tout' : ''}
+          </button>
+          <button onClick={rejectAll} className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${combStatus==='rejected' ? 'bg-rose-500 text-white' : 'bg-rose-50 hover:bg-rose-100 text-rose-700'}`}>
+            ✗ Rejeter {multi ? 'tout' : ''}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AdCard = ({ ad, approval, onClick, onApprove, onReject, onLightbox, onBudgetWarning }) => {
+  const event = EVENTS_MAP[ad.event_id];
+  const warnings = useMemo(() => auditBudget(ad), [ad]);
+  const hasMissing = !ad.creative_assets.visual_1x1_ready || !ad.creative_assets.story_9x16_ready;
+
+  return (
+    <div className="card bg-white rounded-2xl border border-ac-line overflow-hidden fade-in">
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="text-xs font-mono text-ac-muted">{ad.id}</span>
+              {event?.flagship && <Pill className="bg-yellow-100 text-yellow-800 ring-transparent">⭐ Flagship</Pill>}
+              <BudgetWarningBadge warnings={warnings} onClick={()=>onBudgetWarning(ad, warnings)} />
+            </div>
+            <div className="font-semibold text-[15px] leading-snug line-clamp-2">
+              {ad.headline || <span className="italic text-ac-muted">Sans titre</span>}
+            </div>
+            {event && (
+              <div className="mt-1 text-xs text-ac-muted">{event.name}{event.date ? ` · ${fmtDate(event.date)}` : ''}</div>
+            )}
+          </div>
+          <ApprovalPill status={approval} />
+        </div>
+
+        <div className="mb-3 cursor-zoom-in" onClick={(e)=>{ e.stopPropagation(); onLightbox(ad.id, 0); }} title="Cliquer pour agrandir">
+          <CreativeStrip adId={ad.id} />
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {ad.campaign_types.map(c => <CampaignPill key={c} id={c} />)}
+          <FormatPill format={ad.format} />
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 mb-3 text-xs">
+          <div>
+            <div className="text-ac-muted">Dates</div>
+            <div className="font-medium">{fmtDate(ad.date_start)} → {fmtDate(ad.date_end)}</div>
+            <div className="text-ac-muted">{ad.duration_days} jours</div>
+          </div>
+          <div>
+            <div className="text-ac-muted">Budget total</div>
+            <div className="font-semibold text-base tabular-nums">{fmt$2(ad.budget_allocation.total)}</div>
+            <div className="text-ac-muted tabular-nums">{fmt$2(ad.budget_allocation.total / ad.duration_days)}/jour</div>
+          </div>
+          {(() => {
+            const r = estimateReach(ad);
+            return (
+              <div title={`Fréquence estimée ${r.frequency}x · ${Math.round(r.impressionsLow).toLocaleString('fr-CA')}–${Math.round(r.impressionsHigh).toLocaleString('fr-CA')} impressions`}>
+                <div className="text-ac-muted">Reach estimé</div>
+                <div className="font-semibold text-base tabular-nums">{fmtReach(r.low)}–{fmtReach(r.high)}</div>
+                <div className="text-ac-muted tabular-nums">freq. ~{r.frequency}x</div>
+              </div>
+            );
+          })()}
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-3 text-xs">
+          {ad.budget_allocation.notoriete > 0 && <div className="px-2 py-1 rounded bg-rose-50 text-rose-700 tabular-nums">N: {fmt$(ad.budget_allocation.notoriete)}</div>}
+          {ad.budget_allocation.traffic > 0 && <div className="px-2 py-1 rounded bg-sky-50 text-sky-700 tabular-nums">T: {fmt$(ad.budget_allocation.traffic)}</div>}
+          {ad.budget_allocation.conversion > 0 && <div className="px-2 py-1 rounded bg-emerald-50 text-emerald-700 tabular-nums">C: {fmt$(ad.budget_allocation.conversion)}</div>}
+        </div>
+
+        <div className="flex flex-wrap gap-2 text-xs mb-4">
+          <Pill className={ad.creative_assets.visual_1x1_ready ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>
+            1:1 {ad.creative_assets.visual_1x1_ready ? '✓' : '✗'}
+          </Pill>
+          <Pill className={ad.creative_assets.story_9x16_ready ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>
+            9:16 {ad.creative_assets.story_9x16_ready ? '✓' : '✗'}
+          </Pill>
+          {hasMissing && <Pill className="bg-red-50 text-red-700 ring-transparent">⚠ Créatifs incomplets</Pill>}
+        </div>
+
+        <div className="flex items-center gap-2 pt-3 border-t border-ac-line">
+          <button onClick={onClick} className="flex-1 px-3 py-2 rounded-lg text-xs font-semibold bg-stone-50 hover:bg-stone-100 text-ac-ink transition-colors">
+            Détails
+          </button>
+          <button onClick={onApprove} className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${approval==='approved' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700'}`}>
+            ✓ Approuver
+          </button>
+          <button onClick={onReject} className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${approval==='rejected' ? 'bg-rose-500 text-white' : 'bg-rose-50 hover:bg-rose-100 text-rose-700'}`}>
+            ✗ Rejeter
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Ad Detail Drawer ------------------
+const AdDetail = ({ ad, approval, onClose, onApprove, onReject, onLightbox }) => {
+  const event = EVENTS_MAP[ad.event_id];
+  const gallery = buildGallery(ad.id);
+  const firstNineSixteenIdx = gallery.findIndex(g => g.aspect === 'portrait');
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/30 z-40 fade-in" onClick={onClose}></div>
+      <div data-drawer="open" className="fixed right-0 top-0 bottom-0 w-full max-w-xl bg-white z-50 overflow-y-auto shadow-2xl">
+        <div className="sticky top-0 bg-white border-b border-ac-line px-6 py-4 flex items-center justify-between">
+          <div>
+            <div className="text-xs font-mono text-ac-muted">{ad.id}</div>
+            <div className="font-bold text-lg leading-tight">{event?.name || ad.event_id}</div>
+          </div>
+          <button onClick={onClose} className="p-2 rounded-lg hover:bg-stone-100"><Icon name="close" size={20} /></button>
+        </div>
+        <div className="p-6 space-y-6">
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <ApprovalPill status={approval} />
+            {event?.flagship && <Pill className="bg-yellow-100 text-yellow-800 ring-transparent">⭐ Flagship</Pill>}
+            {ad.campaign_types.map(c => <CampaignPill key={c} id={c} />)}
+            <FormatPill format={ad.format} />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div><div className="text-xs text-ac-muted uppercase tracking-wider mb-1">Date évt</div><div className="font-semibold">{fmtDate(event?.date)}</div></div>
+            <div><div className="text-xs text-ac-muted uppercase tracking-wider mb-1">Durée pub</div><div className="font-semibold">{ad.duration_days} jours</div></div>
+            <div><div className="text-xs text-ac-muted uppercase tracking-wider mb-1">Début</div><div className="font-semibold">{fmtDate(ad.date_start)}</div></div>
+            <div><div className="text-xs text-ac-muted uppercase tracking-wider mb-1">Fin</div><div className="font-semibold">{fmtDate(ad.date_end)}</div></div>
+          </div>
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Audience</div>
+            <div className="bg-stone-50 rounded-xl p-4 text-sm">{ad.audience_raw}</div>
+          </div>
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Headline</div>
+            <div className="font-semibold text-base">{ad.headline}</div>
+          </div>
+
+          {ad.description && (
+            <div>
+              <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Description</div>
+              <div className="text-sm">{ad.description}</div>
+            </div>
+          )}
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Copy</div>
+            <div className="bg-stone-50 rounded-xl p-4 text-sm whitespace-pre-wrap leading-relaxed">{ad.copy}</div>
+          </div>
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Lien destination</div>
+            <a href={ad.link} target="_blank" rel="noopener noreferrer" className="text-sm text-sky-600 hover:underline break-all inline-flex items-center gap-1">
+              <Icon name="link" size={14} />{ad.link}
+            </a>
+          </div>
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Créatifs</div>
+            {(() => {
+              const map = CREATIVE_MAP[ad.id];
+              const hasReal = map && (map.one_one?.src || map.nine_sixteen?.src);
+              return (
+                <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="text-xs font-semibold text-ac-ink">Feed (1:1)</div>
+                      <Pill className={ad.creative_assets.visual_1x1_ready ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>
+                        {ad.creative_assets.visual_1x1_ready ? '✓ Prêt' : '✗ Manquant'}
+                      </Pill>
+                    </div>
+                    {map?.one_one ? (
+                      <div className="rounded-xl overflow-hidden border border-ac-line cursor-zoom-in" onClick={()=>onLightbox && onLightbox(ad.id, 0)}>
+                        <CreativePreview creative={map.one_one} aspect="square" className="w-full" />
+                      </div>
+                    ) : (
+                      <div className="rounded-xl overflow-hidden border border-ac-line"><CreativePlaceholder aspect="square" /></div>
+                    )}
+                    {map?.one_one?.label && <div className="text-[10px] text-ac-muted mt-1 font-mono">{map.one_one.label}</div>}
+                    {map?.one_one?.note && <div className="text-[10px] text-orange-600 mt-1">⚠ {map.one_one.note}</div>}
+                  </div>
+                  <div style={{ width: 180 }}>
+                    <div className="flex items-center justify-between mb-1.5 gap-2">
+                      <div className="text-xs font-semibold text-ac-ink">Story (9:16)</div>
+                      <Pill className={ad.creative_assets.story_9x16_ready ? 'bg-emerald-50 text-emerald-700 ring-transparent' : 'bg-red-50 text-red-700 ring-transparent'}>
+                        {ad.creative_assets.story_9x16_ready ? '✓' : '✗'}
+                      </Pill>
+                    </div>
+                    {map?.nine_sixteen?.type === 'slideshow' ? (
+                      <div className="cursor-zoom-in" onClick={()=>onLightbox && firstNineSixteenIdx >= 0 && onLightbox(ad.id, firstNineSixteenIdx)}>
+                        <SlideshowPlayer slides={map.nine_sixteen.slides} aspect="portrait" className="w-full" />
+                      </div>
+                    ) : map?.nine_sixteen ? (
+                      <div className="rounded-xl overflow-hidden border border-ac-line cursor-zoom-in" onClick={()=>onLightbox && firstNineSixteenIdx >= 0 && onLightbox(ad.id, firstNineSixteenIdx)}>
+                        <CreativePreview creative={map.nine_sixteen} aspect="portrait" className="w-full" />
+                      </div>
+                    ) : (
+                      <div className="rounded-xl overflow-hidden border border-ac-line"><CreativePlaceholder aspect="portrait" /></div>
+                    )}
+                    {map?.nine_sixteen?.label && <div className="text-[10px] text-ac-muted mt-1 font-mono">{map.nine_sixteen.label}</div>}
+                    {map?.nine_sixteen?.note && <div className="text-[10px] text-orange-600 mt-1">⚠ {map.nine_sixteen.note}</div>}
+                  </div>
+                </div>
+              );
+            })()}
+            {ad.creative_assets.notes && ad.creative_assets.notes.length > 0 && (
+              <div className="mt-3 rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-800">
+                <strong>Notes:</strong> {ad.creative_assets.notes.join(' · ')}
+              </div>
+            )}
+            {!CREATIVE_MAP[ad.id] && (
+              <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-800">
+                ℹ️ Aucun créatif produit pour cette pub — placeholder affiché. Les fichiers doivent être déposés dans <code className="font-mono">03_creatifs/</code> pour s'afficher ici.
+              </div>
+            )}
+          </div>
+
+          <div>
+            <div className="text-xs text-ac-muted uppercase tracking-wider mb-2">Allocation budget</div>
+            <div className="rounded-xl border border-ac-line overflow-hidden">
+              {['notoriete','traffic','conversion','ig_profil'].map(camp => {
+                const val = ad.budget_allocation[camp];
+                const daily = ad.daily_budget_per_campaign[camp];
+                if (val === 0) return null;
+                const c = CAMPAIGN_COLORS[camp];
+                return (
+                  <div key={camp} className="flex items-center justify-between px-4 py-3 border-b last:border-b-0 border-ac-line">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full ${c.dot}`}></span>
+                      <span className="font-medium">{c.name}</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold tabular-nums">{fmt$2(val)}</div>
+                      <div className="text-xs text-ac-muted tabular-nums">{fmt$2(daily)}/jour</div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="flex items-center justify-between px-4 py-3 bg-stone-50 font-bold">
+                <span>Total</span>
+                <span className="tabular-nums">{fmt$2(ad.budget_allocation.total)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-4 border-t border-ac-line">
+            <button onClick={onApprove} className={`flex-1 py-3 rounded-xl font-semibold transition-colors ${approval==='approved' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700'}`}>
+              ✓ Approuver
+            </button>
+            <button onClick={onReject} className={`flex-1 py-3 rounded-xl font-semibold transition-colors ${approval==='rejected' ? 'bg-rose-500 text-white' : 'bg-rose-50 hover:bg-rose-100 text-rose-700'}`}>
+              ✗ Rejeter
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// ------------------ Tab: Overview ------------------
+const OverviewTab = () => {
+  const s = DATA.summary;
+  const total = s.totals.budget_total;
+  const allocated = s.totals.allocated_total;
+  const approvedCount = useMemo(() => {
+    const approvals = loadLS(LS_KEYS.approvals, {});
+    return DATA.ads.filter(a => approvals[a.id]==='approved').length;
+  }, []);
+  const missingCreativeCount = DATA.ads.filter(a => !a.creative_assets.visual_1x1_ready || !a.creative_assets.story_9x16_ready).length;
+
+  return (
+    <div className="space-y-8 fade-in">
+      {/* KPIs */}
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Indicateurs clés</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <KPICard label="Budget total" value={fmt$(total)} sub={`${fmt$(allocated)} alloués · ${fmt$(total-allocated)} non alloués`} />
+          <KPICard label="Pubs en plan" value={DATA.ads.length} sub={`${s.totals.events_count} événements`} />
+          <KPICard label="Approuvées" value={`${approvedCount} / ${DATA.ads.length}`} sub="Maj. lors de l'approbation" accent={approvedCount===DATA.ads.length ? 'text-emerald-600' : 'text-ac-ink'} />
+          <KPICard label="Gaps ouverts" value={DATA.gaps.filter(g=>g.severity!=='info').length} sub={`${missingCreativeCount} créatifs incomplets`} accent="text-orange-600" />
+        </div>
+      </div>
+
+      {/* Budget pots */}
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Pots budgétaires</div>
+        <div className="bg-white rounded-2xl p-6 border border-ac-line space-y-5">
+          {Object.entries(s.by_campaign_type).map(([camp, info]) => (
+            <BudgetBar key={camp} colorKey={camp} label={CAMPAIGN_COLORS[camp].name} allocated={info.allocated} total={info.budget_total} />
+          ))}
+        </div>
+      </div>
+
+      {/* Events */}
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Répartition par événement</div>
+        <div className="bg-white rounded-2xl border border-ac-line overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-stone-50 border-b border-ac-line">
+              <tr className="text-left">
+                <th className="px-5 py-3 font-semibold text-xs uppercase tracking-wider text-ac-muted">Événement</th>
+                <th className="px-5 py-3 font-semibold text-xs uppercase tracking-wider text-ac-muted">Date</th>
+                <th className="px-5 py-3 font-semibold text-xs uppercase tracking-wider text-ac-muted text-center">Pubs</th>
+                <th className="px-5 py-3 font-semibold text-xs uppercase tracking-wider text-ac-muted text-right">Budget</th>
+                <th className="px-5 py-3 font-semibold text-xs uppercase tracking-wider text-ac-muted text-right">% enveloppe</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(s.by_event).map(([eid, info]) => {
+                const ev = EVENTS_MAP[eid];
+                return (
+                  <tr key={eid} className={`border-b border-ac-line last:border-b-0 ${ev?.flagship ? 'bg-yellow-50/40' : ''}`}>
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-2">
+                        {ev?.flagship && <span>⭐</span>}
+                        <span className="font-medium">{ev?.name || eid}</span>
+                      </div>
+                    </td>
+                    <td className="px-5 py-4 text-ac-muted">{fmtDate(ev?.date)}</td>
+                    <td className="px-5 py-4 text-center">{info.ad_count}</td>
+                    <td className="px-5 py-4 text-right font-semibold tabular-nums">{fmt$2(info.total_budget)}</td>
+                    <td className="px-5 py-4 text-right text-ac-muted tabular-nums">{((info.total_budget/total)*100).toFixed(1)} %</td>
+                  </tr>
+                );
+              })}
+              <tr className="bg-stone-50 font-bold">
+                <td className="px-5 py-3">Total</td>
+                <td></td>
+                <td className="px-5 py-3 text-center">{DATA.ads.length}</td>
+                <td className="px-5 py-3 text-right tabular-nums">{fmt$2(allocated)}</td>
+                <td className="px-5 py-3 text-right tabular-nums">{((allocated/total)*100).toFixed(1)} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Gaps */}
+      {DATA.gaps.length > 0 && (
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Alertes & points de vigilance</div>
+          <div className="space-y-2">
+            {DATA.gaps.map((g, i) => <GapCard key={i} gap={g} />)}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ------------------ Gantt chart ------------------
+const GanttChart = ({ ads, onAdClick, onLightbox }) => {
+  if (!ads?.length) return null;
+
+  // Compute timeline bounds (day granularity)
+  const parse = (iso) => new Date(iso + 'T00:00:00');
+  const minDate = new Date(Math.min(...ads.map(a => parse(a.date_start).getTime())));
+  const maxDate = new Date(Math.max(...ads.map(a => parse(a.date_end).getTime())));
+  const totalDays = Math.ceil((maxDate - minDate) / 86400000) + 1;
+
+  const dayOffset = (iso) => Math.round((parse(iso) - minDate) / 86400000);
+
+  // Build month headers
+  const months = [];
+  const cursor = new Date(minDate);
+  while (cursor <= maxDate) {
+    const mkey = `${cursor.getFullYear()}-${cursor.getMonth()}`;
+    const existing = months.find(m => m.key === mkey);
+    if (existing) {
+      existing.days++;
+    } else {
+      months.push({ key: mkey, label: ['jan','fév','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'][cursor.getMonth()], year: cursor.getFullYear(), days: 1 });
+    }
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  // Week markers (Monday of each week)
+  const weekMarkers = [];
+  const c2 = new Date(minDate);
+  while (c2 <= maxDate) {
+    if (c2.getDay() === 1) { // Monday
+      weekMarkers.push(Math.round((c2 - minDate) / 86400000));
+    }
+    c2.setDate(c2.getDate() + 1);
+  }
+
+  // Group ads by exact headline — same headline = same creative story = 1 bar
+  const groupMap = new Map();
+  for (const ad of ads) {
+    const key = (ad.headline || '(sans titre)').trim();
+    if (!groupMap.has(key)) {
+      groupMap.set(key, {
+        headline: key,
+        event_id: ad.event_id,
+        ads: [],
+        minStart: ad.date_start,
+        maxEnd: ad.date_end,
+        totalBudget: 0,
+        campaignTypesSet: new Set(),
+        formatsSet: new Set(),
+      });
+    }
+    const g = groupMap.get(key);
+    g.ads.push(ad);
+    if (parse(ad.date_start) < parse(g.minStart)) g.minStart = ad.date_start;
+    if (parse(ad.date_end) > parse(g.maxEnd)) g.maxEnd = ad.date_end;
+    g.totalBudget += ad.budget_allocation.total;
+    ad.campaign_types.forEach(c => g.campaignTypesSet.add(c));
+    g.formatsSet.add(ad.format);
+  }
+  const groups = [...groupMap.values()].map(g => ({
+    ...g,
+    campaign_types: [...g.campaignTypesSet],
+    formats: [...g.formatsSet],
+    duration: Math.round((parse(g.maxEnd) - parse(g.minStart)) / 86400000) + 1,
+    flagship: !!EVENTS_MAP[g.event_id]?.flagship,
+  }));
+  groups.forEach(g => { g.dailyBudget = g.totalBudget / g.duration; });
+
+  // Sort by start then duration desc
+  const sorted = groups.sort((a, b) => {
+    const diff = parse(a.minStart) - parse(b.minStart);
+    return diff !== 0 ? diff : b.duration - a.duration;
+  });
+
+  const dayWidthPct = 100 / totalDays;
+
+  // Color per primary campaign (conversion > notoriete > traffic > ig_profil)
+  const barColor = (grp) => {
+    if (grp.flagship) return 'bg-gradient-to-r from-yellow-400 to-amber-500';
+    if (grp.campaign_types.includes('conversion')) return 'bg-gradient-to-r from-emerald-400 to-emerald-600';
+    if (grp.campaign_types.includes('traffic')) return 'bg-gradient-to-r from-sky-400 to-sky-600';
+    if (grp.campaign_types.includes('notoriete')) return 'bg-gradient-to-r from-rose-400 to-rose-600';
+    return 'bg-gradient-to-r from-stone-400 to-stone-600';
+  };
+
+  return (
+    <div className="mt-10 bg-white rounded-2xl border border-ac-line overflow-hidden">
+      <div className="px-6 py-4 border-b border-ac-line">
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-1">Timeline</div>
+        <h2 className="text-lg font-bold">Diffusion des pubs dans le temps</h2>
+        <p className="text-xs text-ac-muted mt-1">Du {parse(minDate.toISOString().split('T')[0]).toLocaleDateString('fr-CA',{day:'numeric',month:'long'})} au {maxDate.toLocaleDateString('fr-CA',{day:'numeric',month:'long'})} · {totalDays} jours · {ads.length} pubs</p>
+      </div>
+
+      <div className="overflow-x-auto">
+        <div style={{ minWidth: 900 }}>
+          {/* Header row: months + weeks (plein largeur) */}
+          <div className="sticky top-0 bg-stone-50 border-b border-ac-line z-10 relative" style={{ height: 40 }}>
+            {/* Month segments */}
+            <div className="flex h-5 border-b border-ac-line">
+              {months.map(m => (
+                <div key={m.key} style={{ width: `${(m.days / totalDays) * 100}%` }}
+                  className="text-[11px] font-bold text-ac-ink px-2 flex items-center border-r border-ac-line capitalize">
+                  {m.label} {m.year !== new Date().getFullYear() && m.year}
+                </div>
+              ))}
+            </div>
+            {/* Week tick marks */}
+            <div className="h-5 relative">
+              {weekMarkers.map((d, i) => (
+                <div key={i} className="absolute top-0 bottom-0 border-l border-stone-300" style={{ left: `${d * dayWidthPct}%` }}>
+                  <span className="text-[9px] text-ac-muted ml-1">S{i+1}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Rows (groupées par headline) */}
+          <div>
+            {sorted.map((g, idx) => {
+              const start = dayOffset(g.minStart);
+              const width = g.duration;
+              const adIds = g.ads.map(a => a.id).join(' + ');
+              const multi = g.ads.length > 1;
+              return (
+                <div key={adIds} className={`border-b border-ac-line hover:bg-stone-50/60 transition-colors ${idx%2===0 ? '' : 'bg-stone-50/30'}`}>
+                  <div className="relative" style={{ minHeight: 48 }}>
+                    {/* Week grid lines */}
+                    {weekMarkers.map((d, i) => (
+                      <div key={i} className="absolute top-0 bottom-0 border-l border-stone-200/60" style={{ left: `${d * dayWidthPct}%` }}></div>
+                    ))}
+                    {/* Bar */}
+                    <div
+                      onClick={()=>onAdClick(g.ads[0])}
+                      className={`absolute top-1.5 bottom-1.5 ${barColor(g)} rounded-lg shadow-sm cursor-pointer hover:shadow-md hover:brightness-110 transition-all flex items-center px-3 overflow-hidden gap-2`}
+                      style={{ left: `${start * dayWidthPct}%`, width: `${width * dayWidthPct}%` }}
+                      title={`${g.headline}\n${adIds}\n${g.minStart} → ${g.maxEnd} (${g.duration}j)\nBudget combiné: ${fmt$2(g.totalBudget)}\n${g.formats.join(' + ')}`}
+                    >
+                      <span className="text-[10px] font-mono text-white/80 flex-none">
+                        {multi ? `${g.ads.length} pubs` : g.ads[0].id}
+                      </span>
+                      {g.flagship && <span className="flex-none">⭐</span>}
+                      <span className="text-white text-[12px] font-semibold truncate drop-shadow flex-1 min-w-0">{g.headline}</span>
+                      <span className="text-white text-[11px] font-bold tabular-nums drop-shadow flex-none bg-black/20 px-1.5 py-0.5 rounded">
+                        {g.duration}j · {fmt$2(g.dailyBudget)}/j · {fmt$(g.totalBudget)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="px-6 py-3 border-t border-ac-line flex flex-wrap gap-3 items-center text-[11px] text-ac-muted">
+        <span className="font-semibold">Légende:</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gradient-to-r from-yellow-400 to-amber-500"></span>Flagship</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gradient-to-r from-emerald-400 to-emerald-600"></span>Conversion</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gradient-to-r from-sky-400 to-sky-600"></span>Trafic</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-gradient-to-r from-rose-400 to-rose-600"></span>Notoriété</span>
+        <span className="ml-auto italic">Clic sur une barre ou un titre pour voir le détail</span>
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Tab: Pubs ------------------
+const AdsTab = ({ approvals, setApprovals, selectedAd, setSelectedAd, onLightbox, onBudgetWarning }) => {
+  const [filter, setFilter] = useState({ event:'all', campaign:'all', format:'all', approval:'all', search:'' });
+  const [sort, setSort] = useState('date');
+  const [viewMode, setViewMode] = useState(() => loadLS('pvm_dashboard_view_mode_2026', 'separated'));
+  useEffect(() => saveLS('pvm_dashboard_view_mode_2026', viewMode), [viewMode]);
+
+  const filtered = useMemo(() => {
+    let list = DATA.ads.filter(a => {
+      if (filter.event !== 'all' && a.event_id !== filter.event) return false;
+      if (filter.campaign !== 'all' && !a.campaign_types.includes(filter.campaign)) return false;
+      if (filter.format !== 'all' && a.format !== filter.format) return false;
+      if (filter.approval !== 'all' && (approvals[a.id] || 'pending') !== filter.approval) return false;
+      if (filter.search && !((a.headline||'').toLowerCase().includes(filter.search.toLowerCase()) || (a.copy||'').toLowerCase().includes(filter.search.toLowerCase()))) return false;
+      return true;
+    });
+    if (sort === 'date') list.sort((a,b) => a.date_start.localeCompare(b.date_start));
+    else if (sort === 'budget') list.sort((a,b) => b.budget_allocation.total - a.budget_allocation.total);
+    else if (sort === 'event') list.sort((a,b) => (EVENTS_MAP[a.event_id]?.date || '').localeCompare(EVENTS_MAP[b.event_id]?.date || ''));
+    return list;
+  }, [filter, sort, approvals]);
+
+  const groups = useMemo(() => {
+    const g = buildHeadlineGroups(filtered);
+    if (sort === 'date') g.sort((a,b) => a.minStart.localeCompare(b.minStart));
+    else if (sort === 'budget') g.sort((a,b) => b.totalBudget - a.totalBudget);
+    else if (sort === 'event') g.sort((a,b) => (EVENTS_MAP[a.event_id]?.date || '').localeCompare(EVENTS_MAP[b.event_id]?.date || ''));
+    return g;
+  }, [filtered, sort]);
+
+  return (
+    <div className="fade-in">
+      {/* View mode toggle */}
+      <div className="mb-4 flex items-center justify-between gap-4 flex-wrap">
+        <div className="inline-flex bg-stone-100 rounded-xl p-1 text-sm font-semibold">
+          <button onClick={()=>setViewMode('separated')}
+            className={`px-4 py-2 rounded-lg transition-all ${viewMode==='separated' ? 'bg-white shadow-sm text-ac-ink' : 'text-ac-muted hover:text-ac-ink'}`}>
+            Campagnes séparées <span className="text-xs font-mono ml-1 opacity-70">({filtered.length})</span>
+          </button>
+          <button onClick={()=>setViewMode('grouped')}
+            className={`px-4 py-2 rounded-lg transition-all ${viewMode==='grouped' ? 'bg-white shadow-sm text-ac-ink' : 'text-ac-muted hover:text-ac-ink'}`}>
+            Campagnes groupées <span className="text-xs font-mono ml-1 opacity-70">({groups.length})</span>
+          </button>
+        </div>
+        <div className="text-xs text-ac-muted italic">
+          {viewMode === 'grouped' ? "Pubs avec le même titre fusionnées · $ et $/j cumulés" : "Une carte par pub"}
+        </div>
+      </div>
+
+      {/* Filter bar */}
+      <div className="bg-white rounded-2xl border border-ac-line p-4 mb-5">
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="flex items-center gap-2 flex-1 min-w-60">
+            <Icon name="search" size={16} className="text-ac-muted" />
+            <input type="text" placeholder="Rechercher dans headline ou copy…" value={filter.search} onChange={e=>setFilter({...filter, search:e.target.value})}
+              className="flex-1 border-0 text-sm focus:outline-none bg-transparent placeholder-ac-muted" />
+          </div>
+          <Select label="Événement" value={filter.event} onChange={v=>setFilter({...filter, event:v})}
+            options={[['all','Tous']].concat(DATA.events.map(e=>[e.id, e.name]))} />
+          <Select label="Campagne" value={filter.campaign} onChange={v=>setFilter({...filter, campaign:v})}
+            options={[['all','Toutes'],['notoriete','Notoriété'],['traffic','Trafic'],['conversion','Conversion'],['ig_profil','IG Profil']]} />
+          <Select label="Format" value={filter.format} onChange={v=>setFilter({...filter, format:v})}
+            options={[['all','Tous'],['statique','Statique'],['video','Vidéo'],['carrousel','Carrousel']]} />
+          <Select label="Statut" value={filter.approval} onChange={v=>setFilter({...filter, approval:v})}
+            options={[['all','Tous'],['pending','En attente'],['approved','Approuvé'],['rejected','Rejeté']]} />
+          <Select label="Tri" value={sort} onChange={setSort}
+            options={[['date','Date de début'],['event','Date évt'],['budget','Budget']]} />
+        </div>
+      </div>
+
+      <div className="mb-3 text-sm text-ac-muted">
+        {viewMode === 'grouped'
+          ? `${groups.length} groupe${groups.length>1?'s':''} (${filtered.length} pub${filtered.length>1?'s':''} fusionnées)`
+          : `${filtered.length} pub${filtered.length>1?'s':''} affichée${filtered.length>1?'s':''} sur ${DATA.ads.length}`}
+      </div>
+
+      {viewMode === 'separated' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {filtered.map(ad => (
+            <AdCard key={ad.id} ad={ad}
+              approval={approvals[ad.id] || 'pending'}
+              onClick={()=>setSelectedAd(ad)}
+              onApprove={()=>setApprovals({...approvals, [ad.id]: approvals[ad.id]==='approved' ? 'pending' : 'approved'})}
+              onReject={()=>setApprovals({...approvals, [ad.id]: approvals[ad.id]==='rejected' ? 'pending' : 'rejected'})}
+              onLightbox={onLightbox}
+              onBudgetWarning={onBudgetWarning}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {groups.map(g => (
+            <GroupedAdCard key={g.headline} group={g}
+              approvals={approvals}
+              setApprovals={setApprovals}
+              onFirstAdClick={()=>setSelectedAd(g.ads[0])}
+              onLightbox={onLightbox}
+              onBudgetWarning={onBudgetWarning}
+            />
+          ))}
+        </div>
+      )}
+
+      {filtered.length === 0 && (
+        <div className="bg-white rounded-2xl border border-ac-line p-10 text-center text-ac-muted">
+          Aucune pub ne correspond aux filtres.
+        </div>
+      )}
+
+      <GanttChart ads={filtered} onAdClick={setSelectedAd} onLightbox={onLightbox} />
+    </div>
+  );
+};
+
+const Select = ({ label, value, onChange, options }) => (
+  <select value={value} onChange={e=>onChange(e.target.value)} className="text-sm bg-stone-50 border border-ac-line rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ac-accent/30">
+    {options.map(([v,l]) => <option key={v} value={v}>{label}: {l}</option>)}
+  </select>
+);
+
+// ------------------ Tab: Budgets ------------------
+const BudgetsTab = () => {
+  const s = DATA.summary;
+  return (
+    <div className="space-y-8 fade-in">
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Détail par type de campagne</div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {Object.entries(s.by_campaign_type).map(([camp, info]) => {
+            const c = CAMPAIGN_COLORS[camp];
+            const pct = info.budget_total > 0 ? (info.allocated/info.budget_total)*100 : 0;
+            return (
+              <div key={camp} className={`rounded-2xl border border-ac-line p-5 bg-white`}>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`w-2 h-2 rounded-full ${c.dot}`}></span>
+                      <span className="font-bold text-lg">{c.name}</span>
+                    </div>
+                    <div className="text-xs text-ac-muted">{info.ad_count} pub{info.ad_count>1?'s':''}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold tabular-nums">{fmt$(info.allocated)}</div>
+                    <div className="text-xs text-ac-muted">sur {fmt$(info.budget_total)}</div>
+                  </div>
+                </div>
+                <div className="h-2 bg-stone-100 rounded-full overflow-hidden mb-2">
+                  <div className={`h-full ${c.bar}`} style={{width:`${pct}%`}}></div>
+                </div>
+                <div className="flex justify-between text-xs text-ac-muted">
+                  <span>{pct.toFixed(0)} % alloué</span>
+                  {info.unallocated > 0 && <span className="text-orange-600 font-medium">⚠ {fmt$(info.unallocated)} non alloués</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Détail par format</div>
+        <div className="grid grid-cols-3 gap-4">
+          {Object.entries(s.by_format).map(([f, info]) => {
+            const c = FORMAT_COLORS[f] || FORMAT_COLORS.statique;
+            return (
+              <div key={f} className="rounded-2xl border border-ac-line p-5 bg-white text-center">
+                <Pill className={`${c.bg} ${c.text} ring-transparent`}>{f}</Pill>
+                <div className="text-3xl font-bold mt-3 tabular-nums">{fmt$(info.total_budget)}</div>
+                <div className="text-xs text-ac-muted mt-1">{info.ad_count} pub{info.ad_count>1?'s':''}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-ac-line p-6">
+        <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-3">Méthode d'allocation</div>
+        <p className="text-sm leading-relaxed">
+          Pour chaque pot budgétaire ({Object.values(CAMPAIGN_COLORS).map(c=>c.name).join(', ')}), le budget est réparti entre les pubs qui ont ce type de campagne dans leur étiquette,
+          <strong> proportionnellement à la durée du flight × un poids de format</strong> (vidéo 1,3 · carrousel 1,15 · statique 1,0).
+          Une pub étiquetée <em>NOTORIÉTÉ + TRAFFIC + CONVERSION</em> reçoit de l'argent des trois pots simultanément.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Tab: Questions Client ------------------
+const QuestionsTab = () => {
+  const [notes, setNotes] = useState(() => loadLS(LS_KEYS.questions, {}));
+  const [deleted, setDeleted] = useState(() => loadLS(LS_KEYS.deletedQuestions, []));
+  const [filter, setFilter] = useState({ priority:'all', status:'all', category:'all' });
+
+  useEffect(() => saveLS(LS_KEYS.questions, notes), [notes]);
+  useEffect(() => saveLS(LS_KEYS.deletedQuestions, deleted), [deleted]);
+
+  const questions = DATA.client_questions.filter(q => {
+    if (deleted.includes(q.id)) return false;
+    if (filter.priority !== 'all' && q.priority !== filter.priority) return false;
+    if (filter.status !== 'all' && q.status !== filter.status) return false;
+    if (filter.category !== 'all' && q.category !== filter.category) return false;
+    return true;
+  });
+
+  const categories = [...new Set(DATA.client_questions.map(q => q.category))];
+
+  const updateNote = (qid, patch) => setNotes({ ...notes, [qid]: { ...(notes[qid]||{}), ...patch } });
+  const deleteQuestion = (qid) => {
+    if (confirm("Supprimer cette question du dashboard ? (Elle peut être restaurée en cliquant 'Restaurer supprimées' en haut.)")) {
+      setDeleted([...deleted, qid]);
+    }
+  };
+  const restoreAll = () => {
+    if (confirm(`Restaurer les ${deleted.length} question(s) supprimée(s) ?`)) {
+      setDeleted([]);
+    }
+  };
+
+  return (
+    <div className="fade-in">
+      <div className="bg-white rounded-2xl border border-ac-line p-4 mb-5 flex flex-wrap gap-3 items-center">
+        <Select label="Priorité" value={filter.priority} onChange={v=>setFilter({...filter, priority:v})}
+          options={[['all','Toutes'],['critical','Critique'],['high','Haute'],['medium','Moyenne'],['low','Basse']]} />
+        <Select label="Statut" value={filter.status} onChange={v=>setFilter({...filter, status:v})}
+          options={[['all','Tous'],['open','Ouverte'],['answered','Répondue'],['parked','Sur la glace']]} />
+        <Select label="Catégorie" value={filter.category} onChange={v=>setFilter({...filter, category:v})}
+          options={[['all','Toutes']].concat(categories.map(c=>[c,c]))} />
+        {deleted.length > 0 && (
+          <button onClick={restoreAll} className="ml-auto text-xs font-semibold text-ac-muted hover:text-ac-ink px-3 py-2 rounded-lg bg-stone-50 hover:bg-stone-100">
+            ↺ Restaurer {deleted.length} supprimée{deleted.length>1?'s':''}
+          </button>
+        )}
+      </div>
+
+      <div className="mb-3 text-sm text-ac-muted">
+        {questions.length} question{questions.length>1?'s':''} affichée{questions.length>1?'s':''} sur {DATA.client_questions.length - deleted.length} actives
+        {deleted.length > 0 && ` (${deleted.length} supprimée${deleted.length>1?'s':''})`}
+      </div>
+
+      <div className="space-y-4">
+        {questions.map(q => {
+          const p = PRIORITY_COLORS[q.priority];
+          const note = notes[q.id] || {};
+          return (
+            <div key={q.id} className="bg-white rounded-2xl border border-ac-line p-6 card relative group">
+              <button onClick={()=>deleteQuestion(q.id)}
+                title="Supprimer cette question"
+                className="absolute top-4 right-4 w-7 h-7 rounded-full bg-stone-100 hover:bg-rose-100 text-stone-400 hover:text-rose-600 flex items-center justify-center opacity-60 hover:opacity-100 transition-all">
+                <Icon name="close" size={14} />
+              </button>
+              <div className="flex items-start justify-between gap-4 mb-3 pr-10">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-mono text-ac-muted">{q.id}</span>
+                  <span className={`w-2 h-2 rounded-full ${p.dot}`}></span>
+                  <span className={`text-xs font-semibold uppercase tracking-wider ${p.text}`}>{p.label}</span>
+                  <span className="text-xs text-ac-muted">·</span>
+                  <span className="text-xs font-medium text-ac-muted">{q.category}</span>
+                </div>
+                <Pill className={note.status === 'answered' || q.status === 'answered' ? 'bg-emerald-50 text-emerald-700 ring-transparent' : q.status === 'parked' ? 'bg-gray-100 text-gray-600 ring-transparent' : 'bg-amber-50 text-amber-700 ring-transparent'}>
+                  {note.status === 'answered' ? 'Répondue' : q.status === 'parked' ? 'Sur la glace' : 'Ouverte'}
+                </Pill>
+              </div>
+
+              <div className="font-semibold text-base mb-3 leading-snug">{q.question}</div>
+
+              <div className="text-sm text-ac-muted mb-4 leading-relaxed"><strong className="text-ac-ink">Pourquoi ça compte :</strong> {q.why_it_matters}</div>
+
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-ac-muted mb-2">Réponse du client / Notes</div>
+                <textarea value={note.answer || ''} onChange={e=>updateNote(q.id, { answer: e.target.value, status: e.target.value ? 'answered' : 'open' })}
+                  placeholder="Noter ici la réponse ou les commentaires du client…"
+                  className="w-full border border-ac-line rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-ac-accent/30 min-h-[80px] bg-stone-50/50" />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// ------------------ Tab: Approbation client (stratégie visuelle) ------------------
+const PhaseColors = {
+  rose:    { bg:'bg-rose-500',    light:'bg-rose-100',    text:'text-rose-700',    border:'border-rose-300',    soft:'bg-rose-50' },
+  yellow:  { bg:'bg-amber-500',   light:'bg-amber-100',   text:'text-amber-800',   border:'border-amber-300',   soft:'bg-amber-50' },
+  sky:     { bg:'bg-sky-500',     light:'bg-sky-100',     text:'text-sky-700',     border:'border-sky-300',     soft:'bg-sky-50' },
+  emerald: { bg:'bg-emerald-500', light:'bg-emerald-100', text:'text-emerald-700', border:'border-emerald-300', soft:'bg-emerald-50' },
+  violet:  { bg:'bg-violet-500',  light:'bg-violet-100',  text:'text-violet-700',  border:'border-violet-300',  soft:'bg-violet-50' },
+};
+
+const FormatStrategy = {
+  statique:  { label:'Image statique',  icon:'🖼️', desc:'Affiche · annonce ponctuelle · message direct',          color:'bg-stone-200 text-stone-800' },
+  carrousel: { label:'Carrousel',       icon:'⊞',  desc:'2-8 visuels · programmation, lineup, plusieurs angles',  color:'bg-cyan-200 text-cyan-900' },
+  video:     { label:'Vidéo',           icon:'▶',  desc:'Format dynamique · ambiance, teasers, highlights',       color:'bg-violet-200 text-violet-900' },
+};
+
+// Plan créatif suggéré — un brief par pub. Messages volontairement descriptifs (factuels)
+// plutôt que créatifs/accrocheurs : le but est d'informer, pas de vendre.
+const CREATIVE_PLAN = {
+  // ====== PHASE 1 — Lancement ======
+  'pvm-001': {
+    title: "Lancement de la saison Place Ville Marie 2026",
+    message: "Annonce du démarrage de la programmation musicale estivale à Place Ville Marie. Période : juin à septembre 2026. Deux formats récurrents : Midi musique (mardis et mercredis, 12h-13h) et soirées (mercredis, 17h-22h). Entrée libre. Détails et programmation complète à venir sur les pages Facebook et Instagram du projet.",
+    visual: "Image statique présentant le nom du projet, le lieu (Place Ville Marie), la période (juin → septembre 2026) et une vue d'ambiance représentant l'espace extérieur. Style sobre, informatif, identité visuelle PVM.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story / Reel)"],
+  },
+  'pvm-002': {
+    title: "Programmation du mois de juin · vue d'ensemble",
+    message: "Présentation des huit événements du mois de juin : six Midi musique (Gwinestefani, Fernie, Anthony Aka, Yumè, DM Saninga, Jay Ramis) et deux soirées (10 juin avec PLAYBLACK, 17 juin Throwback Shorties). Tous les événements sont gratuits.",
+    visual: "Carrousel de 7 à 9 slides. Slide 1 : couverture 'Programmation juin 2026'. Slides suivantes : une slide par événement avec date, nom de l'artiste, heure, format (Midi musique ou Soirée). Slide finale : invitation à suivre les pages pour la suite.",
+    formats_needed: ["1:1 Feed (7-9 slides)", "9:16 Story (7-9 slides)"],
+  },
+
+  // ====== PHASE 2 — Soirée d'ouverture PLAYBLACK ======
+  'pvm-003': {
+    title: "Soirée d'ouverture · 10 juin 2026 · PLAYBLACK",
+    message: "Annonce de la soirée d'ouverture de la saison Place Ville Marie. Mercredi 10 juin 2026, de 17h à 22h. DJ invité : PLAYBLACK. Lieu : Place Ville Marie. Entrée libre. RSVP via l'événement Facebook.",
+    visual: "Affiche statique avec photo ou visuel graphique associé à PLAYBLACK, date 10 juin bien visible, lieu, créneau horaire (17h-22h), mention 'gratuit' et appel à l'action 'RSVP sur Facebook'.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story)"],
+  },
+  'pvm-004': {
+    title: "Soirée d'ouverture · vidéo teaser PLAYBLACK",
+    message: "Vidéo courte (15 à 30 secondes) présentant la soirée d'ouverture. Information clé : date (10 juin), DJ (PLAYBLACK), lieu (Place Ville Marie), créneau (17h-22h), gratuité, RSVP Facebook.",
+    visual: "Footage de PLAYBLACK en performance (à fournir) ou ambiance générique de soirée extérieure. Overlay textuel statique avec la date, le lieu et l'heure. Logo et identité PVM à la fin. Musique sous licence (Meta Sound Collection ou track autorisé).",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story / Reel)"],
+  },
+  'pvm-005': {
+    title: "Lineup complet de la soirée du 10 juin",
+    message: "Présentation de tous les artistes invités à la soirée d'ouverture du 10 juin. Une slide par artiste avec photo et nom. Date, lieu et heure sur la couverture et la slide finale.",
+    visual: "Carrousel de 4 à 6 slides. Slide 1 : couverture 'Lineup 10 juin'. Slides 2 à N : une artist card par artiste invité (photo, nom). Slide finale : rappel date / lieu / heure / RSVP.",
+    formats_needed: ["1:1 Feed (4-6 slides)", "9:16 Story (4-6 slides)"],
+  },
+
+  // ====== PHASE 3 — Saison juin ======
+  'pvm-006': {
+    title: "Midi musique · concept hebdomadaire",
+    message: "Présentation du concept Midi musique : pause musicale gratuite à Place Ville Marie, tous les mardis et mercredis de 12h à 13h. Idéal pour une pause lunch au centre-ville. Programmation hebdomadaire variable visible dans le carrousel.",
+    visual: "Carrousel de 4 à 6 slides. Slide 1 : couverture 'Midi musique · mardis et mercredis 12h-13h · gratuit'. Slides suivantes : exemples d'artistes de la semaine en cours (photos ou visuels graphiques). Slide finale : invitation à suivre la page pour la programmation hebdomadaire.",
+    formats_needed: ["1:1 Feed (4-6 slides)", "9:16 Story (4-6 slides)"],
+  },
+  'pvm-007': {
+    title: "Soirée Throwback Shorties · 17 juin 2026",
+    message: "Annonce de la soirée Throwback Shorties. Mercredi 17 juin 2026, de 17h à 22h. DJ invités : Kelly et Tallandskinny. Musique des années 1990 et 2000. Lieu : Place Ville Marie. Entrée libre. RSVP via l'événement Facebook.",
+    visual: "Affiche statique avec visuel rétro années 90/2000 (typographie, couleurs, motifs). Date 17 juin bien visible, lieu, créneau (17h-22h), noms des DJ (Kelly, Tallandskinny), mention 'gratuit' et 'RSVP sur Facebook'.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story)"],
+  },
+
+  // ====== PHASE 4 — Juillet ======
+  'pvm-008': {
+    title: "Programmation du mois de juillet · vue d'ensemble",
+    message: "Présentation des événements du mois de juillet (huit événements assumés : Midi musique récurrents + soirées spéciales à confirmer). Tous gratuits. À produire dès que la programmation détaillée est confirmée par le client.",
+    visual: "Carrousel format calendrier juillet. Slide 1 : couverture 'Programmation juillet 2026'. Slides suivantes : une slide par événement avec date, nom, heure, format. À produire avec les visuels d'artistes une fois confirmés.",
+    formats_needed: ["1:1 Feed (7-9 slides)", "9:16 Story (7-9 slides)"],
+  },
+  'pvm-009': {
+    title: "Ambiance Place Ville Marie · vidéo récap juillet",
+    message: "Vidéo de 15 à 30 secondes utilisant du footage capté en juin (Midi musique, soirée d'ouverture PLAYBLACK, Throwback Shorties). Objectif : montrer l'ambiance des événements pour inciter à venir aux suivants.",
+    visual: "Montage rapide d'extraits vidéo des événements de juin (foule, DJ, artistes, lieu). Pas de voix-off. Musique sous licence. Écran final avec calendrier juillet (dates clés) et invitation à suivre la page Facebook pour les RSVP.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story / Reel)"],
+  },
+  'pvm-010': {
+    title: "Compte Instagram · invitation à suivre @pvm",
+    message: "Annonce du compte Instagram du projet. Le compte sert à diffuser les annonces de programmation, les photos d'événements et les reels de coulisses. Identifiant : @pvm (à confirmer).",
+    visual: "Mockup d'un écran Instagram montrant la page @pvm avec bio, quelques posts récents (programmation, photos d'événements) et bouton 'Suivre' bien visible. Style sobre, informatif.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story)"],
+  },
+
+  // ====== PHASE 5 — Août + clôture ======
+  'pvm-011': {
+    title: "Programmation du mois d'août · vue d'ensemble",
+    message: "Présentation des événements du mois d'août (huit événements assumés). Tous gratuits. À produire dès que la programmation détaillée est confirmée. Mentionner que la saison se termine début septembre.",
+    visual: "Carrousel format calendrier août. Slide 1 : couverture 'Programmation août 2026 · dernier mois de la saison'. Slides suivantes : une slide par événement. Slide finale : teaser de la soirée de clôture début septembre.",
+    formats_needed: ["1:1 Feed (7-9 slides)", "9:16 Story (7-9 slides)"],
+  },
+  'pvm-012': {
+    title: "Récapitulatif de saison + annonce de la clôture",
+    message: "Vidéo de 30 à 45 secondes avec extraits des meilleurs moments de la saison (juin, juillet, août). Annonce de la soirée de clôture début septembre : date, lieu, heure, gratuité, RSVP Facebook.",
+    visual: "Best-of footage de la saison entière (rythme rapide). Écran final fixe avec date de la soirée de clôture, lieu, créneau, mention 'gratuit', appel à l'action 'RSVP sur Facebook'. Musique sous licence.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story / Reel)"],
+  },
+  'pvm-013': {
+    title: "Fin de saison · invitation à suivre @pvm pour la suite",
+    message: "Annonce de la fin de la saison 2026 et invitation à continuer de suivre le compte Instagram. Le compte reste actif hors saison pour annoncer la saison 2027 et les événements ponctuels.",
+    visual: "Visuel similaire à pvm-010 (Instagram mockup) avec ajout d'une mention 'Saison 2026 terminée · suivez @pvm pour la prochaine saison'. Style sobre, conclusif.",
+    formats_needed: ["1:1 (Feed)", "9:16 (Story)"],
+  },
+};
+
+const ApprobationClientTab = () => {
+  const phases = DATA.phases;
+  const phaseBudgets = DATA.phase_budgets;
+  const budgetTotal = DATA.meta.budget_total;
+  const allocated = DATA.summary.totals.allocated_total;
+  const byCamp = DATA.summary.by_campaign_type;
+  const byFmt = DATA.summary.by_format;
+
+  // Pour timeline visuelle — convertir dates en offsets
+  const parse = (iso) => new Date(iso + 'T00:00:00');
+  const minD = parse(DATA.meta.period.split(' to ')[0]);
+  const maxD = parse(DATA.meta.period.split(' to ')[1]);
+  const totalDays = Math.round((maxD - minD) / 86400000) + 1;
+
+  // Camembert simple en SVG (donut) pour mix campagnes
+  const CampaignDonut = () => {
+    const data = ['notoriete','traffic','conversion','ig_profil'].map(k => ({
+      key: k,
+      label: CAMPAIGN_COLORS[k].name,
+      value: byCamp[k].budget_total,
+      color: { notoriete:'#f43f5e', traffic:'#0ea5e9', conversion:'#10b981', ig_profil:'#f59e0b' }[k],
+    }));
+    const total = data.reduce((s,d)=>s+d.value,0);
+    let acc = 0;
+    const radius = 70, stroke = 26, cx = 90, cy = 90, circ = 2*Math.PI*radius;
+    return (
+      <div className="flex items-center gap-6">
+        <svg width="180" height="180" viewBox="0 0 180 180">
+          <circle cx={cx} cy={cy} r={radius} fill="none" stroke="#f5f5f0" strokeWidth={stroke} />
+          {data.map((d, i) => {
+            const dash = (d.value/total) * circ;
+            const offset = -acc;
+            const el = (
+              <circle key={d.key} cx={cx} cy={cy} r={radius} fill="none"
+                stroke={d.color} strokeWidth={stroke}
+                strokeDasharray={`${dash} ${circ-dash}`}
+                strokeDashoffset={offset}
+                transform={`rotate(-90 ${cx} ${cy})`} />
+            );
+            acc += dash;
+            return el;
+          })}
+          <text x={cx} y={cy-4} textAnchor="middle" fontSize="22" fontWeight="800" fill="#1A1A1A">3 000$</text>
+          <text x={cx} y={cy+14} textAnchor="middle" fontSize="10" fill="#6B7280">budget total</text>
+        </svg>
+        <div className="space-y-2">
+          {data.map(d => (
+            <div key={d.key} className="flex items-center gap-3 text-sm">
+              <span className="w-3 h-3 rounded-full flex-none" style={{background:d.color}}></span>
+              <span className="font-semibold w-24">{d.label}</span>
+              <span className="tabular-nums font-bold">{fmt$(d.value)}</span>
+              <span className="text-ac-muted tabular-nums text-xs">({((d.value/total)*100).toFixed(0)}%)</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Mix formats (3 colonnes empilées)
+  const FormatMix = () => {
+    const items = ['statique','carrousel','video'].map(k => ({
+      key: k,
+      label: FormatStrategy[k].label,
+      icon: FormatStrategy[k].icon,
+      desc: FormatStrategy[k].desc,
+      value: byFmt[k]?.total_budget || 0,
+      count: byFmt[k]?.ad_count || 0,
+      colorClass: FormatStrategy[k].color,
+    }));
+    const total = items.reduce((s,i)=>s+i.value,0);
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {items.map(it => {
+          const pct = total>0 ? (it.value/total)*100 : 0;
+          return (
+            <div key={it.key} className={`rounded-2xl p-5 border border-ac-line bg-white relative overflow-hidden`}>
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{it.icon}</span>
+                  <div>
+                    <div className="font-bold text-base">{it.label}</div>
+                    <div className="text-[11px] text-ac-muted">{it.count} pub{it.count>1?'s':''}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xl font-bold tabular-nums">{fmt$(it.value)}</div>
+                  <div className="text-[11px] text-ac-muted tabular-nums">{pct.toFixed(0)}%</div>
+                </div>
+              </div>
+              <p className="text-xs text-ac-muted leading-relaxed mt-2">{it.desc}</p>
+              <div className="h-1.5 bg-stone-100 rounded-full overflow-hidden mt-3">
+                <div className={`h-full ${it.colorClass.split(' ')[0]}`} style={{width:`${pct}%`}}></div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-10 fade-in">
+
+      {/* Hero stratégie */}
+      <div className="bg-gradient-to-br from-sky-50 via-white to-violet-50 rounded-3xl border border-ac-line p-8">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="px-3 py-1 rounded-full bg-ac-ink text-white text-[10px] font-bold uppercase tracking-widest">Approbation client</span>
+          <span className="px-3 py-1 rounded-full bg-white border border-ac-line text-[10px] font-bold uppercase tracking-widest text-ac-muted">PVM · saison 2026</span>
+        </div>
+        <h2 className="text-3xl font-extrabold tracking-tight mb-3">Stratégie Meta — Place Ville Marie</h2>
+        <p className="text-base text-ac-ink leading-relaxed max-w-3xl">
+          Une enveloppe de <strong>3 000$ CAD</strong> répartie sur <strong>101 jours</strong> (25 mai → 2 sept 2026), structurée en <strong>5 phases</strong> qui suivent la maturation des pages FB et IG :
+          phase de <strong>lancement</strong> centrée sur la notoriété et la croissance des communautés depuis zéro, puis évolution vers <strong>trafic et engagement</strong> sur les moments clés.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+          <div className="bg-white rounded-2xl p-4 border border-ac-line">
+            <div className="text-[10px] uppercase tracking-wider text-ac-muted font-semibold">Budget total</div>
+            <div className="text-2xl font-bold tabular-nums mt-1">{fmt$(budgetTotal)}</div>
+            <div className="text-xs text-ac-muted">{fmt$(allocated)} alloués (100%)</div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 border border-ac-line">
+            <div className="text-[10px] uppercase tracking-wider text-ac-muted font-semibold">Durée</div>
+            <div className="text-2xl font-bold tabular-nums mt-1">101 j</div>
+            <div className="text-xs text-ac-muted">25 mai → 2 sept 2026</div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 border border-ac-line">
+            <div className="text-[10px] uppercase tracking-wider text-ac-muted font-semibold">Pubs</div>
+            <div className="text-2xl font-bold tabular-nums mt-1">{DATA.ads.length}</div>
+            <div className="text-xs text-ac-muted">en 5 phases stratégiques</div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 border border-ac-line">
+            <div className="text-[10px] uppercase tracking-wider text-ac-muted font-semibold">Compte ads</div>
+            <div className="text-base font-bold mt-1">Business Manager dédié</div>
+            <div className="text-xs text-ac-muted">Séparé d'Aire Commune</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Timeline 5 phases */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 1</div>
+            <h3 className="text-xl font-bold">Stratégie en 5 phases</h3>
+          </div>
+          <div className="text-xs text-ac-muted italic">Du lancement à la clôture, le poids des objectifs évolue.</div>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-ac-line p-6 overflow-hidden">
+          {/* Timeline Gantt empilée — une rangée par phase, pas d'overlap visuel */}
+          {(() => {
+            // Build month headers from minD/maxD
+            const months = [];
+            const cur = new Date(minD);
+            const monthLabels = ['jan','fév','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'];
+            while (cur <= maxD) {
+              const mkey = `${cur.getFullYear()}-${cur.getMonth()}`;
+              const existing = months.find(x => x.key === mkey);
+              if (existing) { existing.days++; }
+              else { months.push({ key: mkey, label: monthLabels[cur.getMonth()], year: cur.getFullYear(), days: 1 }); }
+              cur.setDate(cur.getDate() + 1);
+            }
+            return (
+              <div className="mb-8">
+                {/* En-tête : axe des mois */}
+                <div className="flex mb-2" style={{ paddingLeft: 150 }}>
+                  {months.map(m => (
+                    <div key={m.key} className="border-l border-ac-line first:border-l-0 px-2 text-[10px] font-bold uppercase tracking-wider text-ac-muted"
+                      style={{ width: `${(m.days/totalDays)*100}%` }}>
+                      {m.label}
+                    </div>
+                  ))}
+                </div>
+                {/* Rangées de phases */}
+                <div className="space-y-2">
+                  {phases.map(p => {
+                    const start = (parse(p.date_start) - minD) / 86400000;
+                    const dur = (parse(p.date_end) - parse(p.date_start)) / 86400000 + 1;
+                    const leftPct = (start / totalDays) * 100;
+                    const widthPct = (dur / totalDays) * 100;
+                    const c = PhaseColors[p.color];
+                    return (
+                      <div key={p.id} className="flex items-center gap-3">
+                        {/* Label de phase à gauche */}
+                        <div className="flex-none text-right" style={{ width: 138 }}>
+                          <div className={`text-[11px] font-bold uppercase tracking-wider ${c.text}`}>{p.label}</div>
+                          <div className="text-[10px] text-ac-muted tabular-nums">{fmtDate(p.date_start)} → {fmtDate(p.date_end)}</div>
+                        </div>
+                        {/* Track Gantt */}
+                        <div className="flex-1 relative bg-stone-50 rounded-lg" style={{ height: 36 }}>
+                          {/* Lignes verticales mois */}
+                          {months.slice(0, -1).reduce((acc, m, i) => {
+                            const offset = acc.offset + m.days;
+                            acc.lines.push(
+                              <div key={i} className="absolute top-0 bottom-0 border-l border-stone-200" style={{ left: `${(offset/totalDays)*100}%` }}></div>
+                            );
+                            acc.offset = offset;
+                            return acc;
+                          }, { offset: 0, lines: [] }).lines}
+                          {/* Barre de la phase */}
+                          <div className={`absolute top-1 bottom-1 ${c.bg} rounded-md shadow-sm flex items-center justify-center text-white text-xs font-bold px-2`}
+                            style={{ left: `${leftPct}%`, width: `${widthPct}%` }}>
+                            <span className="truncate">{fmt$(phaseBudgets[p.id].total)} · {p.duration_days} j</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Phase cards */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+            {phases.map(p => {
+              const c = PhaseColors[p.color];
+              const b = phaseBudgets[p.id];
+              const focusOrdered = p.campaign_focus;
+              return (
+                <div key={p.id} className={`rounded-xl border ${c.border} ${c.soft} p-4 relative`}>
+                  <div className={`absolute top-0 left-0 right-0 h-1 ${c.bg} rounded-t-xl`}></div>
+                  <div className={`text-[10px] font-bold uppercase tracking-wider ${c.text} mb-1`}>{p.label}</div>
+                  <div className="font-bold text-sm leading-tight mb-2">{p.name}</div>
+                  <div className="text-[11px] text-ac-muted leading-relaxed mb-3">{p.objective}</div>
+                  <div className="space-y-1.5 pt-3 border-t border-stone-200/60">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-ac-muted">Budget</span>
+                      <span className="font-bold tabular-nums">{fmt$(b.total)}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-ac-muted">Pubs</span>
+                      <span className="font-semibold tabular-nums">{b.ad_count}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-ac-muted">Durée</span>
+                      <span className="font-semibold tabular-nums">{p.duration_days} j</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-stone-200/60">
+                    <div className="text-[10px] uppercase tracking-wider text-ac-muted font-bold mb-1.5">Focus</div>
+                    <div className="flex flex-wrap gap-1">
+                      {focusOrdered.map(c => <CampaignPill key={c} id={c} />)}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Objectifs Meta */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 2</div>
+            <h3 className="text-xl font-bold">4 objectifs Meta · répartition du budget</h3>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-ac-line p-6">
+          <CampaignDonut />
+        </div>
+
+        {/* Détails objectifs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+          {['notoriete','traffic','conversion','ig_profil'].map(k => {
+            const c = CAMPAIGN_COLORS[k];
+            const ct = DATA.campaign_types[k];
+            const b = byCamp[k];
+            const pct = (b.budget_total/budgetTotal)*100;
+            return (
+              <div key={k} className={`rounded-2xl border border-ac-line bg-white p-5`}>
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-3 h-3 rounded-full ${c.dot}`}></span>
+                    <div>
+                      <div className="font-bold text-base">{c.name}</div>
+                      <div className="text-[11px] text-ac-muted">{ct.meta_objective}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xl font-bold tabular-nums">{fmt$(b.budget_total)}</div>
+                    <div className="text-[11px] text-ac-muted">{pct.toFixed(0)} % · {b.ad_count} pub{b.ad_count>1?'s':''}</div>
+                  </div>
+                </div>
+                <div className="h-2 bg-stone-100 rounded-full overflow-hidden mt-3">
+                  <div className={`h-full ${c.bar}`} style={{width:`${pct}%`}}></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Mix formats */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 3</div>
+            <h3 className="text-xl font-bold">3 formats créatifs · à quoi sert chacun</h3>
+          </div>
+        </div>
+        <FormatMix />
+      </div>
+
+      {/* Budget par phase — barres */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 4</div>
+            <h3 className="text-xl font-bold">Évolution du mix par phase</h3>
+          </div>
+          <div className="text-xs text-ac-muted italic">Comment le poids des objectifs change dans le temps.</div>
+        </div>
+        <div className="bg-white rounded-2xl border border-ac-line p-6">
+          <div className="space-y-5">
+            {phases.map(p => {
+              const b = phaseBudgets[p.id];
+              const segments = [
+                { key:'notoriete',  v:b.notoriete,  color:'#f43f5e' },
+                { key:'traffic',    v:b.traffic,    color:'#0ea5e9' },
+                { key:'conversion', v:b.conversion, color:'#10b981' },
+                { key:'ig_profil',  v:b.ig_profil,  color:'#f59e0b' },
+              ];
+              const max = Math.max(...phases.map(p2 => phaseBudgets[p2.id].total));
+              const rowPct = (b.total / max) * 100;
+              return (
+                <div key={p.id}>
+                  <div className="flex items-baseline justify-between mb-1">
+                    <div className="text-sm font-bold">{p.label} <span className="text-ac-muted font-normal">· {p.name}</span></div>
+                    <div className="text-sm tabular-nums font-bold">{fmt$(b.total)}</div>
+                  </div>
+                  <div className="flex h-9 rounded-lg overflow-hidden border border-ac-line" style={{width: `${rowPct}%`}}>
+                    {segments.filter(s=>s.v>0).map(s => (
+                      <div key={s.key}
+                        className="flex items-center justify-center text-white text-[11px] font-bold"
+                        style={{ background: s.color, width: `${(s.v/b.total)*100}%` }}
+                        title={`${CAMPAIGN_COLORS[s.key].name} : ${fmt$(s.v)}`}>
+                        {(s.v/b.total)>=0.15 ? fmt$(s.v) : ''}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-4 text-xs text-ac-muted pt-4 border-t border-ac-line">
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded" style={{background:'#f43f5e'}}></span>Notoriété</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded" style={{background:'#0ea5e9'}}></span>Trafic</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded" style={{background:'#10b981'}}></span>Conversion (RSVP événement FB)</span>
+            <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded" style={{background:'#f59e0b'}}></span>IG Profil (croissance)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Logique stratégique */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 5</div>
+            <h3 className="text-xl font-bold">Pourquoi cette stratégie</h3>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="bg-white rounded-2xl border border-ac-line p-5">
+            <div className="text-3xl mb-2">🌱</div>
+            <div className="font-bold text-base mb-2">Pages à zéro = priorité notoriété</div>
+            <p className="text-sm text-ac-muted leading-relaxed">
+              Les pages FB et IG PVM démarrent sans audience. Les premières semaines sont donc consacrées à <strong>construire la communauté</strong> (notoriété + IG profil) avant de pouvoir activer des campagnes efficaces de trafic et de conversion.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-ac-line p-5">
+            <div className="text-3xl mb-2">⭐</div>
+            <div className="font-bold text-base mb-2">Investir sur les moments clés</div>
+            <p className="text-sm text-ac-muted leading-relaxed">
+              Le budget n'est pas dilué par micro-événement. Il se concentre sur le <strong>lancement de saison</strong>, la <strong>soirée d'ouverture PLAYBLACK</strong>, la <strong>programmation globale</strong> (carrousels) et les <strong>moments spéciaux</strong> comme Throwback Shorties.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-ac-line p-5">
+            <div className="text-3xl mb-2">📈</div>
+            <div className="font-bold text-base mb-2">Évolution vers conversion FB</div>
+            <p className="text-sm text-ac-muted leading-relaxed">
+              À mesure que les communautés grandissent, le mix évolue vers <strong>trafic et engagement</strong> avec les événements Facebook (RSVP). En août, la conversion est l'objectif principal pour maximiser la présence sur place et clôturer la saison.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Plan créatif suggéré */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4 flex-wrap gap-3">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 6</div>
+            <h3 className="text-xl font-bold">Plan créatif suggéré · 13 pubs à produire</h3>
+          </div>
+          <div className="text-xs text-ac-muted italic max-w-md text-right">Pas de promotion par événement individuel. Le plan regroupe les annonces autour du lancement, de la programmation globale et des moments clés.</div>
+        </div>
+
+        <div className="space-y-6">
+          {DATA.phases.map(p => {
+            const c = PhaseColors[p.color];
+            const phaseAds = DATA.ads.filter(a => (a.phase||'').startsWith(p.label));
+            const phaseTotal = phaseAds.reduce((s,a)=>s+a.budget_allocation.total, 0);
+            return (
+              <div key={p.id} className={`rounded-2xl border ${c.border} overflow-hidden bg-white`}>
+                <div className={`${c.bg} text-white px-5 py-3 flex items-center justify-between`}>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-widest font-bold opacity-80">{p.label}</div>
+                    <div className="font-bold text-base">{p.name}</div>
+                  </div>
+                  <div className="text-right text-xs">
+                    <div className="font-bold tabular-nums text-base">{fmt$(phaseTotal)}</div>
+                    <div className="opacity-80">{phaseAds.length} pub{phaseAds.length>1?'s':''} · {fmtDate(p.date_start)} → {fmtDate(p.date_end)}</div>
+                  </div>
+                </div>
+                <div className="divide-y divide-ac-line">
+                  {phaseAds.map(ad => {
+                    const plan = CREATIVE_PLAN[ad.id] || {};
+                    const fs = FormatStrategy[ad.format];
+                    return (
+                      <div key={ad.id} className="grid grid-cols-1 md:grid-cols-[120px_1fr_240px] gap-4 p-5">
+                        {/* Format thumb */}
+                        <div className="flex md:flex-col items-center md:items-start gap-3">
+                          <div className={`w-full aspect-square rounded-xl flex flex-col items-center justify-center ${fs.color}`}>
+                            <div className="text-3xl mb-1">{fs.icon}</div>
+                            <div className="text-[10px] font-bold uppercase tracking-wider">{fs.label}</div>
+                          </div>
+                          <div className="text-[10px] font-mono text-ac-muted md:mt-1">{ad.id}</div>
+                        </div>
+
+                        {/* Message */}
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap gap-1.5 mb-2">
+                            {ad.campaign_types.map(ct => <CampaignPill key={ct} id={ct} />)}
+                            <Pill className="bg-stone-100 text-stone-700 ring-transparent">{fmt$(ad.budget_allocation.total)} · {ad.duration_days} j</Pill>
+                          </div>
+                          <div className="font-bold text-[15px] leading-snug mb-1">{plan.title || ad.headline}</div>
+                          <div className="text-[11px] uppercase tracking-wider text-ac-muted font-bold mb-1 mt-3">Message descriptif</div>
+                          <p className="text-sm text-ac-ink leading-relaxed whitespace-pre-line">{plan.message || ad.copy}</p>
+                        </div>
+
+                        {/* Visual brief */}
+                        <div className="bg-stone-50 rounded-xl p-4 border border-ac-line">
+                          <div className="text-[11px] uppercase tracking-wider text-ac-muted font-bold mb-2 flex items-center gap-1.5">
+                            <span>🎨</span> Visuel à produire
+                          </div>
+                          <p className="text-xs text-ac-ink leading-relaxed">{plan.visual || 'À définir'}</p>
+                          {plan.formats_needed && (
+                            <div className="mt-3 pt-3 border-t border-ac-line">
+                              <div className="text-[10px] uppercase tracking-wider text-ac-muted font-bold mb-1">Formats requis</div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {plan.formats_needed.map(f => (
+                                  <span key={f} className="text-[10px] font-mono bg-white px-2 py-0.5 rounded border border-ac-line">{f}</span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Récap visuels par format */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+          {['statique','carrousel','video'].map(k => {
+            const fmtAds = DATA.ads.filter(a => a.format === k);
+            const fs = FormatStrategy[k];
+            return (
+              <div key={k} className="rounded-2xl border border-ac-line bg-white p-5">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl">{fs.icon}</span>
+                  <div>
+                    <div className="font-bold text-base">{fmtAds.length} × {fs.label}</div>
+                    <div className="text-[11px] text-ac-muted">à produire</div>
+                  </div>
+                </div>
+                <ul className="text-xs text-ac-muted space-y-1 mt-3 leading-relaxed">
+                  {fmtAds.map(a => (
+                    <li key={a.id} className="flex gap-2"><span className="text-ac-muted font-mono">·</span><span>{(CREATIVE_PLAN[a.id]||{}).title || a.headline}</span></li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Audience */}
+      <div>
+        <div className="flex items-baseline justify-between mb-4">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-ac-muted font-bold">Section 7</div>
+            <h3 className="text-xl font-bold">Cible · centre-ville Montréal</h3>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-ac-line p-6">
+          <div className="font-bold text-base mb-3">{DATA.audiences[0].label}</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {DATA.audiences[0].composition.map((c, i) => (
+              <div key={i} className="rounded-xl bg-stone-50 p-4 border border-ac-line">
+                <div className="text-[10px] uppercase tracking-wider text-ac-muted font-bold mb-1">{c.type.replace('_',' ')}</div>
+                <div className="font-bold text-sm mb-1">{c.label}</div>
+                <div className="text-xs text-ac-muted leading-relaxed">{c.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Synthèse / call to action */}
+      <div className="bg-ac-ink text-white rounded-3xl p-8">
+        <div className="text-[10px] uppercase tracking-widest text-white/60 font-bold mb-2">Approbation</div>
+        <h3 className="text-2xl font-extrabold mb-3">Validez la stratégie pour démarrer la production des créatifs</h3>
+        <p className="text-sm text-white/80 leading-relaxed max-w-2xl mb-6">
+          Une fois cette stratégie validée, les 13 créatifs (statiques, carrousels, vidéo) peuvent être briefés et produits. La mise en ligne des premières pubs est prévue le <strong className="text-white">25 mai 2026</strong>.
+        </p>
+        <div className="flex flex-wrap gap-3 text-xs">
+          <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur">📅 Démarrage : 25 mai 2026</div>
+          <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur">💰 Budget : 3 000$ CAD</div>
+          <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur">🎯 5 phases · 13 pubs</div>
+          <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur">📍 Cible : centre-ville MTL 25-45</div>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+// ------------------ App ------------------
+const App = () => {
+  const [tab, setTab] = useState('approbation');
+  const [approvals, setApprovals] = useState(() => loadLS(LS_KEYS.approvals, {}));
+  const [selectedAd, setSelectedAd] = useState(null);
+  const [lightbox, setLightbox] = useState(null); // { gallery, idx }
+  const [budgetWarning, setBudgetWarning] = useState(null); // { ad, warnings }
+
+  const openLightbox = useCallback((adId, startIdx=0) => {
+    const gallery = buildGallery(adId);
+    if (gallery.length) setLightbox({ gallery, idx: startIdx });
+  }, []);
+  const openBudgetWarning = useCallback((ad, warnings) => {
+    setBudgetWarning({ ad, warnings });
+  }, []);
+
+  useEffect(() => saveLS(LS_KEYS.approvals, approvals), [approvals]);
+
+  const approvedCount = DATA.ads.filter(a => approvals[a.id] === 'approved').length;
+  const rejectedCount = DATA.ads.filter(a => approvals[a.id] === 'rejected').length;
+  const pendingCount = DATA.ads.length - approvedCount - rejectedCount;
+
+  const exportApprovals = () => {
+    const exportData = {
+      exported_at: new Date().toISOString(),
+      month: DATA.meta.month,
+      approvals: DATA.ads.map(a => ({
+        id: a.id,
+        event: EVENTS_MAP[a.event_id]?.name,
+        headline: a.headline,
+        status: approvals[a.id] || 'pending',
+      })),
+      questions_notes: loadLS(LS_KEYS.questions, {}),
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pvm-2026-approbations-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const resetAll = () => {
+    if (confirm('Réinitialiser toutes les approbations et notes ?')) {
+      localStorage.removeItem(LS_KEYS.approvals);
+      localStorage.removeItem(LS_KEYS.questions);
+      setApprovals({});
+      alert('Réinitialisé. Recharger la page pour voir les changements des notes.');
+    }
+  };
+
+  const tabs = [
+    { id:'approbation', label:'Approbation client', icon:'check' },
+    { id:'overview',  label:'Vue d\'ensemble',   icon:'chart' },
+    { id:'ads',       label:'Pubs',              icon:'check', count: DATA.ads.length },
+    { id:'budgets',   label:'Budgets',           icon:'dollar' },
+    { id:'questions', label:'Questions client',  icon:'question', count: DATA.client_questions.filter(q=>q.status==='open').length },
+  ];
+
+  return (
+    <div className="min-h-screen bg-ac-bg">
+      {/* Header */}
+      <header className="border-b border-ac-line bg-white sticky top-0 z-30 backdrop-blur bg-white/90">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-[0.2em] text-ac-muted">PVM · Place Ville Marie · Campagne Meta</div>
+            <h1 className="text-2xl font-bold tracking-tight">Dashboard d'approbation — Saison 2026</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <div className="text-xs text-ac-muted">État des approbations</div>
+              <div className="flex items-center gap-3 text-sm mt-0.5">
+                <span className="text-emerald-600 font-semibold">{approvedCount} ✓</span>
+                <span className="text-rose-600 font-semibold">{rejectedCount} ✗</span>
+                <span className="text-amber-600 font-semibold">{pendingCount} ⏱</span>
+              </div>
+            </div>
+            <button onClick={exportApprovals} className="px-4 py-2 text-sm font-semibold bg-ac-ink text-white rounded-lg hover:bg-black transition-colors inline-flex items-center gap-2">
+              <Icon name="download" size={14} /> Exporter
+            </button>
+            <button onClick={resetAll} title="Réinitialiser" className="px-3 py-2 text-xs text-ac-muted hover:text-ac-ink">↺</button>
+          </div>
+        </div>
+        <nav className="max-w-7xl mx-auto px-6">
+          <div className="flex gap-1 border-t border-ac-line/50">
+            {tabs.map(t => (
+              <button key={t.id} onClick={()=>setTab(t.id)}
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors inline-flex items-center gap-2 ${tab===t.id ? 'border-ac-ink text-ac-ink' : 'border-transparent text-ac-muted hover:text-ac-ink'}`}>
+                <Icon name={t.icon} size={14} />
+                {t.label}
+                {t.count != null && (
+                  <span className={`text-xs px-1.5 py-0.5 rounded-full ${tab===t.id ? 'bg-ac-ink text-white' : 'bg-stone-100 text-ac-muted'}`}>{t.count}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        </nav>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-6 py-8 pb-20">
+        {tab === 'approbation' && <ApprobationClientTab />}
+        {tab === 'overview' && <OverviewTab />}
+        {tab === 'ads' && <AdsTab approvals={approvals} setApprovals={setApprovals} selectedAd={selectedAd} setSelectedAd={setSelectedAd} onLightbox={openLightbox} onBudgetWarning={openBudgetWarning} />}
+        {tab === 'budgets' && <BudgetsTab />}
+        {tab === 'questions' && <QuestionsTab />}
+      </main>
+
+      {selectedAd && (
+        <AdDetail ad={selectedAd}
+          approval={approvals[selectedAd.id] || 'pending'}
+          onClose={()=>setSelectedAd(null)}
+          onApprove={()=>{ setApprovals({...approvals, [selectedAd.id]: approvals[selectedAd.id]==='approved' ? 'pending' : 'approved'}); }}
+          onReject={()=>{ setApprovals({...approvals, [selectedAd.id]: approvals[selectedAd.id]==='rejected' ? 'pending' : 'rejected'}); }}
+          onLightbox={openLightbox}
+        />
+      )}
+
+      {lightbox && (
+        <Lightbox gallery={lightbox.gallery} startIdx={lightbox.idx} onClose={()=>setLightbox(null)} />
+      )}
+
+      {budgetWarning && (
+        <BudgetWarningModal ad={budgetWarning.ad} warnings={budgetWarning.warnings} onClose={()=>setBudgetWarning(null)} />
+      )}
+
+      <footer className="max-w-7xl mx-auto px-6 pb-10 text-xs text-ac-muted">
+        <div>Source: Stratégie PVM 2026 — Business Manager dédié (séparé Aire Commune) · Période 25 mai → 2 sept 2026 · Généré le {DATA.meta.generated_at} · Les approbations et notes sont enregistrées localement (localStorage) sur ce navigateur.</div>
+      </footer>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "project": "BRUNELLE",
+    "month": "<PÉRIODE — ex: Saison 2026 ou Juin 2026>",
+    "period": "<YYYY-MM-DD to YYYY-MM-DD>",
+    "duration_days": 0,
+    "budget_total": 0.0,
+    "budget_per_campaign": {
+      "notoriete": 0.0,
+      "traffic": 0.0,
+      "conversion": 0.0,
+      "ig_profil": 0.0
+    },
+    "generated_at": "<YYYY-MM-DD>",
+    "source_file": "<Référence brief ou stratégie>",
+    "allocation_method": "<Description méthode d'allocation>",
+    "pacing_note": "<Notes sur le pacing, contexte spécifique>",
+    "business_manager": "<ID ou nom Business Manager>"
+  },
+
+  "events": [
+    {
+      "id": "<slug>",
+      "name": "<Nom de l'événement>",
+      "date": "<YYYY-MM-DD ou null>",
+      "flagship": false,
+      "has_tickets": false
+    }
+  ],
+
+  "audiences": [
+    {
+      "id": "main",
+      "label": "<Description courte de l'audience principale>",
+      "composition": [
+        {
+          "type": "cold_geo",
+          "label": "<Cold geo label>",
+          "description": "<Description ciblage géo + intérêts>"
+        },
+        {
+          "type": "warm_custom",
+          "label": "<Warm engagers label>",
+          "description": "<Description audience warm/retargeting>"
+        },
+        {
+          "type": "lookalike",
+          "label": "<Lookalike label>",
+          "description": "<Description LAL, taille, source>"
+        }
+      ]
+    }
+  ],
+
+  "campaign_types": {
+    "notoriete": { "label": "Notoriété", "meta_objective": "Awareness / Reach", "budget": 0.0 },
+    "traffic": { "label": "Trafic", "meta_objective": "Traffic (clics vers landing)", "budget": 0.0 },
+    "conversion": { "label": "Conversion", "meta_objective": "Engagement / RSVP / Achat", "budget": 0.0 },
+    "ig_profil": { "label": "IG Profil", "meta_objective": "Profile Visits / Follows", "budget": 0.0 }
+  },
+
+  "phases": [
+    {
+      "id": "P1",
+      "label": "P1 — <Nom court>",
+      "name": "<Nom complet de la phase>",
+      "date_start": "<YYYY-MM-DD>",
+      "date_end": "<YYYY-MM-DD>",
+      "duration_days": 0,
+      "objective": "<Objectif de la phase>",
+      "campaign_focus": ["notoriete", "ig_profil"],
+      "color": "rose"
+    }
+  ],
+
+  "phase_budgets": {
+    "P1": {
+      "total": 0.0,
+      "notoriete": 0.0,
+      "traffic": 0.0,
+      "conversion": 0.0,
+      "ig_profil": 0.0,
+      "ad_count": 0,
+      "ad_ids": []
+    }
+  },
+
+  "ads": [
+    {
+      "id": "<projet>-001",
+      "phase": "P1 — <Nom phase>",
+      "status": "DRAFT",
+      "approval_status": "pending",
+      "campaign_types": ["notoriete"],
+      "campaign_types_display": ["NOTORIÉTÉ"],
+      "event_id": "<event slug>",
+      "date_start": "<YYYY-MM-DD>",
+      "date_end": "<YYYY-MM-DD>",
+      "duration_days": 0,
+      "audience_id": "main",
+      "audience_raw": "<Description verbale audience>",
+      "format": "statique",
+      "headline": "<Titre>",
+      "description": "<Sous-titre>",
+      "copy": "<Texte principal du post>",
+      "link": "<URL destination>",
+      "creative_assets": {
+        "visual_1x1_ready": false,
+        "story_9x16_ready": false,
+        "notes": ["<Note de production>"]
+      },
+      "content_complete": false,
+      "budget_allocation": {
+        "notoriete": 0.0,
+        "traffic": 0.0,
+        "conversion": 0.0,
+        "ig_profil": 0.0,
+        "total": 0.0
+      },
+      "daily_budget_per_campaign": {}
+    }
+  ],
+
+  "summary": {
+    "by_campaign_type": {},
+    "by_event": {},
+    "by_format": {},
+    "by_phase": {},
+    "totals": {
+      "ads_count": 0,
+      "budget_total": 0.0,
+      "allocated_total": 0.0,
+      "events_count": 0,
+      "phases_count": 0
+    }
+  },
+
+  "gaps": [
+    {
+      "severity": "high",
+      "type": "<type>",
+      "message": "<Description du gap>",
+      "count": 0
+    }
+  ],
+
+  "client_questions": [
+    {
+      "id": "q1",
+      "category": "<Accès / Audiences / Programmation / Créatifs / Stratégie / Mesure / Budget>",
+      "priority": "<critical / high / medium / low>",
+      "status": "open",
+      "question": "<Question à poser au client>",
+      "why_it_matters": "<Pourquoi cette réponse débloque le démarrage>"
+    }
+  ]
+}

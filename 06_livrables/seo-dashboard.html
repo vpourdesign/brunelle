@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO &amp; Positionnement — Alain Brunelle vs Michel Salomon</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23003DA5'/><text x='16' y='22' font-family='system-ui' font-size='13' font-weight='900' text-anchor='middle' fill='white'>AB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(98.2% 0.004 255);
+    --surface: #ffffff;
+    --line: oklch(92% 0.012 255);
+    --ink: #0b1628;
+    --muted: oklch(52% 0.03 255);
+    --blue: #003DA5;
+    --blue-soft: oklch(95% 0.02 260);
+    --blue-hi: oklch(55% 0.16 260);
+    --rust: oklch(55% 0.16 35);
+    --rust-soft: oklch(95.5% 0.02 35);
+    --green: oklch(56% 0.13 160);
+    --green-soft: oklch(95.5% 0.03 160);
+    --amber: oklch(70% 0.14 75);
+    --amber-soft: oklch(96% 0.04 85);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-card:
+      0 1px 2px oklch(30% 0.06 255 / 0.05),
+      0 4px 12px oklch(30% 0.06 255 / 0.06),
+      0 16px 40px oklch(30% 0.06 255 / 0.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Jost', sans-serif; letter-spacing: -0.01em; }
+  .wrap { max-width: 1180px; margin-inline: auto; padding: clamp(1rem, 3vw, 2.5rem); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 18px; box-shadow: var(--shadow-card);
+  }
+  .pill {
+    display: inline-block; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  .pill.blue  { background: var(--blue-soft);  color: var(--blue); }
+  .pill.rust  { background: var(--rust-soft);  color: var(--rust); }
+  .pill.green { background: var(--green-soft); color: var(--green); }
+  .pill.amber { background: var(--amber-soft); color: oklch(52% 0.13 65); }
+  .pill.gray  { background: oklch(95% 0.005 255); color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; }
+  th {
+    text-align: left; font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 10px 14px; border-bottom: 1px solid var(--line);
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .pos {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 34px; height: 26px; padding-inline: 8px;
+    border-radius: 8px; font-weight: 700; font-size: 13px;
+  }
+  .pos.absent { background: oklch(95% 0.005 255); color: var(--muted); font-weight: 500; }
+  .pos.top    { background: var(--rust-soft); color: var(--rust); }
+  .pos.first  { background: var(--green-soft); color: var(--green); }
+  .action { display: grid; grid-template-columns: 52px 1fr; gap: 16px; padding: 20px; }
+  .action + .action { border-top: 1px solid var(--line); }
+  .action-num {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost'; font-weight: 700; font-size: 19px;
+    background: var(--blue); color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 12px oklch(45% 0.15 260 / .25);
+  }
+  .adcopy {
+    background: var(--blue-soft); border: 1px solid oklch(88% 0.04 260);
+    border-radius: 12px; padding: 14px 16px; margin-top: 10px;
+    font-size: 13.5px;
+  }
+  .adcopy .t { font-weight: 600; color: var(--blue); }
+  .adcopy .u { color: var(--green); font-size: 12px; }
+  .kpi-val { font-family: 'Jost'; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; line-height: 1.1; }
+  .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 99px; margin-right: 6px; vertical-align: baseline; }
+  .fade { animation: fade .5s var(--ease) both; }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+  small.note { color: var(--muted); font-size: 12px; }
+  a { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<script type="application/json" id="seo-data">
+{
+  "meta": {
+    "client": "Alain Brunelle — RE/MAX Crystal (alainbrunelle.com)",
+    "competitor": "Michel Salomon — RE/MAX Crystal (michelsalomon.com)",
+    "baseline_date": "2026-07-02",
+    "scoring": "Top 3 = 3 pts · Position 4–10 = 1 pt · Absent = 0. Max = 6 requêtes × 3 = 18.",
+    "gsc_connected": true,
+    "ga_connected": true
+  },
+  "queries": [
+    {
+      "id": "cib",
+      "q": "courtier immobilier Blainville",
+      "vol": "150–300/mois*",
+      "intent": "très haute"
+    },
+    {
+      "id": "cist",
+      "q": "courtier immobilier Sainte-Thérèse",
+      "vol": "100–200/mois*",
+      "intent": "très haute"
+    },
+    {
+      "id": "cir",
+      "q": "courtier immobilier Rosemère",
+      "vol": "50–150/mois*",
+      "intent": "très haute"
+    },
+    {
+      "id": "cil",
+      "q": "courtier immobilier Lorraine",
+      "vol": "30–80/mois*",
+      "intent": "très haute"
+    },
+    {
+      "id": "vmb",
+      "q": "vendre ma maison Blainville",
+      "vol": "50–150/mois*",
+      "intent": "très haute"
+    },
+    {
+      "id": "cvm",
+      "q": "combien vaut ma maison Blainville",
+      "vol": "100–250/mois*",
+      "intent": "haute"
+    },
+    {
+      "id": "brand",
+      "q": "alain brunelle courtier",
+      "vol": "marque",
+      "intent": "marque",
+      "excluded": true
+    }
+  ],
+  "snapshots": [
+    {
+      "date": "2026-07-02",
+      "label": "Baseline — mise en ligne",
+      "serp": {
+        "cib": {
+          "alain": null,
+          "salomon": 5,
+          "note": "Salomon 2× dans le top 10 (accueil + page /fr/blainville/). Aussi : Karina Bonin, Équipe Filteau, Valérie Paquin."
+        },
+        "cist": {
+          "alain": null,
+          "salomon": 10,
+          "note": "Le bureau d'Alain est À Sainte-Thérèse et il n'apparaît pas. Salomon y a une page dédiée."
+        },
+        "cir": {
+          "alain": null,
+          "salomon": null,
+          "note": "Personne de dominant — la victoire la plus rapide à prendre."
+        },
+        "cil": {
+          "alain": null,
+          "salomon": null,
+          "note": "SERP parasitée par le prénom « Lorraine ». Salomon a déjà une page /fr/lorraine/."
+        },
+        "vmb": {
+          "alain": null,
+          "salomon": null,
+          "note": "Dominée par les agrégateurs de leads (soumissionscourtiers, trouver-un-courtier)."
+        },
+        "cvm": {
+          "alain": null,
+          "salomon": null,
+          "note": "L'article de blog d'Alain existe mais ne sort pas encore. Concurrents courtiers présents (Alex&Jenn, Karina Bonin, Levasseur)."
+        },
+        "brand": {
+          "alain": 1,
+          "salomon": null,
+          "note": "alainbrunelle.com #1 sur sa marque — site indexé correctement. ✓"
+        }
+      },
+      "scores": {
+        "alain": 0,
+        "salomon": 2
+      },
+      "gsc": {
+        "period": "2026-06-01 → 2026-06-29",
+        "clicks": 3,
+        "impressions": 336,
+        "ctr": 0.9,
+        "position": 20.5,
+        "top_queries": [
+          {
+            "q": "achat maison processus",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 61
+          },
+          {
+            "q": "agent immobilier rosemère",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 9
+          },
+          {
+            "q": "alain brunelle",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 7
+          },
+          {
+            "q": "alain brunelle remax",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 7
+          },
+          {
+            "q": "b&w blainville",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 100
+          },
+          {
+            "q": "blainvillier",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 3
+          },
+          {
+            "q": "bois franc",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 32
+          },
+          {
+            "q": "calculateur commission courtier immobilier",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 44
+          },
+          {
+            "q": "commission courtier beloeil",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 43.5
+          },
+          {
+            "q": "commission courtier immobilier",
+            "clicks": 0,
+            "impressions": 3,
+            "position": 41.3
+          },
+          {
+            "q": "courtier immobilier commission",
+            "clicks": 0,
+            "impressions": 3,
+            "position": 39.7
+          },
+          {
+            "q": "courtier immobilier lorraine",
+            "clicks": 0,
+            "impressions": 10,
+            "position": 8.4
+          },
+          {
+            "q": "courtier immobilier rosemère",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 5.5
+          },
+          {
+            "q": "courtier immobilier sainte-thérèse",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 29
+          },
+          {
+            "q": "courtier immobilier ste-thérèse",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 20
+          },
+          {
+            "q": "etape pour acheter une maison",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 55
+          },
+          {
+            "q": "home staging rive nord",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 18
+          },
+          {
+            "q": "inspecteur en bâtiment prix",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 64
+          },
+          {
+            "q": "inspection achat chalet",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 48
+          },
+          {
+            "q": "inspection après achat",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 92
+          },
+          {
+            "q": "inspection chalet avant achat",
+            "clicks": 0,
+            "impressions": 3,
+            "position": 45.3
+          },
+          {
+            "q": "inspection maison cout",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 49
+          },
+          {
+            "q": "inspection maison québec",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 50
+          },
+          {
+            "q": "inspection pre achat lacolle",
+            "clicks": 0,
+            "impressions": 13,
+            "position": 41.8
+          },
+          {
+            "q": "inspection pre achat marieville",
+            "clicks": 0,
+            "impressions": 4,
+            "position": 44.8
+          }
+        ],
+        "tracked": {
+          "cib": null,
+          "cist": {
+            "clicks": 0,
+            "impressions": 2,
+            "position": 29
+          },
+          "cir": {
+            "clicks": 0,
+            "impressions": 2,
+            "position": 5.5
+          },
+          "cil": {
+            "clicks": 0,
+            "impressions": 10,
+            "position": 8.4
+          },
+          "vmb": null,
+          "cvm": null
+        },
+        "ga": {
+          "sessions": 34,
+          "users": 17,
+          "pageviews": 165
+        }
+      }
+    },
+    {
+      "date": "2026-07-17",
+      "label": "Pull GSC automatique",
+      "serp": {
+        "cib": {
+          "alain": null,
+          "salomon": 5,
+          "note": "Salomon 2× dans le top 10 (accueil + page /fr/blainville/). Aussi : Karina Bonin, Équipe Filteau, Valérie Paquin."
+        },
+        "cist": {
+          "alain": null,
+          "salomon": 10,
+          "note": "Le bureau d'Alain est À Sainte-Thérèse et il n'apparaît pas. Salomon y a une page dédiée."
+        },
+        "cir": {
+          "alain": null,
+          "salomon": null,
+          "note": "Personne de dominant — la victoire la plus rapide à prendre."
+        },
+        "cil": {
+          "alain": null,
+          "salomon": null,
+          "note": "SERP parasitée par le prénom « Lorraine ». Salomon a déjà une page /fr/lorraine/."
+        },
+        "vmb": {
+          "alain": null,
+          "salomon": null,
+          "note": "Dominée par les agrégateurs de leads (soumissionscourtiers, trouver-un-courtier)."
+        },
+        "cvm": {
+          "alain": null,
+          "salomon": null,
+          "note": "L'article de blog d'Alain existe mais ne sort pas encore. Concurrents courtiers présents (Alex&Jenn, Karina Bonin, Levasseur)."
+        },
+        "brand": {
+          "alain": 1,
+          "salomon": null,
+          "note": "alainbrunelle.com #1 sur sa marque — site indexé correctement. ✓"
+        }
+      },
+      "scores": {
+        "alain": 0,
+        "salomon": 2
+      },
+      "serp_carried": true,
+      "gsc": {
+        "period": "2026-06-16 → 2026-07-14",
+        "clicks": 29,
+        "impressions": 2541,
+        "ctr": 1.1,
+        "position": 22.1,
+        "top_queries": [
+          {
+            "q": "alain brunelle",
+            "clicks": 2,
+            "impressions": 19,
+            "position": 4.3
+          },
+          {
+            "q": "courtier immobilier blainville",
+            "clicks": 1,
+            "impressions": 4,
+            "position": 7.5
+          },
+          {
+            "q": "10120 avenue d'auteuil",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 29
+          },
+          {
+            "q": "12247 rue ranger",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 38
+          },
+          {
+            "q": "3040 rue de la comtesse",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 32
+          },
+          {
+            "q": "3875 56e rue laval",
+            "clicks": 0,
+            "impressions": 3,
+            "position": 58
+          },
+          {
+            "q": "975 romeo vachon",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 27.5
+          },
+          {
+            "q": "achat maison processus",
+            "clicks": 0,
+            "impressions": 8,
+            "position": 60.1
+          },
+          {
+            "q": "acheteur de maison blainville",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 20
+          },
+          {
+            "q": "agent immobilier blainville",
+            "clicks": 0,
+            "impressions": 17,
+            "position": 8.4
+          },
+          {
+            "q": "agent immobilier lorraine",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 13
+          },
+          {
+            "q": "agent immobilier rosemère",
+            "clicks": 0,
+            "impressions": 8,
+            "position": 8.5
+          },
+          {
+            "q": "agent immobilier ste-thérèse",
+            "clicks": 0,
+            "impressions": 4,
+            "position": 45.3
+          },
+          {
+            "q": "alain brunelle remax",
+            "clicks": 0,
+            "impressions": 5,
+            "position": 6.2
+          },
+          {
+            "q": "are there experts for luxury property marketing strategies in kirkland under 5% commission?",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 1
+          },
+          {
+            "q": "b&w blainville",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 100
+          },
+          {
+            "q": "blainville",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 1
+          },
+          {
+            "q": "blainville immobilier",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 11
+          },
+          {
+            "q": "blainvillier",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 4.5
+          },
+          {
+            "q": "bois franc",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 32
+          },
+          {
+            "q": "buying a house",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 2
+          },
+          {
+            "q": "calculateur commission courtier immobilier",
+            "clicks": 0,
+            "impressions": 4,
+            "position": 40.3
+          },
+          {
+            "q": "chante-bois",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 6
+          },
+          {
+            "q": "commission agent immeuble",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 27
+          },
+          {
+            "q": "commission agent immobilier quebec",
+            "clicks": 0,
+            "impressions": 2,
+            "position": 20
+          }
+        ],
+        "tracked": {
+          "cib": {
+            "clicks": 1,
+            "impressions": 4,
+            "position": 7.5
+          },
+          "cist": {
+            "clicks": 0,
+            "impressions": 26,
+            "position": 33.8
+          },
+          "cir": {
+            "clicks": 0,
+            "impressions": 24,
+            "position": 20.8
+          },
+          "cil": {
+            "clicks": 0,
+            "impressions": 28,
+            "position": 8.1
+          },
+          "vmb": null,
+          "cvm": null
+        },
+        "ga": {
+          "sessions": 81,
+          "users": 45,
+          "pageviews": 280
+        }
+      }
+    }
+  ],
+  "objective_90d": {
+    "alain": 6,
+    "note": "Objectif 90 jours : top 10 sur Rosemère + Sainte-Thérèse + « combien vaut ma maison »."
+  }
+}
+</script>
+
+<div class="wrap">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="fade" style="margin-bottom: 28px;">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px;">
+      <div>
+        <div class="pill blue" style="margin-bottom:10px;">Dashboard SEO &amp; positionnement</div>
+        <h1 style="margin:0; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700;">
+          Alain Brunelle <span style="color:var(--muted); font-weight:400;">vs</span> Michel Salomon
+        </h1>
+        <p style="margin:6px 0 0; color:var(--muted); max-width:62ch;">
+          Recherches locales Rive-Nord · alainbrunelle.com vs michelsalomon.com — deux courtiers RE/MAX Crystal, un seul territoire.
+        </p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:'Jost'; font-weight:600; font-size:1.05rem;" id="hdr-date"></div>
+        <small class="note" id="hdr-status"></small>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== KPI ===================== -->
+  <section class="grid-kpi fade" style="margin-bottom: 16px;" id="kpis"></section>
+
+  <!-- ===================== CHART + WHY ===================== -->
+  <section class="grid-2 fade" style="margin-bottom: 16px;">
+    <div class="card" style="padding: 22px;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+        <h2 style="margin:0; font-size:1.15rem;">Progression — score de visibilité locale <span style="color:var(--muted); font-weight:400;">/18</span></h2>
+        <div style="font-size:12.5px; color:var(--muted);">
+          <span class="legend-dot" style="background:var(--blue);"></span>Alain
+          <span class="legend-dot" style="background:var(--rust); margin-left:12px;"></span>Salomon
+          <span class="legend-dot" style="background:transparent; border:1.5px dashed var(--green); margin-left:12px;"></span>Objectif 90 j
+        </div>
+      </div>
+      <div id="chart"></div>
+      <small class="note" id="chart-note"></small>
+    </div>
+    <div class="card" style="padding: 22px;">
+      <h2 style="margin:0 0 12px; font-size:1.15rem;">Pourquoi Salomon gagne (pour l'instant)</h2>
+      <ul style="margin:0; padding-left:18px; color:var(--ink); font-size:14px; display:grid; gap:9px;">
+        <li><strong>Pages ville dédiées</strong> — michelsalomon.com a une page « Courtier immobilier [Ville] » pour Blainville, Lorraine, Sainte-Thérèse… C'est exactement ce que Google classe.</li>
+        <li><strong>Ancienneté du domaine</strong> — son site accumule de l'autorité depuis des années; alainbrunelle.com vient d'être mis en ligne.</li>
+        <li><strong>Preuve sociale</strong> — avis Google actifs, page Facebook, profils annuaires (rate-my-agent, wheree, RE/MAX global).</li>
+        <li><strong>Positionnement « chiffres »</strong> — top 10 RE/MAX Québec depuis 2017, top 2 Rive-Nord. Il occupe le terrain du « meilleur ».</li>
+      </ul>
+      <div style="margin-top:14px; padding:12px 14px; border-radius:12px; background:var(--green-soft); font-size:13.5px;">
+        <strong style="color:var(--green);">L'angle d'Alain :</strong> Salomon est une machine (équipe, assistante, volume). Alain vend le <em>contact direct</em> — 35 ans, 1 700 maisons, un seul interlocuteur, sans stress. C'est le wording de toutes les annonces ci-dessous.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KEYWORD BATTLE ===================== -->
+  <section class="card fade" style="margin-bottom: 16px; overflow-x:auto;">
+    <div style="padding: 22px 22px 8px;">
+      <h2 style="margin:0; font-size:1.15rem;">La bataille par mot-clé — snapshot du <span id="tbl-date"></span></h2>
+      <small class="note">Présence dans le top 10 Google (vérification manuelle). « GSC : pos » = position moyenne réelle mesurée par Search Console quand le site apparaît — c'est la donnée la plus fiable. *Volumes estimés — à valider avec Keyword Planner une fois le compte Google Ads branché.</small>
+      <p id="serp-stale" class="note" style="display:none; margin:8px 0 0; padding:8px 11px; border-radius:8px; background:var(--amber-soft); color:oklch(43% 0.10 75); font-weight:600;"></p>
+    </div>
+    <table id="battle"></table>
+  </section>
+
+  <!-- ===================== ACTIONS ===================== -->
+  <section class="card fade" style="margin-bottom: 16px;">
+    <div style="padding: 22px 22px 6px;">
+      <h2 style="margin:0; font-size:1.15rem;">Plan d'action — les gestes les plus payants, dans l'ordre</h2>
+      <small class="note">Priorisé pour un objectif : <strong>du clic maintenant</strong> (site neuf), pendant que le SEO monte en arrière-plan.</small>
+    </div>
+
+    <div class="action">
+      <div class="action-num">1</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.02rem;">Google Ads Search — campagne « Vendeurs Rive-Nord »</h3>
+          <span class="pill green">Semaine 1</span><span class="pill blue">~25 $/jour</span><span class="pill amber">150–250 clics/mois</span>
+        </div>
+        <p style="margin:8px 0 0; font-size:14px;">
+          Le moyen le plus rapide d'être <em>au-dessus</em> de Salomon dès demain matin. Deux groupes d'annonces, enchères sur exact + expression :
+        </p>
+        <p style="margin:8px 0 0; font-size:13.5px;">
+          <strong>Groupe A — courtier :</strong> « courtier immobilier blainville », « courtier immobilier sainte-thérèse », « courtier immobilier rosemère », « courtier immobilier lorraine »<br>
+          <strong>Groupe B — vendeur :</strong> « vendre ma maison blainville », « évaluation maison gratuite », « combien vaut ma maison »
+          &nbsp;·&nbsp; <strong>Landing :</strong> /vendre/evaluation-gratuite/
+          &nbsp;·&nbsp; <strong>Négatifs :</strong> emploi, formation, salaire, oaciq, devenir courtier
+        </p>
+        <div class="adcopy">
+          <div class="u">alainbrunelle.com/vendre/evaluation-gratuite</div>
+          <div class="t">Courtier immobilier Blainville | 35 ans sur la Rive-Nord | Évaluation gratuite en 48 h</div>
+          <div>1 700 maisons vendues. Avec Alain Brunelle, RE/MAX Crystal, vous parlez au courtier — pas à une équipe. Évaluation sans engagement.</div>
+        </div>
+        <div class="adcopy">
+          <div class="u">alainbrunelle.com/vendre/vendre-sans-stress</div>
+          <div class="t">Vendre sans stress à Sainte-Thérèse | Un seul interlocuteur, du début à la fin</div>
+          <div>35 ans d'expérience à Blainville, Sainte-Thérèse et Rosemère. Réponse en moins de 24 h. Alain Brunelle, courtier immobilier résidentiel RE/MAX Crystal.</div>
+        </div>
+        <small class="note">CPC immobilier local estimé 3–5 $. Conformité OACIQ : nom du courtier + agence toujours visibles dans l'annonce. ✓</small>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-num">2</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.02rem;">Fiche Google Business — la vraie bataille locale</h3>
+          <span class="pill green">Semaine 1</span><span class="pill blue">0 $</span><span class="pill amber">Map pack = la majorité des clics locaux</span>
+        </div>
+        <p style="margin:8px 0 0; font-size:14px;">
+          Sur « courtier immobilier + ville », le <strong>map pack</strong> (les 3 fiches avec étoiles) capte plus de clics que le #1 organique. Salomon y vit grâce à ses avis.
+          Plan : (1) fiche d'Alain complète et catégorisée « Courtier immobilier » avec zone Blainville/Sainte-Thérèse/Rosemère; (2) <strong>campagne d'avis</strong> — Alain a 35 ans de clients : courriel/texto à 20 anciens clients avec le lien direct d'avis, objectif 2–3 avis/mois, en continu; (3) 1 publication GBP/semaine (recycler le blog).
+        </p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-num">3</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.02rem;">Booster le blog « Combien vaut ma maison à Blainville » en Meta Ads</h3>
+          <span class="pill green">Semaine 1–2</span><span class="pill blue">10 $/jour × 14 j</span><span class="pill amber">250–400 clics</span>
+        </div>
+        <p style="margin:8px 0 0; font-size:14px;">
+          L'article existe déjà (<code>/blog/combien-vaut-ma-maison-blainville/</code>) et la requête a du volume — mais il ne sort pas encore en organique. Meta comble le délai :
+          audience propriétaires 45–65 ans, rayon 10 km Blainville/Sainte-Thérèse/Rosemère, objectif trafic. Les visiteurs alimentent ensuite le remarketing (action 5).
+        </p>
+        <div class="adcopy" style="background:var(--rust-soft); border-color:oklch(88% 0.05 35);">
+          <div class="t" style="color:var(--rust);">Votre maison à Blainville vaut plus que vous pensez ?</div>
+          <div>Les prix ont bougé en 2026. Découvrez les 5 facteurs qui font grimper (ou chuter) la valeur dans votre quartier — par un courtier qui vend ici depuis 35 ans. <strong>CTA : En savoir plus</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-num">4</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.02rem;">SEO on-page — copier ce qui fait gagner Salomon</h3>
+          <span class="pill amber">Semaine 2–3</span><span class="pill blue">0 $ (temps)</span><span class="pill gray">Effet 30–90 jours</span>
+        </div>
+        <p style="margin:8px 0 0; font-size:14px;">
+          Salomon classe grâce à ses pages « Courtier immobilier [Ville] ». Alain a déjà /quartiers/ pour Blainville, Rosemère et Sainte-Thérèse :
+          (1) <strong>retitrer</strong> ces pages sur le patron « Courtier immobilier [Ville] — Alain Brunelle | RE/MAX Crystal » (title + H1 + premiers 100 mots);
+          (2) <strong>créer Lorraine et Boisbriand</strong> sur le même modèle;
+          (3) commencer par <strong>Rosemère — le SERP y est faible, c'est la victoire la plus rapide</strong>;
+          (4) maillage : chaque article de blog pointe vers sa page ville.
+        </p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-num">5</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.02rem;">Remarketing Meta + rythme de contenu</h3>
+          <span class="pill gray">Continu</span><span class="pill blue">5–10 $/jour</span>
+        </div>
+        <p style="margin:8px 0 0; font-size:14px;">
+          Le consentement Loi 25 est déjà en place sur le site. Audience : visiteurs 30 jours → carrousel témoignages + « Évaluation gratuite en 48 h ».
+          Et 1 nouvel article/mois poussé en Meta (prochains sujets selon les requêtes : « Vendre à Rosemère en 2026 », « Courtier ou vente sans intermédiaire à Sainte-Thérèse : les vrais chiffres »).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GSC PANEL ===================== -->
+  <section class="card fade" style="margin-bottom: 16px; padding:22px;" id="gsc-panel"></section>
+
+  <footer style="color:var(--muted); font-size:12.5px; padding: 8px 4px 30px;">
+    Snapshot SERP réalisé manuellement le <span id="ft-date"></span> (recherches web en direct — les positions exactes peuvent varier selon la localisation et la personnalisation).
+    Pour mettre à jour : demander à Claude « <em>ajoute un snapshot SEO au dashboard Brunelle</em> » — un nouveau point s'ajoute au graphique de progression.
+    Données : bloc JSON <code>#seo-data</code> dans ce fichier.
+  </footer>
+</div>
+
+<script>
+const DATA = JSON.parse(document.getElementById('seo-data').textContent);
+const last = DATA.snapshots[DATA.snapshots.length - 1];
+const fmtDate = d => new Date(d + 'T12:00:00').toLocaleDateString('fr-CA', { day: 'numeric', month: 'long', year: 'numeric' });
+
+document.getElementById('hdr-date').textContent = 'Snapshot : ' + fmtDate(last.date);
+document.getElementById('hdr-status').textContent = DATA.meta.gsc_connected
+  ? 'Search Console : connectée ✓'
+  : 'Search Console installée sur le site — connecteur API à autoriser pour les clics réels';
+document.getElementById('tbl-date').textContent = fmtDate(last.date);
+
+// Les colonnes Alain/Salomon viennent d'un relevé SERP manuel. Le pull GSC automatique
+// les recopie (serp_carried) — on remonte donc au dernier snapshot réellement vérifié.
+const serpSnap = [...DATA.snapshots].reverse().find(s => !s.serp_carried) || DATA.snapshots[0];
+const serpStale = serpSnap.date !== last.date;
+document.getElementById('ft-date').textContent = fmtDate(serpSnap.date);
+if (serpStale) {
+  const el = document.getElementById('serp-stale');
+  el.textContent = `⚠ Colonnes Alain / Salomon et scores /6 : relevé du ${fmtDate(serpSnap.date)}, non re-vérifiés depuis. Seule la ligne « GSC : pos » est à jour au ${fmtDate(last.date)}.`;
+  el.style.display = 'block';
+}
+
+// ---------- KPI ----------
+const scored = DATA.queries.filter(q => !q.excluded);
+const serpSub = serpStale ? ` <em>(relevé du ${fmtDate(serpSnap.date)})</em>` : '';
+const inTop10 = who => scored.filter(q => last.serp[q.id][who] !== null && last.serp[q.id][who] <= 10).length;
+const kpis = [
+  { label: 'Visibilité locale — Alain', val: inTop10('alain') + '/' + scored.length, sub: 'requêtes locales où il sort dans le top 10' + serpSub, color: 'var(--blue)' },
+  { label: 'Visibilité locale — Salomon', val: inTop10('salomon') + '/' + scored.length, sub: 'requêtes locales où il sort dans le top 10' + serpSub, color: 'var(--rust)' },
+  { label: 'Recherche de marque', val: '#1 ✓', sub: '« alain brunelle courtier » — site bien indexé', color: 'var(--green)' },
+  { label: 'Clics organiques (GSC)', val: last.gsc ? last.gsc.clicks : '—', sub: last.gsc ? 'sur 28 jours' : 'en attente d’autorisation du connecteur', color: 'var(--muted)' }
+];
+document.getElementById('kpis').innerHTML = kpis.map(k => `
+  <div class="card" style="padding:18px 20px;">
+    <div style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;">${k.label}</div>
+    <div class="kpi-val" style="color:${k.color}; margin:4px 0 2px;">${k.val}</div>
+    <small class="note">${k.sub}</small>
+  </div>`).join('');
+
+// ---------- TABLE ----------
+const posCell = p => p === null
+  ? '<span class="pos absent">absent</span>'
+  : p === 1 ? '<span class="pos first">#1</span>' : `<span class="pos top">#${p}</span>`;
+document.getElementById('battle').innerHTML = `
+  <thead><tr>
+    <th style="min-width:220px;">Requête</th><th>Volume est.</th><th>Intention</th>
+    <th style="color:var(--blue);">Alain</th><th style="color:var(--rust);">Salomon</th>
+    <th style="min-width:280px;">Lecture</th>
+  </tr></thead><tbody>` +
+  DATA.queries.map(q => {
+    const s = last.serp[q.id];
+    const t = last.gsc?.tracked?.[q.id];
+    const gscLine = t
+      ? `<div style="font-size:11px; margin-top:5px; white-space:nowrap; color:${t.position <= 10 ? 'var(--green)' : 'var(--muted)'}; font-weight:${t.position <= 10 ? '700' : '400'};">GSC : pos ${t.position} · ${t.impressions} imp</div>`
+      : '';
+    return `<tr${q.excluded ? ' style="background:oklch(97.5% 0.008 160 / .6);"' : ''}>
+      <td style="font-weight:600;">${q.q}</td>
+      <td style="color:var(--muted); white-space:nowrap;">${q.vol}</td>
+      <td><span class="pill ${q.intent === 'marque' ? 'green' : q.intent === 'très haute' ? 'blue' : 'gray'}">${q.intent}</span></td>
+      <td>${posCell(s.alain)}${gscLine}</td><td>${posCell(s.salomon)}</td>
+      <td style="font-size:13px; color:var(--muted);">${s.note}</td>
+    </tr>`;
+  }).join('') + '</tbody>';
+
+// ---------- CHART ----------
+(function chart() {
+  const W = 640, H = 240, PAD = { l: 34, r: 96, t: 18, b: 30 };
+  const max = 18;
+  const snaps = DATA.snapshots;
+  const baseline = new Date(snaps[0].date + 'T12:00:00');
+  const lastDate = new Date(snaps[snaps.length - 1].date + 'T12:00:00');
+  const objDate = new Date(baseline); objDate.setDate(objDate.getDate() + 90);
+  const endDate = new Date(Math.max(objDate, lastDate));
+  const xOf = d => PAD.l + ((d - baseline) / (endDate - baseline)) * (W - PAD.l - PAD.r);
+  const yOf = v => H - PAD.b - (v / max) * (H - PAD.t - PAD.b);
+  const pts = who => snaps.map(s => [xOf(new Date(s.date + 'T12:00:00')), yOf(s.scores[who])]);
+  const path = p => p.map((c, i) => (i ? 'L' : 'M') + c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' ');
+  const monthTicks = [];
+  const t = new Date(baseline);
+  while (t <= endDate) { monthTicks.push(new Date(t)); t.setMonth(t.getMonth() + 1); }
+  let svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%; height:auto; margin-top:8px;" xmlns="http://www.w3.org/2000/svg">`;
+  [0, 6, 12, 18].forEach(v => {
+    svg += `<line x1="${PAD.l}" y1="${yOf(v)}" x2="${W - PAD.r}" y2="${yOf(v)}" stroke="oklch(92% 0.012 255)" stroke-width="1"/>
+            <text x="${PAD.l - 8}" y="${yOf(v) + 4}" text-anchor="end" font-size="10" fill="oklch(52% 0.03 255)">${v}</text>`;
+  });
+  monthTicks.forEach(d => {
+    svg += `<text x="${xOf(d)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="oklch(52% 0.03 255)">${d.toLocaleDateString('fr-CA', { month: 'short' })}</text>`;
+  });
+  // objectif (dotted, from Alain baseline to +90d)
+  const o = DATA.objective_90d;
+  svg += `<path d="M${xOf(baseline)},${yOf(snaps[0].scores.alain)} L${xOf(objDate)},${yOf(o.alain)}" stroke="oklch(56% 0.13 160)" stroke-width="1.5" stroke-dasharray="4 5" fill="none"/>
+          <circle cx="${xOf(objDate)}" cy="${yOf(o.alain)}" r="4" fill="none" stroke="oklch(56% 0.13 160)" stroke-width="1.5" stroke-dasharray="2 2"/>
+          <text x="${xOf(objDate) + 8}" y="${yOf(o.alain) + 4}" font-size="10.5" fill="oklch(56% 0.13 160)">objectif 90 j</text>`;
+  // series
+  const labelYs = [];
+  [['salomon', 'oklch(55% 0.16 35)'], ['alain', '#003DA5']].forEach(([who, color]) => {
+    const p = pts(who);
+    // Un segment/point en pointillé = score repris d'un relevé antérieur, pas re-mesuré.
+    for (let i = 1; i < p.length; i++) {
+      const carried = snaps[i].serp_carried || snaps[i - 1].serp_carried;
+      svg += `<path d="${path([p[i - 1], p[i]])}" stroke="${color}" stroke-width="2.5" fill="none" stroke-linecap="round"${carried ? ' stroke-dasharray="4 4" opacity=".55"' : ''}/>`;
+    }
+    p.forEach((c, i) => {
+      const carried = snaps[i].serp_carried;
+      svg += `<circle cx="${c[0]}" cy="${c[1]}" r="4.5" fill="${carried ? '#fff' : color}" stroke="${carried ? color : '#fff'}" stroke-width="2"/>`;
+    });
+    const lastP = p[p.length - 1];
+    let ly = lastP[1] + 4;
+    while (labelYs.some(y => Math.abs(y - ly) < 13)) ly -= 13;
+    labelYs.push(ly);
+    svg += `<text x="${lastP[0] + 9}" y="${ly}" font-size="11" font-weight="600" fill="${color}">${who === 'alain' ? 'Alain ' : 'Salomon '}${snaps[snaps.length - 1].scores[who]}</text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart').innerHTML = svg;
+  document.getElementById('chart-note').textContent =
+    DATA.meta.scoring + ' Chaque nouveau snapshot ajoute un point — c’est ce graphique qui démontre la progression au client.'
+    + (snaps.some(s => s.serp_carried) ? ' Point creux + trait pointillé = score repris du relevé précédent, non re-vérifié.' : '');
+})();
+
+// ---------- GSC PANEL ----------
+const g = last.gsc;
+if (!DATA.meta.gsc_connected || !g) {
+  document.getElementById('gsc-panel').innerHTML = `
+  <h2 style="margin:0 0 8px; font-size:1.15rem;">Brancher les données réelles (clics, impressions, position moyenne)</h2>
+  <p style="margin:0; font-size:14px; color:var(--muted); max-width:75ch;">
+    Google Analytics (G-F5DLZC93S3) et Search Console sont déjà installés sur le site. Pour afficher ici les clics réels,
+    les requêtes qui génèrent des impressions et la position moyenne par mot-clé : mise en place unique du compte de service
+    Google (gratuit, ~10 min — étapes dans <code>scripts/README-seo-snapshot.md</code>), puis
+    <code>node scripts/seo-snapshot.mjs</code> à chaque mise à jour. Chaque exécution ajoute un point de progression.
+  </p>`;
+} else {
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const rows = (g.top_queries || []).slice(0, 12).map(r => `
+    <tr>
+      <td style="font-weight:600;">${esc(r.q)}</td>
+      <td>${r.clicks}</td>
+      <td>${r.impressions}</td>
+      <td><span class="pos ${r.position <= 10 ? (r.position <= 3 ? 'first' : 'top') : 'absent'}" style="font-weight:700;">${r.position}</span></td>
+    </tr>`).join('');
+  document.getElementById('gsc-panel').innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+      <h2 style="margin:0; font-size:1.15rem;">Requêtes réelles — Search Console <span style="color:var(--muted); font-weight:400; font-size:.85rem;">(${g.period})</span></h2>
+      <small class="note">${g.impressions} impressions · CTR ${g.ctr} % · position moyenne ${g.position}${g.ga ? ` · GA4 : ${g.ga.sessions} sessions, ${g.ga.users} utilisateurs` : ''}</small>
+    </div>
+    <div style="overflow-x:auto; margin-top:6px;">
+    <table>
+      <thead><tr><th style="min-width:240px;">Requête tapée dans Google</th><th>Clics</th><th>Impressions</th><th>Position</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="4" style="color:var(--muted);">Aucune requête encore — normal pour un site qui vient d’être indexé.</td></tr>'}</tbody>
+    </table>
+    </div>
+    <small class="note">Ce sont les mots-clés où Google montre déjà le site — chaque requête sous la position 10 qui reçoit des impressions est une cible prioritaire (elle est à une page du trafic).</small>`;
+}
+</script>
+</body>
+</html>

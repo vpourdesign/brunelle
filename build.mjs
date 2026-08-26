@@ -624,8 +624,9 @@ ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/png" href="/brand_assets/digital_ballon.png">
-<link rel="apple-touch-icon" href="/brand_assets/digital_ballon.png">
+<link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
@@ -2078,7 +2079,7 @@ const homeBody = `
     </div>
 
     <div class="reviews-cta">
-      <a class="reviews-write" href="https://www.google.com/search?q=Alain+Brunelle+courtier+immobilier+RE/MAX+Crystal#lrd=0x4cc927c54f5e4c03:0xd5524b5bc3ba5e64,3" target="_blank" rel="noopener">
+      <a class="reviews-write" href="https://g.page/r/CWReusNbS1LV/review" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
         Donnez votre avis sur Google
       </a>
@@ -5366,7 +5367,7 @@ writePage('temoignages/index.html', contentPage({
   lead:'Quelques voix de clients qui ont vendu, acheté ou investi avec moi sur la Rive-Nord. Les noms sont anonymisés à la demande des clients ; les avis vérifiés se trouvent sur Google.',
   title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
   canonical:'https://alainbrunelle.com/temoignages/',
-  body:`<div class="callout" style="margin-bottom:2rem"><div><strong>À propos de ces témoignages.</strong> Tous les extraits ci-dessous proviennent de clients réels. Les noms sont remplacés par un identifiant secteur/profil pour respecter leur vie privée. Pour des avis avec noms complets et photos, consultez <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">la fiche Google Business</a>.</div></div>
+  body:`<div class="callout" style="margin-bottom:2rem"><div><strong>À propos de ces témoignages.</strong> Tous les extraits ci-dessous proviennent de clients réels. Les noms sont remplacés par un identifiant secteur/profil pour respecter leur vie privée. Pour des avis avec noms complets et photos, consultez <a href="https://g.page/r/CWReusNbS1LV" target="_blank" rel="noopener">la fiche Google Business</a>.</div></div>
 
 <blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
 <p>« Alain a vendu notre maison de Fontainebleau en 11 jours, au prix demandé. Sa stratégie de mise en marché était tellement précise qu'on a eu 4 visites privées avant même la publication Centris. Rigueur exceptionnelle. »</p>
@@ -5393,7 +5394,7 @@ writePage('temoignages/index.html', contentPage({
 <cite style="display:block;margin-top:.8rem;font-size:.88rem;color:#6a7891;font-style:normal">Investisseur · Plex Blainville · 2024</cite></blockquote>
 
 <h2>Vous avez une bonne expérience à partager ?</h2>
-<p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CXxRl3hPQT" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
+<p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CWReusNbS1LV/review" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
 }));
 
 // --- RENDEZ-VOUS (Google Calendar Appointment Schedule intégré) ---

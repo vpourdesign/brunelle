@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stratégie SEO + Google Ads · Alain Brunelle</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-base);color:var(--text-body);font-family:var(--font-sans);font-size:var(--text-body-size);line-height:var(--leading-body);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--weight-display);letter-spacing:var(--tracking-display);line-height:var(--leading-display);text-transform:uppercase;margin:0}
+h1{font-size:var(--text-h1)}
+h2{font-size:var(--text-h2);letter-spacing:var(--tracking-heading);line-height:var(--leading-heading)}
+h3{font-size:var(--text-h3);letter-spacing:var(--tracking-heading);line-height:var(--leading-heading)}
+h4{font-size:var(--text-h4);letter-spacing:var(--tracking-heading);line-height:var(--leading-tight)}
+p{margin:0;max-width:var(--measure)}
+a{color:var(--text-accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:color var(--duration-1) var(--ease-settle)}
+a:hover{color:var(--grenadine-700)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;border-radius:var(--radius-xs)}
+::selection{background:var(--beeswax-300);color:var(--ink)}
+.vpd-label{font-family:var(--font-label);font-weight:var(--weight-medium);font-variant-numeric:tabular-nums;font-size:var(--text-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted)}
+.vpd-container{width:100%;max-width:var(--content-max);margin-inline:auto;padding-inline:var(--gutter)}
+.vpd-grain{position:relative;isolation:isolate}
+:root{
+  /* --- Base hues (authored values, do not alter) --- */
+  --grenadine:#D44720;
+  --beeswax:#E9A752;
+  --darlington:#ACCAB2;
+  --cafe-latte:#3A3A3A;
+  --noir:var(--cafe-latte);
+  --marine:#10394B;
+  --azur:#3E7C99;
+  --brume:#CFE1E6;
+  --cream:#F7F5F2;
+  --ink:#111111;
+  --night:#0D0D0D;
+
+  /* --- Grenadine scale (oklch, built from #D44720) --- */
+  --grenadine-100:oklch(94% 0.030 40);
+  --grenadine-200:oklch(87% 0.062 40);
+  --grenadine-300:oklch(78% 0.105 40);
+  --grenadine-400:oklch(68% 0.145 39);
+  --grenadine-500:oklch(58% 0.170 38);
+  --grenadine-600:oklch(51% 0.155 37);
+  --grenadine-700:oklch(43% 0.130 36);
+  --grenadine-800:oklch(34% 0.100 36);
+  --grenadine-900:oklch(26% 0.070 36);
+
+  /* --- Beeswax scale (from #E9A752) --- */
+  --beeswax-100:oklch(96% 0.024 72);
+  --beeswax-200:oklch(92% 0.048 71);
+  --beeswax-300:oklch(86% 0.078 70);
+  --beeswax-400:oklch(81% 0.100 69);
+  --beeswax-500:oklch(77% 0.115 68);
+  --beeswax-600:oklch(69% 0.112 66);
+  --beeswax-700:oklch(58% 0.100 63);
+  --beeswax-800:oklch(45% 0.078 60);
+  --beeswax-900:oklch(33% 0.055 58);
+
+  /* --- Darlington scale (from #ACCAB2) --- */
+  --darlington-100:oklch(96% 0.012 150);
+  --darlington-200:oklch(92% 0.022 150);
+  --darlington-300:oklch(86% 0.033 149);
+  --darlington-400:oklch(83% 0.038 149);
+  --darlington-500:oklch(79% 0.043 149);
+  --darlington-600:oklch(69% 0.045 148);
+  --darlington-700:oklch(56% 0.042 148);
+  --darlington-800:oklch(43% 0.035 148);
+  --darlington-900:oklch(31% 0.026 148);
+
+  /* --- Marine scale (from #10394B / #3E7C99 / #CFE1E6): the cold pole. --- */
+  --marine-100:oklch(95% 0.012 225);
+  --marine-200:oklch(89% 0.024 224);
+  --marine-300:oklch(80% 0.045 230);
+  --marine-400:oklch(68% 0.065 232);
+  --marine-500:oklch(55% 0.075 232);
+  --marine-600:oklch(45% 0.070 232);
+  --marine-700:oklch(37% 0.062 231);
+  --marine-800:oklch(29% 0.050 230);
+  --marine-900:oklch(22% 0.038 230);
+
+  /* --- Neutral ramp: off-white to near-black. --- */
+  --latte-50:oklch(97.5% 0.002 90);
+  --latte-100:oklch(95% 0.002 90);
+  --latte-200:oklch(90% 0.002 90);
+  --latte-300:oklch(82% 0.002 90);
+  --latte-400:oklch(68% 0.002 90);
+  --latte-500:oklch(55% 0.002 90);
+  --latte-600:oklch(43% 0.002 90);
+  --latte-700:oklch(34% 0.002 90);
+  --latte-800:oklch(26% 0.001 90);
+  --latte-900:oklch(18% 0.001 90);
+  --latte-950:oklch(11% 0.001 90);
+
+  /* --- Semantic: surfaces (three planes) --- */
+  --surface-base:var(--cream);
+  --surface-sunk:var(--latte-100);
+  --surface-card:color-mix(in oklch, var(--cream) 96%, #fff);
+  --surface-float:color-mix(in oklch, var(--cream) 84%, transparent);
+  --surface-inverse:var(--night);
+  --surface-inverse-card:var(--latte-900);
+  --surface-accent:var(--grenadine);
+  --surface-accent-soft:var(--grenadine-100);
+  --surface-warm:var(--beeswax-200);
+  --surface-cool:var(--darlington-300);
+  --surface-cool-soft:var(--darlington-200);
+
+  /* Full-bleed section grounds. Sections are colour blocks, not white space. */
+  --ground-cream:var(--cream);
+  --ground-pale:var(--marine-200);
+  --ground-sage:var(--darlington-300);
+  --ground-deep:var(--marine-800);
+  --ground-grenadine:var(--grenadine);
+  --ground-night:var(--night);
+  --text-on-deep:var(--marine-100);
+  --text-on-deep-muted:color-mix(in oklch, var(--marine-100) 62%, transparent);
+  --text-on-pale:var(--marine-900);
+  --text-on-pale-muted:var(--marine-700);
+
+  /* --- Semantic: text --- */
+  --text-body:var(--ink);
+  --text-muted:var(--latte-600);
+  --text-faint:var(--latte-500);
+  --text-accent:var(--grenadine-600);
+  --text-on-accent:var(--cream);
+  --text-on-dark:var(--cream);
+  --text-on-dark-muted:oklch(72% 0 0);
+
+  /* --- Semantic: lines --- */
+  --border-hairline:oklch(0% 0 0 / 0.14);
+  --border-strong:oklch(0% 0 0 / 0.38);
+  --border-accent:var(--grenadine-500);
+  --border-on-dark:color-mix(in oklch, var(--cream) 18%, transparent);
+
+  /* --- Semantic: interaction --- */
+  --action-primary:var(--grenadine-500);
+  --action-primary-hover:var(--grenadine-600);
+  --action-primary-active:var(--grenadine-700);
+  --action-secondary-border:var(--border-strong);
+  --action-secondary-hover:oklch(0% 0 0 / 0.07);
+  --focus-ring:var(--grenadine-500);
+  --highlight:var(--beeswax-300);
+
+  /* --- Semantic: status. Kept inside the brand palette. --- */
+  --status-positive:var(--darlington-700);
+  --status-caution:var(--beeswax-700);
+  --status-critical:var(--grenadine-600);
+  --status-neutral:var(--latte-600);
+}
+
+[data-theme="night"]{
+  --surface-base:var(--night);
+  --surface-sunk:color-mix(in oklch, var(--night) 92%, #000);
+  --surface-card:var(--surface-inverse-card);
+  --surface-float:color-mix(in oklch, var(--night) 80%, transparent);
+  --text-body:var(--text-on-dark);
+  --text-muted:var(--text-on-dark-muted);
+  --text-faint:oklch(58% 0 0);
+  --text-accent:var(--beeswax-500);
+  --border-hairline:var(--border-on-dark);
+  --border-strong:oklch(100% 0 0 / 0.32);
+  --action-primary:var(--grenadine-400);
+  --action-primary-hover:var(--grenadine-300);
+  --action-primary-active:var(--grenadine-500);
+  --action-secondary-hover:oklch(100% 0 0 / 0.1);
+}
+/* Webfonts. No binaries were supplied, so the families load from Google Fonts.
+   Poppins ExtraBold (800) carries every heading, always uppercased.
+   Inter carries body copy, buttons and labels. */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@300..700&display=swap");
+:root{
+  --font-display:"Poppins",system-ui,sans-serif;
+  --font-serif-display:var(--font-display); /* legacy alias */
+  --font-sans:"Inter",system-ui,sans-serif;
+  --font-label:"Inter",system-ui,sans-serif;
+  --font-mono:var(--font-label); /* legacy alias: labels are tracked caps, not a mono face */
+
+  /* Fluid scale. Nothing is a fixed px size above 15px. */
+  --text-display:clamp(2.5rem,1.4rem + 4.4vw,4.75rem);
+  --text-h1:clamp(2rem,1.4rem + 2.6vw,3.375rem);
+  --text-h2:clamp(1.5rem,1.15rem + 1.6vw,2.375rem);
+  --text-h3:clamp(1.1875rem,1.05rem + 0.75vw,1.625rem);
+  --text-h4:clamp(1.25rem,1.08rem + 0.7vw,1.625rem);
+  --text-lead:clamp(1.125rem,1.02rem + 0.45vw,1.4375rem);
+  --text-body-size:clamp(1rem,0.96rem + 0.18vw,1.0625rem);
+  --text-small:clamp(0.875rem,0.86rem + 0.1vw,0.9375rem);
+  --text-label:0.8125rem;
+  --text-micro:0.75rem;
+
+  --leading-display:1.0;
+  --leading-heading:1.12;
+  --leading-body:1.7;
+  --leading-tight:1.35;
+
+  --tracking-display:-0.015em;
+  --weight-display:800;
+  --tracking-heading:-0.005em;
+  --tracking-body:0;
+  --tracking-label:0.08em;
+
+  --weight-light:300;
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+
+  --measure:68ch;
+  --measure-narrow:46ch;
+}
+:root{
+  /* 8px base, fluid above step 5 so sections breathe on wide screens. */
+  --space-0:0;
+  --space-1:0.25rem;
+  --space-2:0.5rem;
+  --space-3:0.75rem;
+  --space-4:1rem;
+  --space-5:1.5rem;
+  --space-6:clamp(1.5rem,1.2rem + 1vw,2rem);
+  --space-7:clamp(2rem,1.6rem + 1.6vw,3rem);
+  --space-8:clamp(2.5rem,1.9rem + 2.6vw,4.5rem);
+  --space-9:clamp(3.5rem,2.4rem + 4.4vw,7rem);
+  --space-10:clamp(5rem,3.2rem + 7vw,10rem);
+  --space-11:clamp(7rem,4rem + 11vw,15rem);
+
+  --section-y:var(--space-10);
+  --gutter:clamp(1.25rem,0.6rem + 2.6vw,3.5rem);
+  --content-max:1240px;
+  --grid-columns:12;
+  --grid-gap:clamp(1rem,0.5rem + 1.8vw,2rem);
+}
+:root{
+  --radius-none:0;
+  --radius-xs:2px;
+  --radius-sm:4px;      /* the one radius in the system: buttons, inputs, badges, cards */
+  --radius-md:4px;
+  --radius-lg:4px;
+  --radius-xl:4px;
+  --radius-pill:999px;  /* reserved; unused */
+
+  --border-width:1px;
+  --border-width-thick:2px;
+  --rule:var(--border-width) solid var(--border-hairline);
+  --rule-strong:var(--border-width) solid var(--border-strong);
+
+  /* Paper grain retired: the system is flat colour, no texture. Kept as an
+     inert token + no-op .vpd-grain class so existing markup keeps working. */
+  --grain:none;
+  --grain-opacity:0;
+}
+:root{
+  /* Flat system. Shadows exist only for genuinely floating things (modals),
+     never for cards or sections. Borders carry separation instead. */
+  --shadow-1:none;
+  --shadow-2:none;
+  --shadow-3:0 24px 64px oklch(0% 0 0 / 0.18);
+  --shadow-inset:none;
+  --shadow-accent:none;
+
+  --plane-base:none;
+  --plane-raised:none;
+  --plane-floating:var(--shadow-3);
+
+  --blur-float:0px; /* no glass anywhere */
+}
+:root{
+  --ease-settle:cubic-bezier(0.16,1,0.3,1);
+  --ease-out:cubic-bezier(0.22,0.61,0.36,1);
+  --duration-1:250ms;
+  --duration-2:350ms;
+  --duration-3:450ms;
+  --duration-4:600ms;
+  --stagger:80ms;
+  --transition-interactive:transform var(--duration-1) var(--ease-settle),opacity var(--duration-1) var(--ease-settle);
+}
+@media (prefers-reduced-motion:reduce){
+  :root{
+    --duration-1:1ms;
+    --duration-2:1ms;
+    --duration-3:1ms;
+    --duration-4:1ms;
+    --stagger:0ms;
+  }
+}
+/* Component styles. Flat colour blocks, one 4px radius, borders instead of
+   shadows, big Poppins caps. Every value comes from a token. */
+
+/* --- Button: two shapes only. Solid fill, or outline in the same colour. --- */
+.vpd-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);font-family:var(--font-sans);font-weight:var(--weight-semibold);font-size:var(--text-small);line-height:1;border-radius:var(--radius-sm);border:var(--border-width) solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background-color var(--duration-1) var(--ease-out),color var(--duration-1) var(--ease-out),border-color var(--duration-1) var(--ease-out),opacity var(--duration-1) var(--ease-out)}
+.vpd-btn--sm{padding:0.5rem 0.875rem;font-size:var(--text-label)}
+.vpd-btn--md{padding:0.8125rem 1.25rem}
+.vpd-btn--lg{padding:1rem 1.75rem;font-size:var(--text-body-size)}
+.vpd-btn--block{display:flex;width:100%}
+.vpd-btn:active:not(:disabled){transform:translateY(1px)}
+.vpd-btn:disabled,.vpd-btn[aria-disabled="true"]{opacity:0.4;cursor:not-allowed;transform:none}
+
+.vpd-btn--primary{background:var(--action-primary);color:var(--text-on-accent)}
+.vpd-btn--primary:hover:not(:disabled){background:var(--action-primary-hover)}
+.vpd-btn--secondary{background:transparent;color:var(--text-body);border-color:var(--border-strong)}
+.vpd-btn--secondary:hover:not(:disabled){border-color:var(--text-body);background:var(--action-secondary-hover)}
+.vpd-btn--tertiary{background:transparent;color:var(--text-accent);padding-inline:0}
+.vpd-btn--tertiary .vpd-btn__label{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.vpd-btn--tertiary:hover:not(:disabled) .vpd-btn__label{text-decoration-thickness:2px}
+.vpd-btn__icon{display:inline-flex}
+/* On a colour ground the solid button flips to cream, the outline stays cream. */
+.vpd-btn--on-dark.vpd-btn--primary{background:var(--cream);color:var(--ink)}
+.vpd-btn--on-dark.vpd-btn--primary:hover:not(:disabled){background:#fff}
+.vpd-btn--on-dark.vpd-btn--secondary{color:var(--cream);border-color:color-mix(in oklch,var(--cream) 55%,transparent)}
+.vpd-btn--on-dark.vpd-btn--secondary:hover:not(:disabled){border-color:var(--cream);background:oklch(100% 0 0 / 0.1)}
+.vpd-btn--on-dark.vpd-btn--tertiary{color:var(--cream)}
+
+/* --- Field --- */
+.vpd-field{display:flex;flex-direction:column;gap:var(--space-2);font-family:var(--font-sans)}
+.vpd-field__label{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-label);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-muted)}
+.vpd-field__req{color:var(--action-primary)}
+.vpd-field__control{width:100%;font-family:var(--font-sans);font-size:var(--text-body-size);line-height:1.5;color:var(--text-body);background:var(--cream);border:var(--border-width) solid var(--border-strong);border-radius:var(--radius-sm);padding:0.6875rem 0.875rem;transition:border-color var(--duration-1) var(--ease-out)}
+.vpd-field__control::placeholder{color:var(--text-faint)}
+.vpd-field__control:hover:not(:disabled){border-color:var(--text-body)}
+.vpd-field__control:focus{outline:none;border-color:var(--action-primary);box-shadow:inset 0 0 0 1px var(--action-primary)}
+.vpd-field__control:disabled{opacity:0.5;cursor:not-allowed;background:var(--surface-sunk)}
+.vpd-field__control--textarea{min-height:7.5rem;resize:vertical}
+.vpd-field__control--select{appearance:none;padding-right:2.25rem;background-image:linear-gradient(45deg,transparent 50%,var(--text-body) 50%),linear-gradient(135deg,var(--text-body) 50%,transparent 50%);background-position:calc(100% - 18px) calc(50% + 2px),calc(100% - 13px) calc(50% + 2px);background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.vpd-field--invalid .vpd-field__control{border-color:var(--status-critical)}
+.vpd-field__hint{font-size:var(--text-small);color:var(--text-muted)}
+.vpd-field__error{font-size:var(--text-small);color:var(--status-critical)}
+
+/* --- Badge: flat block of colour, no border. --- */
+.vpd-badge{display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;padding:0.3125rem 0.625rem;border-radius:var(--radius-sm);border:var(--border-width) solid transparent;line-height:1}
+.vpd-badge--sage{background:var(--brume);color:var(--marine-900)}
+.vpd-badge--grenadine{background:var(--grenadine);color:var(--cream)}
+.vpd-badge--beeswax{background:var(--beeswax);color:var(--ink)}
+.vpd-badge--outline{background:transparent;color:currentColor;border-color:currentColor;opacity:0.7}
+.vpd-badge--solid{background:var(--ink);color:var(--cream)}
+.vpd-badge__dot{width:6px;height:6px;border-radius:var(--radius-pill);background:currentColor}
+
+/* --- Service card: a bordered block. No shadow, no lift. --- */
+.vpd-service{display:flex;flex-direction:column;gap:var(--space-4);height:100%;background:transparent;color:inherit;border:var(--border-width) solid currentColor;border-radius:var(--radius-sm);padding:var(--space-6);text-decoration:none;transition:background-color var(--duration-1) var(--ease-out)}
+a.vpd-service:hover,.vpd-service--interactive:hover{background:oklch(50% 0 0 / 0.08)}
+.vpd-service__index{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);opacity:0.6}
+.vpd-service__title{font-family:var(--font-display);font-weight:var(--weight-display);text-transform:uppercase;font-size:var(--text-h4);letter-spacing:var(--tracking-heading);line-height:var(--leading-tight);margin:0}
+.vpd-service__body{font-size:var(--text-small);line-height:var(--leading-body);margin:0;opacity:0.78}
+.vpd-service__list{list-style:none;margin:auto 0 0;padding:var(--space-4) 0 0;display:flex;flex-direction:column;gap:var(--space-2);border-top:var(--border-width) solid currentColor}
+.vpd-service__list li{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:0.04em;text-transform:uppercase;opacity:0.7}
+
+/* --- Case study card: image block, then plain type. --- */
+.vpd-case{display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:inherit;border-radius:var(--radius-sm);overflow:hidden}
+.vpd-case__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--azur)}
+.vpd-case__media img{width:100%;height:100%;object-fit:cover;display:block}
+.vpd-case__placeholder{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--cream)}
+.vpd-case__badge{position:absolute;top:var(--space-4);left:var(--space-4);z-index:2}
+.vpd-case__body{padding:var(--space-5) 0 0;display:flex;flex-direction:column;gap:var(--space-3)}
+.vpd-case__client{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;opacity:0.6}
+.vpd-case__title{font-family:var(--font-display);font-weight:var(--weight-display);text-transform:uppercase;font-size:var(--text-h4);letter-spacing:var(--tracking-heading);line-height:var(--leading-tight);margin:0}
+.vpd-case__result{font-size:var(--text-small);margin:0;opacity:0.78}
+.vpd-case__meta{display:flex;gap:var(--space-5);margin:var(--space-1) 0 0}
+.vpd-case__meta div{display:flex;gap:var(--space-2)}
+.vpd-case__meta dt{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;opacity:0.55}
+.vpd-case__meta dd{margin:0;font-size:var(--text-micro);text-transform:uppercase;letter-spacing:0.04em}
+a.vpd-case:hover .vpd-case__title{text-decoration:underline;text-underline-offset:5px}
+
+/* --- Colour sheet: a block of colour and its name. Nothing else. --- */
+.vpd-sheet{display:flex;flex-direction:column;color:inherit}
+.vpd-sheet__block{aspect-ratio:4/3;position:relative;border-radius:var(--radius-sm)}
+.vpd-sheet__body{padding:var(--space-4) 0 0;display:flex;flex-direction:column;gap:var(--space-2)}
+.vpd-sheet__name{font-family:var(--font-display);font-weight:var(--weight-display);text-transform:uppercase;font-size:var(--text-h4);letter-spacing:var(--tracking-heading);line-height:1;margin:0}
+.vpd-sheet__role{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;opacity:0.6;margin:0}
+.vpd-sheet__table{width:100%;border-collapse:collapse;font-family:var(--font-label);font-size:var(--text-micro);font-variant-numeric:tabular-nums}
+.vpd-sheet__table th{text-align:left;font-weight:var(--weight-regular);letter-spacing:var(--tracking-label);text-transform:uppercase;opacity:0.55;padding:0.25rem 0}
+.vpd-sheet__table td{text-align:right;padding:0.25rem 0}
+
+/* --- Nav: solid night block, no blur, no shadow. --- */
+.vpd-nav{position:sticky;top:0;z-index:50;background:var(--night);color:var(--cream)}
+.vpd-nav__inner{display:flex;align-items:center;gap:var(--space-6);min-height:4.5rem}
+.vpd-nav__brand{font-family:var(--font-display);font-weight:var(--weight-display);text-transform:uppercase;font-size:1.1875rem;letter-spacing:-0.02em;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:0.3rem;white-space:nowrap;line-height:1}
+.vpd-nav__brand em{font-style:normal;color:var(--grenadine)}
+.vpd-nav__logo{height:6rem;width:auto;display:block}
+.vpd-footer__logo{height:4rem;width:auto;display:block;margin-bottom:var(--space-5)}
+.vpd-nav__links{display:flex;align-items:center;gap:var(--space-5);margin-left:auto;list-style:none;padding:0;margin-block:0}
+.vpd-nav__link{position:relative;font-size:var(--text-small);color:color-mix(in oklch,var(--cream) 65%,transparent);text-decoration:none;padding:0.375rem 0;transition:color var(--duration-1) var(--ease-out)}
+.vpd-nav__link:hover,.vpd-nav__link[aria-current="page"]{color:var(--cream)}
+.vpd-nav__link[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--grenadine)}
+
+/* --- Footer: solid night block. --- */
+.vpd-footer{background:var(--night);color:var(--cream)}
+.vpd-footer__inner{padding-block:var(--space-9) var(--space-6);display:grid;gap:var(--space-8);grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr))}
+.vpd-footer__wordmark{font-family:var(--font-display);font-weight:var(--weight-display);text-transform:uppercase;font-size:var(--text-h3);letter-spacing:var(--tracking-display);line-height:1;margin:0 0 var(--space-4)}
+.vpd-footer__wordmark em{font-style:normal;color:var(--grenadine)}
+.vpd-footer__blurb{font-size:var(--text-small);color:color-mix(in oklch,var(--cream) 70%,transparent);max-width:34ch}
+.vpd-footer__coltitle{font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:color-mix(in oklch,var(--cream) 50%,transparent);margin:0 0 var(--space-4)}
+.vpd-footer__list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-3)}
+.vpd-footer__list a{color:var(--cream);text-decoration:none;font-size:var(--text-small);transition:color var(--duration-1) var(--ease-out)}
+.vpd-footer__list a:hover{color:var(--grenadine)}
+.vpd-footer__base{border-top:var(--border-width) solid color-mix(in oklch,var(--cream) 20%,transparent);padding-block:var(--space-5);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-5);font-family:var(--font-label);font-weight:var(--weight-medium);font-size:var(--text-micro);letter-spacing:0.04em;color:color-mix(in oklch,var(--cream) 60%,transparent)}
+.vpd-footer__base>*{white-space:nowrap}
+@media(max-width:760px){.vpd-footer__inner{grid-template-columns:1fr}.vpd-nav__links{display:none}}
+
+/* ===== Dashboard stratégie · règles DASHBOARD.md ===== */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--surface-base);
+  color:var(--text-body);
+  font-family:var(--font-sans, "Inter", system-ui, sans-serif);
+  font-size:15px;
+  line-height:1.6;
+  font-variant-numeric:tabular-nums;
+}
+.doc-header{
+  background:var(--night);
+  color:var(--cream);
+  padding:var(--space-7) var(--space-6);
+}
+.doc-header .kicker{
+  font-family:var(--font-sans);
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  font-size:12px;
+  color:var(--grenadine);
+  margin:0 0 var(--space-3);
+}
+.doc-header h1{
+  font-family:var(--font-display, "Poppins", sans-serif);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:-0.015em;
+  line-height:1.0;
+  font-size:var(--text-h2);
+  margin:0 0 var(--space-3);
+  color:var(--cream);
+}
+.doc-header .sub{
+  font-size:14px;
+  color:var(--brume);
+  margin:0;
+}
+.doc-header .meta{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-on-dark-muted, #9a9a9a);
+  margin:var(--space-4) 0 0;
+}
+main{padding:var(--space-6); max-width:1600px; margin:0 auto}
+section{margin:0 0 var(--space-8)}
+h2{
+  font-family:var(--font-display, "Poppins", sans-serif);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:-0.015em;
+  line-height:1.0;
+  font-size:var(--text-h4);
+  margin:0 0 var(--space-2);
+}
+h2 .no{color:var(--grenadine); margin-right:var(--space-2)}
+.section-lead{color:var(--text-muted); max-width:72ch; margin:0 0 var(--space-5)}
+.card{
+  background:var(--surface-card);
+  border:1px solid var(--border-hairline);
+  border-radius:4px;
+  padding:var(--space-5);
+}
+/* KPI */
+.kpi-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:var(--space-4); margin:0 0 var(--space-8)}
+.kpi .label{
+  font-weight:500; text-transform:uppercase; letter-spacing:0.08em;
+  font-size:12px; color:var(--text-muted); margin:0 0 var(--space-2);
+}
+.kpi .value{
+  font-family:var(--font-display,"Poppins",sans-serif); font-weight:800; text-transform:uppercase;
+  font-size:var(--text-h3); line-height:1.0; margin:0; letter-spacing:-0.015em;
+}
+.kpi .delta{font-size:13px; margin:var(--space-2) 0 0}
+.delta.pos{color:var(--status-positive)}
+.delta.neg{color:var(--status-critical)}
+.delta.neu{color:var(--status-neutral)}
+/* Tables */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th{
+  font-weight:500; text-transform:uppercase; letter-spacing:0.08em;
+  font-size:var(--text-micro); color:var(--text-muted);
+  text-align:left; padding:var(--space-2) var(--space-3);
+  border-bottom:1px solid var(--border-strong);
+}
+td{padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--border-hairline)}
+tr:hover td{background:var(--action-secondary-hover)}
+th.num, td.num{text-align:right}
+tr.total td{border-top:1px solid var(--border-strong); font-weight:600}
+.volbar{display:inline-block; height:8px; background:var(--grenadine); border-radius:2px; vertical-align:middle; margin-right:var(--space-2)}
+.volbar.alt{background:var(--marine)}
+/* Grilles */
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-4)}
+@media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+.grid-3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--space-4)}
+.mini-title{
+  font-weight:500; text-transform:uppercase; letter-spacing:0.08em;
+  font-size:12px; color:var(--text-muted); margin:0 0 var(--space-3);
+}
+.card h3{
+  font-family:var(--font-display,"Poppins",sans-serif); font-weight:800; text-transform:uppercase;
+  font-size:1rem; letter-spacing:-0.01em; margin:0 0 var(--space-2);
+}
+.card p{margin:0 0 var(--space-2)}
+.card p:last-child{margin:0}
+.card ul{margin:0; padding-left:1.1em}
+.card li{margin:0 0 var(--space-1)}
+/* Bars saisonnalité */
+.bars{display:flex; align-items:flex-end; gap:6px; height:140px; margin:var(--space-4) 0 0}
+.bars .b{flex:1; background:var(--grenadine); border-radius:2px 2px 0 0; position:relative; min-width:14px}
+.bars .b.past{background:var(--latte-300)}
+.bars .b .v{
+  position:absolute; top:-20px; left:50%; transform:translateX(-50%);
+  font-size:11px; color:var(--text-body); white-space:nowrap; font-weight:600;
+}
+.bar-months{display:flex; gap:6px; border-top:1px solid var(--border-hairline); margin-top:0; padding-top:var(--space-1)}
+.bar-months span{flex:1; text-align:center; font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0; min-width:14px}
+.bar-months span:nth-child(even){visibility:hidden}
+/* Roadmap */
+.roadmap .step{color:var(--grenadine); font-weight:600}
+footer{
+  border-top:1px solid var(--border-hairline);
+  margin-top:var(--space-8);
+  padding:var(--space-5) var(--space-6);
+  font-size:12px; color:var(--text-muted);
+  text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--marine)}
+:focus-visible{outline:2px solid var(--focus-ring); outline-offset:2px}
+@media (max-width:640px){
+  main{padding:var(--space-4)}
+  .doc-header{padding:var(--space-5) var(--space-4)}
+}
+
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <p class="kicker">V pour Design · Stratégie</p>
+  <h1>Stratégie SEO + Google Ads</h1>
+  <p class="sub">Alain Brunelle, courtier immobilier RE/MAX Crystal · Blainville, Sainte-Thérèse + couronne</p>
+  <p class="meta">26 août 2026 · Data Google Keyword Planner réelle, 12 mois, géo Québec, FR · Complète le plan technique d'avril (SEO_TECHNIQUE_BRUNELLE.md)</p>
+</header>
+
+<main>
+
+  <div class="kpi-row">
+    <div class="card kpi">
+      <p class="label">Clics Google · juillet</p>
+      <p class="value">55</p>
+      <p class="delta pos">×18 vs juin, momentum réel</p>
+    </div>
+    <div class="card kpi">
+      <p class="label">Requêtes top 10</p>
+      <p class="value">44</p>
+      <p class="delta pos">dont 16 en top 3</p>
+    </div>
+    <div class="card kpi">
+      <p class="label">CPC « courtier » du marché</p>
+      <p class="value">5 à 23 $</p>
+      <p class="delta neu">chaque position tenue = dépense évitée</p>
+    </div>
+    <div class="card kpi">
+      <p class="label">Grappe Fontainebleau</p>
+      <p class="value">280</p>
+      <p class="delta neu">recherches/mois, SERP sans maître</p>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="no">01</span>Lecture du marché</h2>
+    <p class="section-lead">Le plan technique d'avril a posé l'architecture. Voici la couche data qui dit quoi construire en premier, et le plan Ads chiffré sur les CPC réels.</p>
+    <div class="grid-2">
+      <div class="card">
+        <p class="mini-title">Requêtes courtier · le cœur du positionnement</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>Requête</th><th class="num">Vol./mois</th><th class="num">CPC marché</th></tr>
+          <tr><td>courtier immobilier blainville</td><td class="num">110</td><td class="num">4,91-13,45 $</td></tr>
+          <tr><td>courtier immobilier sainte-therese</td><td class="num">70</td><td class="num">7,74-23,14 $</td></tr>
+          <tr><td>courtier immobilier mirabel</td><td class="num">50</td><td class="num">4,89-19,68 $</td></tr>
+          <tr><td>courtier immobilier saint-eustache</td><td class="num">30</td><td class="num">11,03-21,50 $</td></tr>
+          <tr><td>rosemere + lorraine + boisbriand</td><td class="num">60</td><td class="num">4,93-19,70 $</td></tr>
+          <tr><td>alain brunelle (marque)</td><td class="num">50-60</td><td class="num">≈ 0 $</td></tr>
+        </table></div>
+        <p style="margin-top:var(--space-3); font-size:13px; color:var(--text-muted)">Pic saisonnier : mars et septembre à novembre. Le marché paie jusqu'à 23 $ le clic sur Sainte-Thérèse.</p>
+      </div>
+      <div class="card">
+        <p class="mini-title">Niches acheteur validées · SERP faibles, gagnables</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>Requête</th><th class="num">Vol./mois</th><th class="num">CPC</th></tr>
+          <tr><td>maison a vendre blainville fontainebleau</td><td class="num">170</td><td class="num">0,44-1,66 $</td></tr>
+          <tr><td>quartier fontainebleau blainville</td><td class="num">110</td><td class="num">quasi nul</td></tr>
+          <tr><td>duplex a vendre blainville</td><td class="num">170</td><td class="num">0,02-1,45 $</td></tr>
+          <tr><td>terrain a vendre blainville</td><td class="num">170</td><td class="num">0,02-1,38 $</td></tr>
+          <tr><td>condo a vendre rosemere</td><td class="num">260</td><td class="num">0,02-0,67 $</td></tr>
+          <tr><td>condo a vendre lorraine</td><td class="num">140</td><td class="num">quasi nul</td></tr>
+          <tr><td>plex a vendre rive nord</td><td class="num">140</td><td class="num">quasi nul</td></tr>
+          <tr><td>maison a vendre blainville centris</td><td class="num">110</td><td class="num">quasi nul</td></tr>
+        </table></div>
+      </div>
+      <div class="card">
+        <p class="mini-title">Vendeurs · capturable en Ads géo-cadré</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>Requête (province)</th><th class="num">Vol./mois</th><th class="num">CPC</th></tr>
+          <tr><td>combien vaut ma maison</td><td class="num">4 400</td><td class="num">1,27-4,29 $</td></tr>
+          <tr><td>estimation maison en ligne gratuite…</td><td class="num">1 600</td><td class="num">1,08-3,09 $</td></tr>
+          <tr><td>evaluation maison</td><td class="num">880</td><td class="num">1,95-8,40 $</td></tr>
+        </table></div>
+        <p style="margin-top:var(--space-3); font-size:13px; color:var(--text-muted)">« evaluation maison blainville » n'a pas de volume mesurable : le jeu local se fait en rayon géographique Ads sur les requêtes génériques + landing locale.</p>
+        <p class="mini-title" style="margin-top:var(--space-4)">Saisonnalité « combien vaut ma maison » (12 mois)</p>
+        <div class="bars"><div class="b" style="height:130px"><span class="v">22 200</span></div><div class="b" style="height:6px"></div><div class="b" style="height:71px"></div><div class="b" style="height:21px"></div><div class="b" style="height:11px"></div><div class="b" style="height:6px"></div><div class="b" style="height:5px"></div><div class="b" style="height:14px"></div><div class="b" style="height:11px"></div><div class="b" style="height:8px"></div><div class="b" style="height:9px"></div><div class="b" style="height:6px"></div></div><div class="bar-months"><span>aoû</span><span>sep</span><span>oct</span><span>nov</span><span>déc</span><span>jan</span><span>fév</span><span>mar</span><span>avr</span><span>mai</span><span>jun</span><span>jul</span></div>
+      </div>
+      <div class="card">
+        <p class="mini-title">Volume acheteur de fond (contexte portails)</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>Ville</th><th class="num">« maison a vendre » /mois</th></tr>
+          <tr><td>Blainville</td><td class="num">8 100</td></tr>
+          <tr><td>Mirabel</td><td class="num">5 400</td></tr>
+          <tr><td>Rosemère</td><td class="num">4 400</td></tr>
+          <tr><td>Boisbriand</td><td class="num">3 600</td></tr>
+          <tr><td>Lorraine</td><td class="num">2 400</td></tr>
+          <tr><td>Deux-Montagnes + Bois-des-Filion</td><td class="num">3 800</td></tr>
+          <tr><td>Saint-Eustache</td><td class="num">1 300</td></tr>
+          <tr><td>Sainte-Anne-des-Plaines</td><td class="num">1 000</td></tr>
+          <tr><td>Sainte-Thérèse</td><td class="num">480</td></tr>
+        </table></div>
+        <p style="margin-top:var(--space-3); font-size:13px; color:var(--text-muted)">Les portails dominent ces SERP : on les travaille via les fiches DDF indexées et les pages niches, jamais en frontal.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">02</span>Le constat stratégique</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>La data valide l'architecture quartiers</h3>
+        <p>Fontainebleau d'abord : 280 recherches/mois et personne ne détient la SERP. Ensuite Chambéry, Alençon, Vieux-Village Sainte-Thérèse. Le sitemap cible d'avril avait vu juste, la data donne l'ordre.</p>
+      </div>
+      <div class="card">
+        <h3>Les niches sont désertes</h3>
+        <p>Duplex, terrain, condo, plex : CPC à 0,02 $ et SEO faible. Des pages inventaire filtrées (flux DDF) avec 300 mots uniques suffisent pour prendre ≈ 880 recherches/mois cumulées.</p>
+      </div>
+      <div class="card">
+        <h3>Salomon reste le lièvre</h3>
+        <p>Pages villes + centaines d'URLs propriétés. L'angle pour le dépasser : profondeur quartiers, « Le mot d'Alain » sur chaque fiche (E-E-A-T + AI Overviews), schema complet, vitesse, avis.</p>
+      </div>
+      <div class="card">
+        <h3>Le vendeur se gagne en Ads géo-cadré</h3>
+        <p>Pas de volume vendeur localisé mesurable : rayon 15 km sur les requêtes génériques (7 000/mois province, pic août ×3) + landing /evaluation/ locale. Le SEO vendeur suivra avec le contenu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">03</span>Plan onsite, priorisé par la data</h2>
+    <div class="card">
+      <div class="tbl-wrap"><table>
+        <tr><th>Priorité</th><th>Chantier</th><th class="num">Marché visé</th><th>Statut</th></tr>
+        <tr><td>P1</td><td>Schema RealEstateAgent + Person + Breadcrumb, metas uniques, transcriptions vidéo</td><td class="num">rich results</td><td><span class="vpd-badge vpd-badge--grenadine">à faire</span></td></tr>
+        <tr><td>P2</td><td>/quartiers/blainville/fontainebleau/ puis Chambéry, Alençon, Vieux-Village</td><td class="num">280+/mois</td><td><span class="vpd-badge vpd-badge--grenadine">à faire</span></td></tr>
+        <tr><td>P3</td><td>Pages niches DDF : duplex, terrain, condo Rosemère, condo Lorraine, plex Rive-Nord</td><td class="num">≈ 880/mois</td><td><span class="vpd-badge vpd-badge--grenadine">à faire</span></td></tr>
+        <tr><td>P4</td><td>Landing /evaluation/ (reçoit la campagne vendeur)</td><td class="num">leads</td><td><span class="vpd-badge vpd-badge--grenadine">à faire</span></td></tr>
+        <tr><td>P5</td><td>« Le mot d'Alain » par fiche propriété (GEO / AI Overviews)</td><td class="num">E-E-A-T</td><td><span class="vpd-badge vpd-badge--beeswax">au TODO</span></td></tr>
+        <tr><td>P6</td><td>Pages villes Saint-Eustache + Sainte-Anne-des-Plaines</td><td class="num">2 300/mois</td><td><span class="vpd-badge vpd-badge--outline">ensuite</span></td></tr>
+      </table></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">04</span>Local · Google Business Profile</h2>
+    <div class="card">
+      <ul>
+        <li>Fiche Agent immobilier, zone Blainville + Sainte-Thérèse + couronne, liée à la page ville correspondante.</li>
+        <li>Avis : 3 actuellement (5,0). Objectif 25+ en 90 jours : demande systématique post-transaction + QR sur carte de remerciement. C'est le facteur no 1 du pack local.</li>
+        <li>2 posts/mois (inscription vedette, conseil vendeur) + photos terrain régulières.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">05</span>Plan Google Ads (compte 7999591150)</h2>
+    <div class="card">
+      <div class="tbl-wrap"><table>
+        <tr><th>Campagne</th><th>Mots-clés</th><th class="num">Budget/mois</th><th class="num">CPC cible</th><th>Attendu</th></tr>
+        <tr><td>B1 · Brand</td><td>[alain brunelle] + variantes</td><td class="num">15 $</td><td class="num">0,20 $</td><td>protection, 100 % top</td></tr>
+        <tr><td>B2 · Courtier exact</td><td>[courtier immobilier blainville / sainte-therese / rosemere / lorraine / boisbriand]</td><td class="num">300 $</td><td class="num">max 9 $</td><td>≈ 40 clics très chauds</td></tr>
+        <tr><td>B3 · Vendeurs géo-cadré, rayon 15 km</td><td>"combien vaut ma maison", "evaluation maison", "estimation maison en ligne"</td><td class="num">250 $</td><td class="num">2,50 $</td><td>≈ 100 clics → 5-8 leads</td></tr>
+        <tr><td>B4 · Niches inventaire (si stock)</td><td>[duplex a vendre blainville], [terrain a vendre blainville], [condo a vendre rosemere]</td><td class="num">60 $</td><td class="num">0,50 $</td><td>≈ 120 clics acheteurs</td></tr>
+        <tr class="total"><td>Total</td><td></td><td class="num">625 $</td><td></td><td>dans le budget type 600-900 $</td></tr>
+      </table></div>
+      <p style="margin-top:var(--space-4); font-size:13px; color:var(--text-muted)">Saisonnalité : B3 à 400 $ de juin à septembre (pic vendeur) · B2 renforcée en mars et septembre-novembre · décembre-janvier à 60 %. Négatifs : emploi, salaire, formation, devenir, duproprio, a louer, estimation municipale. Landing par groupe, jamais l'accueil : B2 → page ville exacte, B3 → /evaluation/, B4 → page niche. Quality Score 8+ attendu, les pages dédiées existent déjà. Coordination MCC : Remax Crystal/D'ici couvre Repentigny, Terrebonne, Mascouche et Mirabel; Blainville et Sainte-Thérèse restent à Brunelle, zéro enchère croisée.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">06</span>Roadmap 90 jours</h2>
+    <div class="grid-3 roadmap">
+      <div class="card">
+        <p class="mini-title">Septembre</p>
+        <ul>
+          <li><span class="step">P1 schema + hygiène</span></li>
+          <li>Landing /evaluation/</li>
+          <li>Lancer B1 + B2 + B3</li>
+          <li>Demande d'avis systématique</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="mini-title">Octobre</p>
+        <ul>
+          <li><span class="step">Page Fontainebleau</span></li>
+          <li>Pages niches duplex + terrain</li>
+          <li>B4 si inventaire</li>
+          <li>Transcriptions vidéo</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="mini-title">Novembre</p>
+        <ul>
+          <li><span class="step">Quartiers suivants</span> + villes P6</li>
+          <li>« Le mot d'Alain » en production</li>
+          <li>Bilan 90 jours (rapport mensuel auto)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">07</span>KPIs mensuels</h2>
+    <div class="card">
+      <div class="tbl-wrap"><table>
+        <tr><th>Indicateur</th><th>Départ (juillet)</th><th class="num">Cible 90 jours</th></tr>
+        <tr><td>Clics organiques Google</td><td>55/mois</td><td class="num">200/mois</td></tr>
+        <tr><td>Requêtes en top 3</td><td>16</td><td class="num">30</td></tr>
+        <tr><td>« courtier immobilier blainville »</td><td>à mesurer</td><td class="num">top 3</td></tr>
+        <tr><td>« courtier immobilier sainte-therese »</td><td>à mesurer</td><td class="num">top 3</td></tr>
+        <tr><td>Leads évaluation (B3 + organique)</td><td>0</td><td class="num">6/mois</td></tr>
+        <tr><td>Avis Google</td><td>3</td><td class="num">25</td></tr>
+      </table></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  V pour Design · Stratégie SEO + Google Ads Alain Brunelle · Data Google Keyword Planner (12 mois, géo Québec, FR) · 26 août 2026
+</footer>
+
+</body>
+</html>

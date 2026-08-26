@@ -1,5 +1,8 @@
 # Project Instructions — Stitch Website Workflow
 
+## Layout & grille — toujours demander (standard V pour Design)
+**Avant d'écrire du code frontend, demande toujours quelle grille + quel layout** (structure + composition). Parcours la référence Layouts & Grilles (27 systèmes : 11 grilles + 16 layouts) — `_AGENCY/CTO/blueprints/layout-grid-reference/` (double-clic `Voir-layouts.command`) ou `awesome-design-md/layouts.html` (lien depuis la galerie). Choisis **une grille + un layout**, copie leur(s) prompt(s), et consigne le choix dans la section `## Layout & grid` du `DESIGN.md` du projet (ou dans le brief si le projet n'a pas de DESIGN.md).
+
 ## Stack
 - React + Vite + TypeScript
 - Tailwind CSS

@@ -1,0 +1,184 @@
+{
+  "period": "2026-06-01 → 2026-06-29",
+  "clicks": 3,
+  "impressions": 336,
+  "ctr": 0.9,
+  "position": 20.5,
+  "top_queries": [
+    {
+      "q": "achat maison processus",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 61
+    },
+    {
+      "q": "agent immobilier rosemère",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 9
+    },
+    {
+      "q": "alain brunelle",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 7
+    },
+    {
+      "q": "alain brunelle remax",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 7
+    },
+    {
+      "q": "b&w blainville",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 100
+    },
+    {
+      "q": "blainvillier",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 3
+    },
+    {
+      "q": "bois franc",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 32
+    },
+    {
+      "q": "calculateur commission courtier immobilier",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 44
+    },
+    {
+      "q": "commission courtier beloeil",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 43.5
+    },
+    {
+      "q": "commission courtier immobilier",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 41.3
+    },
+    {
+      "q": "courtier immobilier commission",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 39.7
+    },
+    {
+      "q": "courtier immobilier lorraine",
+      "clicks": 0,
+      "impressions": 10,
+      "position": 8.4
+    },
+    {
+      "q": "courtier immobilier rosemère",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 5.5
+    },
+    {
+      "q": "courtier immobilier sainte-thérèse",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 29
+    },
+    {
+      "q": "courtier immobilier ste-thérèse",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 20
+    },
+    {
+      "q": "etape pour acheter une maison",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 55
+    },
+    {
+      "q": "home staging rive nord",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 18
+    },
+    {
+      "q": "inspecteur en bâtiment prix",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 64
+    },
+    {
+      "q": "inspection achat chalet",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 48
+    },
+    {
+      "q": "inspection après achat",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 92
+    },
+    {
+      "q": "inspection chalet avant achat",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 45.3
+    },
+    {
+      "q": "inspection maison cout",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 49
+    },
+    {
+      "q": "inspection maison québec",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 50
+    },
+    {
+      "q": "inspection pre achat lacolle",
+      "clicks": 0,
+      "impressions": 13,
+      "position": 41.8
+    },
+    {
+      "q": "inspection pre achat marieville",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 44.8
+    }
+  ],
+  "tracked": {
+    "cib": null,
+    "cist": {
+      "clicks": 0,
+      "impressions": 2,
+      "position": 29
+    },
+    "cir": {
+      "clicks": 0,
+      "impressions": 2,
+      "position": 5.5
+    },
+    "cil": {
+      "clicks": 0,
+      "impressions": 10,
+      "position": 8.4
+    },
+    "vmb": null,
+    "cvm": null
+  },
+  "ga": {
+    "sessions": 34,
+    "users": 17,
+    "pageviews": 165
+  }
+}

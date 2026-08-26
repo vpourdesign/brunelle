@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stratégie Google Ads — Alain Brunelle vs Michel Salomon · 500 $/mois</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23003DA5'/><text x='16' y='22' font-family='system-ui' font-size='13' font-weight='900' text-anchor='middle' fill='white'>AB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(98.2% 0.004 255);
+    --surface: #ffffff;
+    --line: oklch(92% 0.012 255);
+    --ink: #0b1628;
+    --muted: oklch(52% 0.03 255);
+    --blue: #003DA5;
+    --blue-soft: oklch(95% 0.02 260);
+    --rust: oklch(55% 0.16 35);
+    --rust-soft: oklch(95.5% 0.02 35);
+    --green: oklch(56% 0.13 160);
+    --green-soft: oklch(95.5% 0.03 160);
+    --amber: oklch(70% 0.14 75);
+    --amber-soft: oklch(96% 0.04 85);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-card:
+      0 1px 2px oklch(30% 0.06 255 / 0.05),
+      0 4px 12px oklch(30% 0.06 255 / 0.06),
+      0 16px 40px oklch(30% 0.06 255 / 0.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Jost', sans-serif; letter-spacing: -0.01em; }
+  .wrap { max-width: 1080px; margin-inline: auto; padding: clamp(1rem, 3vw, 2.5rem); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 18px; box-shadow: var(--shadow-card);
+  }
+  .pill {
+    display: inline-block; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  .pill.blue  { background: var(--blue-soft);  color: var(--blue); }
+  .pill.rust  { background: var(--rust-soft);  color: var(--rust); }
+  .pill.green { background: var(--green-soft); color: var(--green); }
+  .pill.amber { background: var(--amber-soft); color: oklch(52% 0.13 65); }
+  .pill.gray  { background: oklch(95% 0.005 255); color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; }
+  th {
+    text-align: left; font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 10px 14px; border-bottom: 1px solid var(--line);
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13.5px; }
+  tr:last-child td { border-bottom: none; }
+  code { background: oklch(95% 0.005 255); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+  .kpi-val { font-family: 'Jost'; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; line-height: 1.1; }
+  .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 780px) { .grid-2 { grid-template-columns: 1fr; } }
+  small.note { color: var(--muted); font-size: 12px; }
+  .step { display: grid; grid-template-columns: 52px 1fr; gap: 16px; padding: 22px; }
+  .step + .step { border-top: 1px solid var(--line); }
+  .step-num {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jost'; font-weight: 700; font-size: 19px;
+    background: var(--blue); color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 12px oklch(45% 0.15 260 / .25);
+  }
+  .adcopy {
+    background: var(--blue-soft); border: 1px solid oklch(88% 0.04 260);
+    border-radius: 12px; padding: 14px 16px; margin-top: 12px; font-size: 13.5px;
+  }
+  .adcopy .u { color: var(--green); font-size: 12px; }
+  .adcopy .t { font-weight: 600; color: var(--blue); font-size: 15px; margin: 2px 0 4px; }
+  .box { padding: 13px 15px; border-radius: 12px; font-size: 13.5px; }
+  .box.green { background: var(--green-soft); }
+  .box.amber { background: var(--amber-soft); }
+  .box.rust  { background: var(--rust-soft); }
+  ul.tight { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 7px; }
+  h2.sec { font-size: 1.3rem; margin: 0 0 4px; }
+  .kw { font-family: 'Inter'; font-size: 12.5px; }
+  .chk { list-style: none; padding-left: 0; margin: 8px 0 0; display: grid; gap: 9px; }
+  .chk li { padding-left: 28px; position: relative; font-size: 13.5px; }
+  .chk li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header style="margin-bottom: 26px;">
+    <div class="pill blue" style="margin-bottom:10px;">Plan de campagne · Google Ads Search</div>
+    <h1 style="margin:0; font-size:clamp(1.7rem,4vw,2.5rem); font-weight:700;">
+      Battre Michel Salomon sur Blainville &amp; Sainte-Thérèse
+    </h1>
+    <p style="margin:8px 0 0; color:var(--muted); max-width:70ch;">
+      Campagne Google Ads pour <strong>Alain Brunelle — RE/MAX Crystal</strong>, budget serré <strong>500 $/mois</strong>,
+      objectif : le plus de leads vendeurs qualifiés au plus petit coût par clic possible. Stratégie étape par étape.
+    </p>
+    <small class="note">Base : dashboard SEO Brunelle · snapshot 17 juillet 2026 · CPC immobilier local estimé 3–5 $ (à valider au Keyword Planner).</small>
+  </header>
+
+  <!-- THE BIG IDEA -->
+  <section class="card" style="padding:22px; margin-bottom:16px;">
+    <h2 class="sec">L'idée centrale — pourquoi 500 $ suffit pour le dépasser</h2>
+    <div class="grid-2" style="margin-top:12px;">
+      <div class="box green">
+        <strong style="color:var(--green);">1. Une annonce passe AU-DESSUS de tout l'organique.</strong><br>
+        Salomon gagne aujourd'hui parce qu'il sort en #5 (Blainville) et #10 (Sainte-Thérèse) <em>en organique</em>.
+        La seconde où Alain lance une annonce Search, elle s'affiche <strong>au-dessus</strong> de ces résultats. Le rattrapage est immédiat — pas dans 90 jours.
+      </div>
+      <div class="box amber">
+        <strong style="color:oklch(48% 0.13 65);">2. La vraie bataille, c'est le Quality Score.</strong><br>
+        <code>Ad Rank = Enchère × Quality Score</code>. Avec des groupes ultra-serrés + une landing qui répond exactement à la requête,
+        Alain obtient un QS élevé et <strong>paie le clic moins cher que Salomon pour la même position</strong>. C'est ça qui rend 500 $ redoutable.
+      </div>
+    </div>
+    <p style="margin:14px 0 0; font-size:13.5px; color:var(--muted);">
+      <strong>Angle des annonces</strong> (repris du dashboard) : Salomon est une machine — équipe, assistante, volume.
+      Alain vend le <em>contact direct</em> : 35 ans, 1&nbsp;700 maisons, un seul interlocuteur, sans stress. On ne fait pas d'enchère sur son nom
+      (même bannière RE/MAX Crystal + QS faible + coût élevé) — on le dépasse sur les requêtes génériques de ville.
+    </p>
+  </section>
+
+  <!-- BUDGET MATH -->
+  <section class="card" style="padding:22px; margin-bottom:16px;">
+    <h2 class="sec">La math du 500 $/mois</h2>
+    <div class="grid-kpi" style="margin:14px 0;">
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase;">Budget quotidien</div>
+        <div class="kpi-val" style="color:var(--blue);">16,45 $</div>
+        <small class="note">500 $ ÷ 30,4 jours (plafond mensuel garanti par Google)</small>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase;">Clics / mois</div>
+        <div class="kpi-val" style="color:var(--blue);">125–165</div>
+        <small class="note">selon un CPC réel de 3–4 $ après optimisation du QS</small>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase;">Leads vendeurs / mois</div>
+        <div class="kpi-val" style="color:var(--green);">8–15</div>
+        <small class="note">à un taux de conversion landing de 6–10 %</small>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase;">Coût par lead</div>
+        <div class="kpi-val" style="color:var(--green);">35–60 $</div>
+        <small class="note">1 seule inscription = des milliers $ de commission</small>
+      </div>
+    </div>
+    <div class="box amber">
+      <strong>Le compromis à dire honnêtement au client :</strong> à 500 $, on ne domine pas 100 % du temps sur les deux villes.
+      On vise <strong>~30–50 % de part d'impression</strong> concentrée sur les requêtes vendeur à forte intention, aux heures qui convertissent.
+      C'est amplement suffisant pour générer un flux régulier de leads et prouver le ROI. Pour une présence quasi totale (top de page, toute la journée, 2 villes),
+      il faudrait plutôt 800–1&nbsp;200 $/mois — décision à prendre <em>après</em> avoir mesuré le coût par lead réel des 6 premières semaines.
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="card" style="margin-bottom:16px;">
+    <div style="padding:22px 22px 4px;">
+      <h2 class="sec">La stratégie, étape par étape</h2>
+      <small class="note">Les 4 premières étapes = la mise en place (semaine 1). Les étapes 5–7 = le pilotage qui fait baisser le coût du clic dans le temps.</small>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Ciblage géographique — le levier n°1 du petit budget</h3>
+          <span class="pill green">Semaine 1</span><span class="pill blue">Impact maximal</span>
+        </div>
+        <p style="margin:9px 0 0; font-size:14px;">
+          À 500 $, chaque clic hors zone est du budget brûlé. On verrouille la géo au plus serré :
+        </p>
+        <ul class="tight">
+          <li><strong>Villes ciblées :</strong> Blainville + Sainte-Thérèse (+ rayon 3–4 km autour du bureau de Ste-Thérèse, qui attrape Rosemère / Boisbriand / Lorraine en bonus gratuit).</li>
+          <li><strong>Réglage critique :</strong> <code>Présence : personnes qui se trouvent régulièrement dans la zone ciblée</code> — <em>jamais</em> « présence ou intérêt ». Ça élimine quelqu'un à Montréal qui cherche « courtier Blainville » par curiosité.</li>
+          <li><strong>Exclusions :</strong> tout le reste du Québec, explicitement Montréal et Laval, pour ne pas payer les recherches larges.</li>
+          <li><strong>Langues :</strong> Français + Anglais (le secteur cherche dans les deux — le dashboard montre des requêtes EN).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Une seule campagne, 3 groupes d'annonces ultra-serrés</h3>
+          <span class="pill green">Semaine 1</span><span class="pill amber">Exact + Expression seulement</span>
+        </div>
+        <p style="margin:9px 0 0; font-size:14px;">
+          <strong>Une seule campagne</strong> — on ne dilue jamais 500 $ sur plusieurs campagnes. Réseau : <strong>Search uniquement</strong>
+          (pas de Display, pas de partenaires de recherche au départ). 3 groupes, un thème par groupe = le mot-clé apparaît dans le titre = QS élevé.
+        </p>
+        <div style="overflow-x:auto; margin-top:12px;">
+        <table>
+          <thead><tr><th>Groupe d'annonces</th><th>Mots-clés (exact <span class="kw">[ ]</span> + expression <span class="kw">" "</span>)</th><th>Intention</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">A — Courtier Blainville</td>
+              <td class="kw">[courtier immobilier blainville]<br>[agent immobilier blainville]<br>"courtier immobilier blainville"</td>
+              <td><span class="pill blue">très haute</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">B — Courtier Ste-Thérèse</td>
+              <td class="kw">[courtier immobilier sainte-thérèse]<br>[courtier immobilier ste-thérèse]<br>[agent immobilier sainte-thérèse]</td>
+              <td><span class="pill blue">très haute</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">C — Vendeurs (intention vente)</td>
+              <td class="kw">[vendre ma maison blainville]<br>[évaluation maison gratuite]<br>[combien vaut ma maison blainville]</td>
+              <td><span class="pill green">$ la plus haute valeur</span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="box green" style="margin-top:12px;">
+          <strong>Pourquoi pas de requête « acheteur » ?</strong> Les acheteurs sont plus nombreux à enchérir (donc CPC plus cher) et valent moins qu'un vendeur
+          (un mandat de vente = commission garantie). À 500 $, on <strong>concentre 100 % du budget sur le vendeur</strong>. C'est le cœur du « plus petit budget de clic possible ».
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Liste de négatifs — pour ne payer que le bon clic</h3>
+          <span class="pill green">Semaine 1</span><span class="pill blue">0 gaspillage</span>
+        </div>
+        <p style="margin:9px 0 0; font-size:14px;">Mots-clés à exclure dès le départ (liste partagée au niveau campagne) :</p>
+        <p class="kw" style="margin:10px 0 0; line-height:1.9;">
+          emploi · carrière · salaire · formation · cours · devenir courtier · oaciq · stage ·
+          à louer · location · appartement · logement · condo à louer · 4½ · 5½ ·
+          gratuit <span class="note">(sauf « évaluation gratuite » — surveiller)</span> · duproprio · sans commission ·
+          maison à vendre <span class="note">(≠ vendeur : c'est un acheteur)</span> · centris · définition · c'est quoi
+        </p>
+        <small class="note" style="display:block; margin-top:10px;">Puis, chaque semaine : ouvrir le rapport <strong>Termes de recherche</strong> et ajouter en négatif tout ce qui n'est pas un vendeur local. C'est le geste qui fait fondre le coût par lead.</small>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Annonces conformes OACIQ + tous les assets (le carburant du Quality Score)</h3>
+          <span class="pill green">Semaine 1</span><span class="pill rust">C'est ici qu'on dépasse Salomon</span>
+        </div>
+        <p style="margin:9px 0 0; font-size:14px;">
+          2 annonces responsives par groupe. Le mot-clé de ville dans le <strong>titre 1</strong>, l'angle « contact direct » dans le corps.
+          <strong>Conformité OACIQ : nom du courtier + agence toujours visibles.</strong>
+        </p>
+        <div class="adcopy">
+          <div class="u">alainbrunelle.com/vendre/evaluation-gratuite</div>
+          <div class="t">Courtier immobilier Blainville · 35 ans Rive-Nord · Évaluation gratuite 48 h</div>
+          <div>1 700 maisons vendues. Avec Alain Brunelle, RE/MAX Crystal, vous parlez au courtier — pas à une équipe. Sans engagement.</div>
+        </div>
+        <div class="adcopy">
+          <div class="u">alainbrunelle.com/vendre/vendre-sans-stress</div>
+          <div class="t">Vendre sa maison à Sainte-Thérèse · Un seul interlocuteur du début à la fin</div>
+          <div>35 ans à Blainville, Ste-Thérèse et Rosemère. Réponse en moins de 24 h. Alain Brunelle, courtier résidentiel RE/MAX Crystal.</div>
+        </div>
+        <p style="margin:14px 0 6px; font-size:14px;"><strong>Les assets/extensions (gratuits — ils montent le QS, le CTR, et repoussent Salomon plus bas) :</strong></p>
+        <div style="overflow-x:auto;">
+        <table>
+          <tbody>
+            <tr><td style="font-weight:600; width:34%;">Liens annexes</td><td class="kw">Évaluation gratuite · Maisons vendues · À propos d'Alain · Secteurs desservis</td></tr>
+            <tr><td style="font-weight:600;">Accroches (callouts)</td><td class="kw">35 ans d'expérience · 1 700 maisons vendues · Réponse en 24 h · Sans engagement</td></tr>
+            <tr><td style="font-weight:600;">Extraits structurés</td><td class="kw">Secteurs : Blainville, Sainte-Thérèse, Rosemère, Lorraine, Boisbriand</td></tr>
+            <tr><td style="font-weight:600;">Appel + Lieu</td><td class="kw">N° avec suivi d'appels · fiche Google Business liée (renforce aussi le map pack)</td></tr>
+            <tr><td style="font-weight:600;">Image + logo</td><td class="kw">Photo d'Alain / maison locale + logo RE/MAX Crystal</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-num">5</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Enchères + tracking — commencer manuel, puis laisser l'IA prendre le relais</h3>
+          <span class="pill green">Semaine 1</span><span class="pill amber">Bascule au mois 2</span>
+        </div>
+        <ul class="tight">
+          <li><strong>Suivi des conversions D'ABORD</strong> (non négociable) : formulaire d'évaluation soumis + clic-pour-appeler + appels &gt; 60 s. Sans ça, impossible d'optimiser un petit budget. Via GA4 (déjà installé : G-F5DLZC93S3) ou GTM.</li>
+          <li><strong>Enchères — départ :</strong> <code>Maximiser les clics</code> avec un <strong>plafond de CPC à 5 $</strong> (ou CPC manuel). On garde le contrôle tant qu'on n'a pas de données.</li>
+          <li><strong>Enchères — mois 2 :</strong> une fois ~15 conversions accumulées, basculer vers <code>Maximiser les conversions</code>, puis <code>CPA cible</code> une fois le coût par lead connu.</li>
+          <li><strong>Calendrier de diffusion :</strong> +bid le soir (18 h–22 h) et la fin de semaine (les vendeurs magasinent hors bureau) ; réduire ou couper 1 h–7 h du matin pour ne pas gaspiller.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-num">6</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Landing page — le clic ne vaut rien sans elle</h3>
+          <span class="pill blue">Semaine 1</span><span class="pill gray">Déjà en place à ajuster</span>
+        </div>
+        <p style="margin:9px 0 0; font-size:14px;">
+          Destination : <code>/vendre/evaluation-gratuite/</code>. Elle doit refléter mot pour mot l'annonce (« Évaluation gratuite en 48 h »),
+          afficher le nom + l'agence (OACIQ), un formulaire court (nom, adresse, courriel/téléphone), le n° cliquable en haut, la preuve (35 ans · 1 700 maisons · avis Google),
+          et le consentement Loi 25 (déjà en place). Une page qui « matche » = meilleur QS = <strong>CPC plus bas</strong> = le cercle vertueux du petit budget.
+        </p>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-num">7</div>
+      <div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem;">Pilotage hebdomadaire — 20 min qui font baisser le coût du clic</h3>
+          <span class="pill gray">Continu</span>
+        </div>
+        <ul class="tight">
+          <li><strong>Chaque semaine :</strong> rapport Termes de recherche → ajouter les négatifs. Mettre en pause l'annonce/mot-clé le plus faible.</li>
+          <li><strong>Aux 2 semaines :</strong> ajuster les enchères par ville (monter là où le coût/lead est bas, baisser l'inverse) et par appareil (mobile vs ordi).</li>
+          <li><strong>Chaque mois :</strong> ajouter 1 snapshot au dashboard SEO pour montrer la progression organique <em>en parallèle</em> — l'objectif est que le SEO prenne le relais des ads dans 90 jours (Rosemère + Ste-Thérèse en top 10).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI-BUDGET CHECKLIST -->
+  <section class="card" style="padding:22px; margin-bottom:16px;">
+    <h2 class="sec">Checklist « plus petit budget de clic possible »</h2>
+    <small class="note">Les 9 réglages qui font qu'un 500 $ concentré bat un budget flou 3× plus gros.</small>
+    <div class="grid-2" style="margin-top:12px;">
+      <ul class="chk">
+        <li>Correspondance <strong>Exact + Expression</strong> uniquement — jamais Large.</li>
+        <li>Géo « <strong>présence</strong> » seulement, rayon serré, reste du Québec exclu.</li>
+        <li><strong>Vendeur uniquement</strong> — zéro requête acheteur (plus cher, moins de valeur).</li>
+        <li>Liste de <strong>négatifs</strong> costaude + revue Termes de recherche chaque semaine.</li>
+        <li><strong>Search seul</strong> — Display et partenaires de recherche coupés.</li>
+      </ul>
+      <ul class="chk">
+        <li><strong>Quality Score max</strong> : 3 groupes serrés + landing qui matche + tous les assets → CPC plus bas.</li>
+        <li><strong>Une seule campagne</strong> — budget jamais dilué.</li>
+        <li><strong>Plafond de CPC</strong> (5 $) au départ pour garder le contrôle.</li>
+        <li><strong>Calendrier</strong> : soir + fin de semaine boostés, nuit coupée.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KPIs TO WATCH -->
+  <section class="card" style="padding:22px; margin-bottom:16px;">
+    <h2 class="sec">Ce qu'on surveille (et les cibles à 500 $)</h2>
+    <div style="overflow-x:auto; margin-top:12px;">
+    <table>
+      <thead><tr><th>Indicateur</th><th>Cible réaliste</th><th>Pourquoi ça compte</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;">CTR</td><td><span class="pill green">&gt; 6–8 %</span></td><td>Une annonce locale bien ciblée performe fort ; nourrit le QS.</td></tr>
+        <tr><td style="font-weight:600;">CPC moyen</td><td><span class="pill blue">2,50–4 $</span></td><td>Descend à mesure que le QS monte. C'est le nerf du petit budget.</td></tr>
+        <tr><td style="font-weight:600;">Part d'impression (haut de page)</td><td><span class="pill amber">30–50 %</span></td><td>Suffisant pour un flux régulier ; 100 % coûterait 2× le budget.</td></tr>
+        <tr><td style="font-weight:600;">Leads vendeurs / mois</td><td><span class="pill green">8–15</span></td><td>Le vrai résultat. 1 mandat = ROI de plusieurs mois d'ads.</td></tr>
+        <tr><td style="font-weight:600;">Coût par lead</td><td><span class="pill green">35–60 $</span></td><td>À comparer à la commission moyenne — le ratio est écrasant.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- COMPLEMENT -->
+  <section class="box green" style="border-radius:18px; padding:20px; margin-bottom:16px;">
+    <strong style="color:var(--green);">Deux gestes gratuits qui multiplient l'effet des ads (rappel du dashboard) :</strong>
+    <span style="display:block; margin-top:6px; font-size:13.5px;">
+      (1) <strong>Fiche Google Business</strong> complète + campagne d'avis auprès des anciens clients d'Alain — sur « courtier + ville », le map pack capte plus de clics que le #1 organique, et c'est là que Salomon vit.
+      (2) <strong>Retitrer les pages /quartiers/</strong> sur le patron « Courtier immobilier [Ville] — Alain Brunelle | RE/MAX Crystal », en commençant par Rosemère (SERP le plus faible). Les ads achètent le trafic <em>maintenant</em>, le SEO le rend gratuit dans 90 jours.
+    </span>
+  </section>
+
+  <footer style="color:var(--muted); font-size:12.5px; padding:8px 4px 30px;">
+    Stratégie préparée le 17 juillet 2026 · V pour Design · basée sur le dashboard SEO Brunelle (snapshot 17 juillet 2026).
+    Volumes et CPC à valider dans le Keyword Planner une fois le compte Google Ads branché.
+    Conformité OACIQ : nom du courtier + agence visibles dans chaque annonce et sur la landing.
+  </footer>
+</div>
+</body>
+</html>

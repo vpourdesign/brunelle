@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1130" role="img" aria-label="Alain Brunelle">
+  <defs>
+    <clipPath id="pin">
+      <path d="M30,500 A470,470 0 0 1 970,500 C970,745 690,975 500,1105 C310,975 30,745 30,500 Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#pin)">
+    <rect x="0" y="0" width="1000" height="318" fill="#5a0000"/>
+    <path d="M500,0 H1000 V318 H555 A55,55 0 0 1 500,263 Z" fill="#ff1b00"/>
+    <rect x="0" y="318" width="1000" height="287" fill="#f6f3ed"/>
+    <rect x="0" y="605" width="1000" height="525" fill="#020c29"/>
+    <path d="M555,605 H1000 V1130 H500 V660 A55,55 0 0 0 555,605 Z" fill="#0b3cff"/>
+  </g>
+</svg>
