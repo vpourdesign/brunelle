@@ -2574,6 +2574,25 @@ function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg,
   return layout({ title, description: desc, canonical, body: html });
 }
 
+// --- JSON-LD : helpers pages-ville ---
+// Les entités FAQ sont dérivées du HTML réellement affiché entre les bornes
+// <!--faq:start--> / <!--faq:end-->. Le balisage ne peut donc pas dériver du
+// contenu visible — ni en FR, ni après la passe de traduction EN.
+const ldStrip = h => h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+function faqEntities(faqHtml){
+  const out = [];
+  const re = /<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let m;
+  while ((m = re.exec(faqHtml))) {
+    const name = ldStrip(m[1]), text = ldStrip(m[2]);
+    if (name && text) out.push({ "@type":"Question", "name":name, "acceptedAnswer":{ "@type":"Answer", "text":text } });
+  }
+  return out;
+}
+// `</script>` ne doit jamais apparaître tel quel dans un bloc ld+json.
+const ldScript = obj => JSON.stringify(obj).replace(/</g, '\\u003C');
+const FAQ_RE = /<!--faq:start-->([\s\S]*?)<!--faq:end-->/i;
+
 // --- CITY PAGES ---
 const CITIES = [
   ['sainte-therese','Sainte-Thérèse',['Vieux-Village','En-Haut','En-Bas']],
@@ -2696,7 +2715,7 @@ ${cityBlock}
       <h2>Types de propriétés les plus actifs à ${cityName}</h2>
       ${cp.types}
       <h2>FAQ — vendre et acheter à ${cityName}</h2>
-      ${cp.faq}
+      <!--faq:start-->${cp.faq}<!--faq:end-->
     </article>
     <aside>
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
@@ -2709,10 +2728,36 @@ ${cityBlock}
 </section>
 <section class="container"><div class="cta-band"><h2>Vendre ou acheter à ${cityName} — parlons-en.</h2><a class="btn" href="/rendez-vous/">Prendre rendez-vous avec moi</a></div></section>`;
 
+  const cityUrl = `https://alainbrunelle.com/courtier-immobilier/${slugC}/`;
+  const cityJsonld = ldScript({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "RealEstateAgent", "@id": `${cityUrl}#courtier`,
+        "name": "Alain Brunelle", "url": cityUrl,
+        "image": "https://alainbrunelle.com/photos/P21_5407-Edit.jpg",
+        "telephone": "+1-450-430-4207", "priceRange": "$$",
+        "address": { "@type":"PostalAddress", "addressLocality":"Sainte-Thérèse", "addressRegion":"QC", "addressCountry":"CA" },
+        "areaServed": { "@id": `${cityUrl}#ville` },
+        "parentOrganization": { "@type":"RealEstateAgent", "name":"RE/MAX CRYSTAL" }
+      },
+      {
+        "@type": "Place", "@id": `${cityUrl}#ville`, "name": cityName,
+        "address": { "@type":"PostalAddress", "addressLocality":cityName, "addressRegion":"QC", "addressCountry":"CA" }
+      },
+      {
+        "@type": "FAQPage", "@id": `${cityUrl}#faq`, "url": cityUrl,
+        "inLanguage": "fr-CA",
+        "mainEntity": faqEntities(cp.faq)
+      }
+    ]
+  });
+
   writePage(`courtier-immobilier/${slugC}/index.html`, layout({
     title: `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
     description: `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
-    canonical: `https://alainbrunelle.com/courtier-immobilier/${slugC}/`,
+    canonical: cityUrl,
+    jsonld: cityJsonld,
     body
   }));
 
@@ -5681,6 +5726,41 @@ console.log(`Generated ${allUrls.length} pages → ${SITE}`);
     en=en.replace(/@@ST(\d+)ST@@/g,(m,i)=>styles[+i]);
     return en;
   }
+  // buildEnHtml laisse volontairement les blocs ld+json intacts : sans cette
+  // passe, /en/ hériterait des URL canoniques FR et de questions FAQ en français
+  // qui ne correspondent plus au contenu traduit affiché sur la page.
+  function localizeJsonLd(html){
+    return html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi, (m, raw) => {
+      let data;
+      try { data = JSON.parse(raw.replace(/\\u003C/gi, '<')); } catch { return m; }
+      const fixUrl = u => {
+        if (typeof u !== 'string') return u;
+        if (u === BASE) return BASE + '/en/';
+        if (!u.startsWith(BASE + '/')) return u;
+        const rest = u.slice(BASE.length);
+        if (rest.startsWith('/en/') || ASSET_DIR.test(rest)) return u;
+        return BASE + '/en' + rest;
+      };
+      const enFaq = html.match(FAQ_RE);
+      const walk = node => {
+        if (Array.isArray(node)) return node.map(walk);
+        if (node && typeof node === 'object') {
+          for (const k of Object.keys(node)) {
+            node[k] = (k === 'url' || k === '@id') ? fixUrl(node[k]) : walk(node[k]);
+          }
+          if (node['@type'] === 'FAQPage') {
+            const ents = enFaq ? faqEntities(enFaq[1]) : [];
+            if (ents.length) node.mainEntity = ents;
+            node.inLanguage = 'en-CA';
+          }
+          return node;
+        }
+        return node;
+      };
+      return `<script type="application/ld+json">${ldScript(walk(data))}</script>`;
+    });
+  }
+
   const relToPath=rel => rel==='index.html' ? '/' : rel.endsWith('/index.html') ? '/'+rel.slice(0,-10) : '/'+rel;
   const hreflang=p=>{const en=p==='/'?'/en/':'/en'+p;return `<link rel="alternate" hreflang="fr-CA" href="${BASE}${p}"><link rel="alternate" hreflang="en-CA" href="${BASE}${en}"><link rel="alternate" hreflang="x-default" href="${BASE}${p}">`;};
 
@@ -5697,7 +5777,7 @@ console.log(`Generated ${allUrls.length} pages → ${SITE}`);
     let en=fr.replace('<html lang="fr-CA">','<html lang="en-CA">');
     const enUrl=p==='/'?'/en/':'/en'+p;
     en=en.replace(`<link rel="canonical" href="${BASE}${p}">`,`<link rel="canonical" href="${BASE}${enUrl}">`);
-    en=buildEnHtml(en);
+    en=localizeJsonLd(buildEnHtml(en));
     const out=path.join(SITE,'en',rel);
     fs.mkdirSync(path.dirname(out),{recursive:true});
     fs.writeFileSync(out,en);
