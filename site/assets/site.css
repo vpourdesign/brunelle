@@ -644,7 +644,7 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .review-q{font-size:1.05rem;margin-bottom:1.2rem;line-height:1.5}
   .reviews-prev,.reviews-next{width:42px;height:42px}
   .reviews-cta{padding-top:1.4rem;margin-top:1.5rem}
-  .reviews-write{font-size:.85rem;padding:.75rem 1.2rem}
+  .reviews-write{font-size:.85rem;padding:.75rem 1.2rem;text-align:left;line-height:1.35;border-radius:18px}
 
   /* Property cards — éviter de prendre toute la hauteur viewport */
   .prop-grid{gap:1rem}

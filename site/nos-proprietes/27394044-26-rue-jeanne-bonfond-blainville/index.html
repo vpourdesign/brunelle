@@ -11,11 +11,11 @@ try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.ti
 gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
-<title>Vendu — 26 Rue Jeanne-Bonfond, Blainville | Alain Brunelle</title>
-<meta name="description" content="Propriété vendue au 26 Rue Jeanne-Bonfond, Blainville par Alain Brunelle, courtier immobilier RE/MAX CRYSTAL. Voyez les propriétés similaires actives sur la Rive-Nord.">
+<title>Maison unifamiliale à vendre — 26 Rue Jeanne-Bonfond, Blainville · 774 900 $ | Alain Brunelle</title>
+<meta name="description" content="Maison unifamiliale à vendre au 26 Rue Jeanne-Bonfond, Blainville. 774 900 $. MLS 27394044. Fiche RE/MAX officielle, photos et visite avec Alain Brunelle.">
 <link rel="canonical" href="https://alainbrunelle.com/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/">
-<meta property="og:title" content="Vendu — 26 Rue Jeanne-Bonfond, Blainville | Alain Brunelle">
-<meta property="og:description" content="Propriété vendue au 26 Rue Jeanne-Bonfond, Blainville par Alain Brunelle, courtier immobilier RE/MAX CRYSTAL. Voyez les propriétés similaires actives sur la Rive-Nord.">
+<meta property="og:title" content="Maison unifamiliale à vendre — 26 Rue Jeanne-Bonfond, Blainville · 774 900 $ | Alain Brunelle">
+<meta property="og:description" content="Maison unifamiliale à vendre au 26 Rue Jeanne-Bonfond, Blainville. 774 900 $. MLS 27394044. Fiche RE/MAX officielle, photos et visite avec Alain Brunelle.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
@@ -25,134 +25,8 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
 <link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<style>
-.cta-interest{display:block;width:100%;background:transparent;border:1.5px solid var(--blue);color:var(--blue);font:inherit;font-size:.95rem;font-weight:500;padding:.95rem 1.2rem;border-radius:999px;cursor:pointer;margin-top:.7rem;transition:background .25s var(--ease),color .25s var(--ease),transform .3s var(--ease-spring),box-shadow .3s var(--ease);text-align:center;letter-spacing:.005em}
-.cta-interest:hover{background:var(--blue);color:#fff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(15,42,90,.18)}
-.cta-interest:focus-visible{outline:0;box-shadow:0 0 0 4px var(--blue-soft)}
 
-.pi-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:1rem;animation:piFadeIn .25s var(--ease)}
-.pi-modal[hidden]{display:none !important}
-@keyframes piFadeIn{from{opacity:0}to{opacity:1}}
-.pi-overlay{position:absolute;inset:0;background:rgba(11,22,40,.55);backdrop-filter:blur(4px);cursor:pointer}
-.pi-dialog{position:relative;background:#fff;border-radius:var(--radius-lg);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 60px -12px rgba(11,22,40,.4),0 8px 24px -8px rgba(11,22,40,.25);animation:piPop .35s var(--ease-spring)}
-@keyframes piPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
-.pi-close{position:absolute;top:.9rem;right:.9rem;width:36px;height:36px;border-radius:50%;background:var(--surface);border:0;font-size:1rem;cursor:pointer;color:var(--ink-2);display:grid;place-items:center;transition:background .25s var(--ease),color .25s var(--ease);z-index:2}
-.pi-close:hover{background:var(--blue);color:#fff}
-.pi-body{padding:clamp(1.8rem,4vw,2.6rem)}
-.pi-context{font-size:.78rem;color:var(--muted);letter-spacing:.04em;margin:0 0 1rem}
-.pi-context strong{color:var(--ink-2);font-weight:500}
-.pi-body h2{font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:500;letter-spacing:-.018em;line-height:1.2;color:var(--ink);margin:0 0 .5rem}
-.pi-sub{color:var(--ink-2);font-size:.95rem;line-height:1.55;margin:0 0 1.6rem}
-.pi-form{display:grid;gap:.9rem}
-.pi-form label{display:grid;gap:.4rem;font-size:.82rem;font-weight:500;color:var(--ink-2);letter-spacing:.005em}
-.pi-opt{color:var(--muted);font-weight:400}
-.pi-form input,.pi-form textarea{font-family:inherit;font-size:.97rem;padding:.85rem 1rem;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);transition:border-color .25s var(--ease),box-shadow .25s var(--ease);font-weight:400;width:100%}
-.pi-form input:focus,.pi-form textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
-.pi-form input.err,.pi-form textarea.err{border-color:#c8364a;box-shadow:0 0 0 4px rgba(200,54,74,.08)}
-.pi-form textarea{resize:vertical;min-height:80px;font-family:inherit}
-.pi-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-@media(max-width:480px){.pi-row{grid-template-columns:1fr}}
-.pi-submit{margin-top:.4rem;background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;padding:1rem 1.4rem;border:0;border-radius:999px;font:inherit;font-size:1rem;font-weight:500;cursor:pointer;transition:transform .3s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:var(--shadow-sm)}
-.pi-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow)}
-.pi-submit:disabled{opacity:.6;cursor:wait}
-.pi-legal{font-size:.72rem;color:var(--muted);margin:.3rem 0 0;line-height:1.5}
-.pi-error{font-size:.85rem;color:#c8364a;background:#fdf3f1;padding:.7rem .9rem;border-radius:10px;margin:.3rem 0 0;border-left:3px solid #c8364a}
-.pi-ok{text-align:center;padding:1rem 0}
-.pi-ok-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(160deg,#0f8c5b 0%,#0a6e47 100%);color:#fff;display:grid;place-items:center;font-size:1.9rem;margin:0 auto 1.2rem;box-shadow:0 8px 20px -4px rgba(15,140,91,.35)}
-.pi-ok h3{font-size:1.4rem;font-weight:500;letter-spacing:-.015em;margin:0 0 .7rem;color:var(--ink)}
-.pi-ok p{color:var(--ink-2);line-height:1.6;margin:0 0 1.4rem;font-size:.96rem}
-.pi-close-btn{background:transparent;border:1.5px solid var(--line);color:var(--ink-2);padding:.7rem 1.6rem;border-radius:999px;font:inherit;font-size:.92rem;font-weight:500;cursor:pointer;transition:all .25s var(--ease)}
-.pi-close-btn:hover{border-color:var(--blue);color:var(--blue)}
-body.pi-open{overflow:hidden}
-</style><script>
-document.addEventListener('DOMContentLoaded', function(){
-  const modal=document.getElementById('pi-modal'); if(!modal) return;
-  const dialog=modal.querySelector('.pi-dialog');
-  const form=modal.querySelector('#pi-form');
-  const ok=modal.querySelector('.pi-ok');
-  const fieldsWrap=modal.querySelector('.pi-fields-wrap');
-  const submitBtn=form.querySelector('.pi-submit');
-  const errEl=form.querySelector('.pi-error');
-  let lastFocus=null, current={};
-
-  function setSlot(sel,val){ modal.querySelectorAll('[data-slot='+sel+']').forEach(el=>{ if(el.tagName==='INPUT')el.value=val; else el.textContent=val; }); }
-
-  function open(btn){
-    current={
-      address:btn.dataset.propertyAddress||'',
-      price:btn.dataset.propertyPrice||'',
-      mls:btn.dataset.propertyMls||'',
-      url:btn.dataset.propertyUrl||location.href
-    };
-    setSlot('address', current.address);
-    setSlot('addressOk', current.address);
-    setSlot('hAddress', current.address);
-    setSlot('hPrice', current.price);
-    setSlot('hMls', current.mls);
-    setSlot('hUrl', current.url);
-    setSlot('subject', 'Nouveau lead — '+current.address+' ('+current.price+')');
-    fieldsWrap.hidden=false; ok.hidden=true;
-    form.reset();
-    errEl.hidden=true; errEl.textContent='';
-    modal.removeAttribute('hidden');
-    document.body.classList.add('pi-open');
-    lastFocus=document.activeElement;
-    setTimeout(()=>form.querySelector('input[name=name]').focus(),60);
-  }
-  function close(){
-    modal.setAttribute('hidden','');
-    document.body.classList.remove('pi-open');
-    if(lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  function validPhone(v){ const digits=(v||'').replace(/\D/g,''); return digits.length>=10; }
-  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v||''); }
-
-  document.querySelectorAll('.cta-interest').forEach(b=>b.addEventListener('click',()=>open(b)));
-  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !modal.hasAttribute('hidden')) close(); });
-
-  // Focus trap
-  modal.addEventListener('keydown', e=>{
-    if(e.key!=='Tab') return;
-    const focusable=dialog.querySelectorAll('button,input,textarea,select,[tabindex]:not([tabindex="-1"])');
-    const list=Array.from(focusable).filter(el=>!el.disabled && el.offsetParent!==null);
-    if(!list.length) return;
-    const first=list[0], last=list[list.length-1];
-    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
-  });
-
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    errEl.hidden=true;
-    const data=new FormData(form);
-    // Validation
-    let bad=null;
-    if(!data.get('name').trim()) bad='name';
-    else if(!validEmail(data.get('email'))) bad='email';
-    else if(!validPhone(data.get('phone'))) bad='phone';
-    form.querySelectorAll('.err').forEach(el=>el.classList.remove('err'));
-    if(bad){
-      const el=form.querySelector('[name='+bad+']');
-      el.classList.add('err'); el.focus();
-      errEl.textContent = bad==='name'?'Veuillez saisir votre nom complet.' : bad==='email'?'Adresse courriel invalide.' : 'Numéro de téléphone invalide (10 chiffres minimum).';
-      errEl.hidden=false; return;
-    }
-    submitBtn.disabled=true; submitBtn.textContent='Envoi…';
-    try{
-      const res=await fetch(form.action,{ method:'POST', headers:{'Accept':'application/json'}, body:data });
-      if(!res.ok) throw new Error('Erreur serveur');
-      fieldsWrap.hidden=true; ok.hidden=false;
-    }catch(err){
-      errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez Alain directement.";
-      errEl.hidden=false;
-    }finally{
-      submitBtn.disabled=false; submitBtn.textContent='Envoyer ma demande';
-    }
-  });
-});
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateListing","name":"Vendu — 26 Rue Jeanne-Bonfond, Blainville","url":"https://alainbrunelle.com/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/","image":["https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E7D1816667D1D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E6D1816667D4C&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A1D1816667D2E&t=pi&f=I"],"availability":"https://schema.org/SoldOut","address":{"@type":"PostalAddress","streetAddress":"26 Rue Jeanne-Bonfond","addressLocality":"Blainville","postalCode":"J7B1N7","addressCountry":"CA"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateListing","name":"Maison unifamiliale à vendre — 26 Rue Jeanne-Bonfond, Blainville","url":"https://alainbrunelle.com/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/"}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/nos-proprietes/27394044-26-rue-jeanne-bonfond-blainville/">
 </head>
 <body class="">
@@ -362,111 +236,29 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 <main>
 
-<section class="container" style="padding-top:2rem">
-  <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem"><a href="/">Accueil</a> › <a href="/nos-proprietes/">Propriétés</a> › <span>26 Rue Jeanne-Bonfond, Blainville</span></div>
-  <div class="p-detail-head">
-    <div>
-      <div style="font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.6rem">Maison unifamiliale · MLS 27394044 · <span style="color:#c8364a;font-weight:600">Vendu</span></div>
-      <h1>26 Rue Jeanne-Bonfond, Blainville</h1>
-    </div>
-    <div class="price-head-sold">Vendu</div>
-  </div>
-  <div class="gal" data-photos='["https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E7D1816667D1D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E6D1816667D4C&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A1D1816667D2E&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035ACD1816667DCF&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A0D1816667DE2&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035AFD1816667DAA&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A9D1816667D0A&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A5D1816667DBD&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE50350DD1816667DF1&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE503504D1816667D81&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE50350CD1816667D9C&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE50350AD1816667D70&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE50350BD1816667D3D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE503508D1816667D5D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE503507D1816667D62&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE503503D18166671D2&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE503506D181666711A&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B1D1816667140&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B2D181666712D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035BED18166671C2&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035BAD18166671EE&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035BCD18166671AC&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B0D181666710B&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035BBD18166671BD&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035BFD18166671F4&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B8D181666718B&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B9D181666719D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B7D1816667174&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B3D181666713C&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B5D181666715A&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035B6D181666716B&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F1D18166674D0&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F2D181666741D&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035FCD1816667444&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035FED181666742C&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035FAD18166674CA&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F0D18166674EB&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035FBD18166674AD&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035FFD1816667404&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F8D18166674B1&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F9D18166674F2&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F3D1816667482&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035F6D181666749A&t=pi&f=I","https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE50358DD1816667472&t=pi&f=I"]'>
-    <div class="main" data-open-lightbox="0"><img src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E7D1816667D1D&t=pi&f=I" alt="26 Rue Jeanne-Bonfond"></div>
-    <div data-open-lightbox="1"><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035E6D1816667D4C&t=pi&f=I" alt=""></div><div data-open-lightbox="2"><button type="button" class="more-btn" data-open-lightbox="0">Voir 44 photos</button><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDE5035A1D1816667D2E&t=pi&f=I" alt=""></div>
-    
-  </div>
-  <div class="p-cols">
-    <div>
-      <div class="p-key">
-        <div><div class="k">774 900 <span style="font-size:.8rem;color:var(--muted)">$</span></div><div class="kl">Prix demandé</div></div>
-        <div><div class="k">1997</div><div class="kl">Année</div></div>
-        <div><div class="k">6517<span style="font-size:.8rem;color:var(--muted)"> PC</span></div><div class="kl">Terrain</div></div>
-        <div><div class="k">J7B1N7</div><div class="kl">Code postal</div></div>
-      </div>
-      <h2 style="font-size:1.4rem;margin-bottom:1rem">Description</h2>
-      <p class="desc">Magnifique cottage de style anglais situé dans le secteur recherché du Parc du Ruisseau-Renaissance, adjacent à Fontainebleau. Emplacement idéal : parc à proximité, accès facile aux autoroutes et à distance de marche des écoles primaire et secondaire. Dès l'entrée, vous serez charmé par cette maison soignée et extrêmement lumineuse. Le salon chaleureux avec foyer s'ouvre sur la salle à manger offrant une vue sur la terrasse. La cuisine, au goût du jour, propose un grand comptoir et de nombreuses armoires. Un élégant escalier mène à l'étage où se trouvent trois chambres confortables et une superbe salle de bain rénovée avec douche italienne et bain autoportant. Le sous-sol offre une salle familiale, une 4e chambre et du rangement. Grand terrain intime bordé de haies,piscine, terrasse en pavé uni et garage idéal pour bricoleur. Plusieurs améliorations : fenêtres, porte de garage et isolation du grenier. Climatisation murale. Coup de coeur assuré!</p>
-      
-        <h2 style="font-size:1.4rem;margin-top:2.5rem;margin-bottom:.5rem">Caractéristiques</h2>
-        <div class="features-grid">
-          <div class="feature"><strong>Allée</strong><span>Asphaltée</span></div><div class="feature"><strong>Système de chauffage</strong><span>Plinthes électriques</span></div><div class="feature"><strong>Approvisionnement eau</strong><span>Municipal</span></div><div class="feature"><strong>Énergie</strong><span>Électricité</span></div><div class="feature"><strong>Équipement disponible</strong><span>CLMM</span></div><div class="feature"><strong>Fenêtres</strong><span>PVC</span></div><div class="feature"><strong>Fondation</strong><span>Béton coulé</span></div><div class="feature"><strong>Garage</strong><span>Attenant, Simple</span></div><div class="feature"><strong>Piscine</strong><span>Hors-terre</span></div><div class="feature"><strong>Proximité</strong><span>Autoroute, Garderie / CPE, Golf, Parc, Piste cyclable, École primaire, École secondaire, SFON, Transport public</span></div><div class="feature"><strong>Stationnement</strong><span>Extérieur, GARA</span></div><div class="feature"><strong>Toiture</strong><span>BAA</span></div>
-        </div>
-      
-      
-        <h2 style="font-size:1.4rem;margin-top:2.5rem;margin-bottom:.5rem">Pièces</h2>
-        <table class="rooms-table">
-          <thead><tr><th>Pièce</th><th>Niveau</th><th>Dimensions</th><th>Revêtement</th></tr></thead>
-          <tbody><tr><td>Hall d'entrée</td><td>Rez-de-chaussée</td><td>6'8" × 4'2"</td><td>Céramique</td></tr><tr><td>Salon</td><td>Rez-de-chaussée</td><td>11'11" × 17'</td><td>Bois</td></tr><tr><td>Salle à manger</td><td>Rez-de-chaussée</td><td>12'2" × 11'4"</td><td>Bois</td></tr><tr><td>Cuisine</td><td>Rez-de-chaussée</td><td>11'1" × 11'4"</td><td>Bois</td></tr><tr><td>S-E</td><td>Rez-de-chaussée</td><td>10' × 5'1"</td><td>Céramique</td></tr><tr><td>Chambre principale</td><td>2e niveau</td><td>12' × 15'</td><td>PARQ</td></tr><tr><td>Chambre</td><td>2e niveau</td><td>10' × 11'4"</td><td>PARQ</td></tr><tr><td>Chambre</td><td>2e niveau</td><td>11'6" × 9'2"</td><td>PARQ</td></tr><tr><td>Salle de bains</td><td>2e niveau</td><td>11'7" × 11'11"</td><td>Céramique</td></tr><tr><td>Salle familiale</td><td>0</td><td>14'6" × 22'11"</td><td>Plancher flottant</td></tr><tr><td>Chambre</td><td>0</td><td>12'1" × 11'1"</td><td>Plancher flottant</td></tr><tr><td>Rangement</td><td>0</td><td>12'1" × 10'11"</td><td>Béton</td></tr></tbody>
-        </table>
-      
-    </div>
-    <aside class="p-side p-side-sold">
-      <div class="from">Alain Brunelle · RE/MAX CRYSTAL</div>
-      <div class="sold-stamp">Vendu</div>
-           <div class="sold-meta">Vendu le 27 août 2026</div>
-           <a class="btn" href="/vendre/evaluation-gratuite/">Évaluation gratuite</a>
-           <a class="ph-obs btn alt" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">📞 <span class="ph-obs-txt">Cliquez pour afficher</span></a>
-           <div style="margin-top:1.5rem;font-size:.85rem;color:var(--blue-2);line-height:1.5"><strong>Une propriété similaire vous intéresse ?</strong> Parlons-en — j'ai souvent des inscriptions à venir avant Centris.</div>
-    </aside>
-  </div>
-  
-    <div style="margin-top:4rem">
-      <div class="sec-head"><div><div class="eye">À proximité</div><h2>Autres propriétés à Blainville.</h2></div></div>
-      <div class="prop-grid"><a class="pcard" href="/nos-proprietes/19558636-10-rue-des-violettes-blainville/" data-prop="maison unifamiliale blainville">
-    <div class="ph"><span class="badge">Maison unifamiliale</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA4A77EFD1480D57D11&t=pi&f=I" alt="10 Rue des Violettes, Blainville"></div>
-    <div class="body">
-      <div class="loc">Blainville · MLS 19558636</div>
-      <div class="addr">10 Rue des Violettes</div>
-      <div class="price">899 900 $</div>
-      <div class="meta">
-        <span>📅 1998</span>
-        <span>📐 8956 PC</span>
-        <span>📷 39</span>
-      </div>
-    </div>
-  </a></div>
-    </div>
-  
+<section class="page-head container" style="border-bottom:0;padding-block-end:1rem">
+  <div class="eyebrow">MLS 27394044 · Fiche RE/MAX officielle</div>
+  <h1>Maison unifamiliale à vendre — 26 Rue Jeanne-Bonfond, Blainville</h1>
+  <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">prendre rendez-vous avec moi</a> pour discuter de cette propriété.</p>
 </section>
-
-<!-- Modal "Cette propriété m'intéresse" -->
-<div class="pi-modal" id="pi-modal" hidden role="dialog" aria-modal="true" aria-labelledby="pi-title">
-  <div class="pi-overlay" data-close></div>
-  <div class="pi-dialog">
-    <button type="button" class="pi-close" aria-label="Fermer" data-close>✕</button>
-    <div class="pi-body">
-      <div class="pi-fields-wrap">
-        <p class="pi-context">À propos de : <strong data-slot="address">—</strong></p>
-        <h2 id="pi-title">Cette propriété vous intéresse?</h2>
-        <p class="pi-sub">Alain vous répond personnellement en moins de 24 h ouvrables.</p>
-        <form class="pi-form" id="pi-form" action="https://formspree.io/f/xlgyblyk" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Demande de propriété — alainbrunelle.com">
-          <input type="hidden" name="subject" data-slot="subject" value="Nouveau lead">
-          <input type="hidden" name="property_address" data-slot="hAddress" value="">
-          <input type="hidden" name="property_price" data-slot="hPrice" value="">
-          <input type="hidden" name="property_mls" data-slot="hMls" value="">
-          <input type="hidden" name="property_url" data-slot="hUrl" value="">
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-          <label>Nom complet<input type="text" name="name" required autocomplete="name"></label>
-          <div class="pi-row">
-            <label>Courriel<input type="email" name="email" required autocomplete="email"></label>
-            <label>Téléphone<input type="tel" name="phone" required autocomplete="tel" placeholder="450.430.5555"></label>
-          </div>
-          <label>Message <span class="pi-opt">(optionnel)</span><textarea name="message" rows="3" placeholder="Une question particulière sur cette propriété ?"></textarea></label>
-          <button type="submit" class="pi-submit">Envoyer ma demande</button>
-          <p class="pi-legal">Vos informations sont traitées de façon confidentielle, conformément aux règles de l'OACIQ.</p>
-          <p class="pi-error" hidden></p>
-        </form>
-      </div>
-      <div class="pi-ok" hidden>
-        <div class="pi-ok-icon">✓</div>
-        <h3>Demande envoyée.</h3>
-        <p>Alain vous contacte personnellement sous 24 h ouvrables au sujet de la propriété au <strong data-slot="addressOk">—</strong>.</p>
-        <button type="button" class="pi-close-btn" data-close>Fermer</button>
-      </div>
-    </div>
+<section class="container" style="padding-top:0;padding-block-start:0">
+  <div class="remax-frame-wrap">
+    <iframe id="remaxFrame" class="remax-frame" scrolling="no" src="https://www.remax-quebec.com/fr/maison-a-vendre-blainville/26-rue-jeanne-bonfond-27394044.rmx?desjCalc=0&desjPub=0&from=vpourdesign&key=081617cf945d0e787b9bf4289dd9a71a15b05ec4&model=v5&pub=0&shareUrl=https%3A%2F%2Falainbrunelle.com%2Fnos-proprietes%2F27394044-26-rue-jeanne-bonfond-blainville%2F" width="100%" height="3000" style="border:0;width:100%;display:block" title="Fiche détaillée RE/MAX — 26 Rue Jeanne-Bonfond, Blainville"></iframe>
   </div>
-</div>
+</section>
+<script>
+(function(){
+  function receiveMessage(msg){
+    if (msg.origin !== "https://www.remax-quebec.com") return;
+    if (msg.data && msg.data.eventId === "remaxIframeHeight") {
+      var o = document.getElementById("remaxFrame");
+      if (o) o.height = msg.data.data;
+    }
+  }
+  if (window.addEventListener) window.addEventListener("message", receiveMessage, false);
+  else if (window.attachEvent) window.attachEvent("onmessage", receiveMessage);
+})();
+</script>
 </main>
 <footer class="footer">
   <div class="container">
