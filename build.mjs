@@ -1227,8 +1227,10 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .reviews-dot{width:8px;height:8px;border-radius:50%;border:none;background:#dde3ed;padding:0;cursor:pointer;transition:background .25s, transform .25s}
 .reviews-dot.on{background:var(--ink);transform:scale(1.25)}
 .reviews-cta{margin-top:2rem;padding-top:1.8rem;border-top:1px solid var(--line);text-align:center}
-.reviews-write{display:inline-flex;align-items:center;gap:.65rem;background:#fff;border:1.5px solid var(--line);color:var(--ink);padding:.85rem 1.5rem;border-radius:999px;font-weight:500;font-size:.92rem;transition:border-color .3s var(--ease),background .3s var(--ease),transform .3s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 1px 2px rgba(11,22,40,.04)}
-.reviews-write:hover{border-color:var(--ink);background:#f6f8fc;transform:translateY(-1px);box-shadow:0 6px 16px -4px rgba(11,22,40,.12);color:var(--ink)}
+.reviews-write{display:inline-flex;align-items:center;gap:.8rem;background:var(--blue);border:1.5px solid var(--blue);color:#fff;padding:1.05rem 1.9rem;border-radius:999px;font-weight:600;font-size:clamp(1.05rem,1.4vw,1.25rem);line-height:1.3;transition:background .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 1px 2px rgba(0,61,165,.15),0 6px 16px -6px rgba(0,61,165,.35)}
+.reviews-write:hover{background:var(--blue-2);border-color:var(--blue-2);transform:translateY(-1px);box-shadow:0 2px 4px rgba(0,61,165,.15),0 12px 24px -8px rgba(0,61,165,.45);color:#fff}
+.reviews-write:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.reviews-write .g-badge{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;display:inline-flex;align-items:center;justify-content:center}
 .reviews-cta-sub{margin:.9rem 0 0;font-size:.85rem;color:var(--muted)}
 @media(max-width:560px){.reviews-track{min-height:300px}.reviews-head{flex-direction:column;align-items:flex-start}}
 
@@ -1550,7 +1552,7 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .review-q{font-size:1.05rem;margin-bottom:1.2rem;line-height:1.5}
   .reviews-prev,.reviews-next{width:42px;height:42px}
   .reviews-cta{padding-top:1.4rem;margin-top:1.5rem}
-  .reviews-write{font-size:.85rem;padding:.75rem 1.2rem;text-align:left;line-height:1.35;border-radius:18px}
+  .reviews-write{font-size:1rem;padding:.9rem 1.2rem;text-align:left;line-height:1.35;border-radius:18px}
 
   /* Property cards — éviter de prendre toute la hauteur viewport */
   .prop-grid{gap:1rem}
@@ -1904,7 +1906,7 @@ const homeBody = `
 
     <div class="reviews-cta">
       <a class="reviews-write" href="https://g.page/r/CWReusNbS1LV/review" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+        <span class="g-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span>
         Faites comme mes clients satisfaits, et vous aussi laissez-moi un avis Google.
       </a>
       <p class="reviews-cta-sub">Vous avez travaillé avec Alain ? Deux minutes pour partager votre expérience.</p>
