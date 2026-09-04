@@ -1611,5 +1611,410 @@
       "firm": "Alain Brunelle, Courtier Immobilier Inc."
     },
     "slug": "21784930-856-rue-bergeron-sainte-therese"
+  },
+  {
+    "mls": "21937115",
+    "price": 599900,
+    "typeCode": "",
+    "typeLabel": "Propriété",
+    "street": "791 Rue De Sève",
+    "city": "Sainte-Thérèse",
+    "postalCode": "J7E2M4",
+    "yearBuilt": "1967",
+    "areaTerrain": "10772 PC",
+    "lat": 45.65268777,
+    "lon": -73.86333208,
+    "descFr": "UNE OCCASION UNIQUE À SAINTE-THÉRÈSE-EN-HAUT! Maison à rénover offrant un potentiel incroyable, idéale pour un visionnaire de projets, un rénovateur ou un acheteur désirant créer une propriété à son image. Située dans l'un des secteurs les plus recherchés de Sainte-Thérèse-en-Haut, sur une rue prisée, à proximité d'une école primaire et d'un immense parc. La propriété se distingue par sa luminosité exceptionnelle et offre trois chambres à coucher sur le même niveau, de magnifiques planchers de lattes de bois franc n'ayant jamais été sablés, ainsi qu'une salle familiale au rez-de-chaussée agrémentée d'un foyer, un espace chaleureux offrant de belles possibilités d'aménagement. À l'extérieur, profitez d'un vaste terrain d'environ 10 722 pi² en pointe de tarte, offrant de nombreuses possibilités d'aménagement. Une propriété qui demande des rénovations, mais dont l'emplacement, le terrain et le potentiel en font une occasion particulièrement intéressante dans Sainte-Thérèse-en-Haut. À voir pour en apprécier toutes les possibilités!",
+    "remFr": "UNE OCCASION UNIQUE À SAINTE-THÉRÈSE-EN-HAUT! Maison à rénover offrant un potentiel incroyable, idéale pour un visionnaire de projets désirant créer une propriété à son image. Située sur une rue prisée de Sainte-Thérèse-en-Haut, à proximité d'une école primaire et d'un vaste parc. La propriété bénéficie d'une luminosité exceptionnelle et propose trois chambres au même niveau, planchers de lattes de bois franc n'ayant jamais été sablés ainsi qu'une salle familiale au rez-de-chaussée avec foyer. Le tout sur un superbe terrain 10 772 pi² en pointe de tarte. Une occasion à saisir dans un secteur recherché!",
+    "photos": [
+      {
+        "seq": 1,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79EDD1C59939D12&t=pi&f=I"
+      },
+      {
+        "seq": 2,
+        "type": "ENTREE",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C783DD1C59939D4B&t=pi&f=I"
+      },
+      {
+        "seq": 3,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7834D1C59939D21&t=pi&f=I"
+      },
+      {
+        "seq": 4,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7830D1C59939DC0&t=pi&f=I"
+      },
+      {
+        "seq": 5,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C783ED1C59939DEA&t=pi&f=I"
+      },
+      {
+        "seq": 6,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7851D1C59939DAC&t=pi&f=I"
+      },
+      {
+        "seq": 7,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7838D1C59939D0D&t=pi&f=I"
+      },
+      {
+        "seq": 8,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C783BD1C59939DB4&t=pi&f=I"
+      },
+      {
+        "seq": 9,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7833D1C59939DFE&t=pi&f=I"
+      },
+      {
+        "seq": 10,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7836D1C59939D8E&t=pi&f=I"
+      },
+      {
+        "seq": 11,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7852D1C59939D9B&t=pi&f=I"
+      },
+      {
+        "seq": 12,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C785ED1C59939D71&t=pi&f=I"
+      },
+      {
+        "seq": 13,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7850D1C59939D3C&t=pi&f=I"
+      },
+      {
+        "seq": 14,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C785FD1C59939D50&t=pi&f=I"
+      },
+      {
+        "seq": 15,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7858D1C59939D6A&t=pi&f=I"
+      },
+      {
+        "seq": 16,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7853D1C599391DB&t=pi&f=I"
+      },
+      {
+        "seq": 17,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7856D1C59939111&t=pi&f=I"
+      },
+      {
+        "seq": 18,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7864D1C59939142&t=pi&f=I"
+      },
+      {
+        "seq": 19,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C786ED1C59939120&t=pi&f=I"
+      },
+      {
+        "seq": 20,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C786BD1C599391C1&t=pi&f=I"
+      },
+      {
+        "seq": 21,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7863D1C599391EC&t=pi&f=I"
+      },
+      {
+        "seq": 22,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7866D1C599391A0&t=pi&f=I"
+      },
+      {
+        "seq": 23,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79D2D1C5993910B&t=pi&f=I"
+      },
+      {
+        "seq": 24,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79DAD1C599391B4&t=pi&f=I"
+      },
+      {
+        "seq": 25,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79DFD1C599391FA&t=pi&f=I"
+      },
+      {
+        "seq": 26,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79D7D1C5993918C&t=pi&f=I"
+      },
+      {
+        "seq": 27,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79D6D1C5993919B&t=pi&f=I"
+      },
+      {
+        "seq": 28,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7912D1C59939171&t=pi&f=I"
+      },
+      {
+        "seq": 29,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C791ED1C5993913C&t=pi&f=I"
+      },
+      {
+        "seq": 30,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C791FD1C5993915F&t=pi&f=I"
+      },
+      {
+        "seq": 31,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7917D1C5993916D&t=pi&f=I"
+      },
+      {
+        "seq": 32,
+        "type": "BALCON",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7944D1C599394D2&t=pi&f=I"
+      },
+      {
+        "seq": 33,
+        "type": "FACARR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C794AD1C5993941B&t=pi&f=I"
+      },
+      {
+        "seq": 34,
+        "type": "FACARR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7948D1C5993944D&t=pi&f=I"
+      },
+      {
+        "seq": 35,
+        "type": "FACARR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C792CD1C5993942F&t=pi&f=I"
+      },
+      {
+        "seq": 36,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7923D1C599394CA&t=pi&f=I"
+      },
+      {
+        "seq": 37,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79CFD1C599394E0&t=pi&f=I"
+      },
+      {
+        "seq": 38,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C7873D1C599394A2&t=pi&f=I"
+      },
+      {
+        "seq": 39,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2C79ECD1C5993940E&t=pi&f=I"
+      }
+    ],
+    "features": [
+      {
+        "code": "ALLE",
+        "value": "ASPH"
+      },
+      {
+        "code": "CHAU",
+        "value": "AIRS"
+      },
+      {
+        "code": "EAU",
+        "value": "AMU"
+      },
+      {
+        "code": "ENER",
+        "value": "ELEC"
+      },
+      {
+        "code": "EQUI",
+        "value": "CLMC"
+      },
+      {
+        "code": "FOND",
+        "value": "BETO"
+      },
+      {
+        "code": "FOPO",
+        "value": "BOIS"
+      },
+      {
+        "code": "GARA",
+        "value": "ATT"
+      },
+      {
+        "code": "GARA",
+        "value": "SIMP"
+      },
+      {
+        "code": "PROX",
+        "value": "AUTO"
+      },
+      {
+        "code": "PROX",
+        "value": "CEGP"
+      },
+      {
+        "code": "PROX",
+        "value": "GCPE"
+      },
+      {
+        "code": "PROX",
+        "value": "GOLF"
+      },
+      {
+        "code": "PROX",
+        "value": "PARC"
+      },
+      {
+        "code": "PROX",
+        "value": "PCYC"
+      },
+      {
+        "code": "PROX",
+        "value": "PRIM"
+      },
+      {
+        "code": "PROX",
+        "value": "SFON"
+      },
+      {
+        "code": "PROX",
+        "value": "TRSP"
+      },
+      {
+        "code": "SS",
+        "value": "6"
+      },
+      {
+        "code": "SS",
+        "value": "AMNN"
+      },
+      {
+        "code": "STAT",
+        "value": "EXT"
+      },
+      {
+        "code": "STAT",
+        "value": "GARA"
+      },
+      {
+        "code": "SYEG",
+        "value": "EGMU"
+      },
+      {
+        "code": "PART",
+        "value": "BOIS"
+      },
+      {
+        "code": "TOIT",
+        "value": "BAA"
+      },
+      {
+        "code": "ZONG",
+        "value": "RES"
+      }
+    ],
+    "rooms": [
+      {
+        "seq": 1,
+        "code": "SAL",
+        "level": "RC",
+        "dim": "16.0x13.0 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 2,
+        "code": "SAM",
+        "level": "RC",
+        "dim": "10.0x11.3 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 3,
+        "code": "CUI",
+        "level": "RC",
+        "dim": "12.0x11.3 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 4,
+        "code": "CCP",
+        "level": "RC",
+        "dim": "11.4x16.6 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 5,
+        "code": "CAC",
+        "level": "RC",
+        "dim": "11.7x10.0 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 6,
+        "code": "CAC",
+        "level": "RC",
+        "dim": "10.0x9.5 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 7,
+        "code": "SFM",
+        "level": "RC",
+        "dim": "10.6x17.8 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 8,
+        "code": "S-E",
+        "level": "RC",
+        "dim": "7.0x5.8 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 9,
+        "code": "SFM",
+        "level": "0",
+        "dim": "13.0x21.0 P",
+        "rev": "BETO"
+      },
+      {
+        "seq": 10,
+        "code": "RAN",
+        "level": "0",
+        "dim": "20.0x11.5 P",
+        "rev": "BETO"
+      }
+    ],
+    "links": [],
+    "isCoBroker": false,
+    "primaryBrokerNo": "65704",
+    "primaryBroker": {
+      "no": "65704",
+      "firstName": "Alain",
+      "lastName": "Brunelle",
+      "fullName": "Alain Brunelle",
+      "phone": "5149724207",
+      "email": "alainbrunelle@alainbrunelle.com",
+      "website": "http://www.alainbrunelle.com",
+      "photo": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDDD14139DDD1DD8BDDE&t=c&f=I",
+      "firm": "Alain Brunelle, Courtier Immobilier Inc."
+    },
+    "slug": "21937115-791-rue-de-seve-sainte-therese"
   }
 ]
