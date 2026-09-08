@@ -1,5 +1,471 @@
 [
   {
+    "mls": "10963785",
+    "price": 874900,
+    "typeCode": "",
+    "typeLabel": "Propriété",
+    "street": "901 Rue Arbour",
+    "city": "Sainte-Thérèse",
+    "postalCode": "J7E4B5",
+    "yearBuilt": "1969",
+    "areaTerrain": "7696 PC",
+    "lat": 45.65699762,
+    "lon": -73.8666303,
+    "descFr": "UN VÉRITABLE COUP DE COeUR À SAINTE-THÉRÈSE! Découvrez cette magnifique propriété située au 901 Arbor, sur l'une des plus belles rues de Sainte-Thérèse, dans un secteur paisible et recherché, à proximité d'une école primaire et du parc de Sève. Dès votre entrée, vous serez séduit par l'exceptionnelle luminosité et les superbes planchers de lattes de bois franc. La cuisine entièrement rénovée au goût du jour propose un grand îlot et de généreuses surfaces de travail. La salle à manger, baignée de lumière grâce à sa fenêtre en baie, offre une belle vue sur la piscine. Son ouverture sur le salon crée un espace de vie vaste, chaleureux et convivial. À l'étage, vous découvrirez trois chambres à coucher, dont une spacieuse chambre principale, ainsi qu'une salle de bain entièrement rénovée. Le niveau inférieur propose une spectaculaire salle familiale avec foyer, une deuxième salle de bain, une salle de lavage ainsi qu'un accès au garage. Au sous-sol, vous trouverez une salle de jeux, beaucoup de rangement et une quatrième chambre à coucher. La propriété bénéficie également d'un système central à air chaud. La cour arrière saura vous charmer avec sa magnifique piscine creusée et chauffée, son aménagement soigneusement pensé, son terrain clôturé, son cabanon et son agréable coin-bar. Et ce n'est pas tout! Un deuxième garage isolé quatre saisons offre une multitude de possibilités : entreposage, salle de jeux, espace familial, atelier ou espace de type loft, selon vos besoins. Une propriété lumineuse, chaleureuse et polyvalente, sur une rue tranquille dans un secteur de choix de Sainte-Thérèse. Un véritable coup de coeur à découvrir!",
+    "remFr": "Véritable coup de coeur à Sainte-Thérèse! Située sur une rue paisible et recherchée, à proximité d'une école primaire et du parc de Sève, cette propriété vous séduira par sa luminosité et ses planchers de bois franc. Cuisine entièrement rénovée avec grand îlot, salle à manger ensoleillée avec fenêtre en baie et salon à aire ouverte. Trois chambres à l'étage et salle de bain rénovée. Superbe salle familiale avec foyer, deuxième salle de bain et quatrième chambre au sous-sol. Magnifique cour clôturée avec piscine creusée chauffée, coin-bar et cabanon. Deux garages, dont un deuxième isolé quatre saisons offrant de multiples possibilités.",
+    "photos": [
+      {
+        "seq": 1,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E413EDD80C9CFD1F&t=pi&f=I"
+      },
+      {
+        "seq": 2,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41A6DD80C9CFD42&t=pi&f=I"
+      },
+      {
+        "seq": 3,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E410DDD80C9CFD22&t=pi&f=I"
+      },
+      {
+        "seq": 4,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4104DD80C9CFDCA&t=pi&f=I"
+      },
+      {
+        "seq": 5,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4101DD80C9CFDEA&t=pi&f=I"
+      },
+      {
+        "seq": 6,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E410CDD80C9CFDAD&t=pi&f=I"
+      },
+      {
+        "seq": 7,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E410ADD80C9CFD02&t=pi&f=I"
+      },
+      {
+        "seq": 8,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E410FDD80C9CFDB0&t=pi&f=I"
+      },
+      {
+        "seq": 9,
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4109DD80C9CFDF0&t=pi&f=I"
+      },
+      {
+        "seq": 10,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4106DD80C9CFD8F&t=pi&f=I"
+      },
+      {
+        "seq": 11,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4103DD80C9CFD9B&t=pi&f=I"
+      },
+      {
+        "seq": 12,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41BDDD80C9CFD7D&t=pi&f=I"
+      },
+      {
+        "seq": 13,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41B4DD80C9CFD32&t=pi&f=I"
+      },
+      {
+        "seq": 14,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41B0DD80C9CFD5F&t=pi&f=I"
+      },
+      {
+        "seq": 15,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41BEDD80C9CFD6B&t=pi&f=I"
+      },
+      {
+        "seq": 16,
+        "type": "SDBCCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41B7DD80C9CF1D1&t=pi&f=I"
+      },
+      {
+        "seq": 17,
+        "type": "SDBCCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41F1DD80C9CF11E&t=pi&f=I"
+      },
+      {
+        "seq": 18,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41FEDD80C9CF14D&t=pi&f=I"
+      },
+      {
+        "seq": 19,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41F7DD80C9CF12E&t=pi&f=I"
+      },
+      {
+        "seq": 20,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4184DD80C9CF1C0&t=pi&f=I"
+      },
+      {
+        "seq": 21,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E418BDD80C9CF1EC&t=pi&f=I"
+      },
+      {
+        "seq": 22,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4183DD80C9CF1A0&t=pi&f=I"
+      },
+      {
+        "seq": 23,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4186DD80C9CF10D&t=pi&f=I"
+      },
+      {
+        "seq": 24,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E419DDD80C9CF1BD&t=pi&f=I"
+      },
+      {
+        "seq": 25,
+        "type": "SDL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4194DD80C9CF1F2&t=pi&f=I"
+      },
+      {
+        "seq": 26,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4192DD80C9CF184&t=pi&f=I"
+      },
+      {
+        "seq": 27,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E419EDD80C9CF19E&t=pi&f=I"
+      },
+      {
+        "seq": 28,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4190DD80C9CF17B&t=pi&f=I"
+      },
+      {
+        "seq": 29,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E419BDD80C9CF13D&t=pi&f=I"
+      },
+      {
+        "seq": 30,
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4198DD80C9CF15D&t=pi&f=I"
+      },
+      {
+        "seq": 31,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4197DD80C9CF162&t=pi&f=I"
+      },
+      {
+        "seq": 32,
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4193DD80C9CF4D2&t=pi&f=I"
+      },
+      {
+        "seq": 33,
+        "type": "RAN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4196DD80C9CF41A&t=pi&f=I"
+      },
+      {
+        "seq": 34,
+        "type": "RAN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4174DD80C9CF44B&t=pi&f=I"
+      },
+      {
+        "seq": 35,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4172DD80C9CF42D&t=pi&f=I"
+      },
+      {
+        "seq": 36,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E417ADD80C9CF4CC&t=pi&f=I"
+      },
+      {
+        "seq": 37,
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E417EDD80C9CF4EC&t=pi&f=I"
+      },
+      {
+        "seq": 38,
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4175DD80C9CF4A1&t=pi&f=I"
+      },
+      {
+        "seq": 39,
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4176DD80C9CF402&t=pi&f=I"
+      },
+      {
+        "seq": 40,
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4131DD80C9CF4BC&t=pi&f=I"
+      },
+      {
+        "seq": 41,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4170DD80C9CF4FD&t=pi&f=I"
+      },
+      {
+        "seq": 42,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4177DD80C9CF48D&t=pi&f=I"
+      },
+      {
+        "seq": 43,
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4134DD80C9CF49E&t=pi&f=I"
+      },
+      {
+        "seq": 44,
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E413CDD80C9CF47B&t=pi&f=I"
+      },
+      {
+        "seq": 45,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E417FDD80C9CF432&t=pi&f=I"
+      },
+      {
+        "seq": 46,
+        "type": "COUR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E4179DD80C9CF452&t=pi&f=I"
+      },
+      {
+        "seq": 47,
+        "type": "STAT",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E41A5DD80C9CF46C&t=pi&f=I"
+      },
+      {
+        "seq": 48,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA2E413ADD80C9CF2D4&t=pi&f=I"
+      }
+    ],
+    "features": [
+      {
+        "code": "ALLE",
+        "value": "ASPH"
+      },
+      {
+        "code": "CHAU",
+        "value": "AIRS"
+      },
+      {
+        "code": "CHAU",
+        "value": "PELC"
+      },
+      {
+        "code": "EAU",
+        "value": "AMU"
+      },
+      {
+        "code": "ENER",
+        "value": "ELEC"
+      },
+      {
+        "code": "EQUI",
+        "value": "THEC"
+      },
+      {
+        "code": "FOND",
+        "value": "BETO"
+      },
+      {
+        "code": "FOPO",
+        "value": "BOIS"
+      },
+      {
+        "code": "GARA",
+        "value": "ATT"
+      },
+      {
+        "code": "GARA",
+        "value": "DET"
+      },
+      {
+        "code": "GARA",
+        "value": "SIMP"
+      },
+      {
+        "code": "PISC",
+        "value": "CHAU"
+      },
+      {
+        "code": "PISC",
+        "value": "CREU"
+      },
+      {
+        "code": "SDB",
+        "value": "ATTN"
+      },
+      {
+        "code": "SS",
+        "value": "6"
+      },
+      {
+        "code": "SS",
+        "value": "AMNT"
+      },
+      {
+        "code": "STAT",
+        "value": "EXT"
+      },
+      {
+        "code": "STAT",
+        "value": "GARA"
+      },
+      {
+        "code": "SYEG",
+        "value": "EGMU"
+      },
+      {
+        "code": "AMEN",
+        "value": "HAIE"
+      },
+      {
+        "code": "PART",
+        "value": "BOIS"
+      },
+      {
+        "code": "TOIT",
+        "value": "BAA"
+      },
+      {
+        "code": "ZONG",
+        "value": "RES"
+      }
+    ],
+    "rooms": [
+      {
+        "seq": 1,
+        "code": "SAL",
+        "level": "RC",
+        "dim": "15.3x13.3 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 2,
+        "code": "SAM",
+        "level": "RC",
+        "dim": "11.6x10.0 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 3,
+        "code": "CUI",
+        "level": "RC",
+        "dim": "12.0x11.6 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 4,
+        "code": "SFM",
+        "level": "RC",
+        "dim": "16.8x10.7 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 5,
+        "code": "SDB",
+        "level": "RC",
+        "dim": "6.5x5.5 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 6,
+        "code": "SDL",
+        "level": "RC",
+        "dim": "9.5x5.0 P",
+        "rev": ""
+      },
+      {
+        "seq": 7,
+        "code": "CCP",
+        "level": "2",
+        "dim": "16.4x11.7 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 8,
+        "code": "CAC",
+        "level": "2",
+        "dim": "10.3x9.7 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 9,
+        "code": "CAC",
+        "level": "2",
+        "dim": "9.9x9.7 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 10,
+        "code": "SDB",
+        "level": "2",
+        "dim": "11.7x5.0 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 11,
+        "code": "SFM",
+        "level": "0",
+        "dim": "17.3x12.0 P",
+        "rev": "PFLO"
+      },
+      {
+        "seq": 12,
+        "code": "CAC",
+        "level": "0",
+        "dim": "9.0x11.0 P",
+        "rev": "PFLO"
+      },
+      {
+        "seq": 13,
+        "code": "RAN",
+        "level": "0",
+        "dim": "11.7x7.4 P",
+        "rev": "BETO"
+      },
+      {
+        "seq": 14,
+        "code": "RAN",
+        "level": "0",
+        "dim": "11.0x20.0 P",
+        "rev": "BETO"
+      }
+    ],
+    "links": [],
+    "isCoBroker": false,
+    "primaryBrokerNo": "65704",
+    "primaryBroker": {
+      "no": "65704",
+      "firstName": "Alain",
+      "lastName": "Brunelle",
+      "fullName": "Alain Brunelle",
+      "phone": "5149724207",
+      "email": "alainbrunelle@alainbrunelle.com",
+      "website": "http://www.alainbrunelle.com",
+      "photo": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDDD14139DDD1DD8BDDE&t=c&f=I",
+      "firm": "Alain Brunelle, Courtier Immobilier Inc."
+    },
+    "slug": "10963785-901-rue-arbour-sainte-therese"
+  },
+  {
     "mls": "19558636",
     "price": 899900,
     "typeCode": "",
