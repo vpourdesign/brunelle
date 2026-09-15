@@ -1,7 +1,7 @@
 [
   {
     "mls": "10963785",
-    "price": 874900,
+    "price": 839000,
     "typeCode": "",
     "typeLabel": "Propriété",
     "street": "901 Rue Arbour",
@@ -2077,5 +2077,273 @@
       "firm": "Alain Brunelle, Courtier Immobilier Inc."
     },
     "slug": "21937115-791-rue-de-seve-sainte-therese"
+  },
+  {
+    "mls": "23471082",
+    "price": 339900,
+    "typeCode": "",
+    "typeLabel": "Condo",
+    "street": "1005 Rue des Francs-Bourgeois, app. 307",
+    "city": "Saint-Eustache",
+    "postalCode": "J7H0E6",
+    "yearBuilt": "2011",
+    "areaTerrain": "",
+    "lat": 45.62645596,
+    "lon": -73.85364088,
+    "descFr": "Magnifique condo impeccable situé dans le très recherché Faubourg Boisbriand, un emplacement exceptionnel où tout est à proximité : restaurants, épiceries, boutiques, parcs et services, le tout accessible à pied. Accès rapide aux principales autoroutes. Dès l'entrée, vous serez séduit par son aire ouverte, ses plafonds de 9 pieds et son incroyable luminosité. Planchers de lattes de bois franc, cuisine fonctionnelle et grande chambre offrant d'excellents espaces de rangement. Un bureau fermé et adjacent constitue l'espace idéal pour le télétravail. Profitez également d'une grande terrasse, d'une excellente insonorisation et d'un immense rangement au rez-de-chaussée. Garage intérieur inclus. Une propriété entretenue avec soin, clé en main et véritable coup de coeur!",
+    "remFr": "Magnifique condo impeccable situé au coeur du très recherché Faubourg Boisbriand, à proximité des restaurants, épiceries, boutiques, parcs et services, le tout accessible à pied. Accès rapide aux principales autoroutes. Vous serez séduit par son aire ouverte, ses plafonds de 9 pieds et son incroyable luminosité. Planchers de lattes de bois franc, cuisine fonctionnelle et grande chambre offrant beaucoup de rangement. Un bureau fermé et adjacent est idéal pour le télétravail. Profitez également d'une grande terrasse, d'une excellente insonorisation, d'un immense rangement au rez-de-chaussée et d'un garage intérieur. Une propriété clé en main.",
+    "photos": [
+      {
+        "seq": 1,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EC9D1AA4258D1B&t=pi&f=I"
+      },
+      {
+        "seq": 2,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EA1D1AA4258D4C&t=pi&f=I"
+      },
+      {
+        "seq": 3,
+        "type": "ENTREE",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EA6D1AA4258D2A&t=pi&f=I"
+      },
+      {
+        "seq": 4,
+        "type": "SCOMMUN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E0FD1AA4258DCE&t=pi&f=I"
+      },
+      {
+        "seq": 5,
+        "type": "SCOMMUN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EBCD1AA4258DE4&t=pi&f=I"
+      },
+      {
+        "seq": 6,
+        "type": "ASCN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E56D1AA4258DAC&t=pi&f=I"
+      },
+      {
+        "seq": 7,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EB3D1AA4258D0D&t=pi&f=I"
+      },
+      {
+        "seq": 8,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EF2D1AA4258DBE&t=pi&f=I"
+      },
+      {
+        "seq": 9,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EFFD1AA4258DF4&t=pi&f=I"
+      },
+      {
+        "seq": 10,
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EFDD1AA4258D81&t=pi&f=I"
+      },
+      {
+        "seq": 11,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EF9D1AA4258D9D&t=pi&f=I"
+      },
+      {
+        "seq": 12,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EF5D1AA4258D7C&t=pi&f=I"
+      },
+      {
+        "seq": 13,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E81D1AA4258D32&t=pi&f=I"
+      },
+      {
+        "seq": 14,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E8CD1AA4258D50&t=pi&f=I"
+      },
+      {
+        "seq": 15,
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E80D1AA4258D61&t=pi&f=I"
+      },
+      {
+        "seq": 16,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E8FD1AA42581D4&t=pi&f=I"
+      },
+      {
+        "seq": 17,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E89D1AA4258114&t=pi&f=I"
+      },
+      {
+        "seq": 18,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E83D1AA425814E&t=pi&f=I"
+      },
+      {
+        "seq": 19,
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E91D1AA425812B&t=pi&f=I"
+      },
+      {
+        "seq": 20,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E9CD1AA42581C4&t=pi&f=I"
+      },
+      {
+        "seq": 21,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E95D1AA42581ED&t=pi&f=I"
+      },
+      {
+        "seq": 22,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E74D1AA42581A2&t=pi&f=I"
+      },
+      {
+        "seq": 23,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E7ED1AA4258100&t=pi&f=I"
+      },
+      {
+        "seq": 24,
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E7BD1AA42581B1&t=pi&f=I"
+      },
+      {
+        "seq": 25,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E73D1AA42581FC&t=pi&f=I"
+      },
+      {
+        "seq": 26,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E78D1AA425818F&t=pi&f=I"
+      },
+      {
+        "seq": 27,
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E3CD1AA425819B&t=pi&f=I"
+      },
+      {
+        "seq": 28,
+        "type": "BALCON",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E51D1AA4258170&t=pi&f=I"
+      },
+      {
+        "seq": 29,
+        "type": "BALCON",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E5CD1AA4258131&t=pi&f=I"
+      },
+      {
+        "seq": 30,
+        "type": "RAN",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E59D1AA425815A&t=pi&f=I"
+      },
+      {
+        "seq": 31,
+        "type": "STAT",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E53D1AA425816F&t=pi&f=I"
+      },
+      {
+        "seq": 32,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281E64D1AA42584D1&t=pi&f=I"
+      },
+      {
+        "seq": 33,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EEFD1AA4258414&t=pi&f=I"
+      }
+    ],
+    "features": [
+      {
+        "code": "EAU",
+        "value": "AMU"
+      },
+      {
+        "code": "ENER",
+        "value": "ELEC"
+      },
+      {
+        "code": "EQUI",
+        "value": "CLMM"
+      },
+      {
+        "code": "EQUI",
+        "value": "EAIR"
+      },
+      {
+        "code": "GARA",
+        "value": "SIMP"
+      },
+      {
+        "code": "STAT",
+        "value": "GARA"
+      },
+      {
+        "code": "SYEG",
+        "value": "EGMU"
+      },
+      {
+        "code": "ZONG",
+        "value": "RES"
+      }
+    ],
+    "rooms": [
+      {
+        "seq": 1,
+        "code": "SAL",
+        "level": "3",
+        "dim": "14.5x12.3 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 2,
+        "code": "CUI",
+        "level": "3",
+        "dim": "9.7x9.5 P",
+        "rev": "CERAM"
+      },
+      {
+        "seq": 3,
+        "code": "CCP",
+        "level": "3",
+        "dim": "12.8x10.9 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 4,
+        "code": "SDB",
+        "level": "3",
+        "dim": "11.0x5.8 P",
+        "rev": "AU"
+      },
+      {
+        "seq": 5,
+        "code": "BUR",
+        "level": "3",
+        "dim": "9.4x7.6 P",
+        "rev": "AU"
+      }
+    ],
+    "links": [],
+    "isCoBroker": false,
+    "primaryBrokerNo": "65704",
+    "primaryBroker": {
+      "no": "65704",
+      "firstName": "Alain",
+      "lastName": "Brunelle",
+      "fullName": "Alain Brunelle",
+      "phone": "5149724207",
+      "email": "alainbrunelle@alainbrunelle.com",
+      "website": "http://www.alainbrunelle.com",
+      "photo": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDDD14139DDD1DD8BDDE&t=c&f=I",
+      "firm": "Alain Brunelle, Courtier Immobilier Inc."
+    },
+    "slug": "23471082-1005-rue-des-francs-bourgeois-app-307-saint-eustache"
   }
 ]
