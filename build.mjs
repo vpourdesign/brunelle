@@ -2700,11 +2700,21 @@ for (const [slugC, cityName, neighs] of CITIES) {
     }
   };
   const cp = CITY_COPY[slugC] || CITY_COPY['blainville'];
+  const CITY_HERO = {
+    'sainte-therese': ['/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg', "Horloge Sainte-Thérèse et clocher de l'église, centre-ville"]
+  };
+  const cityHero = CITY_HERO[slugC];
+  const cityHead = `
+      <div class="eyebrow">Courtier immobilier · ${cityName}</div>
+      <h1>Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.</h1>
+      <p class="lead">${cp.lead}</p>`;
   const body = `
-<section class="page-head container">
-  <div class="eyebrow">Courtier immobilier · ${cityName}</div>
-  <h1>Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.</h1>
-  <p class="lead">${cp.lead}</p>
+<section class="page-head container">${cityHero ? `
+  <div class="page-head-grid">
+    <div>${cityHead}
+    </div>
+    <figure class="ph-hero"><img src="${cityHero[0]}" alt="${cityHero[1]}" loading="eager"></figure>
+  </div>` : cityHead}
 </section>
 ${cityBlock}
 <section class="container">
