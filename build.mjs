@@ -56,10 +56,10 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
     <p style="color:var(--ink-2);margin-top:1.2rem;max-width:42ch;font-size:1.02rem;line-height:1.7">Remplissez le formulaire et je vous reviens personnellement, par téléphone ou par courriel, généralement sous 24 h ouvrables.</p>
     <div style="margin-top:1.8rem;display:grid;gap:.6rem;font-size:.95rem;color:var(--ink-2)">
       <div>📞 ${obscuredPhone({style:'color:var(--blue)'})}</div>
-      <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
+      <div>✉ <a href="mailto:alain.brunelle@remax-quebec.com" style="color:var(--blue)">alain.brunelle@remax-quebec.com</a></div>
     </div>
   </div>
-  <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(typeof gtag==='function')gtag('event','generate_lead',{form_name:'${formName}'});}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alainbrunelle@alainbrunelle.com.');}})(event);return false;">
+  <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(typeof gtag==='function')gtag('event','generate_lead',{form_name:'${formName}'});}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alain.brunelle@remax-quebec.com.');}})(event);return false;">
     <input type="hidden" name="_subject" value="${subject}">
     <div class="f-fields">
       <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>
@@ -887,7 +887,7 @@ ${body}
           228 boul. du Curé-Labelle<br>
           Sainte-Thérèse, Québec J7E 2X7<br>
           <span class="f-line">Cell. : ${obscuredPhone()}</span>
-          <span class="f-line">Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></span>
+          <span class="f-line">Courriel : <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a></span>
         </address>
       </div>
       <div class="f-col">
@@ -2631,7 +2631,7 @@ function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg,
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
         <p style="font-size:1.05rem;font-weight:400;color:var(--blue);margin:.2rem 0">${obscuredPhone()}</p>
-        <p style="font-size:.88rem;color:var(--ink-2);margin:0"><a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a></p>
+        <p style="font-size:.88rem;color:var(--ink-2);margin:0"><a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a></p>
       </div>`;
 
   const html = `
@@ -3414,7 +3414,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
       if(!res.ok) throw new Error('Erreur serveur');
     }catch(e){
       btn.disabled=false; btn.textContent=oldLabel;
-      alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alainbrunelle@alainbrunelle.com.");
+      alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alain.brunelle@remax-quebec.com.");
       return;
     }
     const recap='<strong>Récapitulatif</strong><br>'+
@@ -5184,7 +5184,7 @@ writePage('a-propos/index.html', layout({
       <h3 style="margin:.7rem 0 1rem">Alain Brunelle</h3>
       <p style="color:var(--ink-2);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Courtier immobilier résidentiel<br>RE/MAX CRYSTAL<br>Sainte-Thérèse · Blainville · Rosemère · Lorraine</p>
       <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:.5rem">📞 ${obscuredPhone({style:'color:var(--blue)'})}</p>
-      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alainbrunelle@alainbrunelle.com" style="color:var(--blue)">alainbrunelle@alainbrunelle.com</a></p>
+      <p style="font-size:.95rem;color:var(--ink-2);margin-bottom:1.5rem">✉ <a href="mailto:alain.brunelle@remax-quebec.com" style="color:var(--blue)">alain.brunelle@remax-quebec.com</a></p>
       <a class="btn" href="/rendez-vous/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Prendre rendez-vous avec moi</a>
     </div>
   </aside>
@@ -5372,7 +5372,7 @@ Courriel : <a href="mailto:rp@remaxcrystal.com">rp@remaxcrystal.com</a>
 228 boul. du Curé-Labelle<br>
 Sainte-Thérèse, Québec J7E 2X7<br>
 Téléphone : ${obscuredPhone()}<br>
-Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
+Courriel : <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a>
 </div></div>
 <p class="muted" style="font-size:.82rem;margin-top:2rem">L'Agence vérifiera votre identité avant de traiter toute demande.</p>`
 }));
@@ -5442,7 +5442,7 @@ writePage('conditions-utilisation/index.html', contentPage({
 <p>Les présentes Conditions sont régies par les lois du Québec, Canada. <em>« Tout litige lié au Site Web ou aux présentes Conditions relève de la compétence exclusive des tribunaux du district de Montréal. »</em></p>
 
 <h2>15. Accessibilité</h2>
-<p>Le Courtier s'engage à rendre le site accessible aux personnes avec limitations fonctionnelles. Pour assistance, contactez <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>.</p>
+<p>Le Courtier s'engage à rendre le site accessible aux personnes avec limitations fonctionnelles. Pour assistance, contactez <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a>.</p>
 
 <h2>16. Sous-traitants et services tiers</h2>
 <p>Des fournisseurs peuvent accéder à certaines données uniquement si nécessaire, sous engagement de confidentialité.</p>
@@ -5459,13 +5459,13 @@ writePage('conditions-utilisation/index.html', contentPage({
 228 boul. du Curé-Labelle<br>
 Sainte-Thérèse, Québec J7E 2X7<br>
 Téléphone : ${obscuredPhone()}<br>
-Courriel : <a href="mailto:alainbrunelle@alainbrunelle.com">alainbrunelle@alainbrunelle.com</a>
+Courriel : <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a>
 </div></div>`
 }));
 
 writePage('contact/index.html', layout({
   title:'Contact — Alain Brunelle, courtier immobilier',
-  description:'Contactez Alain Brunelle : 450.430.5555 · alain@alainbrunelle.com · RE/MAX CRYSTAL Sainte-Thérèse.',
+  description:'Contactez Alain Brunelle : 450.430.5555 · alain.brunelle@remax-quebec.com · RE/MAX CRYSTAL Sainte-Thérèse.',
   canonical:'https://alainbrunelle.com/contact/',
   body:`
 <section class="page-head container">
@@ -5481,7 +5481,7 @@ writePage('contact/index.html', layout({
 <section class="container"><div class="two-col">
   <div class="blue-block soft" style="padding:2.5rem">
     <h3>Téléphone</h3><p style="font-size:1.6rem;color:var(--blue);font-weight:400;margin:.5rem 0 1.5rem">450.430.5555</p>
-    <h3>Courriel</h3><p style="margin:.5rem 0 1.5rem"><a href="mailto:alain@alainbrunelle.com">alain@alainbrunelle.com</a></p>
+    <h3>Courriel</h3><p style="margin:.5rem 0 1.5rem"><a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a></p>
     <h3>Bureau</h3><p>RE/MAX CRYSTAL<br>Sainte-Thérèse, QC</p>
   </div>
   <form style="display:grid;gap:1rem;background:#fff;padding:2rem;border:1px solid var(--line);border-radius:var(--radius)">
