@@ -980,6 +980,9 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'
 
 /* Section tones (full-width bands — tri-tone rhythm) */
 .section-light{background:var(--surface)}
+/* Gris 20 % : 20 % de l'encre du site (--ink #0b1628) mélangée au blanc */
+.section-props{background:#ced0d4}
+.section-props .sec-head .eye{color:var(--ink-2);font-weight:600}
 /* Formulaire de contact standard (/rendez-vous/ + accueil) */
 .home-contact{margin-top:clamp(2rem,5vw,3.5rem);scroll-margin-top:110px}
 .contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid #d5ddea;box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
@@ -2002,6 +2005,18 @@ const homeBody = `
 })();
 </script>
 
+<section class="section-props" aria-label="Propriétés à vendre">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><div class="eye">Propriétés à vendre</div><h2>Récemment inscrits chez Alain Brunelle.</h2></div>
+      <a href="/nos-proprietes/" class="more">Voir toutes les propriétés →</a>
+    </div>
+    <div class="prop-grid reveal">
+      ${topProps.map(p => propertyCard(p)).join('')}
+    </div>
+  </div>
+</section>
+
 <section class="lq-section" id="lead-qualifier" aria-label="Profil vendeur">
   <div class="container">
     <div class="lq reveal lq--framed">
@@ -2133,16 +2148,6 @@ const homeBody = `
       <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
       <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
     </div>
-  </div>
-</section>
-
-<section class="container">
-  <div class="sec-head reveal">
-    <div><div class="eye">Propriétés à vendre</div><h2>Récemment inscrits chez Alain Brunelle.</h2></div>
-    <a href="/nos-proprietes/" class="more">Voir toutes les propriétés →</a>
-  </div>
-  <div class="prop-grid reveal">
-    ${topProps.map(p => propertyCard(p)).join('')}
   </div>
 </section>
 
