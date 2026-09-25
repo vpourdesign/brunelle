@@ -980,11 +980,11 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'
 
 /* Section tones (full-width bands — tri-tone rhythm) */
 .section-light{background:var(--surface)}
-/* Gris 20 % : 20 % de l'encre du site (--ink #0b1628) mélangée au blanc */
-.section-props{background:#ced0d4}
+/* Bandes de l'accueil : teintes à 10 % mélangées au blanc */
+.section-contact{background:#e7e8ea;scroll-margin-top:110px} /* gris 10 % : encre --ink #0b1628 */
+.section-props{background:#e6eaf1} /* bleu foncé 10 % : --blue-2 #002A75 */
 .section-props .sec-head .eye{color:var(--ink-2);font-weight:600}
 /* Formulaire de contact standard (/rendez-vous/ + accueil) */
-.home-contact{margin-top:clamp(2rem,5vw,3.5rem);scroll-margin-top:110px}
 .contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid #d5ddea;box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
 @media(max-width:860px){.contact-wrap{grid-template-columns:1fr}}
 .contact-form{display:grid;gap:1rem}
@@ -1979,10 +1979,13 @@ const homeBody = `
       <p class="reviews-cta-sub">Vous avez travaillé avec Alain ? Deux minutes pour partager votre expérience.</p>
     </div>
   </div>
-  <div class="home-contact" id="contact">
+</div>
+</section>
+
+<section class="section-contact" id="contact">
+  <div class="container">
     ${contactFormBlock({ formName: 'contact_accueil', subject: 'Message contact (accueil) — alainbrunelle.com' })}
   </div>
-</div>
 </section>
 
 <script>
