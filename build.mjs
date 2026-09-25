@@ -51,7 +51,7 @@ const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || 'https://formspree.
 function contactFormBlock({ formName = 'contact', subject = 'Message contact — alainbrunelle.com' } = {}) {
   return `<div class="contact-wrap reveal">
   <div class="contact-intro">
-    <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">Message direct</div>
+    <div class="eye" style="color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:.74rem;margin-bottom:1rem">Message direct</div>
     <h2 style="max-width:18ch">Vous avez des questions ? Écrivez-moi.</h2>
     <p style="color:var(--ink-2);margin-top:1.2rem;max-width:42ch;font-size:1.02rem;line-height:1.7">Remplissez le formulaire et je vous reviens personnellement, par téléphone ou par courriel, généralement sous 24 h ouvrables.</p>
     <div style="margin-top:1.8rem;display:grid;gap:.6rem;font-size:.95rem;color:var(--ink-2)">
@@ -982,20 +982,23 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'
 .section-light{background:var(--surface)}
 /* Formulaire de contact standard (/rendez-vous/ + accueil) */
 .home-contact{margin-top:clamp(2rem,5vw,3.5rem);scroll-margin-top:110px}
-.contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid #d5ddea;box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
 @media(max-width:860px){.contact-wrap{grid-template-columns:1fr}}
 .contact-form{display:grid;gap:1rem}
-.contact-form label{display:grid;gap:.45rem;font-size:.85rem;font-weight:500;color:var(--ink-2);letter-spacing:.01em}
-.contact-form input,.contact-form textarea{font-family:inherit;font-size:1rem;padding:.9rem 1rem;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);transition:border-color .3s var(--ease),background .3s var(--ease);font-weight:400}
-.contact-form input:focus,.contact-form textarea:focus{outline:0;border-color:var(--blue);background:#fff}
+.contact-form label{display:grid;gap:.5rem;font-size:.92rem;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.contact-form input,.contact-form textarea{font-family:inherit;font-size:1rem;padding:.9rem 1rem;border:1.5px solid #b8c3d5;border-radius:14px;background:#fff;color:var(--ink);transition:border-color .25s var(--ease),box-shadow .25s var(--ease);font-weight:400}
+.contact-form input:hover,.contact-form textarea:hover{border-color:#8e9cb4}
+.contact-form input:focus,.contact-form textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,61,165,.16)}
 .contact-form textarea{resize:vertical;min-height:140px;font-family:inherit}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-fields{display:grid;gap:1.15rem}
+.f-fields[hidden]{display:none}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
 @media(max-width:520px){.f-row{grid-template-columns:1fr}}
-.f-submit{margin-top:.6rem;background:var(--ink);color:#fff;padding:1.1rem 1.4rem;border:0;border-radius:999px;font-family:inherit;font-size:1rem;font-weight:500;cursor:pointer;transition:transform .3s var(--ease),background .3s var(--ease)}
+.f-submit{justify-self:start;margin-top:.3rem;background:var(--ink);color:#fff;padding:1.1rem 1.4rem;border:0;border-radius:999px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:transform .3s var(--ease),background .3s var(--ease)}
 .f-submit:hover{background:var(--blue);transform:translateY(-2px)}
 .f-submit:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .f-submit:disabled{opacity:.7;cursor:wait;transform:none}
-.f-note{font-size:.78rem;color:var(--muted);margin:0;line-height:1.5}
+.f-note{font-size:.8rem;color:#4a5870;margin:0;line-height:1.55}
 .f-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .f-ok{text-align:center;padding:2rem 1rem}
 .f-ok-icon{width:64px;height:64px;border-radius:999px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:1.8rem;margin:0 auto 1.2rem}
