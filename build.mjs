@@ -43,11 +43,42 @@ function obscuredPhone(opts = {}) {
   return `<a class="ph-obs ${cls}" data-ph-h="${b64Tel}" data-ph-t="${b64Txt}" href="#" rel="nofollow"${style?` style="${style}"`:''}>${prefix}<span class="ph-obs-txt">${label}</span></a>`;
 }
 
-// Google Calendar Appointment Schedule — remplace par ton URL complète
-// (obtenue dans Google Calendar → Créer → Plages horaires de rendez-vous → Ouvrir la page de réservation)
-const GCAL_APPOINTMENT_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0P1JjhmUHDnIDJm4ys15k1zoHqetBRG3uas3kdXGc-_sOvILQzFBgRCRY5h5-2UoOMIrBlAcuz';
 // Endpoint Formspree — tous les formulaires du site envoient ici
 const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/xlgyblyk';
+
+// Formulaire de contact standard (page /rendez-vous/ + accueil) : même endpoint Formspree que le reste du site.
+// formName alimente l'événement GA4 generate_lead ; subject permet de savoir d'où vient le message.
+function contactFormBlock({ formName = 'contact', subject = 'Message contact — alainbrunelle.com' } = {}) {
+  return `<div class="contact-wrap reveal">
+  <div class="contact-intro">
+    <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">Message direct</div>
+    <h2 style="max-width:18ch">Vous avez des questions ? Écrivez-moi.</h2>
+    <p style="color:var(--ink-2);margin-top:1.2rem;max-width:42ch;font-size:1.02rem;line-height:1.7">Remplissez le formulaire et je vous reviens personnellement, par téléphone ou par courriel, généralement sous 24 h ouvrables.</p>
+    <div style="margin-top:1.8rem;display:grid;gap:.6rem;font-size:.95rem;color:var(--ink-2)">
+      <div>📞 ${obscuredPhone({style:'color:var(--blue)'})}</div>
+      <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
+    </div>
+  </div>
+  <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(typeof gtag==='function')gtag('event','generate_lead',{form_name:'${formName}'});}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alainbrunelle@alainbrunelle.com.');}})(event);return false;">
+    <input type="hidden" name="_subject" value="${subject}">
+    <div class="f-fields">
+      <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>
+      <div class="f-row">
+        <label>Courriel<input type="email" name="email" autocomplete="email" required></label>
+        <label>Téléphone<input type="tel" name="phone" autocomplete="tel"></label>
+      </div>
+      <label>Message<textarea name="message" rows="5" required></textarea></label>
+      <button type="submit" class="f-submit">Envoyer le message →</button>
+      <p class="f-note">En envoyant ce formulaire, vous acceptez d'être contacté par Alain Brunelle. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Message envoyé.</h3>
+      <p>Merci. Je vous réponds personnellement, généralement sous 24 h ouvrables.</p>
+    </div>
+  </form>
+</div>`;
+}
 // Base URL des vidéos. En local: '' → sert /videos/foo.mp4 depuis site/. En prod Vercel: pointer vers Vercel Blob.
 // Ex: VIDEO_BASE=https://abc123.public.blob.vercel-storage.com/videos
 const VIDEO_BASE = process.env.VIDEO_BASE || '';
@@ -826,7 +857,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
   <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
-  <a class="nav-cta" href="/rendez-vous/"><svg class="nav-cta-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8Z"/></svg>Rendez-vous</a>
+  <a class="nav-cta" href="/rendez-vous/">Rendez-vous</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <div class="agency-bar" role="complementary" aria-label="Coordonnées de l'agence">
@@ -949,6 +980,27 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'
 
 /* Section tones (full-width bands — tri-tone rhythm) */
 .section-light{background:var(--surface)}
+/* Formulaire de contact standard (/rendez-vous/ + accueil) */
+.home-contact{margin-top:clamp(2rem,5vw,3.5rem);scroll-margin-top:110px}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line)}
+@media(max-width:860px){.contact-wrap{grid-template-columns:1fr}}
+.contact-form{display:grid;gap:1rem}
+.contact-form label{display:grid;gap:.45rem;font-size:.85rem;font-weight:500;color:var(--ink-2);letter-spacing:.01em}
+.contact-form input,.contact-form textarea{font-family:inherit;font-size:1rem;padding:.9rem 1rem;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);transition:border-color .3s var(--ease),background .3s var(--ease);font-weight:400}
+.contact-form input:focus,.contact-form textarea:focus{outline:0;border-color:var(--blue);background:#fff}
+.contact-form textarea{resize:vertical;min-height:140px;font-family:inherit}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:520px){.f-row{grid-template-columns:1fr}}
+.f-submit{margin-top:.6rem;background:var(--ink);color:#fff;padding:1.1rem 1.4rem;border:0;border-radius:999px;font-family:inherit;font-size:1rem;font-weight:500;cursor:pointer;transition:transform .3s var(--ease),background .3s var(--ease)}
+.f-submit:hover{background:var(--blue);transform:translateY(-2px)}
+.f-submit:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.f-submit:disabled{opacity:.7;cursor:wait;transform:none}
+.f-note{font-size:.78rem;color:var(--muted);margin:0;line-height:1.5}
+.f-note a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.f-ok{text-align:center;padding:2rem 1rem}
+.f-ok-icon{width:64px;height:64px;border-radius:999px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:1.8rem;margin:0 auto 1.2rem}
+.f-ok h3{font-size:1.4rem;margin-bottom:.6rem}
+.f-ok p{color:var(--ink-2)}
 .section-dark{background:linear-gradient(180deg,var(--ink) 0%,#0d1a30 100%);color:#fff;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
 .section-dark::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 340px at 82% 10%,oklch(45% 0.14 258 / .42),transparent 60%),radial-gradient(600px 300px at 10% 90%,oklch(40% 0.12 260 / .28),transparent 65%),var(--grain);background-blend-mode:normal,normal,soft-light;opacity:.95;pointer-events:none}
 .section-dark::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.12) 50%,transparent 100%);pointer-events:none}
@@ -993,9 +1045,7 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .has-sub:hover>.sub,.has-sub:focus-within>.sub{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;transition:opacity .25s var(--ease),transform .25s var(--ease),visibility 0s linear 0s}
 .sub a{display:block;padding:.55rem .9rem;border-radius:12px;font-size:.93rem;color:var(--ink-2)}
 .sub a:hover{background:var(--blue-soft);color:var(--blue)}
-.nav-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(18% 0.1 258) 100%);color:#fff;padding:.75rem 1.4rem .75rem 1.1rem;border-radius:999px;font-size:.9rem;font-weight:500;transition:transform .4s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 4px 12px -2px rgba(11,22,40,.25),inset 0 1px 0 rgba(255,255,255,.08);position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55rem}
-.nav-cta-ico{flex-shrink:0;opacity:.92;transition:transform .3s var(--ease-spring)}
-.nav-cta:hover .nav-cta-ico{transform:scale(1.08)}
+.nav-cta{background:linear-gradient(160deg,var(--ink) 0%,oklch(18% 0.1 258) 100%);color:#fff;padding:.75rem 1.4rem;border-radius:999px;font-size:.9rem;font-weight:500;transition:transform .4s var(--ease-spring),box-shadow .3s var(--ease);box-shadow:0 4px 12px -2px rgba(11,22,40,.25),inset 0 1px 0 rgba(255,255,255,.08);position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55rem}
 .nav-cta::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--blue) 0%,var(--blue-hi) 100%);opacity:0;transition:opacity .3s var(--ease);z-index:-1;border-radius:inherit}
 .nav-cta{isolation:isolate}
 .nav-cta:hover{color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px -4px rgba(15,40,85,.4),inset 0 1px 0 rgba(255,255,255,.12)}
@@ -1816,7 +1866,7 @@ const homeBody = `
       <p class="cities">33 ans de transactions locales · Personne ne connaît mieux le marché local.</p>
     </div>
     <a class="hero-cta reveal" href="/rendez-vous/">
-      <div><strong>Prendre rendez-vous avec moi</strong><small>Appel vidéo — sans pression, sans engagement</small></div>
+      <div><strong>Prendre rendez-vous avec moi</strong><small>Sans pression, sans engagement</small></div>
       <span class="arrow">→</span>
     </a>
   </div>
@@ -1911,6 +1961,9 @@ const homeBody = `
       </a>
       <p class="reviews-cta-sub">Vous avez travaillé avec Alain ? Deux minutes pour partager votre expérience.</p>
     </div>
+  </div>
+  <div class="home-contact" id="contact">
+    ${contactFormBlock({ formName: 'contact_accueil', subject: 'Message contact (accueil) — alainbrunelle.com' })}
   </div>
 </div>
 </section>
@@ -2868,7 +2921,7 @@ ${cityBlock}
   <div class="cta-band reveal">
     <div>
       <h2>Vendre ou acheter à ${n}&nbsp;? Parlons-en.</h2>
-      <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">20 minutes par appel vidéo. Sans pression, sans engagement.</p>
+      <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">Écrivez-moi, je vous réponds personnellement. Sans pression, sans engagement.</p>
     </div>
     <a class="btn" href="/rendez-vous/">Réserver un créneau</a>
   </div>
@@ -5454,133 +5507,25 @@ writePage('temoignages/index.html', contentPage({
 <p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CWReusNbS1LV/review" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
 }));
 
-// --- RENDEZ-VOUS (Google Calendar Appointment Schedule intégré) ---
-const gcalEmbed = GCAL_APPOINTMENT_URL.includes('REMPLACE_MOI')
-  ? `<div class="calendar-placeholder">
-       <div>
-         <h3 style="margin-bottom:.5rem">Agenda en configuration</h3>
-         <p style="color:var(--ink-2);max-width:42ch;margin:0 auto 1.5rem">L'agenda sera activé dès qu'Alain aura partagé son lien Google Calendar Appointment Schedule.</p>
-         ${obscuredPhone({cls:'btn',prefix:'📞 ',style:'display:inline-block;background:var(--ink);color:#fff;padding:1rem 1.6rem;border-radius:999px;font-weight:500'})}
-       </div>
-     </div>`
-  : (() => {
-      const isShort = GCAL_APPOINTMENT_URL.includes('calendar.app.google');
-      const src = isShort ? GCAL_APPOINTMENT_URL : GCAL_APPOINTMENT_URL + '?gv=true';
-      return `<div class="gcal-wrap">
-        <iframe
-          src="${src}"
-          class="gcal-iframe"
-          loading="lazy"
-          title="Prendre rendez-vous avec Alain Brunelle"
-          referrerpolicy="no-referrer-when-downgrade"
-          onerror="this.nextElementSibling.style.display='flex'"></iframe>
-        <div class="gcal-fallback">
-          <div>
-            <p style="margin-bottom:1rem;color:var(--ink-2)">L'agenda ne s'affiche pas dans votre navigateur ?</p>
-            <a class="btn" href="${GCAL_APPOINTMENT_URL}" target="_blank" rel="noopener" style="display:inline-block;background:var(--ink);color:#fff;padding:1rem 1.6rem;border-radius:999px;font-weight:500">Ouvrir l'agenda dans un nouvel onglet →</a>
-          </div>
-        </div>
-      </div>`;
-    })();
-
+// --- RENDEZ-VOUS : formulaire de contact standard (même endpoint Formspree que le reste du site) ---
 writePage('rendez-vous/index.html', layout({
-  title:'Prendre rendez-vous avec Alain Brunelle | Courtier immobilier',
-  description:'Réservez un appel-découverte ou une rencontre directement dans l\'agenda d\'Alain Brunelle. Plages disponibles en temps réel.',
+  title:'Contacter Alain Brunelle | Courtier immobilier RE/MAX CRYSTAL',
+  description:'Écrivez à Alain Brunelle, courtier immobilier à Sainte-Thérèse, Blainville, Rosemère et Lorraine. Réponse personnelle, généralement sous 24 h ouvrables.',
   canonical:'https://alainbrunelle.com/rendez-vous/',
-  extraHead:`<style>
-    .contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:start;background:#fff;border-radius:var(--radius-lg);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line)}
-    @media(max-width:860px){.contact-wrap{grid-template-columns:1fr}}
-    .contact-form{display:grid;gap:1rem}
-    .contact-form label{display:grid;gap:.45rem;font-size:.85rem;font-weight:500;color:var(--ink-2);letter-spacing:.01em}
-    .contact-form input,.contact-form textarea,.contact-form select{font-family:inherit;font-size:1rem;padding:.9rem 1rem;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);transition:border-color .3s var(--ease),background .3s var(--ease);font-weight:400}
-    .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{outline:0;border-color:var(--blue);background:#fff}
-    .contact-form textarea{resize:vertical;min-height:120px;font-family:inherit}
-    .f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    @media(max-width:520px){.f-row{grid-template-columns:1fr}}
-    .f-submit{margin-top:.6rem;background:var(--ink);color:#fff;padding:1.1rem 1.4rem;border:0;border-radius:999px;font-family:inherit;font-size:1rem;font-weight:500;cursor:pointer;transition:transform .3s var(--ease),background .3s var(--ease)}
-    .f-submit:hover{background:var(--blue);transform:translateY(-2px)}
-    .f-note{font-size:.78rem;color:var(--muted);margin:0;line-height:1.5}
-    .f-ok{text-align:center;padding:2rem 1rem}
-    .f-ok-icon{width:64px;height:64px;border-radius:999px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:1.8rem;margin:0 auto 1.2rem}
-    .f-ok h3{font-size:1.4rem;margin-bottom:.6rem}
-    .f-ok p{color:var(--ink-2)}
-    .gcal-wrap{position:relative;min-height:720px}
-    .gcal-iframe{width:100%;border:0;border-radius:var(--radius-lg);background:var(--surface);min-height:720px;box-shadow:var(--shadow-sm);display:block}
-    .gcal-fallback{display:none;position:absolute;inset:0;background:var(--surface);border-radius:var(--radius-lg);align-items:center;justify-content:center;text-align:center;padding:2rem}
-    .calendar-placeholder{background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius-lg);min-height:480px;display:grid;place-items:center;text-align:center;padding:2rem}
-    .rv-grid{display:grid;grid-template-columns:1fr 320px;gap:var(--gap);align-items:start}
-    @media(max-width:900px){.rv-grid{grid-template-columns:1fr}}
-    .rv-aside h3{margin-bottom:.6rem;font-size:1.05rem}
-    .rv-aside ul{padding-left:1.1rem;margin:0;color:var(--ink-2);font-size:.95rem;line-height:1.7}
-  </style>`,
   body:`
 <section class="page-head container">
   <div class="page-head-grid">
     <div>
-      <div class="eyebrow">Rendez-vous · Appel vidéo</div>
-      <h1>Prenez rendez-vous avec moi.</h1>
-      <p class="lead">Appel vidéo découverte, sans pression. Choisissez un créneau directement dans mon agenda Google — mis à jour en temps réel. Lien Google Meet envoyé par courriel avec confirmation et rappel automatiques.</p>
+      <div class="eyebrow">Contact</div>
+      <h1>Parlons de votre projet.</h1>
+      <p class="lead">Vendre, acheter ou simplement une question sur le marché : écrivez-moi. Je vous réponds personnellement, généralement sous 24 h ouvrables.</p>
     </div>
-    <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-00378_Final.jpg" alt="Alain Brunelle, joignable au téléphone" loading="eager"></figure>
-  </div>
-</section>
-<section class="container">
-  <div class="rv-grid">
-    <div>${gcalEmbed}</div>
-    <aside class="rv-aside">
-      <div class="blue-block soft" style="padding:1.8rem">
-        <h3>Ce qu'on couvre en 20 minutes</h3>
-        <ul>
-          <li>Votre projet (vendre, acheter, investir) et votre échéancier</li>
-          <li>Le marché de votre quartier ou de celui qui vous intéresse</li>
-          <li>La prochaine étape concrète — pas de blabla, pas de pression</li>
-        </ul>
-        <h3 style="margin-top:1.5rem">Préférez le téléphone ?</h3>
-        <p style="font-size:1.2rem;color:var(--blue);margin:.3rem 0 0">${obscuredPhone({style:'color:inherit'})}</p>
-      </div>
-    </aside>
+    <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-00378_Final.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL" loading="eager"></figure>
   </div>
 </section>
 <section class="section-light">
   <div class="container">
-    <div class="contact-wrap reveal">
-      <div class="contact-intro">
-        <div class="eye" style="color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;margin-bottom:1rem">Message direct</div>
-        <h2 style="max-width:18ch">Vous avez des questions ? Écrivez-moi.</h2>
-        <p style="color:var(--ink-2);margin-top:1.2rem;max-width:42ch;font-size:1.02rem;line-height:1.7">Pas prêt à réserver un créneau ? Envoyez-moi votre question directement. Je réponds personnellement en moins de 24 h, jours ouvrables.</p>
-        <div style="margin-top:1.8rem;display:grid;gap:.6rem;font-size:.95rem;color:var(--ink-2)">
-          <div>📞 ${obscuredPhone({style:'color:var(--blue)'})}</div>
-          <div>✉ <a href="mailto:alain@alainbrunelle.com" style="color:var(--blue)">alain@alainbrunelle.com</a></div>
-        </div>
-      </div>
-      <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alainbrunelle@alainbrunelle.com.');}})(event);return false;">
-        <input type="hidden" name="_subject" value="Message contact — alainbrunelle.com">
-        <div class="f-fields">
-          <label>Nom complet<input type="text" name="name" required></label>
-          <div class="f-row">
-            <label>Courriel<input type="email" name="email" required></label>
-            <label>Téléphone<input type="tel" name="phone"></label>
-          </div>
-          <label>Sujet
-            <select name="subject">
-              <option>Évaluation gratuite</option>
-              <option>Vendre ma propriété</option>
-              <option>Acheter une propriété</option>
-              <option>Investissement (plex, condo)</option>
-              <option>Autre question</option>
-            </select>
-          </label>
-          <label>Votre message<textarea name="message" rows="5" required></textarea></label>
-          <button type="submit" class="f-submit">Envoyer le message →</button>
-          <p class="f-note">En envoyant ce formulaire, vous acceptez d'être contacté par Alain Brunelle. Vos informations ne sont pas partagées.</p>
-        </div>
-        <div class="f-ok" hidden>
-          <div class="f-ok-icon">✓</div>
-          <h3>Message envoyé.</h3>
-          <p>Merci. Je réponds personnellement sous 24 h.</p>
-        </div>
-      </form>
-    </div>
+    ${contactFormBlock({ formName: 'contact', subject: 'Message contact — alainbrunelle.com' })}
   </div>
 </section>`
 }));
