@@ -857,7 +857,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
   </nav>
   <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
-  <a class="nav-cta" href="/rendez-vous/">Rendez-vous</a>
+  <a class="nav-cta" href="/rendez-vous/">Écrivez-moi</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
 <div class="agency-bar" role="complementary" aria-label="Coordonnées de l'agence">
