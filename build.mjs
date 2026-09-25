@@ -662,7 +662,7 @@ ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=${ASSET_V.css}">
 ${extraHead}
 ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
 </head>
@@ -929,7 +929,7 @@ ${body}
   </div>
 </footer>
 <script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=${ASSET_V.js}" defer></script>
 </body>
 </html>`;
 }
@@ -1777,6 +1777,12 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 // --- Write CSS/JS ---
 fs.mkdirSync(path.join(SITE,'assets'), { recursive: true });
+// Empreinte de contenu dans l'URL : /assets/ est servi en cache « immutable » (vercel.json),
+// sans elle les visiteurs déjà venus garderaient l'ancien CSS/JS jusqu'à un an.
+const ASSET_V = {
+  css: crypto.createHash('md5').update(CSS).digest('hex').slice(0, 10),
+  js: crypto.createHash('md5').update(JS).digest('hex').slice(0, 10),
+};
 fs.writeFileSync(path.join(SITE,'assets','site.css'), CSS);
 fs.writeFileSync(path.join(SITE,'assets','site.js'), JS);
 
