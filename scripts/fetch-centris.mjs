@@ -30,13 +30,17 @@ for (let offset = 0; offset <= MAX_DAYS_BACK; offset++) {
   const fileName = `VPOURDESIGN${ymd(d)}.zip`;
   const url = `${baseUrl}/${fileName}`;
   process.stdout.write(`Trying ${fileName} … `);
-  try {
-    execSync(`curl -fsSL --user "${USER}:${PASS}" -o "${tmp}" "${url}"`, { stdio: 'pipe' });
+  // Pas de -f : on récupère le code HTTP pour distinguer 404 (absent) de 401/403 (accès refusé)
+  const code = execSync(`curl -sSL --user "${USER}:${PASS}" -o "${tmp}" -w "%{http_code}" "${url}"`, { encoding: 'utf8' }).trim();
+  if (code === '200') {
     console.log(`✓ téléchargé (offset J-${offset})`);
     fetched = true;
     break;
-  } catch {
-    console.log('× non disponible');
+  }
+  console.log(`× non disponible (HTTP ${code})`);
+  if (code === '401' || code === '403') {
+    console.error('Accès DriveHQ refusé : vérifier DRIVEHQ_USER / DRIVEHQ_PASS et l\'état du compte.');
+    process.exit(1);
   }
 }
 
