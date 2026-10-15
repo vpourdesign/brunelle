@@ -327,6 +327,15 @@ let soldArchive = {};
 if (fs.existsSync(SOLD_ARCHIVE_PATH)) {
   try { soldArchive = JSON.parse(fs.readFileSync(SOLD_ARCHIVE_PATH, 'utf8')); } catch {}
 }
+// Registre permanent des ventes d'Alain (inscriptions dont il est le courtier
+// inscripteur). Contrairement à sold-archive, rien n'en sort après 30 jours :
+// il alimente le bloc « Mes ventes récentes » des pages villes. Pas de prix
+// (le flux ne donne que le prix demandé, pas le prix de vente).
+const SALES_LOG_PATH = path.join(ROOT, 'data', 'ventes-alain.json');
+let salesLog = [];
+if (fs.existsSync(SALES_LOG_PATH)) {
+  try { salesLog = JSON.parse(fs.readFileSync(SALES_LOG_PATH, 'utf8')); } catch {}
+}
 // Overrides manuels sold-archive : utiles quand le flux Centris est en retard
 // par rapport à la réalité (RE/MAX a déjà marqué vendu mais Centris pas encore,
 // ou Centris a archivé un MLS qui était en fait juste re-listé).
@@ -429,6 +438,16 @@ if (HAS_CENTRIS) {
   fs.writeFileSync(SOLD_ARCHIVE_PATH, JSON.stringify(soldArchive, null, 2));
   const soldCount = Object.keys(soldArchive).length;
   if (soldCount) console.log(`📦 ${soldCount} propriété(s) vendue(s) en archive (visible ${SOLD_RETENTION_DAYS}j)`);
+
+  // Registre des ventes : ajoute les ventes d'Alain, retire un MLS revenu dans le flux (relisting)
+  const activeNow = new Set(properties.map(p => p.mls)); // après SOLD_FORCE_ADD, contrairement à currentMlsSet
+  salesLog = salesLog.filter(s => !activeNow.has(s.mls));
+  for (const [mls, e] of Object.entries(soldArchive)) {
+    const d = e.data || {};
+    if (d.isCoBroker || salesLog.some(s => s.mls === mls)) continue;
+    salesLog.push({ mls, street: d.street, city: d.city, typeLabel: d.typeLabel, yearBuilt: d.yearBuilt || null, photo: d.photos?.[0]?.url || null, soldDate: e.soldDate });
+  }
+  fs.writeFileSync(SALES_LOG_PATH, JSON.stringify(salesLog, null, 2) + '\n');
 
   // Persist for next Vercel build
   fs.mkdirSync(path.join(SITE, 'data'), { recursive: true });
@@ -1667,6 +1686,17 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .reveal{opacity:.001;transform:translateY(16px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
   .reveal.in{opacity:1;transform:none}
 }
+
+/* Page ville : avis de clients du secteur, ventes, lien depuis les fiches */
+.city-quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--gap)}
+.city-quote{margin:0;background:var(--blue-soft);border-radius:var(--radius-lg);padding:clamp(1.5rem,3vw,2.25rem)}
+.city-quote p{font-size:1.05rem;line-height:1.6;color:var(--ink)}
+.city-quote footer{margin-top:1rem;font-size:.85rem;color:var(--muted)}
+.city-quote footer a{color:var(--blue);text-decoration:underline;text-decoration-color:rgba(15,42,90,.3)}
+.city-note{margin-top:1rem;font-size:.85rem;color:var(--muted);max-width:70ch}
+.city-link-box{margin-top:3rem;padding:1.5rem clamp(1.25rem,3vw,2rem);border:1px solid var(--line);border-radius:var(--radius);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.city-link-box p{color:var(--ink-2);max-width:60ch;line-height:1.55}
+.city-link-box a{color:var(--blue);font-weight:500;border-bottom:1px solid var(--blue);padding-bottom:2px}
 `;
 
 const JS = `
@@ -2247,6 +2277,8 @@ writePage('nos-proprietes/index.html', layout({
 // --- PROPERTY DETAIL PAGES ---
 function similarProperties(p){ return properties.filter(x=>x.mls!==p.mls && x.city===p.city).slice(0,3); }
 
+// Fiches reliées à leur page ville (Sainte-Thérèse seulement pour l'instant)
+const CITY_PAGE_LINK = { 'Sainte-Thérèse': '/courtier-immobilier/sainte-therese/' };
 function remaxIframeDetailPage(p) {
   const shareUrl = `https://alainbrunelle.com/nos-proprietes/${p.slug}/`;
   const iframeUrl = buildRemaxIframeUrl(p, shareUrl);
@@ -2261,6 +2293,7 @@ function remaxIframeDetailPage(p) {
   <div class="eyebrow">MLS ${p.mls} · Fiche RE/MAX officielle</div>
   <h1>${p.typeLabel} à vendre — ${p.street}, ${p.city}</h1>
   <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">prendre rendez-vous avec moi</a> pour discuter de cette propriété.</p>
+  ${CITY_PAGE_LINK[p.city] ? `<div class="city-link-box" style="margin-top:1.5rem"><p>Vous regardez à ${p.city} ? Voyez le marché de la ville, ses secteurs et mes ventes récentes.</p><a href="${CITY_PAGE_LINK[p.city]}">Immobilier à ${p.city} →</a></div>` : ''}
 </section>
 <section class="container" style="padding-top:0;padding-block-start:0">
   <div class="remax-frame-wrap">
@@ -2323,7 +2356,7 @@ function detailPage(p) {
   });
   const body = `
 <section class="container" style="padding-top:2rem">
-  <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem"><a href="/">Accueil</a> › <a href="/nos-proprietes/">Propriétés</a> › <span>${p.street}, ${p.city}</span></div>
+  <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem"><a href="/">Accueil</a> › <a href="/nos-proprietes/">Propriétés</a> › ${CITY_PAGE_LINK[p.city] ? `<a href="${CITY_PAGE_LINK[p.city]}">${p.city}</a> › ` : ''}<span>${p.street}, ${p.city}</span></div>
   <div class="p-detail-head">
     <div>
       <div style="font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.6rem">${p.typeLabel} · MLS ${p.mls}${p.isCoBroker?' · Collaboration':''}${p.sold?' · <span style="color:#c8364a;font-weight:600">Vendu</span>':''}</div>
@@ -2408,6 +2441,7 @@ function detailPage(p) {
       <div class="prop-grid">${similarProperties(p).map(propertyCard).join('')}</div>
     </div>
   `:''}
+  ${CITY_PAGE_LINK[p.city] ? `<div class="city-link-box"><p>Vous regardez à ${p.city} ? Voyez le marché de la ville, ses secteurs et mes ventes récentes.</p><a href="${CITY_PAGE_LINK[p.city]}">Immobilier à ${p.city} →</a></div>` : ''}
 </section>
 
 <!-- Modal "Cette propriété m'intéresse" -->
@@ -2670,6 +2704,37 @@ function faqEntities(faqHtml){
 const ldScript = obj => JSON.stringify(obj).replace(/</g, '\\u003C');
 const FAQ_RE = /<!--faq:start-->([\s\S]*?)<!--faq:end-->/i;
 
+// Bloc « Mes ventes récentes » d'une page ville, tiré de data/ventes-alain.json.
+// La carte pointe vers la fiche « Vendu » tant qu'elle existe (archive 30 jours).
+function citySalesBlock(cityName) {
+  const sales = salesLog.filter(s => s.city === cityName).sort((a, b) => b.soldDate.localeCompare(a.soldDate)).slice(0, 6);
+  if (!sales.length) return '';
+  const card = s => {
+    const page = allProperties.find(p => p.sold && p.mls === s.mls);
+    const inner = `<div class="ph"><span class="badge">${s.typeLabel}</span><span class="sold-ribbon">Vendu</span><img loading="lazy" src="${s.photo || '/photos/P21_5525-Edit.jpg'}" alt="${s.street}, ${s.city}"></div>
+    <div class="body">
+      <div class="loc">${s.city} · MLS ${s.mls}</div>
+      <div class="addr">${s.street}</div>
+      <div class="price price-sold">Vendu en ${new Date(s.soldDate + 'T12:00:00').toLocaleDateString('fr-CA', { month: 'long', year: 'numeric' })}</div>
+      <div class="meta">${s.yearBuilt ? `<span>📅 ${s.yearBuilt}</span>` : ''}</div>
+    </div>`;
+    return page ? `<a class="pcard pcard-sold" href="/nos-proprietes/${page.slug}/">${inner}</a>` : `<div class="pcard pcard-sold">${inner}</div>`;
+  };
+  return `
+    <section class="container">
+      <div class="sec-head reveal"><div><div class="eye">Mes ventes</div><h2>Mes ventes récentes à ${cityName}.</h2></div></div>
+      <div class="prop-grid">${sales.map(card).join('')}</div>
+      <p class="city-note">Inscriptions dont j'étais le courtier inscripteur. Les prix de vente ne sont pas affichés.</p>
+    </section>`;
+}
+function cityQuotesBlock(cityName, quotes) {
+  return `
+    <section class="container">
+      <div class="sec-head reveal"><div><div class="eye">Avis Google</div><h2>Ce que disent mes clients de ${cityName}.</h2></div><a class="more" href="https://share.google/NTRzJq4dwAhYvneS9" target="_blank" rel="noopener">Lire tous les avis →</a></div>
+      <div class="city-quotes">${quotes.map(q => `<blockquote class="city-quote"><p>« ${q.text} »</p><footer>${q.author}, avis Google${q.when ? `, ${q.when}` : ''}</footer></blockquote>`).join('')}</div>
+    </section>`;
+}
+
 // --- CITY PAGES ---
 const CITIES = [
   ['sainte-therese','Sainte-Thérèse',['Vieux-Village','En-Haut','En-Bas']],
@@ -2682,7 +2747,8 @@ const CITIES = [
 // Récupérées de centris.ca/fr/outils/statistiques-immobilieres/laurentides/{ville}
 const CITY_STATS = {
   'blainville':     { price:'715 000 $', delay:'32 j', yoy:'−4 %',    invent:'179', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville' },
-  'sainte-therese': { price:'579 000 $', delay:'23 j', yoy:'stable',  invent:'30',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese' },
+  // Sainte-Thérèse : 3e trimestre 2026, relevé le 2026-10-15 (Centris affiche un délai MOYEN, pas médian)
+  'sainte-therese': { price:'710 000 $', delay:'28 j', yoy:'+15 %',   invent:'33',  period:'3e trimestre 2026', delayLabel:'Délai moyen de vente', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese' },
   'rosemere':       { price:'830 888 $', delay:'48 j', yoy:'+13 %',   invent:'41',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/rosemere' },
   'lorraine':       { price:'770 750 $', delay:'62 j', yoy:'+13 %',   invent:'27',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/lorraine' }
 };
@@ -2690,46 +2756,50 @@ const CITY_STATS = {
 for (const [slugC, cityName, neighs] of CITIES) {
   const cityProps = properties.filter(p => slug(p.city) === slugC);
   const cs = CITY_STATS[slugC] || CITY_STATS['blainville'];
-  const cityBlock = `
-    <section class="container">
-      <div class="blue-block reveal">
-        <div class="sec-head"><div><div class="eye" style="color:rgba(255,255,255,.6)">Marché unifamilial · ${cityName} · Q1 2026</div><h2>Les chiffres qui comptent à ${cityName}.</h2></div></div>
-        <div class="stats-grid">
-          <div class="stat"><div class="n">${cs.price}</div><div class="l">Prix médian (Q1 2026)</div></div>
-          <div class="stat"><div class="n">${cs.delay}</div><div class="l">Délai médian de vente</div></div>
-          <div class="stat"><div class="n">${cs.yoy}</div><div class="l">Variation a/a</div></div>
-          <div class="stat"><div class="n">${cs.invent}</div><div class="l">Inscriptions actives</div></div>
-        </div>
-        <p style="margin-top:1.5rem;font-size:.78rem;color:rgba(255,255,255,.55);letter-spacing:.02em">Source&nbsp;: APCIQ par Centris® — <a href="${cs.sourceUrl}" target="_blank" rel="noopener" style="color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(255,255,255,.3)">données ${cityName}</a>.</p>
-      </div>
-    </section>
-    ${neighs.length?`
-    <section class="container">
-      <div class="sec-head reveal"><div><div class="eye">Quartiers</div><h2>Les quartiers de ${cityName}.</h2></div></div>
-      <div class="n-grid">
-        ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${slug(n)}/"><h3>${n}</h3><div class="cnt">Voir le quartier →</div></a>`).join('')}
-      </div>
-    </section>`:''}
-    ${cityProps.length>=3?`
-    <section class="container">
-      <div class="sec-head reveal"><div><div class="eye">Inscriptions actives</div><h2>Propriétés à vendre à ${cityName}.</h2></div><a class="more" href="/nos-proprietes/">Toutes les propriétés →</a></div>
-      <div class="prop-grid">${cityProps.slice(0,6).map(propertyCard).join('')}</div>
-    </section>`:''}
-  `;
   const CITY_COPY = {
     'sainte-therese': {
-      lead: `Vendre ou acheter à Sainte-Thérèse demande une lecture précise du marché : Vieux-Village, En-Haut, En-Bas — trois marchés distincts, trois stratégies. Voici comment je travaille.`,
-      market: `<p>Sainte-Thérèse n'est pas <em>une</em> ville, c'est <strong>trois marchés distincts</strong>. Le Vieux-Village joue la rareté foncière et le cachet patrimonial (prix médian ~624 k$, délai 24 j). Le secteur En-Haut attire les familles installées (575 k$, 32 j). Et l'En-Bas reste la porte d'entrée des primo-accédants (498 k$, 38 j). Trois lectures, trois stratégies de mise en marché.</p>
-<p>Mon rôle de <strong>courtier immobilier à Sainte-Thérèse</strong> : positionner votre propriété par rapport à son <em>vrai</em> secteur — pas la moyenne de la ville, qui dilue les écarts et coûte cher. Données APCIQ et Centris à l'appui, croisées avec ma base de transactions locales depuis 1992.</p>`,
-      reasons: `<li><strong>33 ans à courtier exclusivement sur la Rive-Nord</strong> — je connais les rues, les écoles, les voisins, les écarts de prix entre deux côtés de la même artère</li>
-<li><strong>Mise en marché complète incluse</strong> : photographie HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°, fiche Centris optimisée</li>
-<li><strong>Pré-diffusion à mon réseau d'acheteurs actifs</strong> avant publication Centris (en moyenne 3-5 visites privées dès le départ)</li>
-<li><strong>Équipe RE/MAX CRYSTAL complète</strong> : courtiers, photographes, stagers, notaires partenaires</li>`,
-      types: `<p>Le condo neuf et la maison de ville dominent dans le Vieux-Village (acheteurs 35-50 ans, professionnels travaillant à Laval ou Montréal). Le cottage unifamilial 1990-2010 mène En-Haut. Le bungalow rénové reste la valeur sûre En-Bas.</p>`,
-      faq: `<h3>Quel est le prix moyen d'une maison à Sainte-Thérèse en 2026 ?</h3>
-<p>Prix médian unifamilial Q1 2026 : <strong>579 000 $</strong>. Fourchette : ~498 k$ (En-Bas) à ~700 k$+ (Vieux-Village, propriétés patrimoniales restaurées).</p>
-<h3>Combien de temps prend la vente d'une propriété à Sainte-Thérèse ?</h3>
-<p>Délai médian Q1 2026 : <strong>23 jours</strong> (unifamilial), 25 jours (condo). Sainte-Thérèse est en surchauffe — une mise en marché bien positionnée se vend généralement sous 30 jours.</p>`
+      // Réécrit le 2026-10-15 : chiffres Centris du 3e trimestre 2026, barème officiel de la Ville,
+      // aucun chiffre par secteur (aucune source publique ne les donne).
+      title: `Courtier immobilier Sainte-Thérèse, agent RE/MAX | Alain Brunelle`,
+      description: `Bureau au 228, boul. du Curé-Labelle. Maisons vendues à 710 000 $ (médiane) cet été à Sainte-Thérèse : voyez mes ventes et demandez l'évaluation de la vôtre.`,
+      h1: `Courtier immobilier à Sainte-Thérèse : Alain Brunelle, RE/MAX CRYSTAL.`,
+      lead: `Mon bureau est au 228, boulevard du Curé-Labelle, en plein Sainte-Thérèse. Pour fixer le prix de votre maison, je pars des ventes faites près de chez vous dans les derniers mois.`,
+      statsTitle: `Ce qui s'est vendu à Sainte-Thérèse cet été.`,
+      headings: {
+        reasons: `Pourquoi travailler avec moi à Sainte-Thérèse`,
+        types: `Maisons et condos : ce qui se vend`,
+        faq: `Questions fréquentes sur l'immobilier à Sainte-Thérèse`,
+        cta: `Vous vendez ou achetez à Sainte-Thérèse ? Parlons-en.`,
+        ctaBtn: `Écrivez-moi`
+      },
+      market: `<p>Entre juillet et septembre 2026, 35 maisons unifamiliales ont été vendues à Sainte-Thérèse, au prix médian de 710 000 $. C'est 15 % de plus qu'à la même période l'an dernier. Sur les douze derniers mois, le prix médian est de 615 400 $ : le 3e trimestre a donc été nettement plus fort que le reste de l'année.</p>
+<p>L'offre a aussi changé. Il y avait 33 maisons à vendre au 3e trimestre, contre environ 18 un an plus tôt. Les acheteurs ont plus de choix, et une maison affichée trop cher reste plus longtemps en vente. Pour l'instant, les maisons se vendent en 28 jours en moyenne.</p>
+<p>Quand je prépare une évaluation à Sainte-Thérèse, je regarde les ventes récentes dans votre rue et autour, l'âge et l'état de la maison, puis les maisons comparables encore à vendre. Le prix médian de la ville donne un ordre de grandeur, mais deux maisons du même âge peuvent se vendre à des prix très différents d'un secteur à l'autre.</p>`,
+      reasons: `<li>Mon bureau est à Sainte-Thérèse, au 228, boulevard du Curé-Labelle (RE/MAX CRYSTAL).</li>
+<li>33 ans de métier et plus de 3 000 transactions sur la Rive-Nord.</li>
+<li>Beaucoup de mes clients reviennent pour une deuxième ou une troisième transaction, parfois 20 ans plus tard. Leurs avis Google le disent mieux que moi.</li>
+<li>Quand vous m'écrivez par le site, c'est moi qui vous rappelle, dans les 24 heures.</li>`,
+      types: `<p>Sur les douze derniers mois, il s'est vendu presque autant de condos (129) que de maisons unifamiliales (140) à Sainte-Thérèse. Le prix médian d'un condo est de 366 250 $, le même qu'un an plus tôt, et il se vend en 33 jours en moyenne.</p>
+<p>Pour un condo, les ventes comparables sont nombreuses et le prix se justifie facilement. Pour une maison, il y a plus de concurrence cet automne qu'il y a un an : un prix juste dès la mise en vente compte plus que jamais.</p>`,
+      faq: `<h3>Quel est le prix d'une maison à Sainte-Thérèse en 2026 ?</h3>
+<p>Le prix médian d'une maison unifamiliale était de 710 000 $ au 3e trimestre 2026, selon Centris. Sur les douze derniers mois, il est de 615 400 $. Pour un condo, le prix médian sur douze mois est de 366 250 $.</p>
+<h3>Combien de temps faut-il pour vendre une maison à Sainte-Thérèse ?</h3>
+<p>28 jours en moyenne au 3e trimestre 2026, et 26 jours sur les douze derniers mois. Une maison au bon prix part souvent plus vite. Une maison trop chère reste en vente beaucoup plus longtemps, surtout maintenant que les acheteurs ont plus de choix.</p>
+<h3>Combien coûte la taxe de bienvenue à Sainte-Thérèse ?</h3>
+<p>Selon le barème 2026 de la Ville, le droit de mutation est de 0,5 % jusqu'à 62 900 $, 1 % de 62 901 $ à 315 000 $, 1,5 % de 315 001 $ à 500 000 $ et 3 % au-delà de 500 000 $. Pour une maison achetée 710 000 $, ça donne environ 11 910 $. Le calcul se fait sur le plus élevé des deux montants : le prix payé ou l'évaluation municipale ajustée. Le barème complet est sur le <a href="https://www.sainte-therese.ca/services/services-aux-citoyens/taxes-evaluation-et-droit-de-mutation" target="_blank" rel="noopener">site de la Ville de Sainte-Thérèse</a>.</p>
+<h3>Peut-on aller travailler à Montréal en train depuis Sainte-Thérèse ?</h3>
+<p>Oui. La gare de Sainte-Thérèse est sur la ligne exo Saint-Jérôme, qui rejoint le centre-ville de Montréal en environ une heure. Hors des heures de pointe, certains trains s'arrêtent avant le centre-ville : vérifiez l'horaire d'exo selon votre heure de départ. Les autoroutes 15 et 640 sont à quelques minutes.</p>
+<h3>Est-ce un bon moment pour vendre à Sainte-Thérèse ?</h3>
+<p>Les prix ont monté de 15 % en un an au 3e trimestre, ce qui avantage les vendeurs. Par contre, il y a presque deux fois plus de maisons à vendre qu'il y a un an, donc la concurrence est plus forte. Pour savoir ce que ça veut dire pour votre maison, je vous prépare une évaluation gratuite basée sur les ventes de votre secteur.</p>`,
+      sectors: {
+        'Vieux-Village': `Le centre historique, autour de l'église, du cégep Lionel-Groulx et de la rue Turgeon. Maisons anciennes, petits immeubles et condos, près des restaurants et des commerces.`,
+        'En-Haut': `Un secteur résidentiel où vivent beaucoup de familles. Mes clients l'appellent Sainte-Thérèse-en-Haut.`,
+        'En-Bas': `Un autre secteur résidentiel de la ville, avec ses propres ventes comparables.`
+      },
+      quotes: [
+        { text: `Nous avons vendu notre maison en seulement 10 jours avec M. Alain Brunelle, il connait super bien Ste-Thérèse et il est toujours présent pour répondre à toutes nos questions, excellent service.`, author: 'François Lewis', when: 'octobre 2026' },
+        { text: `Honnêtement, je ne vois pas avec quel autre courtier vous pourriez faire affaires si vous demeurez dans Ste-Thérèse en haut !!! C'est le meilleur !`, author: 'Christian Savoie', when: '' }
+      ]
     },
     'blainville': {
       lead: `Blainville, c'est neuf quartiers à personnalité forte : de Fontainebleau à Chante-Bois, en passant par Chambéry et Plan-Bouchard. 33 ans à vendre et acheter rue par rue dans cette ville.`,
@@ -2775,13 +2845,40 @@ for (const [slugC, cityName, neighs] of CITIES) {
     }
   };
   const cp = CITY_COPY[slugC] || CITY_COPY['blainville'];
+  const cityBlock = `
+    <section class="container">
+      <div class="blue-block reveal">
+        <div class="sec-head"><div><div class="eye" style="color:rgba(255,255,255,.6)">Marché unifamilial · ${cityName} · ${cs.period || 'Q1 2026'}</div><h2>${cp.statsTitle || `Les chiffres qui comptent à ${cityName}.`}</h2></div></div>
+        <div class="stats-grid">
+          <div class="stat"><div class="n">${cs.price}</div><div class="l">Prix médian (${cs.period || 'Q1 2026'})</div></div>
+          <div class="stat"><div class="n">${cs.delay}</div><div class="l">${cs.delayLabel || 'Délai médian de vente'}</div></div>
+          <div class="stat"><div class="n">${cs.yoy}</div><div class="l">${cs.period ? 'Par rapport à il y a un an' : 'Variation a/a'}</div></div>
+          <div class="stat"><div class="n">${cs.invent}</div><div class="l">${cs.period ? 'Maisons à vendre' : 'Inscriptions actives'}</div></div>
+        </div>
+        <p style="margin-top:1.5rem;font-size:.78rem;color:rgba(255,255,255,.55);letter-spacing:.02em">Source&nbsp;: APCIQ par Centris®, <a href="${cs.sourceUrl}" target="_blank" rel="noopener" style="color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(255,255,255,.3)">données ${cityName}</a>.</p>
+      </div>
+    </section>
+    ${neighs.length?`
+    <section class="container">
+      <div class="sec-head reveal"><div><div class="eye">Quartiers</div><h2>Les quartiers de ${cityName}.</h2></div></div>
+      <div class="n-grid">
+        ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${slug(n)}/"><h3>${n}</h3>${cp.sectors?.[n] ? `<p style="margin:.6rem 0 1rem;font-size:.92rem;line-height:1.55;color:var(--ink-2)">${cp.sectors[n]}</p>` : ''}<div class="cnt">Voir le quartier →</div></a>`).join('')}
+      </div>
+    </section>`:''}
+    ${cityProps.length>=3?`
+    <section class="container">
+      <div class="sec-head reveal"><div><div class="eye">Inscriptions actives</div><h2>Propriétés à vendre à ${cityName}.</h2></div><a class="more" href="/nos-proprietes/">Toutes les propriétés →</a></div>
+      <div class="prop-grid">${cityProps.slice(0,6).map(propertyCard).join('')}</div>
+    </section>`:''}
+    ${cp.quotes ? citySalesBlock(cityName) + cityQuotesBlock(cityName, cp.quotes) : ''}
+  `;
   const CITY_HERO = {
     'sainte-therese': ['/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg', "Horloge Sainte-Thérèse et clocher de l'église, centre-ville"]
   };
   const cityHero = CITY_HERO[slugC];
   const cityHead = `
       <div class="eyebrow">Courtier immobilier · ${cityName}</div>
-      <h1>Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.</h1>
+      <h1>${cp.h1 || `Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.`}</h1>
       <p class="lead">${cp.lead}</p>`;
   const body = `
 <section class="page-head container">${cityHero ? `
@@ -2797,11 +2894,11 @@ ${cityBlock}
     <article class="prose reveal">
       <h2>Le marché immobilier à ${cityName} en 2026</h2>
       ${cp.market}
-      <h2>Pourquoi choisir Alain Brunelle comme courtier immobilier à ${cityName}</h2>
+      <h2>${cp.headings?.reasons || `Pourquoi choisir Alain Brunelle comme courtier immobilier à ${cityName}`}</h2>
       <ul>${cp.reasons}</ul>
-      <h2>Types de propriétés les plus actifs à ${cityName}</h2>
+      <h2>${cp.headings?.types || `Types de propriétés les plus actifs à ${cityName}`}</h2>
       ${cp.types}
-      <h2>FAQ — vendre et acheter à ${cityName}</h2>
+      <h2>${cp.headings?.faq || `FAQ — vendre et acheter à ${cityName}`}</h2>
       <!--faq:start-->${cp.faq}<!--faq:end-->
     </article>
     <aside>
@@ -2813,7 +2910,7 @@ ${cityBlock}
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>Vendre ou acheter à ${cityName} — parlons-en.</h2><a class="btn" href="/rendez-vous/">Prendre rendez-vous avec moi</a></div></section>`;
+<section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2><a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a></div></section>`;
 
   const cityUrl = `https://alainbrunelle.com/courtier-immobilier/${slugC}/`;
   const cityJsonld = ldScript({
@@ -2841,8 +2938,8 @@ ${cityBlock}
   });
 
   writePage(`courtier-immobilier/${slugC}/index.html`, layout({
-    title: `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
-    description: `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
+    title: cp.title || `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
+    description: cp.description || `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
     canonical: cityUrl,
     jsonld: cityJsonld,
     body
@@ -2858,7 +2955,95 @@ ${cityBlock}
   };
   const heroImg = CITY_PHOTOS[slugC] || '/photos/P21_5407-Edit.jpg';
 
+  // Pages secteurs réécrites (Sainte-Thérèse, 2026-10-15) : aucun chiffre par secteur,
+  // Centris ne publie que la ville entière. Les autres villes gardent le gabarit plus bas.
+  const NEIGH_COPY = {
+    'sainte-therese': {
+      'Vieux-Village': {
+        lead: `Le centre historique de Sainte-Thérèse, autour de l'église, du cégep Lionel-Groulx et de la rue Turgeon. Voici ce qu'il faut savoir pour y vendre ou y acheter.`,
+        portrait: `<p>Le Vieux-Village, c'est le cœur de la ville : l'église, le cégep Lionel-Groulx, la rue Turgeon et ses restaurants. On y fait beaucoup de choses à pied.</p>
+<p>On y trouve des maisons de plusieurs époques, des petits immeubles à logements et des condos. Deux maisons voisines peuvent avoir été construites à des décennies d'intervalle, alors les comparaisons de prix demandent plus de travail qu'ailleurs. Une maison bien entretenue avec du cachet ne se compare pas à une maison à rénover sur la même rue.</p>
+<p>Pour le quotidien dans le secteur, lisez aussi mon article <a href="/blog/vieux-sainte-therese-vivre-village/">Vieux Sainte-Thérèse : vivre au cœur du village</a>.</p>`
+      },
+      'En-Haut': {
+        lead: `Un secteur résidentiel de Sainte-Thérèse où vivent beaucoup de familles. Voici ce qu'il faut savoir pour y vendre ou y acheter.`,
+        portrait: `<p>Mes clients l'appellent Sainte-Thérèse-en-Haut. C'est un secteur surtout résidentiel, où vivent beaucoup de familles, et où plusieurs de mes clients m'ont confié la vente de leur maison au fil des ans.</p>`,
+        quote: { text: `Honnêtement, je ne vois pas avec quel autre courtier vous pourriez faire affaires si vous demeurez dans Ste-Thérèse en haut !!! C'est le meilleur !`, author: 'Christian Savoie' }
+      },
+      'En-Bas': {
+        lead: `Un secteur résidentiel de Sainte-Thérèse. Voici ce qu'il faut savoir pour y vendre ou y acheter.`,
+        portrait: `<p>Un secteur résidentiel de la ville, avec ses propres ventes comparables. Comme partout à Sainte-Thérèse, le prix d'une maison se juge d'abord par les ventes récentes dans les rues autour.</p>`
+      }
+    }
+  };
   for (const n of neighs) {
+    const nc = NEIGH_COPY[slugC]?.[n];
+    if (nc) {
+      const ncBody = `
+<section class="page-head container">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Secteur · ${cityName}</div>
+      <h1>Immobilier dans le secteur ${n}, à ${cityName}.</h1>
+      <p class="lead">${nc.lead}</p>
+    </div>
+    <figure class="ph-hero"><img src="${heroImg}" alt="${n}, ${cityName}" loading="eager"></figure>
+  </div>
+</section>
+
+<section class="container">
+  <div class="stat-row">
+    <div class="stat-mini"><div class="n">${cs.price}</div><div class="l">Prix médian, ${cs.period || 'Q1 2026'}</div></div>
+    <div class="stat-mini"><div class="n">${cs.yoy}</div><div class="l">Par rapport à il y a un an</div></div>
+    <div class="stat-mini"><div class="n">${cs.delay}</div><div class="l">${cs.delayLabel || 'Délai médian de vente'}</div></div>
+    <div class="stat-mini"><div class="n">${cs.invent}</div><div class="l">Maisons à vendre</div></div>
+  </div>
+  <p class="city-note">Maisons unifamiliales, ${cityName} au complet. Centris ne publie pas de chiffres par secteur. Source&nbsp;: APCIQ par Centris®, <a href="${cs.sourceUrl}" target="_blank" rel="noopener">données ${cityName}</a>.</p>
+</section>
+
+<section class="container">
+  <div class="two-col">
+    <article class="prose reveal">
+      <h2>Le secteur ${n}</h2>
+      ${nc.portrait}
+      ${nc.quote ? `<blockquote class="city-quote" style="margin:2rem 0"><p>« ${nc.quote.text} »</p><footer>${nc.quote.author}, avis Google</footer></blockquote>` : ''}
+      <h2>Combien vaut votre maison dans le secteur ${n}&nbsp;?</h2>
+      <p>Il n'existe pas de statistiques publiques pour ce secteur : Centris publie seulement les chiffres de ${cityName} au complet. Pour évaluer une maison ici, je regarde les ventes récentes dans les rues autour, l'âge et l'état de la maison, puis ce qui est encore à vendre de comparable. Vous recevez une fourchette de prix, avec les ventes qui la justifient.</p>
+      <p>Pour le marché de la ville, mes ventes récentes et les questions fréquentes (taxe de bienvenue, train vers Montréal), voyez la page <a href="/courtier-immobilier/${slugC}/">courtier immobilier à ${cityName}</a>.</p>
+    </article>
+    <aside>
+      <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
+        <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;font-weight:500;margin-bottom:.7rem">Évaluation, secteur ${n}</div>
+        <h3 style="margin-bottom:.6rem;font-weight:500">Vous vendez dans le secteur ${n}&nbsp;?</h3>
+        <p style="color:var(--ink-2);font-size:.92rem;line-height:1.55;margin-bottom:1.4rem">Je vous donne une fourchette de prix basée sur les ventes récentes autour de chez vous.</p>
+        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem">Obtenir mon évaluation</a>
+        <a class="btn" href="/rendez-vous/" style="display:block;background:transparent;color:var(--blue);border:1.5px solid var(--blue);text-align:center;padding:.9rem;border-radius:var(--radius);font-weight:500">Écrivez-moi</a>
+      </div>
+    </aside>
+  </div>
+</section>
+${cityProps.length ? `
+<section class="container">
+  <div class="sec-head reveal"><div><div class="eye">Inscriptions actives</div><h2>Mes propriétés à vendre à ${cityName}.</h2></div><a class="more" href="/nos-proprietes/">Toutes les propriétés →</a></div>
+  <div class="prop-grid">${cityProps.slice(0,6).map(propertyCard).join('')}</div>
+</section>` : ''}
+<section class="container">
+  <div class="cta-band reveal">
+    <div>
+      <h2>Vous vendez ou achetez dans le secteur ${n}&nbsp;? Parlons-en.</h2>
+      <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">Écrivez-moi, je vous rappelle moi-même dans les 24 heures.</p>
+    </div>
+    <a class="btn" href="/rendez-vous/">Écrivez-moi</a>
+  </div>
+</section>`;
+      writePage(`quartiers/${slugC}/${slug(n)}/index.html`, layout({
+        title: `${n}, ${cityName} : vendre ou acheter une maison | Alain Brunelle`,
+        description: `Le secteur ${n} à ${cityName} : ce qui s'y trouve, le marché de la ville au ${cs.period || 'Q1 2026'} et comment j'évalue une maison du secteur.`,
+        canonical: `https://alainbrunelle.com/quartiers/${slugC}/${slug(n)}/`,
+        body: ncBody
+      }));
+      continue;
+    }
     const qBody = `
 <section class="page-head container">
   <div class="page-head-grid">
