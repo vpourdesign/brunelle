@@ -2735,9 +2735,14 @@ function cityQuotesBlock(cityName, quotes) {
     </section>`;
 }
 
+// Adresse web d'un quartier. Les secteurs de Sainte-Thérèse s'affichent avec le nom complet
+// (« Sainte-Thérèse-en-Haut ») mais gardent leur URL d'origine (/en-haut/, /en-bas/).
+const NEIGH_SLUG = { 'Sainte-Thérèse-en-Haut': 'en-haut', 'Sainte-Thérèse-en-Bas': 'en-bas' };
+const nslug = n => NEIGH_SLUG[n] || slug(n);
+
 // --- CITY PAGES ---
 const CITIES = [
-  ['sainte-therese','Sainte-Thérèse',['Vieux-Village','En-Haut','En-Bas']],
+  ['sainte-therese','Sainte-Thérèse',['Vieux-Village','Sainte-Thérèse-en-Haut','Sainte-Thérèse-en-Bas']],
   ['blainville','Blainville',['Fontainebleau','Chambéry','Chante-Bois','Plan-Bouchard','Jardins-de-Blainville','Côte-Saint-Louis','Alençon','Renaissance','Blainvillier']],
   ['rosemere','Rosemère',['Bois-Franc','Grande-Côte','Domaine-du-Parc']],
   ['lorraine','Lorraine',[]]
@@ -2793,8 +2798,8 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>Les prix ont monté de 15 % en un an au 3e trimestre, ce qui avantage les vendeurs. Par contre, il y a presque deux fois plus de maisons à vendre qu'il y a un an, donc la concurrence est plus forte. Pour savoir ce que ça veut dire pour votre maison, je vous prépare une évaluation gratuite basée sur les ventes de votre secteur.</p>`,
       sectors: {
         'Vieux-Village': `Le centre historique, autour de l'église, du cégep Lionel-Groulx et de la rue Turgeon. Maisons anciennes, petits immeubles et condos, près des restaurants et des commerces.`,
-        'En-Haut': `Un secteur résidentiel où vivent beaucoup de familles. Mes clients l'appellent Sainte-Thérèse-en-Haut.`,
-        'En-Bas': `Un autre secteur résidentiel de la ville, avec ses propres ventes comparables.`
+        'Sainte-Thérèse-en-Haut': `Un secteur résidentiel où vivent beaucoup de familles.`,
+        'Sainte-Thérèse-en-Bas': `Un autre secteur résidentiel de la ville, avec ses propres ventes comparables.`
       },
       quotes: [
         { text: `Nous avons vendu notre maison en seulement 10 jours avec M. Alain Brunelle, il connait super bien Ste-Thérèse et il est toujours présent pour répondre à toutes nos questions, excellent service.`, author: 'François Lewis', when: 'octobre 2026' },
@@ -2862,7 +2867,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
     <section class="container">
       <div class="sec-head reveal"><div><div class="eye">Quartiers</div><h2>Les quartiers de ${cityName}.</h2></div></div>
       <div class="n-grid">
-        ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${slug(n)}/"><h3>${n}</h3>${cp.sectors?.[n] ? `<p style="margin:.6rem 0 1rem;font-size:.92rem;line-height:1.55;color:var(--ink-2)">${cp.sectors[n]}</p>` : ''}<div class="cnt">Voir le quartier →</div></a>`).join('')}
+        ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${nslug(n)}/"><h3>${n}</h3>${cp.sectors?.[n] ? `<p style="margin:.6rem 0 1rem;font-size:.92rem;line-height:1.55;color:var(--ink-2)">${cp.sectors[n]}</p>` : ''}<div class="cnt">Voir le quartier →</div></a>`).join('')}
       </div>
     </section>`:''}
     ${cityProps.length>=3?`
@@ -2965,12 +2970,12 @@ ${cityBlock}
 <p>On y trouve des maisons de plusieurs époques, des petits immeubles à logements et des condos. Deux maisons voisines peuvent avoir été construites à des décennies d'intervalle, alors les comparaisons de prix demandent plus de travail qu'ailleurs. Une maison bien entretenue avec du cachet ne se compare pas à une maison à rénover sur la même rue.</p>
 <p>Pour le quotidien dans le secteur, lisez aussi mon article <a href="/blog/vieux-sainte-therese-vivre-village/">Vieux Sainte-Thérèse : vivre au cœur du village</a>.</p>`
       },
-      'En-Haut': {
+      'Sainte-Thérèse-en-Haut': {
         lead: `Un secteur résidentiel de Sainte-Thérèse où vivent beaucoup de familles. Voici ce qu'il faut savoir pour y vendre ou y acheter.`,
-        portrait: `<p>Mes clients l'appellent Sainte-Thérèse-en-Haut. C'est un secteur surtout résidentiel, où vivent beaucoup de familles, et où plusieurs de mes clients m'ont confié la vente de leur maison au fil des ans.</p>`,
+        portrait: `<p>C'est un secteur surtout résidentiel, où vivent beaucoup de familles, et où plusieurs de mes clients m'ont confié la vente de leur maison au fil des ans.</p>`,
         quote: { text: `Honnêtement, je ne vois pas avec quel autre courtier vous pourriez faire affaires si vous demeurez dans Ste-Thérèse en haut !!! C'est le meilleur !`, author: 'Christian Savoie' }
       },
-      'En-Bas': {
+      'Sainte-Thérèse-en-Bas': {
         lead: `Un secteur résidentiel de Sainte-Thérèse. Voici ce qu'il faut savoir pour y vendre ou y acheter.`,
         portrait: `<p>Un secteur résidentiel de la ville, avec ses propres ventes comparables. Comme partout à Sainte-Thérèse, le prix d'une maison se juge d'abord par les ventes récentes dans les rues autour.</p>`
       }
@@ -2979,15 +2984,17 @@ ${cityBlock}
   for (const n of neighs) {
     const nc = NEIGH_COPY[slugC]?.[n];
     if (nc) {
+      // « à Sainte-Thérèse-en-Haut », mais « dans le secteur Vieux-Village »
+      const inN = n.includes(cityName) ? `à ${n}` : `dans le secteur ${n}`;
       const ncBody = `
 <section class="page-head container">
   <div class="page-head-grid">
     <div>
       <div class="eyebrow">Secteur · ${cityName}</div>
-      <h1>Immobilier dans le secteur ${n}, à ${cityName}.</h1>
+      <h1>Immobilier ${n.includes(cityName) ? `à <span style="white-space:nowrap">${n}</span>` : `dans le secteur ${n}, à ${cityName}`}.</h1>
       <p class="lead">${nc.lead}</p>
     </div>
-    <figure class="ph-hero"><img src="${heroImg}" alt="${n}, ${cityName}" loading="eager"></figure>
+    <figure class="ph-hero"><img src="${heroImg}" alt="${n.includes(cityName) ? n : `${n}, ${cityName}`}" loading="eager"></figure>
   </div>
 </section>
 
@@ -3004,17 +3011,17 @@ ${cityBlock}
 <section class="container">
   <div class="two-col">
     <article class="prose reveal">
-      <h2>Le secteur ${n}</h2>
+      <h2>${n.includes(cityName) ? n : `Le secteur ${n}`}</h2>
       ${nc.portrait}
       ${nc.quote ? `<blockquote class="city-quote" style="margin:2rem 0"><p>« ${nc.quote.text} »</p><footer>${nc.quote.author}, avis Google</footer></blockquote>` : ''}
-      <h2>Combien vaut votre maison dans le secteur ${n}&nbsp;?</h2>
+      <h2>Combien vaut votre maison ${inN}&nbsp;?</h2>
       <p>Il n'existe pas de statistiques publiques pour ce secteur : Centris publie seulement les chiffres de ${cityName} au complet. Pour évaluer une maison ici, je regarde les ventes récentes dans les rues autour, l'âge et l'état de la maison, puis ce qui est encore à vendre de comparable. Vous recevez une fourchette de prix, avec les ventes qui la justifient.</p>
       <p>Pour le marché de la ville, mes ventes récentes et les questions fréquentes (taxe de bienvenue, train vers Montréal), voyez la page <a href="/courtier-immobilier/${slugC}/">courtier immobilier à ${cityName}</a>.</p>
     </article>
     <aside>
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
-        <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;font-weight:500;margin-bottom:.7rem">Évaluation, secteur ${n}</div>
-        <h3 style="margin-bottom:.6rem;font-weight:500">Vous vendez dans le secteur ${n}&nbsp;?</h3>
+        <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;font-weight:500;margin-bottom:.7rem">Évaluation, ${n}</div>
+        <h3 style="margin-bottom:.6rem;font-weight:500">Vous vendez ${inN}&nbsp;?</h3>
         <p style="color:var(--ink-2);font-size:.92rem;line-height:1.55;margin-bottom:1.4rem">Je vous donne une fourchette de prix basée sur les ventes récentes autour de chez vous.</p>
         <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500;margin-bottom:.7rem">Obtenir mon évaluation</a>
         <a class="btn" href="/rendez-vous/" style="display:block;background:transparent;color:var(--blue);border:1.5px solid var(--blue);text-align:center;padding:.9rem;border-radius:var(--radius);font-weight:500">Écrivez-moi</a>
@@ -3030,16 +3037,16 @@ ${cityProps.length ? `
 <section class="container">
   <div class="cta-band reveal">
     <div>
-      <h2>Vous vendez ou achetez dans le secteur ${n}&nbsp;? Parlons-en.</h2>
+      <h2>Vous vendez ou achetez ${inN}&nbsp;? Parlons-en.</h2>
       <p style="color:rgba(255,255,255,.78);margin-top:.6rem;max-width:48ch;line-height:1.55">Écrivez-moi, je vous rappelle moi-même dans les 24 heures.</p>
     </div>
     <a class="btn" href="/rendez-vous/">Écrivez-moi</a>
   </div>
 </section>`;
-      writePage(`quartiers/${slugC}/${slug(n)}/index.html`, layout({
-        title: `${n}, ${cityName} : vendre ou acheter une maison | Alain Brunelle`,
-        description: `Le secteur ${n} à ${cityName} : ce qui s'y trouve, le marché de la ville au ${cs.period || 'Q1 2026'} et comment j'évalue une maison du secteur.`,
-        canonical: `https://alainbrunelle.com/quartiers/${slugC}/${slug(n)}/`,
+      writePage(`quartiers/${slugC}/${nslug(n)}/index.html`, layout({
+        title: `${n.includes(cityName) ? n : `${n}, ${cityName}`} : vendre ou acheter une maison | Alain Brunelle`,
+        description: `${n.includes(cityName) ? n : `Le secteur ${n} à ${cityName}`} : ce qui s'y trouve, le marché de la ville au ${cs.period || 'Q1 2026'} et comment j'évalue une maison du secteur.`,
+        canonical: `https://alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
         body: ncBody
       }));
       continue;
@@ -3133,10 +3140,10 @@ ${cityProps.length ? `
     <a class="btn" href="/rendez-vous/">Réserver un créneau</a>
   </div>
 </section>`;
-    writePage(`quartiers/${slugC}/${slug(n)}/index.html`, layout({
+    writePage(`quartiers/${slugC}/${nslug(n)}/index.html`, layout({
       title: `${n}, ${cityName} — prix, écoles et maisons à vendre | Alain Brunelle`,
       description: `Portrait du quartier ${n} à ${cityName} : prix médians, écoles, parcs, profil acheteur. Évaluation rue-par-rue par Alain Brunelle, courtier immobilier.`,
-      canonical: `https://alainbrunelle.com/quartiers/${slugC}/${slug(n)}/`,
+      canonical: `https://alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
       body: qBody
     }));
   }
@@ -4476,7 +4483,7 @@ const MARCHE_PAGES = {
   <div class="step"><div><strong>Si vous investissez :</strong> le segment plex est en train de surperformer Blainville. +17 % sur 12 mois et 18 transactions en Q1 — c'est de la liquidité réelle.</div></div>
 </div>
 
-<p>Pour une analyse <strong>par secteur</strong> (Vieux-Village, En-Haut, En-Bas), voir mon article complet : <a href="/blog/radioscopie-sainte-therese-marche-2026/">Radioscopie de Sainte-Thérèse</a>.</p>
+<p>Pour une analyse <strong>par secteur</strong> (Vieux-Village, Sainte-Thérèse-en-Haut, Sainte-Thérèse-en-Bas), voir mon article complet : <a href="/blog/radioscopie-sainte-therese-marche-2026/">Radioscopie de Sainte-Thérèse</a>.</p>
 
 <p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Sainte-Thérèse. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
   },
@@ -4568,7 +4575,7 @@ const articleJsonld = JSON.stringify({
 
 writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   title: `${featuredArticle.title} | Alain Brunelle`,
-  description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / En-Haut / En-Bas, outils de calcul. 33 ans, 3 000+ transactions.`,
+  description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 33 ans, 3 000+ transactions.`,
   canonical: `https://alainbrunelle.com/blog/${featuredArticle.slug}/`,
   jsonld: articleJsonld,
   extraHead: `<style>
@@ -4674,14 +4681,14 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     </div>
 
     <h2>2. Les trois secteurs — décryptés</h2>
-    <p>Sainte-Thérèse n'est pas <em>une</em> ville, c'est <strong>trois marchés distincts</strong>. Un triplex du Vieux-Village ne se vend pas comme un bungalow de l'En-Bas. Voici le comparatif que j'utilise, mis à jour à partir de mes dernières inscriptions et des transactions APCIQ 2026.</p>
+    <p>Sainte-Thérèse n'est pas <em>une</em> ville, c'est <strong>trois marchés distincts</strong>. Un triplex du Vieux-Village ne se vend pas comme un bungalow de Sainte-Thérèse-en-Bas. Voici le comparatif que j'utilise, mis à jour à partir de mes dernières inscriptions et des transactions APCIQ 2026.</p>
 
     <table class="sector-tbl" id="sector-table">
       <thead><tr><th>Secteur</th><th class="num">Prix médian</th><th class="num">Délai (j)</th><th class="num">Ratio V/D</th><th class="num">Inventaire</th></tr></thead>
       <tbody>
         <tr data-s="vieux"><td><strong>Vieux-Village</strong><br><span style="font-size:.82rem;color:var(--muted)">Cœur historique, cachet, condos neufs</span></td><td class="num">624 000 $</td><td class="num">24</td><td class="num">100,3 %</td><td class="num">Très faible</td></tr>
-        <tr data-s="haut"><td><strong>En-Haut</strong><br><span style="font-size:.82rem;color:var(--muted)">Familial, cottages 1990-2010, parcs</span></td><td class="num">575 000 $</td><td class="num">32</td><td class="num">98,9 %</td><td class="num">Équilibré</td></tr>
-        <tr data-s="bas"><td><strong>En-Bas</strong><br><span style="font-size:.82rem;color:var(--muted)">Accessible, bungalows, primo-accédants</span></td><td class="num">498 000 $</td><td class="num">38</td><td class="num">98,2 %</td><td class="num">Plus élevé</td></tr>
+        <tr data-s="haut"><td><strong>Sainte-Thérèse-en-Haut</strong><br><span style="font-size:.82rem;color:var(--muted)">Familial, cottages 1990-2010, parcs</span></td><td class="num">575 000 $</td><td class="num">32</td><td class="num">98,9 %</td><td class="num">Équilibré</td></tr>
+        <tr data-s="bas"><td><strong>Sainte-Thérèse-en-Bas</strong><br><span style="font-size:.82rem;color:var(--muted)">Accessible, bungalows, primo-accédants</span></td><td class="num">498 000 $</td><td class="num">38</td><td class="num">98,2 %</td><td class="num">Plus élevé</td></tr>
       </tbody>
     </table>
     <p style="font-size:.85rem;color:var(--muted);margin-top:-.5rem">Cliquez une ligne pour faire monter le graphique correspondant ci-dessous.</p>
@@ -4735,7 +4742,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     <p>Voici ce qu'apporte concrètement un courtier qui pratique exclusivement sur la Rive-Nord depuis 1992.</p>
 
     <ul>
-      <li><strong>Connaissance du terrain</strong> — chaque secteur de Sainte-Thérèse a sa propre dynamique. Vieux-Village, En-Haut et En-Bas se positionnent différemment : prix, profil acheteur, délais. Je connais ces nuances parce que j'y travaille tous les jours.</li>
+      <li><strong>Connaissance du terrain</strong> — chaque secteur de Sainte-Thérèse a sa propre dynamique. Vieux-Village, Sainte-Thérèse-en-Haut et Sainte-Thérèse-en-Bas se positionnent différemment : prix, profil acheteur, délais. Je connais ces nuances parce que j'y travaille tous les jours.</li>
       <li><strong>Réseau d'acheteurs actifs sur la Rive-Nord</strong> — une inscription est diffusée à mon réseau <em>avant</em> la publication Centris, ce qui génère habituellement des visites privées rapides.</li>
       <li><strong>Mise en marché complète</strong> — photographie HDR, vidéo drone, plan d'étage, visite virtuelle 360°, fiche Centris optimisée. Inclus dans le mandat, pas en supplément.</li>
       <li><strong>Analyse comparative rue par rue</strong> — je positionne votre propriété sur son côté de rue précis, pas sur la moyenne municipale qui dilue les écarts.</li>
@@ -4750,7 +4757,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     <p>La saisonnalité de Sainte-Thérèse est sous-estimée. Contrairement à Blainville, le pic de vente est <strong>début mai</strong>, pas fin avril. Raison principale : le Vieux-Village attire beaucoup d'acheteurs de Laval et Montréal qui visitent après la semaine de relâche de Pâques.</p>
     <ul>
       <li><strong>Inventaire condos neufs</strong> en baisse : 3 projets livrés, rien de nouveau annoncé pour 2026-2027 dans le Vieux-Village → pression haussière à 18 mois.</li>
-      <li><strong>Demande primo-accédants</strong> en En-Bas : forte, mais plafonnée par le stress test à ~5,25 %. Cap estimé à 520 k$ pour un ménage médian.</li>
+      <li><strong>Demande primo-accédants</strong> à Sainte-Thérèse-en-Bas : forte, mais plafonnée par le stress test à ~5,25 %. Cap estimé à 520 k$ pour un ménage médian.</li>
       <li><strong>Fenêtre vendeur</strong> optimale : 28 avril — 20 juin. Au-delà, pression baissière mesurée historiquement à -1,8 % par mois.</li>
     </ul>
 
@@ -5149,7 +5156,7 @@ const BLOG_CONTENT = {
   <div><strong>Pourquoi ces 7 points changent tout.</strong> Les courtiers qui couvrent Montréal Nord en général appliquent une recette générique. Vendre à Sainte-Thérèse en 2026, c'est <em>chorégraphier</em> ces 7 éléments — chaque vente devient un dossier construit, pas un listing affiché.</div>
 </div>
 
-<p>Pour discuter de votre projet de vente à Sainte-Thérèse — Vieux-Village, En-Haut ou En-Bas —, <a href="/rendez-vous/">réservez 20 minutes</a>. Je vous montre vos comparables réels et on construit votre stratégie ensemble.</p>`
+<p>Pour discuter de votre projet de vente à Sainte-Thérèse — Vieux-Village, Sainte-Thérèse-en-Haut ou Sainte-Thérèse-en-Bas —, <a href="/rendez-vous/">réservez 20 minutes</a>. Je vous montre vos comparables réels et on construit votre stratégie ensemble.</p>`
   },
 
   'premier-acheteur-blainville-revenu': {
@@ -5776,7 +5783,7 @@ writePage('404.html', layout({
 
 const allUrls = [
   '/', '/nos-proprietes/', '/a-propos/', '/contact/', '/temoignages/', '/rendez-vous/', '/guides/', '/marche-immobilier/', '/blog/',
-  ...CITIES.flatMap(([s,_,ns]) => [`/courtier-immobilier/${s}/`, ...ns.map(n=>`/quartiers/${s}/${slug(n)}/`)]),
+  ...CITIES.flatMap(([s,_,ns]) => [`/courtier-immobilier/${s}/`, ...ns.map(n=>`/quartiers/${s}/${nslug(n)}/`)]),
   ...TYPES.map(([s])=>`/types-de-propriete/${s}/`),
   ...SUBPAGES.map(([p])=>`/${p}/`),
   ...GUIDES.map(([s])=>`/guides/${s}/`),
