@@ -59,7 +59,7 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
       <div>✉ <a href="mailto:alain.brunelle@remax-quebec.com" style="color:var(--blue)">alain.brunelle@remax-quebec.com</a></div>
     </div>
   </div>
-  <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(typeof gtag==='function')gtag('event','generate_lead',{form_name:'${formName}'});}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alain.brunelle@remax-quebec.com.');}})(event);return false;">
+  <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('${formName}');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alain.brunelle@remax-quebec.com.');}})(event);return false;">
     <input type="hidden" name="_subject" value="${subject}">
     <div class="f-fields">
       <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>
@@ -665,7 +665,12 @@ function layout({ title, description, canonical, body, extraHead='', bodyClass='
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
 try{const c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(c&&c.timestamp){gtag('consent','update',{analytics_storage:c.analytics?'granted':'denied',ad_storage:c.marketing?'granted':'denied',ad_user_data:c.marketing?'granted':'denied',ad_personalization:c.marketing?'granted':'denied'});}}catch(e){}
-gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});
+gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('config','AW-18408093710');
+// Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
+(function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
+window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
+window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>${title}</title>
@@ -2612,9 +2617,11 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     submitBtn.disabled=true; submitBtn.textContent='Envoi…';
     try{
+      if(window.abAttr) abAttr(data);
       const res=await fetch(form.action,{ method:'POST', headers:{'Accept':'application/json'}, body:data });
       if(!res.ok) throw new Error('Erreur serveur');
       fieldsWrap.hidden=true; ok.hidden=false;
+      if(window.abLead) abLead('propriete');
     }catch(err){
       errEl.textContent="Une erreur réseau est survenue. Réessayez ou appelez Alain directement.";
       errEl.hidden=false;
@@ -3601,9 +3608,11 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
     fd.append('Nom',answers.name||'');
     fd.append('Téléphone',answers.phone||'');
     fd.append('Courriel',answers.email||'');
+    if(window.abAttr) abAttr(fd);
     try{
       const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:fd});
       if(!res.ok) throw new Error('Erreur serveur');
+      if(window.abLead) abLead('evaluation');
     }catch(e){
       btn.disabled=false; btn.textContent=oldLabel;
       alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alain.brunelle@remax-quebec.com.");
