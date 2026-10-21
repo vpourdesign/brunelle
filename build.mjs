@@ -86,7 +86,7 @@ function cityLeadForm({ cityName, formName, id = 'evaluation', heading = true })
     <input type="hidden" name="_subject" value="Évaluation gratuite ${cityName} (page courtier)">
     <div class="f-fields">
       ${heading ? `<div class="cl-eye">Évaluation gratuite · ${cityName}</div>
-      <h2 class="cl-title">Combien vaut votre maison à ${cityName} ?</h2>
+      <h2 class="cl-title">Combien vaut votre maison à ${cityName}&nbsp;?</h2>
       <p class="cl-sub">Mon analyse écrite en 48 h, à partir des ventes près de chez vous. Sans engagement.</p>` : ''}
       <label>Nom<input type="text" name="name" autocomplete="name" required></label>
       <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
@@ -1441,6 +1441,40 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .page-head-grid .ph-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(11,22,40,.35) 100%);pointer-events:none}
 @media(max-width:820px){.page-head-grid{grid-template-columns:1fr}.page-head-grid .ph-hero{aspect-ratio:16/9}}
 /* Page ville avec formulaire d'évaluation dans le premier écran (trafic Google Ads) */
+.city-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--blue-2);color:#fff;padding-block:clamp(2.5rem,6vw,5.5rem)}
+.city-hero .ch-bg{position:absolute;inset:0;z-index:-2;margin:0}
+.city-hero .ch-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.city-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(0,42,117,.93) 0%,rgba(0,42,117,.78) 38%,rgba(0,42,117,.28) 72%,rgba(11,22,40,.18) 100%)}
+.city-hero .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:500;margin-bottom:1rem;background:rgba(255,255,255,.12);color:#fff;padding:.4rem .9rem;border-radius:999px}
+.city-hero h1{color:#fff;max-width:20ch;font-size:clamp(2.2rem,4.5vw,3.5rem)}
+.city-hero .lead{max-width:54ch;margin-top:1.3rem;color:rgba(255,255,255,.88);font-size:clamp(1.05rem,1.4vw,1.18rem);font-weight:300;line-height:1.6}
+.city-hero .call-btn{border-color:#fff;color:#fff}
+.city-hero .call-btn:hover{background:#fff;color:var(--blue)}
+.city-hero .call-btn:focus-visible{outline-color:#fff}
+.city-hero .cl-proof{color:rgba(255,255,255,.78)}
+.city-hero .cl-proof strong{color:#fff}
+.city-hero .city-lead{box-shadow:0 2px 6px rgba(0,20,60,.18),0 30px 60px -24px rgba(0,20,60,.55)}
+.place-strip{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:var(--gap);margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.place-strip figure{margin:0}
+.place-strip .ps-img{display:block;height:clamp(200px,22vw,300px);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.place-strip img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.place-strip a.ps-img:hover img{transform:scale(1.04)}
+.place-strip a.ps-img:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.place-strip figcaption{margin-top:.6rem;font-size:.9rem;color:var(--ink-2)}
+@media(max-width:760px){.place-strip{grid-template-columns:1fr 1fr}.place-strip figure:first-child{grid-column:1/-1}.place-strip .ps-img{height:150px}.place-strip figure:first-child .ps-img{height:210px}}
+.alain-band{background:var(--surface)}
+.alain-band .ab-grid{display:grid;grid-template-columns:minmax(260px,.8fr) 1.2fr;gap:clamp(1.5rem,5vw,4.5rem);align-items:center}
+.alain-band figure{margin:0;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden}
+.alain-band figure img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.alain-band h2{max-width:20ch}
+.alain-band .ab-text{color:var(--ink-2);font-size:1.08rem;line-height:1.7;max-width:56ch;margin:1.2rem 0 0}
+.alain-band ul{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;gap:.9rem;max-width:60ch}
+.alain-band li{padding-left:1.4rem;position:relative;line-height:1.6;color:var(--ink-2)}
+.alain-band li::before{content:"";position:absolute;left:0;top:.62em;width:.5rem;height:.5rem;border-radius:50%;background:var(--blue)}
+.alain-band li strong{color:var(--ink);font-weight:600}
+.alain-band .ab-sign{margin-top:1.6rem;font-size:.92rem;color:var(--muted)}
+.alain-band .ab-sign strong{display:block;color:var(--ink);font-size:1.05rem;font-weight:600}
+@media(max-width:820px){.alain-band .ab-grid{grid-template-columns:1fr}.alain-band figure{aspect-ratio:4/3;max-height:420px}}
 .city-lead-grid{display:grid;grid-template-columns:1fr minmax(320px,.78fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
 .city-lead{scroll-margin-top:110px;background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
 .city-lead .f-fields{display:grid;gap:.9rem}
@@ -2870,6 +2904,18 @@ for (const [slugC, cityName, neighs] of CITIES) {
       description: `Alain Brunelle, courtier immobilier à Blainville depuis 33 ans (RE/MAX CRYSTAL). Évaluation gratuite de votre maison en 48 h, rappel par Alain dans les 24 h.`,
       h1: `Courtier immobilier à Blainville : Alain Brunelle, votre agent immobilier RE/MAX.`,
       leadForm: 'evaluation-blainville',
+      heroPhoto: ['/photos/blainville/sentier_boise_plan_bouchard_blainville.jpg', 'Sentier boisé sur pilotis dans Plan-Bouchard, à Blainville'],
+      places: [
+        ['/photos/blainville/blainville1.jpg', "L'hôtel de ville de Blainville", "Hôtel de ville", null],
+        ['/photos/blainville/actu_parc_chambery.jpg', 'Aire de jeux du parc de Chambéry, à Blainville', 'Parc de Chambéry', '/quartiers/blainville/chambery/'],
+        ['/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg', "Vue aérienne d'un secteur résidentiel de Blainville", 'Blainville vue du ciel', null]
+      ],
+      portrait: {
+        img: '/photos/alain/Creationsdoz-09781_Final.jpg',
+        alt: 'Alain Brunelle, courtier immobilier à Blainville, assis sur une terrasse',
+        title: `Vous parlez au courtier du début à la fin, pas à une équipe.`,
+        text: `Je vends des maisons sur la Rive-Nord depuis 1992. Quand vous m'appelez, c'est moi qui réponds; quand vous remplissez le formulaire, c'est moi qui vous rappelle.`
+      },
       proof: [`<strong>33 ans</strong> à Blainville et Sainte-Thérèse`, `<strong>3 000+</strong> transactions sur la Rive-Nord`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
       headings: {
         cta: `Vous vendez à Blainville ? Commencez par l'évaluation gratuite.`,
@@ -2882,7 +2928,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
       reasons: `<li><strong>Connaissance fine des 9 quartiers</strong> : Fontainebleau, Chambéry, Chante-Bois, Plan-Bouchard, Jardins-de-Blainville, Côte-Saint-Louis, Alençon, Renaissance, Blainvillier</li>
 <li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> : je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
 <li><strong>Mise en marché complète incluse</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
-<li><strong>Équipe RE/MAX CRYSTAL</strong> — réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
+<li><strong>Équipe RE/MAX CRYSTAL</strong> : réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
       types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Blainville en 2026 ?</h3>
 <p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>, selon Centris. Selon le quartier, l'âge et l'état de la maison, le prix réel peut s'éloigner beaucoup de cette médiane : c'est pourquoi l'évaluation part des ventes faites près de chez vous.</p>
@@ -2939,6 +2985,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
     ${neighs.length?`
     <section class="container">
       <div class="sec-head reveal"><div><div class="eye">Quartiers</div><h2>Les quartiers de ${cityName}.</h2></div></div>
+      ${cp.places ? `<div class="place-strip">${cp.places.map(([src, alt, cap, href]) => `<figure>${href ? `<a class="ps-img" href="${href}">` : '<div class="ps-img">'}<img src="${src}" alt="${alt}" loading="lazy">${href ? '</a>' : '</div>'}<figcaption>${cap}</figcaption></figure>`).join('')}</div>` : ''}
       <div class="n-grid">
         ${neighs.map(n=>`<a class="n-card" href="/quartiers/${slugC}/${nslug(n)}/"><h3>${n}</h3>${cp.sectors?.[n] ? `<p style="margin:.6rem 0 1rem;font-size:.92rem;line-height:1.55;color:var(--ink-2)">${cp.sectors[n]}</p>` : ''}<div class="cnt">Voir le quartier →</div></a>`).join('')}
       </div>
@@ -2960,28 +3007,41 @@ for (const [slugC, cityName, neighs] of CITIES) {
       <p class="lead">${cp.lead}</p>`;
   const callBtn = (cls = '') => obscuredPhone({ cls: `call-btn ${cls}`, prefix: 'Appeler Alain : ', label: '514 972-4207' });
   const body = `
-<section class="page-head container">${cp.leadForm ? `
-  <div class="city-lead-grid">
+${cp.leadForm ? `<section class="city-hero">${cp.heroPhoto ? `
+  <figure class="ch-bg"><img src="${cp.heroPhoto[0]}" alt="${cp.heroPhoto[1]}" fetchpriority="high"></figure>` : ''}
+  <div class="container city-lead-grid">
     <div>${cityHead}
       ${callBtn()}
       ${cp.proof ? `<div class="cl-proof">${cp.proof.map(x => `<span>${x}</span>`).join('')}</div>` : ''}
     </div>
     ${cityLeadForm({ cityName, formName: cp.leadForm })}
-  </div>` : cityHero ? `
+  </div>
+</section>${cp.portrait ? `
+<section class="alain-band">
+  <div class="container ab-grid">
+    <figure><img src="${cp.portrait.img}" alt="${cp.portrait.alt}" loading="lazy"></figure>
+    <div>
+      <h2>${cp.portrait.title}</h2>
+      <p class="ab-text">${cp.portrait.text}</p>
+      <ul>${cp.reasons}</ul>
+      <p class="ab-sign"><strong>Alain Brunelle</strong>Courtier immobilier résidentiel et commercial, RE/MAX CRYSTAL</p>
+    </div>
+  </div>
+</section>` : ''}` : `<section class="page-head container">${cityHero ? `
   <div class="page-head-grid">
     <div>${cityHead}
     </div>
     <figure class="ph-hero"><img src="${cityHero[0]}" alt="${cityHero[1]}" loading="eager"></figure>
   </div>` : cityHead}
-</section>
+</section>`}
 ${cityBlock}
 <section class="container">
   <div class="two-col">
     <article class="prose reveal">
       <h2>Le marché immobilier à ${cityName} en 2026</h2>
       ${cp.market}
-      <h2>${cp.headings?.reasons || `Pourquoi choisir Alain Brunelle comme courtier immobilier à ${cityName}`}</h2>
-      <ul>${cp.reasons}</ul>
+      ${cp.portrait ? '' : `<h2>${cp.headings?.reasons || `Pourquoi choisir Alain Brunelle comme courtier immobilier à ${cityName}`}</h2>
+      <ul>${cp.reasons}</ul>`}
       <h2>${cp.headings?.types || `Types de propriétés les plus actifs à ${cityName}`}</h2>
       ${cp.types}
       <h2>${cp.headings?.faq || `FAQ — vendre et acheter à ${cityName}`}</h2>
