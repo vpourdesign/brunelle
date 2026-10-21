@@ -79,6 +79,29 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
   </form>
 </div>`;
 }
+// Formulaire court d'évaluation (3 champs) pour les pages ville qui reçoivent du trafic Google Ads.
+// Même endpoint et même mesure que les autres formulaires (abAttr = source du lead, abLead = conversion Ads).
+function cityLeadForm({ cityName, formName, id = 'evaluation', heading = true }) {
+  return `<form class="contact-form city-lead" id="${id}" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('${formName}');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <input type="hidden" name="_subject" value="Évaluation gratuite ${cityName} (page courtier)">
+    <div class="f-fields">
+      ${heading ? `<div class="cl-eye">Évaluation gratuite · ${cityName}</div>
+      <h2 class="cl-title">Combien vaut votre maison à ${cityName} ?</h2>
+      <p class="cl-sub">Mon analyse écrite en 48 h, à partir des ventes près de chez vous. Sans engagement.</p>` : ''}
+      <label>Nom<input type="text" name="name" autocomplete="name" required></label>
+      <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Adresse de la propriété<input type="text" name="adresse" autocomplete="street-address" placeholder="ex. rue de Chambéry, Blainville" required></label>
+      <button type="submit" class="f-submit">Recevoir mon évaluation gratuite →</button>
+      <p class="f-note">Je vous rappelle moi-même dans les 24 h. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Demande reçue.</h3>
+      <p>Merci. Je vous rappelle personnellement dans les 24 h pour préciser votre propriété.</p>
+    </div>
+  </form>`;
+}
+
 // Base URL des vidéos. En local: '' → sert /videos/foo.mp4 depuis site/. En prod Vercel: pointer vers Vercel Blob.
 // Ex: VIDEO_BASE=https://abc123.public.blob.vercel-storage.com/videos
 const VIDEO_BASE = process.env.VIDEO_BASE || '';
@@ -1417,6 +1440,33 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .page-head-grid .ph-hero:hover img{transform:scale(1.04)}
 .page-head-grid .ph-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(11,22,40,.35) 100%);pointer-events:none}
 @media(max-width:820px){.page-head-grid{grid-template-columns:1fr}.page-head-grid .ph-hero{aspect-ratio:16/9}}
+/* Page ville avec formulaire d'évaluation dans le premier écran (trafic Google Ads) */
+.city-lead-grid{display:grid;grid-template-columns:1fr minmax(320px,.78fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+.city-lead{scroll-margin-top:110px;background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
+.city-lead .f-fields{display:grid;gap:.9rem}
+.city-lead .f-submit{justify-self:stretch;text-align:center}
+.cl-eye{color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem}
+.cl-title{font-size:clamp(1.35rem,2.2vw,1.7rem);line-height:1.15;margin:0}
+.cl-sub{color:var(--ink-2);font-size:.95rem;line-height:1.55;margin:0 0 .3rem}
+.call-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.6rem;padding:1rem 1.5rem;border-radius:999px;border:1.5px solid var(--blue);color:var(--blue);font-weight:600;text-decoration:none;transition:background .25s var(--ease),color .25s var(--ease)}
+.call-btn:hover{background:var(--blue);color:#fff}
+.call-btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.call-btn.solid{background:var(--blue);color:#fff}
+.call-btn.solid:hover{background:var(--blue-2)}
+.cl-proof{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1.4rem;color:var(--ink-2);font-size:.92rem}
+.cl-proof strong{color:var(--ink)}
+.cta-band .cta-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+.cta-band .call-btn{margin:0;border-color:#fff;color:#fff}
+.cta-band .call-btn:hover{background:#fff;color:var(--ink)}
+.call-bar{display:none}
+@media(max-width:860px){.city-lead-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .call-bar{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line)}
+  .call-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none}
+  .call-bar .cb-call{background:var(--blue);color:#fff}
+  .call-bar .cb-eval{background:var(--ink);color:#fff}
+  body.has-call-bar{padding-bottom:76px}
+}
 
 .prose{max-width:72ch;font-size:1.02rem;line-height:1.75;color:var(--ink-2)}
 .prose>h2{margin-top:3rem;margin-bottom:1rem;color:var(--ink);font-size:clamp(1.5rem,2.4vw,1.9rem);font-weight:400;letter-spacing:-.02em;position:relative;padding-top:1.4rem}
@@ -2814,18 +2864,34 @@ for (const [slugC, cityName, neighs] of CITIES) {
       ]
     },
     'blainville': {
-      lead: `Blainville, c'est neuf quartiers à personnalité forte : de Fontainebleau à Chante-Bois, en passant par Chambéry et Plan-Bouchard. 33 ans à vendre et acheter rue par rue dans cette ville.`,
-      market: `<p>Blainville en 2026 est en phase de <strong>rééquilibrage</strong>. L'inventaire d'unifamiliales a bondi de 29 %, ramenant du pouvoir de négociation aux acheteurs. Le prix médian unifamilial recule modestement (−4 %, à 715 k$), tandis que le condo (+3 %) et le plex (+10 %) restent fermement haussiers. Lire un marché comme celui-là demande de la précision — pas une moyenne globale, mais une lecture par quartier et par typologie.</p>
+      // 2026-10-21 : page d'atterrissage du groupe Google Ads « Courtier Blainville » (QS 3, expérience
+      // sur la page sous la moyenne). Formulaire 3 champs + appel dans le premier écran, barre d'appel mobile.
+      title: `Courtier immobilier Blainville, agent RE/MAX | Alain Brunelle`,
+      description: `Alain Brunelle, courtier immobilier à Blainville depuis 33 ans (RE/MAX CRYSTAL). Évaluation gratuite de votre maison en 48 h, rappel par Alain dans les 24 h.`,
+      h1: `Courtier immobilier à Blainville : Alain Brunelle, votre agent immobilier RE/MAX.`,
+      leadForm: 'evaluation-blainville',
+      proof: [`<strong>33 ans</strong> à Blainville et Sainte-Thérèse`, `<strong>3 000+</strong> transactions sur la Rive-Nord`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
+      headings: {
+        cta: `Vous vendez à Blainville ? Commencez par l'évaluation gratuite.`,
+        ctaBtn: `Demander l'évaluation`,
+        ctaHref: '#evaluation'
+      },
+      lead: `Je vends des maisons à Blainville depuis 33 ans, de Fontainebleau à Chante-Bois. Pour votre propriété, je pars des ventes faites près de chez vous et je vous remets une évaluation écrite en 48 h. C'est moi qui vous rappelle.`,
+      market: `<p>Blainville en 2026 est en phase de <strong>rééquilibrage</strong>. L'inventaire d'unifamiliales a bondi de 29 %, ramenant du pouvoir de négociation aux acheteurs. Le prix médian unifamilial recule modestement (−4 %, à 715 k$), tandis que le condo (+3 %) et le plex (+10 %) restent fermement haussiers. Lire un marché comme celui-là demande de la précision : pas une moyenne globale, mais une lecture par quartier et par typologie.</p>
 <p>Comme <strong>courtier immobilier à Blainville</strong> depuis 33 ans, je positionne chaque inscription en croisant les transactions des 12 derniers mois à moins de 500 m, l'inventaire actif comparable et les tendances saisonnières du quartier visé. Données APCIQ et Centris à jour, méthode rigoureuse.</p>`,
       reasons: `<li><strong>Connaissance fine des 9 quartiers</strong> : Fontainebleau, Chambéry, Chante-Bois, Plan-Bouchard, Jardins-de-Blainville, Côte-Saint-Louis, Alençon, Renaissance, Blainvillier</li>
-<li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> — je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
+<li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> : je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
 <li><strong>Mise en marché complète incluse</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> — réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
       types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Blainville en 2026 ?</h3>
-<p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>. La fourchette s'étend de ~580 000 $ (Côte-Saint-Louis, Alençon) à ~1,2 M$ (Fontainebleau secteur boisé, Chambéry haut de gamme).</p>
+<p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>, selon Centris. Selon le quartier, l'âge et l'état de la maison, le prix réel peut s'éloigner beaucoup de cette médiane : c'est pourquoi l'évaluation part des ventes faites près de chez vous.</p>
 <h3>Combien de temps prend la vente d'une propriété à Blainville ?</h3>
-<p>Délai médian Q1 2026 : <strong>32 jours</strong> sur l'unifamilial, 60 jours sur le condo. Avec une mise en marché bien positionnée sur l'unifamilial, je vise 28 jours.</p>`
+<p>Délai médian Q1 2026 : <strong>32 jours</strong> sur l'unifamilial, 60 jours sur le condo. Une maison affichée au bon prix dès le départ part en général plus vite qu'une maison qu'on doit baisser en cours de route.</p>
+<h3>Courtier immobilier ou agent immobilier à Blainville : quelle différence ?</h3>
+<p>Aucune dans les faits. Au Québec, le titre officiel est « courtier immobilier », délivré par l'OACIQ. « Agent immobilier » est le mot courant pour désigner le même métier. Je suis courtier immobilier résidentiel et commercial chez RE/MAX CRYSTAL.</p>
+<h3>Comment obtenir une évaluation gratuite de ma maison à Blainville ?</h3>
+<p>Remplissez le formulaire en haut de la page (nom, téléphone, adresse) ou appelez-moi au 514 972-4207. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, sans engagement.</p>`
     },
     'rosemere': {
       lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 33 ans à lire ce marché spécifique.`,
@@ -2892,8 +2958,16 @@ for (const [slugC, cityName, neighs] of CITIES) {
       <div class="eyebrow">Courtier immobilier · ${cityName}</div>
       <h1>${cp.h1 || `Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.`}</h1>
       <p class="lead">${cp.lead}</p>`;
+  const callBtn = (cls = '') => obscuredPhone({ cls: `call-btn ${cls}`, prefix: 'Appeler Alain : ', label: '514 972-4207' });
   const body = `
-<section class="page-head container">${cityHero ? `
+<section class="page-head container">${cp.leadForm ? `
+  <div class="city-lead-grid">
+    <div>${cityHead}
+      ${callBtn()}
+      ${cp.proof ? `<div class="cl-proof">${cp.proof.map(x => `<span>${x}</span>`).join('')}</div>` : ''}
+    </div>
+    ${cityLeadForm({ cityName, formName: cp.leadForm })}
+  </div>` : cityHero ? `
   <div class="page-head-grid">
     <div>${cityHead}
     </div>
@@ -2917,12 +2991,14 @@ ${cityBlock}
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
         <div class="eye" style="color:var(--blue-2)">Évaluation ${cityName}</div>
         <h3 style="margin:.7rem 0 1rem">Combien vaut votre propriété à ${cityName} ?</h3>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>
+        <a class="btn" href="${cp.leadForm ? '#evaluation' : '/vendre/evaluation-gratuite/'}" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>${cp.leadForm ? `
+        ${obscuredPhone({ cls: 'call-btn solid', prefix: 'Appeler : ', label: '514 972-4207', style: 'display:flex;justify-content:center;margin-top:.8rem' })}` : ''}
       </div>
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2><a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a></div></section>`;
+<section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2>${cp.leadForm ? `<div class="cta-actions"><a class="btn" href="${cp.headings?.ctaHref || '/rendez-vous/'}">${cp.headings?.ctaBtn}</a>${callBtn()}</div>` : `<a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a>`}</div></section>${cp.leadForm ? `
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>` : ''}`;
 
   const cityUrl = `https://alainbrunelle.com/courtier-immobilier/${slugC}/`;
   const cityJsonld = ldScript({
@@ -2954,6 +3030,7 @@ ${cityBlock}
     description: cp.description || `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
     canonical: cityUrl,
     jsonld: cityJsonld,
+    bodyClass: cp.leadForm ? 'has-call-bar' : '',
     body
   }));
 
