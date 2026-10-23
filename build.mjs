@@ -693,7 +693,7 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>${title}</title>
@@ -707,7 +707,6 @@ ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css?v=${ASSET_V.css}">
 ${extraHead}
@@ -1243,6 +1242,49 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 @media(max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-photo{grid-row:auto;min-height:500px}.hero-photo img{object-position:50% 18%}.hero-photo .p-tag{top:auto;bottom:7.2rem;left:1.2rem;right:1.2rem;text-align:center;font-size:.72rem;padding:.45rem .9rem}.hero-photo .p-caption{bottom:2rem}.hero-photo::after{background:linear-gradient(180deg,transparent 0%,transparent 40%,rgba(11,22,40,.55) 70%,rgba(11,22,40,.92) 100%)}}
 
 /* Paragraph row under hero */
+/* HERO ACCUEIL (2026-10-23) : le nom en très grand, photo fondue dans le blanc, 2 actions */
+.hx{position:relative;overflow:hidden;background:var(--bg);padding:0}
+.hx-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);min-height:min(84vh,760px)}
+.hx-text{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(2.5rem,6vw,5rem);padding-left:max(var(--pad),calc((100vw - var(--container))/2 + var(--pad)));padding-right:clamp(1rem,2vw,2rem)}
+.hx-kicker{display:flex;align-items:center;gap:.55rem;margin:0;font-size:.95rem;font-weight:500;color:var(--ink-2)}
+.hx-kicker img{height:20px;width:auto}
+.hx h1{margin:clamp(1rem,2vw,1.6rem) 0 0;color:var(--ink);letter-spacing:-.045em}
+.hx-name{display:block;font-size:clamp(3.1rem,7.2vw,7rem);font-weight:600;line-height:.9;white-space:nowrap}
+.hx-role{display:block;margin-top:.12em;font-size:clamp(2.1rem,4.6vw,4.4rem);font-weight:300;line-height:1;letter-spacing:-.035em;color:var(--ink-2)}
+.hx-sub{margin:clamp(1.4rem,2.6vw,2.2rem) 0 0;max-width:27ch;font-size:clamp(1.2rem,1.75vw,1.55rem);font-weight:400;line-height:1.38;letter-spacing:-.012em;color:var(--ink-2)}
+.hx-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(1.8rem,3.2vw,2.8rem)}
+.hx-btn{display:inline-flex;align-items:center;gap:.65rem;min-height:62px;padding:0 1.7rem;border-radius:999px;font-size:1.06rem;font-weight:600;text-decoration:none;transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease)}
+.hx-btn svg{width:1.25rem;height:1.25rem;flex:none}
+.hx-btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.hx-btn:active{transform:translateY(1px)}
+.hx-write{background:var(--ink);color:#fff;box-shadow:0 10px 24px -14px rgba(11,22,40,.7)}
+.hx-write:hover{background:#1b2a44;color:#fff;transform:translateY(-2px)}
+.hx-call{background:var(--blue);color:#fff;box-shadow:0 10px 24px -14px rgba(0,61,165,.8)}
+.hx-call:hover{background:var(--blue-2);color:#fff;transform:translateY(-2px)}
+.hx-call .hx-call-k{font-weight:400;opacity:.85}
+.hx-call .ph-obs-txt{font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.hx-reassure{margin:1.1rem 0 0;max-width:46ch;font-size:.95rem;line-height:1.55;color:var(--muted)}
+.hx-photo{position:relative;margin:0;min-height:100%}
+.hx-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:46% 28%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 26%);mask-image:linear-gradient(90deg,transparent 0%,#000 26%)}
+.hx-badge{position:absolute;left:14%;bottom:clamp(1.5rem,4vw,3rem);display:grid;gap:.15rem;background:#fff;border-radius:16px;padding:.9rem 1.15rem;box-shadow:0 2px 6px rgba(11,22,40,.08),0 20px 40px -18px rgba(11,22,40,.35);font-size:.85rem;color:var(--muted)}
+.hx-badge strong{color:var(--ink);font-size:1rem;font-weight:600}
+.hx-stars{color:#f5a623;letter-spacing:.12em;font-size:.85rem}
+@media(max-width:1100px) and (min-width:861px){.hx-name{white-space:normal}}
+@media(max-width:860px){
+  .hx-grid{grid-template-columns:1fr;min-height:0}
+  .hx-photo{order:-1;height:clamp(330px,92vw,520px);min-height:0}
+  .hx-photo img{object-position:50% 18%;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%)}
+  .hx-badge{display:none}
+  .hx-text{margin-top:-2.2rem;padding:0 var(--pad) 2.5rem}
+  .hx-name{white-space:normal;font-size:clamp(2.9rem,13.5vw,4.4rem)}
+  .hx-role{font-size:clamp(1.9rem,8.6vw,2.8rem)}
+  .hx-sub{font-size:1.1rem}
+  .hx-actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  .hx-btn{justify-content:center;min-height:56px;padding:0 1rem;font-size:1rem}
+  .hx-call .hx-call-k{display:none}
+}
+@media(max-width:380px){.hx-actions{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.hx-btn{transition:none}.hx-btn:hover{transform:none}}
 .hero-lead{display:grid;grid-template-columns:1fr .4fr;gap:var(--gap);align-items:end;margin-top:1.8rem}
 .hero-lead h2{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:400;max-width:28ch;letter-spacing:-.015em}
 .hero-lead .lead-meta{text-align:right;font-size:.9rem;color:var(--muted)}
@@ -2032,26 +2074,22 @@ const homeJsonld = JSON.stringify({
 });
 
 const homeBody = `
-<section class="hero container">
-  <div class="hero-grid">
-    <div class="hero-photo reveal">
-      <span class="p-tag">Alain Brunelle · Courtier immobilier · RE/MAX CRYSTAL</span>
-      <img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, courtier immobilier à Sainte-Thérèse, Blainville, Rosemère et Lorraine" fetchpriority="high">
-      <p class="p-caption">3 000+ transactions accompagnées sur la Rive-Nord depuis 1992.</p>
+<section class="hx" aria-labelledby="hx-title">
+  <div class="hx-grid">
+    <div class="hx-text">
+      <p class="hx-kicker"><img src="/brand_assets/digital_ballon.png" alt="" width="18" height="20">RE/MAX CRYSTAL, Sainte-Thérèse</p>
+      <h1 id="hx-title"><span class="hx-name">Alain Brunelle,</span><span class="hx-role">courtier immobilier</span></h1>
+      <h2 class="hx-sub">35 ans d'expérience à votre service à Blainville et à Sainte-Thérèse.</h2>
+      <div class="hx-actions">
+        <a class="hx-btn hx-write" href="/rendez-vous/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Écrivez-moi</a>
+        ${obscuredPhone({ cls: 'hx-btn hx-call', prefix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.2-2.1 1.4a11 11 0 0 0 6.9 6.9l1.4-2.1L21 15l-.5 2.4A2.5 2.5 0 0 1 18 19.5 15.5 15.5 0 0 1 4.5 6a2.5 2.5 0 0 1 2.1-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="hx-call-k">Appelez-moi</span>', label: '514 972-4207' })}
+      </div>
+      <p class="hx-reassure">C'est moi qui réponds, et je vous rappelle en moins de 24 h. Sans pression, sans engagement.</p>
     </div>
-    <div class="hero-card reveal">
-      <div class="eyebrow">Courtier immobilier · Rive-Nord</div>
-      <h1>Le <em>courtier immobilier</em> de référence à Blainville et Sainte-Thérèse.</h1>
-      <div class="hero-cities"><span>Sainte-Thérèse</span><span>Blainville</span><span>Rosemère</span><span>Lorraine</span></div>
-      <p class="cities">33 ans de transactions locales · Personne ne connaît mieux le marché local.</p>
-    </div>
-    <a class="hero-cta reveal" href="/rendez-vous/">
-      <div><strong>Prendre rendez-vous avec moi</strong><small>Sans pression, sans engagement</small></div>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-  <div class="hero-lead">
-    <h2>En tant que courtier immobilier sur la Rive-Nord, je prends mes décisions avec vous, chiffres en main.</h2>
+    <figure class="hx-photo">
+      <img src="/photos/alain/hero-alain-1800.jpg" srcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" sizes="(max-width: 860px) 100vw, 55vw" width="1800" height="1200" alt="Alain Brunelle, courtier immobilier à Blainville et Sainte-Thérèse" fetchpriority="high">
+      <figcaption class="hx-badge"><span class="hx-stars" aria-hidden="true">★★★★★</span><strong>5,0 sur Google</strong><span>3 000+ transactions depuis 1992</span></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -2384,6 +2422,7 @@ writePage('index.html', layout({
   title: 'Alain Brunelle — Courtier immobilier Sainte-Thérèse & Blainville | RE/MAX CRYSTAL',
   description: 'Alain Brunelle, courtier immobilier leader à Sainte-Thérèse et Blainville. Approche analytique, 2000+ transactions, évaluation gratuite et stratégie de mise en marché sur mesure.',
   canonical: 'https://alainbrunelle.com/',
+  extraHead: '<link rel="preload" as="image" href="/photos/alain/hero-alain-1800.jpg" imagesrcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" imagesizes="(max-width: 860px) 100vw, 55vw" fetchpriority="high">',
   body: homeBody,
   jsonld: homeJsonld
 }));
