@@ -120,6 +120,20 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .nav-cta:hover{color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px -4px rgba(15,40,85,.4),inset 0 1px 0 rgba(255,255,255,.12)}
 .nav-cta:hover::after{opacity:1}
 .nav-burger{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer}
+.nav{grid-template-columns:auto 1fr auto auto auto}
+.nav-eval{display:inline-flex;align-items:center;background:var(--blue);color:#fff;padding:.75rem 1.3rem;border-radius:999px;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .25s var(--ease),transform .3s var(--ease)}
+.nav-eval:hover{background:var(--blue-2);color:#fff;transform:translateY(-1px)}
+.nav-eval:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.nav-eval .ne-short{display:none}
+.nav-m-extra{display:none}
+/* Menu toujours sur une ligne : on resserre avant que les liens ne passent à la ligne */
+.nav-links{flex-wrap:nowrap}
+.nav-item{white-space:nowrap}
+@media(min-width:1320px){.nav-eval{margin-right:-.75rem}}
+@media(max-width:1179px) and (min-width:981px){.nav-eval .ne-long{display:none}.nav-eval .ne-short{display:inline}}
+@media(max-width:1439px) and (min-width:981px){.nav{gap:1rem}.nav-links{gap:0}.nav-item{padding:.5rem .65rem;font-size:.92rem}.nav .brand-logo{height:54px}.nav .brand-remax{height:40px}}
+@media(max-width:1099px) and (min-width:981px){.nav{gap:.6rem;padding-inline:1rem}.nav-item{padding:.45rem .38rem !important;font-size:.88rem !important}.nav .brand-logo{height:42px !important}.nav .brand-remax{height:32px !important}.nav-eval{padding:.65rem 1rem;font-size:.86rem}}
+@media(max-width:1319px) and (min-width:981px){.nav-cta{display:none}.nav{grid-template-columns:auto 1fr auto auto;gap:.8rem}.nav-item{padding:.5rem .55rem;font-size:.9rem}.nav .brand-logo{height:50px}.nav .brand-remax{height:38px}}
 
 /* RE/MAX agency compliance bar — conforme normes RE/MAX Québec */
 .agency-bar{background:var(--surface);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink-2);position:relative;z-index:40}
@@ -192,6 +206,24 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .has-sub>.sub::before{display:none}
   .nav-burger{display:block;order:3}
   .nav-cta{display:none}
+  .nav{grid-template-columns:1fr auto auto auto}
+  .nav-m-extra{display:grid;gap:.55rem;order:-1;margin-bottom:.8rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+  .nav-m-extra a{display:flex;justify-content:center;align-items:center;min-height:48px;border-radius:999px;font-weight:600;font-size:1rem}
+  .nav-m-eval{background:var(--blue);color:#fff}
+  .nav-m-write{background:var(--ink);color:#fff}
+  .nav-m-lang{display:none !important}
+}
+@media(max-width:540px){
+  .nav{gap:.45rem !important;padding:.6rem .75rem !important}
+  .nav .brand{gap:.45rem}
+  .nav .brand-logo{height:34px}
+  .nav .brand-remax{height:28px}
+  .nav-lang{display:none !important}
+  .nav-m-lang{display:flex !important;min-height:40px !important;font-weight:500 !important;font-size:.92rem !important;color:var(--ink-2);border:1px solid var(--line)}
+  .nav-eval{padding:.6rem .95rem;font-size:.85rem}
+  .nav-eval .ne-long{display:none}
+  .nav-eval .ne-short{display:inline}
+  .nav-burger{min-width:40px !important;padding:.3rem .4rem !important}
 }
 
 /* HERO */
@@ -508,6 +540,12 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .cta-band .cta-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
 .cta-band .call-btn{margin:0;border-color:#fff;color:#fff}
 .cta-band .call-btn:hover{background:#fff;color:var(--ink)}
+@media(max-width:820px){
+  .cta-band{gap:1.4rem}
+  .cta-band h2{font-size:clamp(1.6rem,6vw,2rem)}
+  .cta-band .cta-actions{flex-direction:column;align-items:stretch;gap:.7rem}
+  .cta-band .cta-actions .btn,.cta-band .cta-actions .call-btn{display:flex;justify-content:center;text-align:center;white-space:normal;padding:1rem 1.2rem;min-height:52px}
+}
 .call-bar{display:none}
 @media(max-width:860px){.city-lead-grid{grid-template-columns:1fr}}
 @media(max-width:760px){
@@ -772,9 +810,12 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .f-bottom-legal{line-height:1.55}
 
   /* Agency bar — pile verticale propre */
-  .agency-bar-inner{flex-direction:column;gap:.3rem;text-align:center}
+  .agency-bar-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.15rem .55rem;padding:.45rem var(--pad);text-align:center}
   .agency-bar-sep{display:none}
-  .agency-bar-tel{margin-top:.15rem;font-size:.88rem;padding:.25rem .5rem}
+  .agency-bar-logo{height:20px}
+  .agency-bar-meta{flex-basis:auto !important;margin:0 !important}
+  .agency-bar-addr{order:5;flex-basis:100% !important;font-size:.72rem;color:var(--muted)}
+  .agency-bar-tel{font-size:.82rem;padding:0;margin:0}
 
   /* Section padding — plus respectueux du viewport */
   section{padding-block:clamp(2rem,7vw,3rem)}
