@@ -902,8 +902,10 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   </a>
   <nav class="nav-links">
     ${NAV.map(n => n.children ? `<div class="nav-item has-sub"><a href="${n.href}">${n.label}</a><div class="sub">${n.children.map(c=>`<a href="${c[1]}">${c[0]}</a>`).join('')}</div></div>` : `<a class="nav-item" href="${n.href}">${n.label}</a>`).join('')}
+    <div class="nav-m-extra"><a class="nav-m-eval" href="/vendre/evaluation-gratuite/">Évaluation gratuite</a><a class="nav-m-write" href="/rendez-vous/">Écrivez-moi</a><a class="nav-m-lang" data-lang-mirror href="/en/">English</a></div>
   </nav>
   <a class="nav-lang" id="langSwitch" href="/en/" aria-label="Switch language" style="display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:var(--ink);text-decoration:none;padding:.32rem .6rem;border:1px solid rgba(11,22,40,.2);border-radius:999px;margin-right:.55rem;line-height:1">EN</a>
+  <a class="nav-eval" href="/vendre/evaluation-gratuite/"><span class="ne-long">Évaluation gratuite</span><span class="ne-short">Évaluation</span></a>
   <a class="nav-cta" href="/rendez-vous/">Écrivez-moi</a>
   <button class="nav-burger" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
 </header>
@@ -913,7 +915,7 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
     <span class="agency-bar-sep" aria-hidden="true">·</span>
     <span class="agency-bar-meta">Agence immobilière</span>
     <span class="agency-bar-sep" aria-hidden="true">·</span>
-    <span class="agency-bar-meta">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
+    <span class="agency-bar-meta agency-bar-addr">228 boul. du Curé-Labelle, Sainte-Thérèse, QC&nbsp;J7E&nbsp;2X7</span>
     <span class="agency-bar-sep" aria-hidden="true">·</span>
     ${obscuredPhone({cls:'agency-bar-tel'})}
   </div>
@@ -976,6 +978,7 @@ ${body}
   </div>
 </footer>
 <script>(function(){var s=document.getElementById('langSwitch');if(!s)return;var p=location.pathname;var isEn=p==='/en'||p.indexOf('/en/')===0;if(isEn){var fr=p.replace(/^\\/en/,'');if(!fr)fr='/';s.setAttribute('href',fr);s.textContent='FR';s.setAttribute('lang','fr');s.setAttribute('aria-label','Passer en français');}else{s.setAttribute('href','/en'+(p==='/'?'/':p));s.textContent='EN';s.setAttribute('lang','en');s.setAttribute('aria-label','Switch to English');}})();</script>
+<script>(function(){var s=document.getElementById('langSwitch');if(!s)return;document.querySelectorAll('[data-lang-mirror]').forEach(function(m){m.setAttribute('href',s.getAttribute('href'));m.textContent=s.textContent.trim()==='FR'?'Français':'English';});})();</script>
 <script src="/assets/site.js?v=${ASSET_V.js}" defer></script>
 </body>
 </html>`;
@@ -1104,6 +1107,15 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .nav-cta:hover{color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px -4px rgba(15,40,85,.4),inset 0 1px 0 rgba(255,255,255,.12)}
 .nav-cta:hover::after{opacity:1}
 .nav-burger{display:none;background:none;border:0;font-size:1.4rem;cursor:pointer}
+.nav{grid-template-columns:auto 1fr auto auto auto}
+.nav-eval{display:inline-flex;align-items:center;background:var(--blue);color:#fff;padding:.75rem 1.3rem;border-radius:999px;font-size:.9rem;font-weight:600;white-space:nowrap;transition:background .25s var(--ease),transform .3s var(--ease)}
+.nav-eval:hover{background:var(--blue-2);color:#fff;transform:translateY(-1px)}
+.nav-eval:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.nav-eval .ne-short{display:none}
+.nav-m-extra{display:none}
+@media(min-width:1181px){.nav-eval{margin-right:-.75rem}}
+@media(max-width:1240px){.nav-item{padding:.55rem .65rem;font-size:.92rem}.nav{gap:1rem}}
+@media(max-width:1180px) and (min-width:981px){.nav-cta{display:none}.nav{grid-template-columns:auto 1fr auto auto;gap:.8rem}.nav-links{flex-wrap:nowrap;gap:0}.nav-item{padding:.5rem .55rem;font-size:.9rem;white-space:nowrap}.nav .brand-logo{height:50px}.nav .brand-remax{height:38px}}
 
 /* RE/MAX agency compliance bar — conforme normes RE/MAX Québec */
 .agency-bar{background:var(--surface);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink-2);position:relative;z-index:40}
@@ -1176,6 +1188,24 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .has-sub>.sub::before{display:none}
   .nav-burger{display:block;order:3}
   .nav-cta{display:none}
+  .nav{grid-template-columns:1fr auto auto auto}
+  .nav-m-extra{display:grid;gap:.55rem;order:-1;margin-bottom:.8rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+  .nav-m-extra a{display:flex;justify-content:center;align-items:center;min-height:48px;border-radius:999px;font-weight:600;font-size:1rem}
+  .nav-m-eval{background:var(--blue);color:#fff}
+  .nav-m-write{background:var(--ink);color:#fff}
+  .nav-m-lang{display:none !important}
+}
+@media(max-width:540px){
+  .nav{gap:.45rem !important;padding:.6rem .75rem !important}
+  .nav .brand{gap:.45rem}
+  .nav .brand-logo{height:34px}
+  .nav .brand-remax{height:28px}
+  .nav-lang{display:none !important}
+  .nav-m-lang{display:flex !important;min-height:40px !important;font-weight:500 !important;font-size:.92rem !important;color:var(--ink-2);border:1px solid var(--line)}
+  .nav-eval{padding:.6rem .95rem;font-size:.85rem}
+  .nav-eval .ne-long{display:none}
+  .nav-eval .ne-short{display:inline}
+  .nav-burger{min-width:40px !important;padding:.3rem .4rem !important}
 }
 
 /* HERO */
@@ -1492,6 +1522,12 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .cta-band .cta-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
 .cta-band .call-btn{margin:0;border-color:#fff;color:#fff}
 .cta-band .call-btn:hover{background:#fff;color:var(--ink)}
+@media(max-width:820px){
+  .cta-band{gap:1.4rem}
+  .cta-band h2{font-size:clamp(1.6rem,6vw,2rem)}
+  .cta-band .cta-actions{flex-direction:column;align-items:stretch;gap:.7rem}
+  .cta-band .cta-actions .btn,.cta-band .cta-actions .call-btn{display:flex;justify-content:center;text-align:center;white-space:normal;padding:1rem 1.2rem;min-height:52px}
+}
 .call-bar{display:none}
 @media(max-width:860px){.city-lead-grid{grid-template-columns:1fr}}
 @media(max-width:760px){
@@ -1756,9 +1792,12 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
   .f-bottom-legal{line-height:1.55}
 
   /* Agency bar — pile verticale propre */
-  .agency-bar-inner{flex-direction:column;gap:.3rem;text-align:center}
+  .agency-bar-inner{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.15rem .55rem;padding:.45rem var(--pad);text-align:center}
   .agency-bar-sep{display:none}
-  .agency-bar-tel{margin-top:.15rem;font-size:.88rem;padding:.25rem .5rem}
+  .agency-bar-logo{height:20px}
+  .agency-bar-meta{flex-basis:auto !important;margin:0 !important}
+  .agency-bar-addr{order:5;flex-basis:100% !important;font-size:.72rem;color:var(--muted)}
+  .agency-bar-tel{font-size:.82rem;padding:0;margin:0}
 
   /* Section padding — plus respectueux du viewport */
   section{padding-block:clamp(2rem,7vw,3rem)}
@@ -3444,24 +3483,24 @@ for (const [s,title,lead,body] of TYPES) {
 // demandés APRÈS l'envoi. L'aperçu « papier » de l'avis de valeur se remplit avec l'adresse tapée.
 // Mention OACIQ (avis de valeur ≠ évaluation agréée) conservée, plus bas, en petit.
 const EVAL_FAQ = `<h3>Est-ce vraiment gratuit ?</h3>
-<p>Oui. L'avis de valeur est gratuit et ne vous engage à rien. Vous n'avez pas à signer de contrat de courtage pour le recevoir.</p>
+<p>Oui. L'évaluation est gratuite et ne vous engage à rien. Vous n'avez pas à signer de contrat de courtage pour la recevoir.</p>
 <h3>Est-ce que je dois vendre avec vous après ?</h3>
-<p>Non. Beaucoup de gens le demandent pour planifier une vente dans un an ou deux, pour un refinancement ou une succession. Vous en faites ce que vous voulez.</p>
+<p>Non. Beaucoup de gens la demandent pour planifier une vente dans un an ou deux, pour un refinancement ou une succession. Vous en faites ce que vous voulez.</p>
 <h3>Quelle différence avec une évaluation par un évaluateur agréé ?</h3>
-<p>L'avis de valeur d'un courtier se base sur les ventes comparables récentes et sur le marché actuel. Il ne constitue pas une évaluation au sens de la Loi sur les évaluateurs agréés. Pour une expertise exigée par une institution financière ou un tribunal, il faut un évaluateur agréé membre de l'OEAQ.</p>
+<p>L'évaluation d'un courtier (on parle d'un avis de valeur) se base sur les ventes comparables récentes et sur le marché actuel. Elle ne constitue pas une évaluation au sens de la Loi sur les évaluateurs agréés. Pour une expertise exigée par une institution financière ou un tribunal, il faut un évaluateur agréé membre de l'OEAQ.</p>
 <h3>Combien de temps ça prend ?</h3>
-<p>Je vous rappelle dans les 24 h pour préciser quelques détails sur la maison (une dizaine de minutes). Vous recevez ensuite l'avis écrit par courriel, en général dans les 48 h ouvrables.</p>
+<p>Je vous rappelle dans les 24 h pour préciser quelques détails sur la maison (une dizaine de minutes). Vous recevez ensuite l'évaluation écrite par courriel, en général dans les 48 h ouvrables.</p>
 <h3>Quelles villes couvrez-vous ?</h3>
 <p>Blainville, Sainte-Thérèse, Rosemère, Lorraine, Boisbriand et les villes voisines de la Rive-Nord. Pour une autre ville, écrivez-moi quand même : je vous dirai franchement si je connais assez le secteur.</p>`;
 
-// Aperçu de l'avis de valeur : un exemple, chiffres masqués. data-live = rempli par le formulaire.
+// Aperçu de l'évaluation : un exemple, chiffres masqués. data-live = rempli par le formulaire.
 const evalPaper = (extraCls = '') => `<figure class="ev-paper ${extraCls}" aria-hidden="true">
   <div class="evp-sheet">
     <div class="evp-head">
       <img src="/brand_assets/logo.png" alt="" class="evp-logo">
       <span class="evp-tag">Exemple</span>
     </div>
-    <div class="evp-title">Avis de valeur marchande</div>
+    <div class="evp-title">Évaluation de votre propriété</div>
     <div class="evp-for"><span>Propriété</span><strong data-live="addr">Votre adresse ici</strong></div>
     <div class="evp-block">
       <div class="evp-label">Fourchette de prix recommandée</div>
@@ -3485,12 +3524,12 @@ const evalPaper = (extraCls = '') => `<figure class="ev-paper ${extraCls}" aria-
       <span class="evp-stamp">48 h</span>
     </div>
   </div>
-  <figcaption>Exemple d'avis de valeur. Les chiffres sont masqués.</figcaption>
+  <figcaption>Exemple d'évaluation. Les chiffres sont masqués.</figcaption>
 </figure>`;
 
 writePage('vendre/evaluation-gratuite/index.html', layout({
-  title: 'Évaluation gratuite de votre maison, avis de valeur en 48 h | Alain Brunelle',
-  description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet un avis de valeur écrit en 48 h.",
+  title: 'Évaluation gratuite de votre maison en 48 h | Alain Brunelle',
+  description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet une évaluation écrite en 48 h.",
   canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/',
   bodyClass: 'has-call-bar',
   jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
@@ -3626,7 +3665,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
     <div>
       <div class="ev-kicker">Évaluation gratuite, sans engagement</div>
       <h1>Combien vaut votre maison&nbsp;?</h1>
-      <p class="ev-lead">Laissez votre adresse. Je vous rappelle dans les 24 h et je vous remets un avis de valeur écrit en 48 h, basé sur les ventes faites près de chez vous.</p>
+      <p class="ev-lead">Laissez votre adresse. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, basée sur les ventes faites près de chez vous.</p>
 
       <form class="ev-form" id="evaluation" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
         <div class="ev-step1">
@@ -3641,13 +3680,13 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
             <div><label for="ev-phone">Téléphone</label><input type="tel" id="ev-phone" name="telephone" autocomplete="tel" inputmode="tel" placeholder="514 000-0000" required></div>
           </div>
           <p class="ev-err" id="ev-err" role="alert"></p>
-          <button type="submit" class="ev-submit" id="ev-submit">Recevoir mon avis de valeur gratuit</button>
-          <p class="ev-legal">Alain vous appelle au sujet de votre demande, rien d'autre. Vos renseignements servent uniquement à préparer votre avis de valeur. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+          <button type="submit" class="ev-submit" id="ev-submit">Recevoir mon évaluation gratuite</button>
+          <p class="ev-legal">Alain vous appelle au sujet de votre demande, rien d'autre. Vos renseignements servent uniquement à préparer votre évaluation. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
         </div>
 
         <div class="ev-done" id="ev-done" hidden tabindex="-1">
           <h2 id="ev-done-title">C'est noté. Je vous rappelle dans les 24 h.</h2>
-          <p>Si vous avez 20 secondes, ces précisions m'aident à préparer un avis plus juste avant notre appel. C'est facultatif.</p>
+          <p>Si vous avez 20 secondes, ces précisions m'aident à préparer une évaluation plus juste avant notre appel. C'est facultatif.</p>
           <div class="ev-more" id="ev-more">
             <div class="q" id="q-type">Type de propriété</div>
             <div class="ev-chips" data-group="Type" role="group" aria-labelledby="q-type"><button type="button" aria-pressed="false">Unifamiliale</button><button type="button" aria-pressed="false">Condo</button><button type="button" aria-pressed="false">Maison de ville</button><button type="button" aria-pressed="false">Plex</button></div>
@@ -3655,7 +3694,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
             <div class="ev-chips" data-group="Chambres" role="group" aria-labelledby="q-ch"><button type="button" aria-pressed="false">1-2</button><button type="button" aria-pressed="false">3</button><button type="button" aria-pressed="false">4</button><button type="button" aria-pressed="false">5 et +</button></div>
             <div class="q" id="q-reno">Rénovations majeures (cuisine, salle de bain, toit, fenêtres)</div>
             <div class="ev-chips" data-group="Rénovations" role="group" aria-labelledby="q-reno"><button type="button" aria-pressed="false">Moins de 5 ans</button><button type="button" aria-pressed="false">5 à 15 ans</button><button type="button" aria-pressed="false">Plus de 15 ans</button></div>
-            <div class="q"><label for="ev-email" style="margin:0">Courriel pour recevoir l'avis écrit</label></div>
+            <div class="q"><label for="ev-email" style="margin:0">Courriel pour recevoir l'évaluation écrite</label></div>
             <input type="email" id="ev-email" autocomplete="email" placeholder="vous@exemple.com">
             <button type="button" class="ev-submit" id="ev-more-send">Envoyer ces précisions</button>
             <button type="button" class="ev-skip" id="ev-skip">Non merci, on en parlera au téléphone</button>
@@ -3676,21 +3715,21 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
   <ol class="ev-steps" style="padding:0">
     <li><div class="when">Aujourd'hui, 30 secondes</div><h3>Vous laissez votre adresse</h3><p>Adresse, nom, téléphone. Pas de compte à créer, pas de questionnaire de dix pages.</p></li>
     <li><div class="when">Dans les 24 h</div><h3>Je vous appelle</h3><p>Une dizaine de minutes pour parler de la maison : rénovations, sous-sol, terrain, ce qui ne se voit pas sur une photo.</p></li>
-    <li><div class="when">Dans les 48 h</div><h3>Vous recevez l'avis écrit</h3><p>La fourchette de prix, les ventes comparables près de chez vous et mes recommandations avant une mise en vente. Il est à vous, sans engagement.</p></li>
+    <li><div class="when">Dans les 48 h</div><h3>Vous recevez l'évaluation écrite</h3><p>La fourchette de prix, les ventes comparables près de chez vous et mes recommandations avant une mise en vente. Elle est à vous, sans engagement.</p></li>
   </ol>
-  <p class="ev-oaciq">L'avis de valeur fourni par un courtier immobilier ne constitue pas une évaluation au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</p>
+  <p class="ev-oaciq">Cette évaluation gratuite est un avis de valeur préparé par un courtier immobilier. Elle ne constitue pas une évaluation au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</p>
 </section>
 
 <section class="alain-band">
   <div class="container ab-grid">
-    <figure><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle préparant un avis de valeur à son ordinateur" loading="lazy" style="object-position:50% 40%"></figure>
+    <figure><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle préparant une évaluation à son ordinateur" loading="lazy" style="object-position:50% 40%"></figure>
     <div>
-      <h2>Je prépare chaque avis moi-même.</h2>
+      <h2>Je prépare chaque évaluation moi-même.</h2>
       <p class="ab-text">Pas d'estimation automatique tirée d'une base de données. Je regarde les maisons vendues dans votre rue et votre secteur ces derniers mois, celles encore à vendre, et ce qui distingue la vôtre.</p>
       <ul>
         <li><strong>33 ans de métier</strong> et plus de 3 000 transactions sur la Rive-Nord</li>
-        <li><strong>Un seul interlocuteur</strong> : c'est moi qui vous rappelle et moi qui signe l'avis</li>
-        <li><strong>Sans pression</strong> : vous pouvez le demander pour une vente dans un an, un refinancement ou une succession</li>
+        <li><strong>Un seul interlocuteur</strong> : c'est moi qui vous rappelle et moi qui signe l'évaluation</li>
+        <li><strong>Sans pression</strong> : vous pouvez la demander pour une vente dans un an, un refinancement ou une succession</li>
       </ul>
       <p class="ab-sign"><strong>Alain Brunelle</strong>Courtier immobilier résidentiel et commercial, RE/MAX CRYSTAL</p>
     </div>
@@ -3713,8 +3752,8 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
   </div>
 </section>
 
-<section class="container"><div class="cta-band"><h2>Votre adresse suffit pour commencer.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander mon avis de valeur</a>${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div></div></section>
-<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Avis gratuit</a></nav>
+<section class="container"><div class="cta-band"><h2>Votre adresse suffit pour commencer.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander mon évaluation gratuite</a>${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div></div></section>
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>
 
 <script>
 (function(){
@@ -3777,7 +3816,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
     var email=document.getElementById('ev-email').value.trim();
     if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
     var fd=new FormData();
-    fd.append('_subject','Précisions pour l\\'avis de valeur : '+(lead.Adresse||''));
+    fd.append('_subject','Précisions pour l\\'évaluation : '+(lead.Adresse||''));
     Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
     Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
     if(email)fd.append('Courriel',email);
@@ -3785,7 +3824,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
     var b=this;b.disabled=true;b.textContent='Envoi…';
     fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
       if(!r.ok)throw 0;
-      closeMore('Merci, c\\'est noté. Votre avis sera plus précis.');
+      closeMore('Merci, c\\'est noté. Votre évaluation sera plus précise.');
     }).catch(function(){b.disabled=false;b.textContent='Envoyer ces précisions';});
   });
 
