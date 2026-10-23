@@ -5944,27 +5944,135 @@ writePage('temoignages/index.html', contentPage({
 <p>Vos témoignages comptent énormément, autant pour la confiance des futurs clients que pour notre référencement local. Si vous avez deux minutes, j'apprécierais grandement un avis Google. <a href="https://g.page/r/CWReusNbS1LV/review" target="_blank" rel="noopener">Laisser un avis Google</a>.</p>`
 }));
 
-// --- RENDEZ-VOUS : formulaire de contact standard (même endpoint Formspree que le reste du site) ---
+// --- RENDEZ-VOUS (« Écrivez-moi ») ---
+// Refaite le 2026-10-23 : le formulaire est dans le premier écran sur mobile (avant : sous un titre,
+// une grande photo et un 2e titre). Nom + téléphone OU courriel suffisent ; le message est facultatif.
+// Même envoi et même mesure que les autres formulaires (abAttr = source du lead, abLead = conversion Ads).
 writePage('rendez-vous/index.html', layout({
-  title:'Contacter Alain Brunelle | Courtier immobilier RE/MAX CRYSTAL',
-  description:'Écrivez à Alain Brunelle, courtier immobilier à Sainte-Thérèse, Blainville, Rosemère et Lorraine. Réponse personnelle, généralement sous 24 h ouvrables.',
+  title:'Écrire à Alain Brunelle | Courtier immobilier RE/MAX CRYSTAL',
+  description:'Écrivez à Alain Brunelle, courtier immobilier à Blainville, Sainte-Thérèse, Rosemère et Lorraine. Il vous répond lui-même, en général dans les 24 h.',
   canonical:'https://alainbrunelle.com/rendez-vous/',
+  extraHead:`<style>
+    .rv{background:var(--surface);padding-block:clamp(1.5rem,4vw,4rem) clamp(2.5rem,5vw,5rem)}
+    .rv-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,5vw,5rem);align-items:start}
+    .rv-grid{grid-template-rows:auto 1fr;row-gap:1.8rem}
+    .rv-grid > *{min-width:0}
+    .rv-form input,.rv-form textarea{min-width:0;width:100%;box-sizing:border-box}
+    .rv-form .f-row > *{min-width:0}
+    .rv-intro{grid-row:1}
+    .rv-form{grid-column:2;grid-row:1 / span 2}
+    .rv-side-extra{grid-column:1;grid-row:2}
+    .rv h1{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1;letter-spacing:-.04em}
+    .rv-lead{margin:1rem 0 0;max-width:40ch;font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.55;color:var(--ink-2)}
+    .rv-who{display:flex;align-items:center;gap:.85rem;margin-top:1.4rem}
+    .rv-who img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 18%;flex:none}
+    .rv-who strong{display:block;color:var(--ink);font-weight:600}
+    .rv-who span{font-size:.9rem;color:var(--muted)}
+    .rv-direct{margin-top:clamp(1.6rem,3vw,2.4rem);display:grid;gap:.6rem;max-width:380px}
+    .rv-direct .hx-btn{justify-content:center;white-space:nowrap}
+    .rv-mail{font-size:.95rem;color:var(--ink-2)}
+    .rv-mail a{color:var(--blue);font-weight:500}
+    .rv-addr{margin-top:1.4rem;font-size:.88rem;line-height:1.55;color:var(--muted)}
+    .rv-form{background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.2rem,3vw,2.2rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 24px 50px -28px rgba(11,22,40,.35);scroll-margin-top:110px}
+    .rv-form .f-fields{display:grid;gap:.95rem}
+    .rv-form .q{font-size:.88rem;font-weight:600;color:var(--ink);margin:0 0 .5rem}
+    .rv-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+    .rv-chips label{position:relative;display:inline-flex;cursor:pointer;font-weight:400 !important}
+    .rv-chips input{position:absolute;opacity:0;pointer-events:none}
+    .rv-chips span{padding:.6rem 1rem;border:1.5px solid #c9d2e1;border-radius:999px;font-size:.95rem;color:var(--ink);transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+    .rv-chips label:hover span{border-color:var(--blue)}
+    .rv-chips input:checked + span{background:var(--blue);border-color:var(--blue);color:#fff}
+    .rv-chips input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
+    .rv-form .f-submit{justify-self:stretch;text-align:center;font-size:1.05rem;padding:1.1rem}
+    .rv-form .opt{font-weight:400;color:var(--muted)}
+    .rv-err{display:none;margin:0;font-size:.88rem;color:#b42318}
+    .rv-err.on{display:block}
+    @media(max-width:900px){
+      .rv-grid{grid-template-columns:1fr;grid-template-rows:none;gap:1.6rem}
+      .rv-direct{max-width:none}
+      .rv-intro,.rv-form,.rv-side-extra{grid-column:1;grid-row:auto}
+    }
+    @media(max-width:600px){
+      .rv{padding-top:1rem}
+      .rv h1{font-size:2.3rem}
+      .rv-lead{font-size:1rem;margin-top:.6rem}
+      .rv-who{display:none}
+      .rv-form{padding:1rem}
+      .rv-form .f-fields{gap:.75rem}
+      .rv-form .f-row{grid-template-columns:1fr 1fr;gap:.6rem}
+      .rv-form textarea{min-height:72px}
+      .rv-chips{gap:.3rem;flex-wrap:nowrap}
+      .rv-chips label{flex:1 1 auto}
+      .rv-chips span{width:100%;text-align:center;padding:.5rem .4rem;font-size:.86rem}
+      .rv-form .q{margin-bottom:.4rem}
+    }
+  </style>`,
   body:`
-<section class="page-head container">
-  <div class="page-head-grid">
-    <div>
-      <div class="eyebrow">Contact</div>
-      <h1>Parlons de votre projet.</h1>
-      <p class="lead">Vendre, acheter ou simplement une question sur le marché : écrivez-moi. Je vous réponds personnellement, généralement sous 24 h ouvrables.</p>
+<section class="rv">
+  <div class="container rv-grid">
+    <div class="rv-intro">
+      <h1>Écrivez-moi.</h1>
+      <p class="rv-lead">Vendre, acheter ou une question sur le marché : je vous réponds moi-même, en général dans les 24 h.</p>
+      <div class="rv-who"><img src="/photos/alain/Creationsdoz-00336_pp.jpg" alt="Alain Brunelle" width="56" height="56"><div><strong>Alain Brunelle</strong><span>Courtier immobilier, RE/MAX CRYSTAL</span></div></div>
     </div>
-    <figure class="ph-hero"><img src="/photos/alain/Creationsdoz-00378_Final.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL" loading="eager"></figure>
+
+    <form class="contact-form rv-form" id="ecrire" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="Message contact — alainbrunelle.com">
+      <div class="f-fields">
+        <div>
+          <p class="q" id="rv-q">C'est pour</p>
+          <div class="rv-chips" role="radiogroup" aria-labelledby="rv-q">
+            <label><input type="radio" name="projet" value="Vendre"><span>Vendre</span></label>
+            <label><input type="radio" name="projet" value="Acheter"><span>Acheter</span></label>
+            <label><input type="radio" name="projet" value="Évaluation"><span>Évaluation</span></label>
+            <label><input type="radio" name="projet" value="Autre question"><span>Autre</span></label>
+          </div>
+        </div>
+        <label>Nom<input type="text" name="name" autocomplete="name" required></label>
+        <div class="f-row">
+          <label>Téléphone<input type="tel" name="phone" autocomplete="tel" inputmode="tel"></label>
+          <label>Courriel<input type="email" name="email" autocomplete="email"></label>
+        </div>
+        <label><span>Message <span class="opt">(facultatif)</span></span><textarea name="message" rows="3" placeholder="Votre adresse, vos dates, votre question…"></textarea></label>
+        <p class="rv-err" id="rv-err" role="alert"></p>
+        <button type="submit" class="f-submit">Envoyer mon message</button>
+        <p class="f-note">Un téléphone ou un courriel suffit. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+      </div>
+      <div class="f-ok" hidden tabindex="-1">
+        <div class="f-ok-icon">✓</div>
+        <h3>Message envoyé.</h3>
+        <p>Merci. Je vous réponds moi-même, en général dans les 24 h.</p>
+      </div>
+    </form>
+
+    <div class="rv-side-extra">
+      <div class="rv-direct">
+        ${obscuredPhone({ cls: 'hx-btn hx-call', prefix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.2-2.1 1.4a11 11 0 0 0 6.9 6.9l1.4-2.1L21 15l-.5 2.4A2.5 2.5 0 0 1 18 19.5 15.5 15.5 0 0 1 4.5 6a2.5 2.5 0 0 1 2.1-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="hx-call-k">Appelez-moi</span>', label: '514 972-4207' })}
+        <p class="rv-mail">Ou par courriel : <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax-quebec.com</a></p>
+      </div>
+      <p class="rv-addr">RE/MAX CRYSTAL, 228 boul. du Curé-Labelle, Sainte-Thérèse, QC J7E 2X7</p>
+    </div>
   </div>
 </section>
-<section class="section-light">
-  <div class="container">
-    ${contactFormBlock({ formName: 'contact', subject: 'Message contact — alainbrunelle.com' })}
-  </div>
-</section>`
+<script>
+(function(){
+  var f=document.getElementById('ecrire'), err=document.getElementById('rv-err');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    err.classList.remove('on');
+    var nameI=f.elements.namedItem('name'), name=nameI.value.trim(), phone=f.elements.namedItem('phone').value.replace(/[^0-9]/g,''), email=f.elements.namedItem('email').value.trim();
+    function fail(m,el){err.textContent=m;err.classList.add('on');if(el)el.focus();}
+    if(name.length<2)return fail('Indiquez votre nom.',nameI);
+    if(phone.length<10&&email.indexOf('@')<1)return fail('Indiquez un téléphone ou un courriel pour que je puisse vous répondre.',f.elements.namedItem('phone'));
+    var btn=f.querySelector('.f-submit'),old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';
+    fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||function(x){return x;})(new FormData(f))}).then(function(r){
+      if(!r.ok)throw 0;
+      f.querySelector('.f-fields').hidden=true;var ok=f.querySelector('.f-ok');ok.hidden=false;ok.focus({preventScroll:true});
+      if(window.abLead)abLead('contact');
+    }).catch(function(){btn.disabled=false;btn.textContent=old;fail("L'envoi n'a pas fonctionné. Réessayez, ou appelez Alain au 514 972-4207.");});
+  });
+})();
+</script>`
 }));
 
 // --- PERFORMANCE DE VENTE ---
