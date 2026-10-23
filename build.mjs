@@ -3437,393 +3437,384 @@ for (const [s,title,lead,body] of TYPES) {
   }));
 }
 
-// --- ÉVALUATION GRATUITE (formulaire multi-étapes custom) ---
+// --- ÉVALUATION GRATUITE ---
+// Refaite le 2026-10-23 : page la plus payée de Google Ads (65 clics, 244 $ en septembre).
+// Parcours : 3 champs (adresse, nom, téléphone) dans le premier écran = la conversion.
+// Les détails de la maison (type, chambres, rénovations, courriel) deviennent facultatifs,
+// demandés APRÈS l'envoi. L'aperçu « papier » de l'avis de valeur se remplit avec l'adresse tapée.
+// Mention OACIQ (avis de valeur ≠ évaluation agréée) conservée, plus bas, en petit.
+const EVAL_FAQ = `<h3>Est-ce vraiment gratuit ?</h3>
+<p>Oui. L'avis de valeur est gratuit et ne vous engage à rien. Vous n'avez pas à signer de contrat de courtage pour le recevoir.</p>
+<h3>Est-ce que je dois vendre avec vous après ?</h3>
+<p>Non. Beaucoup de gens le demandent pour planifier une vente dans un an ou deux, pour un refinancement ou une succession. Vous en faites ce que vous voulez.</p>
+<h3>Quelle différence avec une évaluation par un évaluateur agréé ?</h3>
+<p>L'avis de valeur d'un courtier se base sur les ventes comparables récentes et sur le marché actuel. Il ne constitue pas une évaluation au sens de la Loi sur les évaluateurs agréés. Pour une expertise exigée par une institution financière ou un tribunal, il faut un évaluateur agréé membre de l'OEAQ.</p>
+<h3>Combien de temps ça prend ?</h3>
+<p>Je vous rappelle dans les 24 h pour préciser quelques détails sur la maison (une dizaine de minutes). Vous recevez ensuite l'avis écrit par courriel, en général dans les 48 h ouvrables.</p>
+<h3>Quelles villes couvrez-vous ?</h3>
+<p>Blainville, Sainte-Thérèse, Rosemère, Lorraine, Boisbriand et les villes voisines de la Rive-Nord. Pour une autre ville, écrivez-moi quand même : je vous dirai franchement si je connais assez le secteur.</p>`;
+
+// Aperçu de l'avis de valeur : un exemple, chiffres masqués. data-live = rempli par le formulaire.
+const evalPaper = (extraCls = '') => `<figure class="ev-paper ${extraCls}" aria-hidden="true">
+  <div class="evp-sheet">
+    <div class="evp-head">
+      <img src="/brand_assets/logo.png" alt="" class="evp-logo">
+      <span class="evp-tag">Exemple</span>
+    </div>
+    <div class="evp-title">Avis de valeur marchande</div>
+    <div class="evp-for"><span>Propriété</span><strong data-live="addr">Votre adresse ici</strong></div>
+    <div class="evp-block">
+      <div class="evp-label">Fourchette de prix recommandée</div>
+      <div class="evp-range"><span class="evp-blur">684 000 $</span><span class="evp-dash"></span><span class="evp-blur">712 000 $</span></div>
+    </div>
+    <div class="evp-block">
+      <div class="evp-label">Ventes comparables près de chez vous</div>
+      <div class="evp-rows">
+        <div><span class="evp-blur">1 2 3 4 rue des Ormes</span><em>Même rue</em></div>
+        <div><span class="evp-blur">5 6 7 rue du Parc</span><em>À 300 m</em></div>
+        <div><span class="evp-blur">8 9 10 montée Gagnon</span><em>Même type</em></div>
+      </div>
+    </div>
+    <div class="evp-block">
+      <div class="evp-label">Mes recommandations avant la mise en vente</div>
+      <div class="evp-lines"><i></i><i></i><i style="width:62%"></i></div>
+    </div>
+    <div class="evp-sign">
+      <img src="/photos/alain/Creationsdoz-00336_pp.jpg" alt="">
+      <div><strong>Alain Brunelle</strong><span>Courtier immobilier, RE/MAX CRYSTAL</span></div>
+      <span class="evp-stamp">48 h</span>
+    </div>
+  </div>
+  <figcaption>Exemple d'avis de valeur. Les chiffres sont masqués.</figcaption>
+</figure>`;
+
 writePage('vendre/evaluation-gratuite/index.html', layout({
-  title: 'Évaluation gratuite de votre propriété — rapport en 48 h | Alain Brunelle',
-  description: 'Obtenez une évaluation gratuite et précise de votre propriété à Blainville, Sainte-Thérèse, Rosemère ou Lorraine. Rapport personnalisé livré sous 48 h.',
+  title: 'Évaluation gratuite de votre maison, avis de valeur en 48 h | Alain Brunelle',
+  description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet un avis de valeur écrit en 48 h.",
   canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/',
+  bodyClass: 'has-call-bar',
+  jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
   extraHead: `<style>
-    .eval-wrap{max-width:780px;margin:0 auto;padding-block:clamp(2rem,4vw,3rem)}
-    .eval-progress{display:flex;align-items:center;gap:.5rem;margin-bottom:2.5rem;padding:0 .5rem}
-    .eval-step-dot{flex:1;height:4px;background:var(--line);border-radius:999px;position:relative;overflow:hidden;transition:background .4s var(--ease)}
-    .eval-step-dot.done{background:var(--blue)}
-    .eval-step-dot.active{background:linear-gradient(90deg,var(--blue) 0%,var(--blue) 100%);background-size:200% 100%;animation:eval-fill 1.5s var(--ease) forwards}
-    @keyframes eval-fill{from{background-position:100% 0}to{background-position:0 0}}
-    .eval-meta{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:500;margin-bottom:.6rem}
-    .eval-card{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:clamp(1.8rem,4vw,3rem);border:1px solid var(--line);position:relative;overflow:hidden;min-height:420px}
-    .eval-step{display:none;animation:eval-slide .5s var(--ease)}
-    .eval-step.active{display:block}
-    @keyframes eval-slide{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
-    .eval-step h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;letter-spacing:-.025em;line-height:1.15;margin-bottom:.8rem;color:var(--ink)}
-    .eval-step .sub{color:var(--ink-2);font-size:1.02rem;line-height:1.6;margin-bottom:2rem;max-width:50ch}
-    .eval-field{position:relative;margin-bottom:1.5rem}
-    .eval-field label{display:block;font-size:.85rem;font-weight:500;color:var(--ink-2);margin-bottom:.5rem;letter-spacing:.01em}
-    .eval-field input[type=text],.eval-field input[type=email],.eval-field input[type=tel]{width:100%;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:14px;font-family:inherit;font-size:1rem;background:#fff;color:var(--ink);transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
-    .eval-field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
-    .eval-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);max-height:280px;overflow-y:auto;z-index:10;display:none}
-    .eval-suggestions.open{display:block}
-    .eval-suggestion{padding:.85rem 1.1rem;cursor:pointer;font-size:.95rem;border-bottom:1px solid var(--line);transition:background .2s var(--ease)}
-    .eval-suggestion:last-child{border-bottom:0}
-    .eval-suggestion:hover,.eval-suggestion.active{background:var(--blue-soft);color:var(--blue)}
-    .eval-suggestion .sec{display:block;font-size:.78rem;color:var(--muted);margin-top:.15rem}
-    .eval-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.7rem}
-    .eval-option{padding:1.2rem .9rem;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-family:inherit;font-size:1rem;color:var(--ink);transition:all .3s var(--ease-spring);position:relative}
-    .eval-option:hover{border-color:var(--blue);transform:translateY(-2px)}
-    .eval-option.selected{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:500;box-shadow:0 0 0 4px rgba(15,40,85,.08)}
-    .eval-option .ico{display:block;font-size:1.6rem;margin-bottom:.4rem;opacity:.7}
-    .eval-option.selected .ico{opacity:1}
-    .eval-option .desc{display:block;font-size:.78rem;color:var(--muted);margin-top:.2rem;font-weight:400}
-    .eval-option.selected .desc{color:var(--blue-2)}
-    .eval-actions{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
-    .eval-btn{font-family:inherit;font-size:1rem;font-weight:500;padding:1rem 1.8rem;border-radius:999px;border:0;cursor:pointer;transition:transform .3s var(--ease-spring),background .3s var(--ease),box-shadow .3s var(--ease);display:inline-flex;align-items:center;gap:.6rem}
-    .eval-btn.primary{background:linear-gradient(160deg,var(--ink) 0%,oklch(15% 0.08 258) 100%);color:#fff;box-shadow:0 4px 12px -2px rgba(11,22,40,.25)}
-    .eval-btn.primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px -4px rgba(15,40,85,.35)}
-    .eval-btn.primary:disabled{opacity:.4;cursor:not-allowed}
-    .eval-btn.ghost{background:transparent;color:var(--muted)}
-    .eval-btn.ghost:hover{color:var(--ink)}
-    .eval-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    @media(max-width:540px){.eval-row{grid-template-columns:1fr}}
-    .eval-success{text-align:center;padding:2rem 1rem}
-    .eval-success .check{width:88px;height:88px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:2.4rem;margin:0 auto 1.6rem;animation:eval-pop .6s var(--ease-spring)}
-    @keyframes eval-pop{from{transform:scale(0)}to{transform:scale(1)}}
-    .eval-success h2{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:400;letter-spacing:-.02em;margin-bottom:.8rem}
-    .eval-success p{color:var(--ink-2);line-height:1.7;max-width:46ch;margin:0 auto 1.5rem}
-    .eval-success .recap{background:var(--surface);border-radius:14px;padding:1.5rem;margin:2rem 0;text-align:left;font-size:.92rem;line-height:1.7}
-    .eval-success .recap strong{color:var(--blue);font-weight:500}
-    .eval-hint{font-size:.8rem;color:var(--muted);margin-top:.7rem;font-style:italic}
+    .ev-hero{position:relative;overflow:hidden;background:var(--surface);padding-block:clamp(2rem,5vw,4.5rem) clamp(2.5rem,6vw,5rem)}
+    .ev-hero::after{content:"";position:absolute;top:0;bottom:0;right:0;width:31%;background:var(--blue);z-index:0}
+    .ev-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,5rem);align-items:start}
+    .ev-grid > .ev-paper{margin-top:clamp(.5rem,3vw,2.5rem)}
+    .ev-kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:500;color:var(--blue);margin-bottom:1rem}
+    .ev-kicker::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:#1f9d55;box-shadow:0 0 0 4px rgba(31,157,85,.15)}
+    .ev-hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;letter-spacing:-.035em;max-width:14ch}
+    .ev-lead{margin:1.1rem 0 0;max-width:46ch;color:var(--ink-2);font-size:clamp(1.05rem,1.4vw,1.2rem);line-height:1.6;font-weight:300}
+
+    .ev-form{margin-top:clamp(1.5rem,3vw,2.2rem);background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.1rem,2.5vw,1.6rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 24px 50px -28px rgba(11,22,40,.35);max-width:560px;scroll-margin-top:110px}
+    .ev-form label{display:block;font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+    .ev-form input[type=text],.ev-form input[type=tel],.ev-form input[type=email]{width:100%;font-family:inherit;font-size:1rem;padding:.9rem 1rem;border:1.5px solid #b8c3d5;border-radius:14px;background:#fff;color:var(--ink);transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+    .ev-form input:hover{border-color:#8e9cb4}
+    .ev-form input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,61,165,.16)}
+    .ev-addr{position:relative}
+    .ev-addr input{font-size:1.12rem !important;padding:1.1rem 1rem 1.1rem 2.9rem !important}
+    .ev-addr svg{position:absolute;left:1rem;bottom:1.15rem;width:1.2rem;height:1.2rem;color:var(--blue);pointer-events:none}
+    .ev-two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.9rem}
+    .ev-submit{margin-top:1rem;width:100%;border:0;border-radius:999px;background:var(--blue);color:#fff;font-family:inherit;font-size:1.05rem;font-weight:600;padding:1.1rem 1.4rem;cursor:pointer;transition:background .25s var(--ease),transform .25s var(--ease)}
+    .ev-submit:hover{background:var(--blue-2)}
+    .ev-submit:active{transform:translateY(1px)}
+    .ev-submit:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+    .ev-submit:disabled{opacity:.7;cursor:wait}
+    .ev-legal{margin:.8rem 0 0;font-size:.78rem;line-height:1.5;color:#4a5870}
+    .ev-legal a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+    .ev-err{display:none;margin:.5rem 0 0;font-size:.85rem;color:#b42318}
+    .ev-err.on{display:block}
+    .ev-sug{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);max-height:260px;overflow-y:auto;z-index:20;display:none}
+    .ev-sug.open{display:block}
+    .ev-sug div{padding:.8rem 1rem;cursor:pointer;font-size:.95rem;border-bottom:1px solid var(--line)}
+    .ev-sug div:last-child{border-bottom:0}
+    .ev-sug div:hover,.ev-sug div.active{background:var(--blue-soft);color:var(--blue)}
+    .ev-sug small{display:block;font-size:.78rem;color:var(--muted)}
+    .ev-alt{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.2rem;margin-top:1.2rem;font-size:.95rem;color:var(--ink-2)}
+    .ev-alt a.ph-obs{color:var(--blue);font-weight:600}
+    .ev-proof{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:.6rem;font-size:.9rem;color:var(--muted)}
+    .ev-proof strong{color:var(--ink);font-weight:600}
+
+    /* Étape facultative après l'envoi */
+    .ev-done h2{font-size:clamp(1.35rem,2.4vw,1.75rem);line-height:1.15}
+    .ev-done > p{color:var(--ink-2);margin:.6rem 0 0;line-height:1.6}
+    .ev-more{margin-top:1.3rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+    .ev-more .q{font-size:.85rem;font-weight:600;color:var(--ink);margin:1rem 0 .5rem}
+    .ev-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+    .ev-chips button{font-family:inherit;font-size:.92rem;padding:.6rem .95rem;border:1.5px solid #c9d2e1;border-radius:999px;background:#fff;color:var(--ink);cursor:pointer;transition:border-color .2s var(--ease),background .2s var(--ease),color .2s var(--ease)}
+    .ev-chips button:hover{border-color:var(--blue)}
+    .ev-chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    .ev-chips button[aria-pressed=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+    .ev-skip{display:inline-block;margin-top:.8rem;font-size:.88rem;color:var(--muted);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:inherit}
+
+    /* Aperçu papier de l'avis de valeur */
+    .ev-paper{margin:0;position:relative}
+    .evp-sheet{background:#fff;border-radius:6px;padding:clamp(1.4rem,2.6vw,2.1rem);box-shadow:0 2px 4px rgba(0,20,60,.12),0 28px 60px -20px rgba(0,20,60,.5);max-width:430px;margin-left:auto;font-size:.9rem}
+    .evp-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:.9rem;border-bottom:2px solid var(--blue)}
+    .evp-logo{height:30px;width:auto}
+    .evp-tag{font-size:.72rem;font-weight:600;color:var(--blue);background:var(--blue-soft);padding:.25rem .6rem;border-radius:999px}
+    .evp-title{margin-top:1rem;font-size:1.25rem;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+    .evp-for{margin-top:.5rem;display:grid;gap:.1rem}
+    .evp-for span,.evp-label{font-size:.74rem;color:var(--muted);letter-spacing:.02em}
+    .evp-for strong{font-weight:600;color:var(--ink);min-height:1.4em;transition:color .25s var(--ease)}
+    .evp-for strong.empty{color:#a3afc2;font-weight:400;font-style:italic}
+    .evp-block{margin-top:1.1rem}
+    .evp-range{display:flex;align-items:center;gap:.7rem;margin-top:.35rem;font-size:1.35rem;font-weight:600;color:var(--blue);font-variant-numeric:tabular-nums}
+    .evp-dash{flex:0 0 1.2rem;height:2px;background:var(--blue)}
+    .evp-blur{filter:blur(5px);user-select:none}
+    .evp-rows{margin-top:.4rem;display:grid;gap:.35rem}
+    .evp-rows div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem .6rem;background:var(--surface);border-radius:4px;color:var(--ink-2)}
+    .evp-rows em{font-style:normal;font-size:.78rem;color:var(--blue);white-space:nowrap}
+    .evp-lines{margin-top:.5rem;display:grid;gap:.4rem}
+    .evp-lines i{display:block;height:.5rem;border-radius:999px;background:#e3e9f3}
+    .evp-sign{display:flex;align-items:center;gap:.7rem;margin-top:1.3rem;padding-top:1rem;border-top:1px solid var(--line)}
+    .evp-sign img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:50% 20%}
+    .evp-sign strong{display:block;color:var(--ink);font-size:.92rem}
+    .evp-sign span{font-size:.76rem;color:var(--muted)}
+    .evp-stamp{margin-left:auto;width:54px;height:54px;border-radius:50%;border:2px solid var(--blue);color:var(--blue) !important;display:grid;place-items:center;font-weight:700;font-size:.95rem !important;transform:rotate(-12deg)}
+    .ev-paper figcaption{margin-top:.8rem;font-size:.78rem;color:rgba(255,255,255,.8);text-align:right;max-width:430px;margin-left:auto}
+    .ev-paper.mobile{display:none}
+    .ev-paper.mobile figcaption{color:var(--muted);text-align:left}
+    .ev-paper.mobile .evp-sheet{margin-left:0;max-width:none;box-shadow:0 1px 2px rgba(11,22,40,.06),0 18px 40px -24px rgba(11,22,40,.35)}
+
+    /* Déroulement */
+    .ev-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,3vw,2.5rem);margin-top:clamp(1.5rem,3vw,2.5rem);counter-reset:s}
+    .ev-steps li{list-style:none;position:relative;padding-top:1.4rem;border-top:2px solid var(--line)}
+    .ev-steps li::before{counter-increment:s;content:counter(s);position:absolute;top:-1.05rem;left:0;width:2rem;height:2rem;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:600;font-size:.95rem}
+    .ev-steps .when{font-size:.85rem;font-weight:600;color:var(--blue)}
+    .ev-steps h3{margin:.35rem 0 .5rem;font-size:clamp(1.15rem,1.6vw,1.35rem)}
+    .ev-steps p{margin:0;color:var(--ink-2);line-height:1.6}
+    .ev-oaciq{margin-top:clamp(1.5rem,3vw,2.2rem);max-width:80ch;font-size:.8rem;line-height:1.55;color:var(--muted)}
+    .ev-oaciq a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+    /* Avis clients */
+    .ev-quotes{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:clamp(1.2rem,2.5vw,2rem)}
+    .ev-quotes blockquote{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(1.4rem,3vw,2rem)}
+    .ev-quotes p{margin:0;font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.55;color:var(--ink)}
+    .ev-quotes footer{margin-top:1rem;font-size:.88rem;color:var(--muted)}
+    .ev-quotes .stars{color:#f5a623;letter-spacing:.1em;font-size:.95rem;margin-bottom:.6rem}
+
+    .ev-faq{max-width:760px}
+    .ev-faq h3{font-size:clamp(1.1rem,1.6vw,1.3rem);margin-top:1.8rem}
+    .ev-faq p{color:var(--ink-2);line-height:1.7;margin:.5rem 0 0}
+
+    @media(max-width:980px){
+      .ev-hero::after{display:none}
+      .ev-grid{grid-template-columns:1fr}
+      .ev-grid > .ev-paper{display:none}
+      .ev-paper.mobile{display:block;margin-top:1.5rem}
+    }
+    @media(max-width:760px){
+      .ev-steps{grid-template-columns:1fr;gap:2.2rem}
+      .ev-quotes{grid-template-columns:1fr}
+      .ev-hero h1{max-width:none}
+    }
+    @media(max-width:600px){
+      .ev-hero{padding-top:1.1rem}
+      .ev-kicker{margin-bottom:.5rem;font-size:.85rem}
+      .ev-hero h1{font-size:2.1rem}
+      .ev-lead{font-size:.98rem;line-height:1.5;margin-top:.6rem}
+      .ev-form{margin-top:1rem;padding:1rem}
+      .ev-addr input{padding-block:.95rem !important}
+      .ev-two{gap:.6rem;margin-top:.7rem}
+      .ev-form input[type=text],.ev-form input[type=tel]{padding:.8rem .85rem}
+      .ev-submit{margin-top:.8rem;padding:1rem}
+    }
+    @media(max-width:340px){.ev-two{grid-template-columns:1fr}}
   </style>`,
   body: `
-<section class="page-head container">
-  <div class="eyebrow">Avis de valeur marchande · Sans frais</div>
-  <h1>Combien vaut votre propriété en 2026 ?</h1>
-  <p class="lead">Cinq questions, 60 secondes. Recevez un <strong>avis de valeur marchande</strong> par courriel, généralement sous 48 h ouvrables — avec les ventes comparables récentes de votre rue, et la lecture de votre <strong>courtier immobilier</strong> de la Rive-Nord depuis 1992.</p>
-  <div class="callout" style="margin-top:1.8rem;max-width:62ch">
-    <div style="font-size:.88rem;line-height:1.55">L'avis de valeur fourni par un courtier immobilier <strong>ne constitue pas une évaluation</strong> au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</div>
+<section class="ev-hero">
+  <div class="container ev-grid">
+    <div>
+      <div class="ev-kicker">Évaluation gratuite, sans engagement</div>
+      <h1>Combien vaut votre maison&nbsp;?</h1>
+      <p class="ev-lead">Laissez votre adresse. Je vous rappelle dans les 24 h et je vous remets un avis de valeur écrit en 48 h, basé sur les ventes faites près de chez vous.</p>
+
+      <form class="ev-form" id="evaluation" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+        <div class="ev-step1">
+          <div class="ev-addr">
+            <label for="ev-addr">Adresse de la propriété</label>
+            <input type="text" id="ev-addr" name="adresse" placeholder="ex. 245 rue de Chambéry" autocomplete="off" required>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <div class="ev-sug" id="ev-sug" role="listbox"></div>
+          </div>
+          <div class="ev-two">
+            <div><label for="ev-name">Nom</label><input type="text" id="ev-name" name="nom" autocomplete="name" required></div>
+            <div><label for="ev-phone">Téléphone</label><input type="tel" id="ev-phone" name="telephone" autocomplete="tel" inputmode="tel" placeholder="514 000-0000" required></div>
+          </div>
+          <p class="ev-err" id="ev-err" role="alert"></p>
+          <button type="submit" class="ev-submit" id="ev-submit">Recevoir mon avis de valeur gratuit</button>
+          <p class="ev-legal">Alain vous appelle au sujet de votre demande, rien d'autre. Vos renseignements servent uniquement à préparer votre avis de valeur. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+        </div>
+
+        <div class="ev-done" id="ev-done" hidden tabindex="-1">
+          <h2 id="ev-done-title">C'est noté. Je vous rappelle dans les 24 h.</h2>
+          <p>Si vous avez 20 secondes, ces précisions m'aident à préparer un avis plus juste avant notre appel. C'est facultatif.</p>
+          <div class="ev-more" id="ev-more">
+            <div class="q" id="q-type">Type de propriété</div>
+            <div class="ev-chips" data-group="Type" role="group" aria-labelledby="q-type"><button type="button" aria-pressed="false">Unifamiliale</button><button type="button" aria-pressed="false">Condo</button><button type="button" aria-pressed="false">Maison de ville</button><button type="button" aria-pressed="false">Plex</button></div>
+            <div class="q" id="q-ch">Chambres</div>
+            <div class="ev-chips" data-group="Chambres" role="group" aria-labelledby="q-ch"><button type="button" aria-pressed="false">1-2</button><button type="button" aria-pressed="false">3</button><button type="button" aria-pressed="false">4</button><button type="button" aria-pressed="false">5 et +</button></div>
+            <div class="q" id="q-reno">Rénovations majeures (cuisine, salle de bain, toit, fenêtres)</div>
+            <div class="ev-chips" data-group="Rénovations" role="group" aria-labelledby="q-reno"><button type="button" aria-pressed="false">Moins de 5 ans</button><button type="button" aria-pressed="false">5 à 15 ans</button><button type="button" aria-pressed="false">Plus de 15 ans</button></div>
+            <div class="q"><label for="ev-email" style="margin:0">Courriel pour recevoir l'avis écrit</label></div>
+            <input type="email" id="ev-email" autocomplete="email" placeholder="vous@exemple.com">
+            <button type="button" class="ev-submit" id="ev-more-send">Envoyer ces précisions</button>
+            <button type="button" class="ev-skip" id="ev-skip">Non merci, on en parlera au téléphone</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="ev-alt">Vous préférez parler tout de suite ? ${obscuredPhone({ prefix: 'Appelez Alain au ', label: '514 972-4207' })}</div>
+      <div class="ev-proof"><span><strong>33 ans</strong> sur la Rive-Nord</span><span><strong>3 000+</strong> transactions</span><span>Blainville, Sainte-Thérèse, Rosemère, Lorraine</span></div>
+      ${evalPaper('mobile')}
+    </div>
+    ${evalPaper()}
   </div>
 </section>
 
 <section class="container">
-  <div class="eval-wrap">
-    <div class="eval-progress" aria-label="Progression">
-      <div class="eval-step-dot active" data-dot="1"></div>
-      <div class="eval-step-dot" data-dot="2"></div>
-      <div class="eval-step-dot" data-dot="3"></div>
-      <div class="eval-step-dot" data-dot="4"></div>
-      <div class="eval-step-dot" data-dot="5"></div>
+  <h2 style="max-width:22ch">Trois étapes, et vous n'avez qu'à faire la première.</h2>
+  <ol class="ev-steps" style="padding:0">
+    <li><div class="when">Aujourd'hui, 30 secondes</div><h3>Vous laissez votre adresse</h3><p>Adresse, nom, téléphone. Pas de compte à créer, pas de questionnaire de dix pages.</p></li>
+    <li><div class="when">Dans les 24 h</div><h3>Je vous appelle</h3><p>Une dizaine de minutes pour parler de la maison : rénovations, sous-sol, terrain, ce qui ne se voit pas sur une photo.</p></li>
+    <li><div class="when">Dans les 48 h</div><h3>Vous recevez l'avis écrit</h3><p>La fourchette de prix, les ventes comparables près de chez vous et mes recommandations avant une mise en vente. Il est à vous, sans engagement.</p></li>
+  </ol>
+  <p class="ev-oaciq">L'avis de valeur fourni par un courtier immobilier ne constitue pas une évaluation au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</p>
+</section>
+
+<section class="alain-band">
+  <div class="container ab-grid">
+    <figure><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle préparant un avis de valeur à son ordinateur" loading="lazy" style="object-position:50% 40%"></figure>
+    <div>
+      <h2>Je prépare chaque avis moi-même.</h2>
+      <p class="ab-text">Pas d'estimation automatique tirée d'une base de données. Je regarde les maisons vendues dans votre rue et votre secteur ces derniers mois, celles encore à vendre, et ce qui distingue la vôtre.</p>
+      <ul>
+        <li><strong>33 ans de métier</strong> et plus de 3 000 transactions sur la Rive-Nord</li>
+        <li><strong>Un seul interlocuteur</strong> : c'est moi qui vous rappelle et moi qui signe l'avis</li>
+        <li><strong>Sans pression</strong> : vous pouvez le demander pour une vente dans un an, un refinancement ou une succession</li>
+      </ul>
+      <p class="ab-sign"><strong>Alain Brunelle</strong>Courtier immobilier résidentiel et commercial, RE/MAX CRYSTAL</p>
     </div>
-
-    <form class="eval-card" id="eval-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="return false">
-      <input type="hidden" name="_subject" value="Demande d'évaluation — alainbrunelle.com">
-      <!-- ÉTAPE 1 — Adresse -->
-      <div class="eval-step active" data-step="1">
-        <div class="eval-meta">Étape 1 sur 5</div>
-        <h2>Quelle est l'adresse de votre propriété ?</h2>
-        <p class="sub">Commencez à taper — les suggestions s'affichent automatiquement.</p>
-        <div class="eval-field">
-          <label for="eval-addr">Adresse complète</label>
-          <input type="text" id="eval-addr" name="address" placeholder="ex. 245 rue Fontainebleau, Blainville" autocomplete="off" required>
-          <div class="eval-suggestions" id="eval-suggestions"></div>
-          <p class="eval-hint">📍 Suggestions powered by OpenStreetMap — vos données restent confidentielles.</p>
-        </div>
-      </div>
-
-      <!-- ÉTAPE 2 — Type & étages & sous-sol -->
-      <div class="eval-step" data-step="2">
-        <div class="eval-meta">Étape 2 sur 5</div>
-        <h2>Quelle est la configuration ?</h2>
-        <p class="sub">Le type et la structure influencent significativement la valeur.</p>
-        <div class="eval-field">
-          <label>Type de propriété</label>
-          <div class="eval-options" data-group="type">
-            <button type="button" class="eval-option" data-val="unifamiliale"><span class="ico">🏡</span>Unifamiliale</button>
-            <button type="button" class="eval-option" data-val="condo"><span class="ico">🏢</span>Condo</button>
-            <button type="button" class="eval-option" data-val="maison-ville"><span class="ico">🏘️</span>Maison de ville</button>
-            <button type="button" class="eval-option" data-val="plex"><span class="ico">🏬</span>Plex</button>
-          </div>
-        </div>
-        <div class="eval-field">
-          <label>Nombre d'étages</label>
-          <div class="eval-options" data-group="etages">
-            <button type="button" class="eval-option" data-val="1">1 étage</button>
-            <button type="button" class="eval-option" data-val="1.5">1½</button>
-            <button type="button" class="eval-option" data-val="2">2 étages</button>
-            <button type="button" class="eval-option" data-val="3+">3+</button>
-          </div>
-        </div>
-        <div class="eval-field">
-          <label>Sous-sol</label>
-          <div class="eval-options" data-group="soussol">
-            <button type="button" class="eval-option" data-val="fini">Fini</button>
-            <button type="button" class="eval-option" data-val="semi">Semi-fini</button>
-            <button type="button" class="eval-option" data-val="non-fini">Non fini</button>
-            <button type="button" class="eval-option" data-val="aucun">Aucun</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉTAPE 3 — Chambres & salles de bain -->
-      <div class="eval-step" data-step="3">
-        <div class="eval-meta">Étape 3 sur 5</div>
-        <h2>Combien de pièces ?</h2>
-        <p class="sub">Critère majeur dans la comparaison avec les ventes récentes du secteur.</p>
-        <div class="eval-field">
-          <label>Chambres à coucher</label>
-          <div class="eval-options" data-group="chambres">
-            <button type="button" class="eval-option" data-val="1">1</button>
-            <button type="button" class="eval-option" data-val="2">2</button>
-            <button type="button" class="eval-option" data-val="3">3</button>
-            <button type="button" class="eval-option" data-val="4">4</button>
-            <button type="button" class="eval-option" data-val="5+">5 +</button>
-          </div>
-        </div>
-        <div class="eval-field">
-          <label>Salles de bain complètes</label>
-          <div class="eval-options" data-group="sdb">
-            <button type="button" class="eval-option" data-val="1">1</button>
-            <button type="button" class="eval-option" data-val="2">2</button>
-            <button type="button" class="eval-option" data-val="3">3</button>
-            <button type="button" class="eval-option" data-val="4+">4 +</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉTAPE 4 — Rénovations -->
-      <div class="eval-step" data-step="4">
-        <div class="eval-meta">Étape 4 sur 5</div>
-        <h2>État des rénovations</h2>
-        <p class="sub">Une cuisine refaite il y a 3 ans n'a pas la même valeur que celle de 1995.</p>
-        <div class="eval-field">
-          <label>Rénovations majeures les plus récentes (cuisine, salle de bain, toit, fenêtres)</label>
-          <div class="eval-options" data-group="renos" style="grid-template-columns:1fr">
-            <button type="button" class="eval-option" data-val="-5"><strong>Moins de 5 ans</strong><span class="desc">Cuisine, salle de bain ou toiture refaits récemment</span></button>
-            <button type="button" class="eval-option" data-val="5-10"><strong>5 à 10 ans</strong><span class="desc">Rénovations encore modernes mais commencent à dater</span></button>
-            <button type="button" class="eval-option" data-val="10-25"><strong>10 à 25 ans</strong><span class="desc">Rénovations à prévoir à moyen terme</span></button>
-            <button type="button" class="eval-option" data-val="25+"><strong>Plus de 25 ans</strong><span class="desc">Propriété à conserver ou à rénover</span></button>
-            <button type="button" class="eval-option" data-val="aucune"><strong>Aucune rénovation majeure</strong><span class="desc">Propriété à conserver ou à rénover entièrement</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉTAPE 5 — Coordonnées -->
-      <div class="eval-step" data-step="5">
-        <div class="eval-meta">Étape 5 sur 5 — Dernière étape</div>
-        <h2>Où vous envoyer votre rapport ?</h2>
-        <p class="sub">Je le prépare personnellement et vous le livre en 48 h, sans engagement de votre part.</p>
-        <div class="eval-row">
-          <div class="eval-field">
-            <label for="eval-name">Nom complet</label>
-            <input type="text" id="eval-name" name="name" required>
-          </div>
-          <div class="eval-field">
-            <label for="eval-phone">Téléphone</label>
-            <input type="tel" id="eval-phone" name="phone" placeholder="450 000-0000">
-          </div>
-        </div>
-        <div class="eval-field">
-          <label for="eval-email">Courriel</label>
-          <input type="email" id="eval-email" name="email" required>
-        </div>
-        <div class="eval-field" style="background:var(--blue-soft);padding:1rem 1.2rem;border-radius:12px;font-size:.82rem;line-height:1.55;color:var(--ink-2);margin-top:1rem">
-          <p style="margin:0 0 .6rem"><strong>Finalité de la collecte (Loi 25) :</strong> vos coordonnées sont recueillies dans le seul but de vous transmettre votre avis de valeur marchande et d'assurer le suivi du projet. Aucun partage avec des tiers. Conservation : 6 ans après la fermeture du dossier, conformément à la <a href="/politique-confidentialite/" style="color:var(--blue);text-decoration:underline">politique de confidentialité</a>.</p>
-          <label style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--ink);cursor:pointer">
-            <input type="checkbox" name="consent" required style="margin-top:.2rem;flex-shrink:0">
-            <span>J'autorise Alain Brunelle à recueillir mes renseignements personnels pour le traitement de ma demande d'avis de valeur. <span style="color:var(--muted);font-size:.78rem">(obligatoire)</span></span>
-          </label>
-        </div>
-      </div>
-
-      <!-- ÉTAPE 6 — Succès (cachée) -->
-      <div class="eval-step" data-step="6">
-        <div class="eval-success">
-          <div class="check">✓</div>
-          <h2>Merci. Votre demande est reçue.</h2>
-          <p>Je prépare personnellement votre avis de valeur marchande. Vous recevrez par courriel sous 1 à 3 jours ouvrables votre fourchette de prix, les ventes comparables les plus pertinentes et mes recommandations de préparation.</p>
-          <div class="recap" id="eval-recap"></div>
-          <a class="eval-btn primary" href="/" style="text-decoration:none">Retour à l'accueil →</a>
-        </div>
-      </div>
-
-      <!-- Actions (cachées sur étape 6) -->
-      <div class="eval-actions" id="eval-actions">
-        <button type="button" class="eval-btn ghost" id="eval-back" style="visibility:hidden">← Retour</button>
-        <button type="button" class="eval-btn primary" id="eval-next" disabled>Continuer →</button>
-      </div>
-    </form>
   </div>
 </section>
 
+<section class="container">
+  <h2>Ce que disent ceux qui ont vendu avec moi.</h2>
+  <div class="ev-quotes">
+    <blockquote><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><p>« Nous avons vendu notre maison en seulement 10 jours avec M. Alain Brunelle, il connait super bien Ste-Thérèse et il est toujours présent pour répondre à toutes nos questions, excellent service. »</p><footer>François Lewis, avis Google, octobre 2026</footer></blockquote>
+    <blockquote><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><p>« Honnêtement, je ne vois pas avec quel autre courtier vous pourriez faire affaires si vous demeurez dans Ste-Thérèse en haut !!! C'est le meilleur ! »</p><footer>Christian Savoie, avis Google</footer></blockquote>
+  </div>
+  <p style="margin-top:1.2rem"><a href="https://share.google/NTRzJq4dwAhYvneS9" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">Lire tous les avis sur Google</a></p>
+</section>
+
+<section class="container">
+  <div class="ev-faq">
+    <h2>Questions fréquentes</h2>
+    <!--faq:start-->${EVAL_FAQ}<!--faq:end-->
+  </div>
+</section>
+
+<section class="container"><div class="cta-band"><h2>Votre adresse suffit pour commencer.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander mon avis de valeur</a>${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div></div></section>
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Avis gratuit</a></nav>
+
 <script>
 (function(){
-  const TOTAL=5;
-  let current=1;
-  const answers={type:null,etages:null,soussol:null,chambres:null,sdb:null,renos:null,address:'',name:'',email:'',phone:''};
-  const $=s=>document.querySelector(s);
-  const $$=s=>document.querySelectorAll(s);
-  const stepEl=n=>$('.eval-step[data-step="'+n+'"]');
-  const dotEl=n=>$('.eval-step-dot[data-dot="'+n+'"]');
+  var form=document.getElementById('evaluation');
+  var addr=document.getElementById('ev-addr'), nameI=document.getElementById('ev-name'), phone=document.getElementById('ev-phone');
+  var err=document.getElementById('ev-err'), btn=document.getElementById('ev-submit');
+  var live=document.querySelectorAll('[data-live=addr]');
+  var lead={};
 
-  // Option button selection
-  $$('.eval-options').forEach(grp=>{
-    grp.addEventListener('click',e=>{
-      const btn=e.target.closest('.eval-option'); if(!btn)return;
-      const group=grp.dataset.group;
-      grp.querySelectorAll('.eval-option').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      answers[group]=btn.dataset.val;
-      validate();
+  // L'aperçu de l'avis se remplit avec l'adresse tapée
+  function paint(){
+    var v=addr.value.trim();
+    live.forEach(function(el){el.textContent=v||'Votre adresse ici';el.classList.toggle('empty',!v);});
+  }
+  addr.addEventListener('input',paint); paint();
+
+  function digits(s){return (s||'').replace(/[^0-9]/g,'');}
+  function fail(msg,el){err.textContent=msg;err.classList.add('on');if(el)el.focus();}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    err.classList.remove('on');
+    if(addr.value.trim().length<6)return fail("Indiquez l'adresse de la propriété (numéro et rue).",addr);
+    if(nameI.value.trim().length<2)return fail('Indiquez votre nom.',nameI);
+    if(digits(phone.value).length<10)return fail('Indiquez un numéro de téléphone à 10 chiffres.',phone);
+    lead={Adresse:addr.value.trim(),Nom:nameI.value.trim(),'Téléphone':phone.value.trim()};
+    var fd=new FormData();
+    fd.append('_subject',"Demande d'évaluation : "+lead.Adresse);
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    if(window.abAttr)abAttr(fd);
+    btn.disabled=true;var old=btn.textContent;btn.textContent='Envoi…';
+    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
+      if(!r.ok)throw 0;
+      if(window.abLead)abLead('evaluation');
+      var first=lead.Nom.split(' ')[0];
+      document.getElementById('ev-done-title').textContent='Merci '+first+'. Je vous rappelle dans les 24 h.';
+      form.querySelector('.ev-step1').hidden=true;
+      var done=document.getElementById('ev-done');done.hidden=false;done.focus({preventScroll:true});
+    }).catch(function(){
+      btn.disabled=false;btn.textContent=old;
+      fail("L'envoi n'a pas fonctionné. Réessayez, ou appelez Alain au 514 972-4207.");
     });
   });
 
-  // Text inputs
-  ['eval-addr','eval-name','eval-email','eval-phone'].forEach(id=>{
-    const el=document.getElementById(id);
-    el.addEventListener('input',()=>{
-      if(id==='eval-addr')answers.address=el.value;
-      if(id==='eval-name')answers.name=el.value;
-      if(id==='eval-email')answers.email=el.value;
-      if(id==='eval-phone')answers.phone=el.value;
-      validate();
+  // Précisions facultatives (2e envoi, rattaché à la même demande)
+  var picks={};
+  document.querySelectorAll('.ev-chips').forEach(function(g){
+    g.addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      picks[g.dataset.group]=b.textContent;
     });
   });
-
-  function isValid(step){
-    if(step===1)return answers.address.trim().length>=8;
-    if(step===2)return answers.type&&answers.etages&&answers.soussol;
-    if(step===3)return answers.chambres&&answers.sdb;
-    if(step===4)return answers.renos;
-    if(step===5)return answers.name.trim().length>=2 && /\\S+@\\S+\\.\\S+/.test(answers.email);
-    return false;
+  function closeMore(msg){
+    var m=document.getElementById('ev-more');
+    m.innerHTML='<p style="margin:0;color:var(--ink-2)">'+msg+'</p>';
   }
-  function validate(){
-    $('#eval-next').disabled=!isValid(current);
-  }
-
-  function go(n){
-    stepEl(current).classList.remove('active');
-    current=n;
-    stepEl(current).classList.add('active');
-    for(let i=1;i<=TOTAL;i++){
-      dotEl(i).classList.toggle('done',i<current);
-      dotEl(i).classList.toggle('active',i===current);
-    }
-    $('#eval-back').style.visibility=current===1?'hidden':'visible';
-    $('#eval-next').textContent=current===TOTAL?'Recevoir mon rapport →':'Continuer →';
-    if(current>TOTAL){finalize();return;}
-    validate();
-    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
-  }
-
-  $('#eval-next').addEventListener('click',()=>{
-    if(!isValid(current))return;
-    if(current===TOTAL){submit();return;}
-    go(current+1);
-  });
-  $('#eval-back').addEventListener('click',()=>{
-    if(current>1)go(current-1);
+  document.getElementById('ev-skip').addEventListener('click',function(){closeMore("Parfait. On en parle au téléphone.");});
+  document.getElementById('ev-more-send').addEventListener('click',function(){
+    var email=document.getElementById('ev-email').value.trim();
+    if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
+    var fd=new FormData();
+    fd.append('_subject','Précisions pour l\\'avis de valeur : '+(lead.Adresse||''));
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
+    if(email)fd.append('Courriel',email);
+    if(window.abAttr)abAttr(fd);
+    var b=this;b.disabled=true;b.textContent='Envoi…';
+    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
+      if(!r.ok)throw 0;
+      closeMore('Merci, c\\'est noté. Votre avis sera plus précis.');
+    }).catch(function(){b.disabled=false;b.textContent='Envoyer ces précisions';});
   });
 
-  // Submit — POST à Formspree
-  async function submit(){
-    const labels={
-      type:{unifamiliale:'Unifamiliale',condo:'Condo','maison-ville':'Maison de ville',plex:'Plex'},
-      etages:{'1':'1 étage','1.5':'1½','2':'2 étages','3+':'3+ étages'},
-      soussol:{fini:'fini',semi:'semi-fini','non-fini':'non fini',aucun:'aucun sous-sol'},
-      renos:{'-5':'récentes (< 5 ans)','5-10':'5 à 10 ans','10-25':'10 à 25 ans','25+':'plus de 25 ans',aucune:'aucune'}
-    };
-    const btn=$('#eval-next');
-    btn.disabled=true; const oldLabel=btn.textContent; btn.textContent='Envoi…';
-    const form=$('#eval-form');
-    const fd=new FormData();
-    fd.append('_subject',"Demande d'évaluation — alainbrunelle.com");
-    fd.append('Adresse',answers.address||'');
-    fd.append('Type',labels.type[answers.type]||answers.type||'');
-    fd.append('Étages',labels.etages[answers.etages]||answers.etages||'');
-    fd.append('Sous-sol',labels.soussol[answers.soussol]||answers.soussol||'');
-    fd.append('Chambres',answers.chambres||'');
-    fd.append('Salles de bain',answers.sdb||'');
-    fd.append('Rénovations',labels.renos[answers.renos]||answers.renos||'');
-    fd.append('Nom',answers.name||'');
-    fd.append('Téléphone',answers.phone||'');
-    fd.append('Courriel',answers.email||'');
-    if(window.abAttr) abAttr(fd);
-    try{
-      const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:fd});
-      if(!res.ok) throw new Error('Erreur serveur');
-      if(window.abLead) abLead('evaluation');
-    }catch(e){
-      btn.disabled=false; btn.textContent=oldLabel;
-      alert("Une erreur réseau est survenue. Réessayez ou écrivez directement à alain.brunelle@remax-quebec.com.");
-      return;
-    }
-    const recap='<strong>Récapitulatif</strong><br>'+
-      '📍 '+answers.address+'<br>'+
-      '🏡 '+(labels.type[answers.type]||answers.type)+' · '+(labels.etages[answers.etages]||answers.etages)+' · sous-sol '+(labels.soussol[answers.soussol]||answers.soussol)+'<br>'+
-      '🛏️ '+answers.chambres+' chambre(s) · '+answers.sdb+' salle(s) de bain<br>'+
-      '🔧 Rénovations : '+(labels.renos[answers.renos]||answers.renos);
-    $('#eval-recap').innerHTML=recap;
-    $('#eval-actions').style.display='none';
-    stepEl(current).classList.remove('active');
-    current=6;
-    stepEl(6).classList.add('active');
-    document.querySelectorAll('.eval-step-dot').forEach(d=>{d.classList.add('done');d.classList.remove('active');});
-    window.scrollTo({top:$('.eval-wrap').offsetTop-100,behavior:'smooth'});
+  // Suggestions d'adresses (Photon / OpenStreetMap, sans clé)
+  var box=document.getElementById('ev-sug'), sug=[], idx=-1, t;
+  function render(){
+    if(!sug.length){box.classList.remove('open');return;}
+    box.innerHTML=sug.map(function(s,i){return '<div role="option" data-i="'+i+'"'+(i===idx?' class="active"':'')+'>'+s.label+(s.sec?'<small>'+s.sec+'</small>':'')+'</div>';}).join('');
+    box.classList.add('open');
   }
-
-  // Address autocomplete via Photon (OpenStreetMap) — gratuit, sans clé
-  const addrInput=$('#eval-addr');
-  const sugBox=$('#eval-suggestions');
-  let suggestions=[],activeIdx=-1,debounceTimer;
-
-  function renderSug(){
-    if(!suggestions.length){sugBox.classList.remove('open');return;}
-    sugBox.innerHTML=suggestions.map((s,i)=>'<div class="eval-suggestion'+(i===activeIdx?' active':'')+'" data-i="'+i+'">'+s.label+(s.sec?'<span class="sec">'+s.sec+'</span>':'')+'</div>').join('');
-    sugBox.classList.add('open');
+  function fetchSug(q){
+    if(q.length<3){sug=[];render();return;}
+    fetch('https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=5&lat=45.67&lon=-73.88&bbox=-75.5,45.4,-73.4,46.5').then(function(r){return r.json();}).then(function(d){
+      var num=(q.match(/^[0-9]+[A-Za-z]?/)||[''])[0];
+      sug=(d.features||[]).filter(function(f){return f.properties.country==='Canada';}).map(function(f){var p=f.properties;return {label:[p.housenumber||num,p.street||p.name].filter(Boolean).join(' '),sec:[p.city||p.town||p.village,p.state].filter(Boolean).join(', ')};}).filter(function(s){return s.label;});
+      idx=-1;render();
+    }).catch(function(){sug=[];render();});
   }
-  async function fetchSug(q){
-    if(q.length<3){suggestions=[];renderSug();return;}
-    try{
-      // Bbox approximatif Rive-Nord + Laurentides QC
-      const url='https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=6&bbox=-75.5,45.4,-73.4,46.5';
-      const res=await fetch(url);
-      const data=await res.json();
-      suggestions=(data.features||[]).filter(f=>f.properties.country==='Canada').map(f=>{
-        const p=f.properties;
-        const label=[p.housenumber,p.street||p.name].filter(Boolean).join(' ')||(p.name||'');
-        const sec=[p.city||p.town||p.village,p.state].filter(Boolean).join(', ');
-        return {label,sec};
-      }).filter(s=>s.label.length>0);
-    }catch{suggestions=[];}
-    activeIdx=-1;
-    renderSug();
-  }
-  addrInput.addEventListener('input',()=>{
-    clearTimeout(debounceTimer);
-    debounceTimer=setTimeout(()=>fetchSug(addrInput.value.trim()),250);
+  function pick(i){var s=sug[i];addr.value=s.label+(s.sec?', '+s.sec:'');sug=[];render();paint();nameI.focus();}
+  addr.addEventListener('input',function(){clearTimeout(t);t=setTimeout(function(){fetchSug(addr.value.trim());},250);});
+  addr.addEventListener('keydown',function(e){
+    if(!sug.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();idx=Math.min(idx+1,sug.length-1);render();}
+    else if(e.key==='ArrowUp'){e.preventDefault();idx=Math.max(idx-1,0);render();}
+    else if(e.key==='Enter'&&idx>=0){e.preventDefault();pick(idx);}
+    else if(e.key==='Escape'){sug=[];render();}
   });
-  addrInput.addEventListener('keydown',e=>{
-    if(!suggestions.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,suggestions.length-1);renderSug();}
-    if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);renderSug();}
-    if(e.key==='Enter'&&activeIdx>=0){e.preventDefault();pick(activeIdx);}
-    if(e.key==='Escape'){suggestions=[];renderSug();}
-  });
-  function pick(i){
-    const s=suggestions[i];
-    addrInput.value=s.label+(s.sec?', '+s.sec:'');
-    answers.address=addrInput.value;
-    suggestions=[];renderSug();
-    validate();
-  }
-  sugBox.addEventListener('click',e=>{
-    const it=e.target.closest('.eval-suggestion');
-    if(it)pick(+it.dataset.i);
-  });
-  document.addEventListener('click',e=>{
-    if(!sugBox.contains(e.target)&&e.target!==addrInput){sugBox.classList.remove('open');}
-  });
-
-  // Init
-  validate();
+  box.addEventListener('mousedown',function(e){var it=e.target.closest('[data-i]');if(it){e.preventDefault();pick(+it.dataset.i);}});
+  document.addEventListener('click',function(e){if(e.target!==addr)box.classList.remove('open');});
 })();
 </script>
 `
