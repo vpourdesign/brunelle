@@ -2356,7 +2356,7 @@ const homeBody = `
 
 <section class="section-dark">
   <div class="container">
-    <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>33 ans à mesurer le marché — les chiffres qui le prouvent.</h2></div></div>
+    <div class="sec-head reveal"><div><div class="eye">En chiffres · ${new Date().getFullYear()}</div><h2>35 ans à mesurer le marché — les chiffres qui le prouvent.</h2></div></div>
     <div class="stats-grid reveal">
       <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
       <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
@@ -2367,7 +2367,7 @@ const homeBody = `
 <section class="section-light">
 <div class="container">
   <div class="sec-head reveal">
-    <div><div class="eye">33 ans d'expérience · Rive-Nord</div><h2>Le marché expliqué sans compromis.</h2></div>
+    <div><div class="eye">35 ans d'expérience · Rive-Nord</div><h2>Le marché expliqué sans compromis.</h2></div>
   </div>
   <div class="vid-grid reveal">
     ${videos.map(v => `
@@ -2964,7 +2964,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>L'offre a aussi changé. Il y avait 33 maisons à vendre au 3e trimestre, contre environ 18 un an plus tôt. Les acheteurs ont plus de choix, et une maison affichée trop cher reste plus longtemps en vente. Pour l'instant, les maisons se vendent en 28 jours en moyenne.</p>
 <p>Quand je prépare une évaluation à Sainte-Thérèse, je regarde les ventes récentes dans votre rue et autour, l'âge et l'état de la maison, puis les maisons comparables encore à vendre. Le prix médian de la ville donne un ordre de grandeur, mais deux maisons du même âge peuvent se vendre à des prix très différents d'un secteur à l'autre.</p>`,
       reasons: `<li>Mon bureau est à Sainte-Thérèse, au 228, boulevard du Curé-Labelle (RE/MAX CRYSTAL).</li>
-<li>33 ans de métier et plus de 3 000 transactions sur la Rive-Nord.</li>
+<li>35 ans de métier et plus de 3 000 transactions sur la Rive-Nord.</li>
 <li>Beaucoup de mes clients reviennent pour une deuxième ou une troisième transaction, parfois 20 ans plus tard. Leurs avis Google le disent mieux que moi.</li>
 <li>Quand vous m'écrivez par le site, c'est moi qui vous rappelle, dans les 24 heures.</li>`,
       types: `<p>Sur les douze derniers mois, il s'est vendu presque autant de condos (129) que de maisons unifamiliales (140) à Sainte-Thérèse. Le prix médian d'un condo est de 366 250 $, le même qu'un an plus tôt, et il se vend en 33 jours en moyenne.</p>
@@ -2993,7 +2993,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
       // 2026-10-21 : page d'atterrissage du groupe Google Ads « Courtier Blainville » (QS 3, expérience
       // sur la page sous la moyenne). Formulaire 3 champs + appel dans le premier écran, barre d'appel mobile.
       title: `Courtier immobilier Blainville, agent RE/MAX | Alain Brunelle`,
-      description: `Alain Brunelle, courtier immobilier à Blainville depuis 33 ans (RE/MAX CRYSTAL). Évaluation gratuite de votre maison en 48 h, rappel par Alain dans les 24 h.`,
+      description: `Alain Brunelle, courtier immobilier à Blainville depuis 35 ans (RE/MAX CRYSTAL). Évaluation gratuite de votre maison en 48 h, rappel par Alain dans les 24 h.`,
       h1: `Courtier immobilier à Blainville : Alain Brunelle, votre agent immobilier RE/MAX.`,
       leadForm: 'evaluation-blainville',
       heroPhoto: ['/photos/blainville/sentier_boise_plan_bouchard_blainville.jpg', 'Sentier boisé sur pilotis dans Plan-Bouchard, à Blainville'],
@@ -3008,17 +3008,17 @@ for (const [slugC, cityName, neighs] of CITIES) {
         title: `Vous parlez au courtier du début à la fin, pas à une équipe.`,
         text: `Je vends des maisons sur la Rive-Nord depuis 1992. Quand vous m'appelez, c'est moi qui réponds; quand vous remplissez le formulaire, c'est moi qui vous rappelle.`
       },
-      proof: [`<strong>33 ans</strong> à Blainville et Sainte-Thérèse`, `<strong>3 000+</strong> transactions sur la Rive-Nord`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
+      proof: [`<strong>35 ans</strong> à Blainville et Sainte-Thérèse`, `<strong>3 000+</strong> transactions sur la Rive-Nord`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
       headings: {
         cta: `Vous vendez à Blainville ? Commencez par l'évaluation gratuite.`,
         ctaBtn: `Demander l'évaluation`,
         ctaHref: '#evaluation'
       },
-      lead: `Je vends des maisons à Blainville depuis 33 ans, de Fontainebleau à Chante-Bois. Pour votre propriété, je pars des ventes faites près de chez vous et je vous remets une évaluation écrite en 48 h. C'est moi qui vous rappelle.`,
+      lead: `Je vends des maisons à Blainville depuis 35 ans, de Fontainebleau à Chante-Bois. Pour votre propriété, je pars des ventes faites près de chez vous et je vous remets une évaluation écrite en 48 h. C'est moi qui vous rappelle.`,
       market: `<p>Blainville en 2026 est en phase de <strong>rééquilibrage</strong>. L'inventaire d'unifamiliales a bondi de 29 %, ramenant du pouvoir de négociation aux acheteurs. Le prix médian unifamilial recule modestement (−4 %, à 715 k$), tandis que le condo (+3 %) et le plex (+10 %) restent fermement haussiers. Lire un marché comme celui-là demande de la précision : pas une moyenne globale, mais une lecture par quartier et par typologie.</p>
-<p>Comme <strong>courtier immobilier à Blainville</strong> depuis 33 ans, je positionne chaque inscription en croisant les transactions des 12 derniers mois à moins de 500 m, l'inventaire actif comparable et les tendances saisonnières du quartier visé. Données APCIQ et Centris à jour, méthode rigoureuse.</p>`,
+<p>Comme <strong>courtier immobilier à Blainville</strong> depuis 35 ans, je positionne chaque inscription en croisant les transactions des 12 derniers mois à moins de 500 m, l'inventaire actif comparable et les tendances saisonnières du quartier visé. Données APCIQ et Centris à jour, méthode rigoureuse.</p>`,
       reasons: `<li><strong>Connaissance fine des 9 quartiers</strong> : Fontainebleau, Chambéry, Chante-Bois, Plan-Bouchard, Jardins-de-Blainville, Côte-Saint-Louis, Alençon, Renaissance, Blainvillier</li>
-<li><strong>33 ans d'inscriptions et de transactions actives à Blainville</strong> : je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
+<li><strong>35 ans d'inscriptions et de transactions actives à Blainville</strong> : je sais ce qui se vend, à quel prix, en combien de temps, et pourquoi</li>
 <li><strong>Mise en marché complète incluse</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> : réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
       types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>`,
@@ -3032,11 +3032,11 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>Remplissez le formulaire en haut de la page (nom, téléphone, adresse) ou appelez-moi au 514 972-4207. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, sans engagement.</p>`
     },
     'rosemere': {
-      lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 33 ans à lire ce marché spécifique.`,
+      lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 35 ans à lire ce marché spécifique.`,
       market: `<p>Rosemère se distingue du reste de la Rive-Nord par son <strong>profil acheteur exigeant</strong> : familles établies, professionnels, retraités haut de gamme. La rareté foncière sur la Grande-Côte et dans Bois-Franc maintient les prix médians au-dessus de 685 k$, avec des pointes au-delà de 1,5 M$ pour les propriétés riveraines de la rivière des Mille-Îles.</p>
-<p>Comme <strong>courtier immobilier à Rosemère</strong> depuis 33 ans, je connais les particularités de ce marché : ce qui se vend rapidement (terrains de 15 000 PC+, propriétés rénovées clé en main, condos haut de gamme), et ce qui demande plus de patience (propriétés à rafraîchir, prix au-dessus de 1,3 M$).</p>`,
+<p>Comme <strong>courtier immobilier à Rosemère</strong> depuis 35 ans, je connais les particularités de ce marché : ce qui se vend rapidement (terrains de 15 000 PC+, propriétés rénovées clé en main, condos haut de gamme), et ce qui demande plus de patience (propriétés à rafraîchir, prix au-dessus de 1,3 M$).</p>`,
       reasons: `<li><strong>Spécialisation sur le segment haut de gamme</strong> de la Rive-Nord (Grande-Côte, riverains, propriétés &gt;1 M$)</li>
-<li><strong>33 ans à courtier dans le secteur</strong> — je connais l'historique de vente des principales propriétés et le profil typique des acheteurs Rosemère</li>
+<li><strong>35 ans à courtier dans le secteur</strong> — je connais l'historique de vente des principales propriétés et le profil typique des acheteurs Rosemère</li>
 <li><strong>Mise en marché haut de gamme</strong> : photo HDR 4K, vidéo drone, visite virtuelle 360°, brochure imprimée sur place</li>
 <li><strong>Discrétion totale</strong> : option de pré-diffusion privée avant Centris pour les propriétés sensibles à la confidentialité</li>`,
       types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance.</p>`,
@@ -3046,11 +3046,11 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>Délai médian sur mes inscriptions : 32 jours. Pour les propriétés au-dessus de 1,2 M$, prévoir 60-90 jours — le segment haut de gamme demande plus de patience et un acheteur très ciblé.</p>`
     },
     'lorraine': {
-      lead: `Lorraine est unique sur la Rive-Nord : urbanisme à thème médiéval, ville-jardin, rues nommées d'après des cités françaises. Marché niché, acheteurs spécifiques. 33 ans à comprendre ce qui s'y vend.`,
+      lead: `Lorraine est unique sur la Rive-Nord : urbanisme à thème médiéval, ville-jardin, rues nommées d'après des cités françaises. Marché niché, acheteurs spécifiques. 35 ans à comprendre ce qui s'y vend.`,
       market: `<p>Lorraine attire les acheteurs qui cherchent un cadre de vie distinct du quadrillage classique de banlieue : rues sinueuses, arbres matures, architecture cohérente. Le marché y est plus tranquille mais plus stable que dans les villes voisines — moins de pression vendeur, plus de fidélité acheteur.</p>
 <p>Comme <strong>courtier immobilier à Lorraine</strong>, ma méthode tient compte de la spécificité du territoire : un cottage des années 1980 dans Lorraine se compare à un autre cottage des années 1980 dans Lorraine, pas à une construction récente de Blainville. C'est cette précision qui évite les positionnements de prix erratiques.</p>`,
       reasons: `<li><strong>Lecture précise d'un marché niché</strong> — Lorraine ne se compare pas à Blainville malgré la proximité géographique</li>
-<li><strong>33 ans d'expérience sur la Rive-Nord</strong>, dont une connaissance approfondie de l'architecture et de l'urbanisme particulier de Lorraine</li>
+<li><strong>35 ans d'expérience sur la Rive-Nord</strong>, dont une connaissance approfondie de l'architecture et de l'urbanisme particulier de Lorraine</li>
 <li><strong>Mise en marché complète</strong> : photo HDR 4K, vidéo drone, plan d'étage 2D, visite virtuelle 360°</li>
 <li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li>`,
       types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière.</p>`,
@@ -3179,7 +3179,7 @@ ${cityBlock}
 
   writePage(`courtier-immobilier/${slugC}/index.html`, layout({
     title: cp.title || `Courtier immobilier ${cityName} | Alain Brunelle RE/MAX CRYSTAL`,
-    description: cp.description || `Alain Brunelle, courtier immobilier à ${cityName}. 33 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
+    description: cp.description || `Alain Brunelle, courtier immobilier à ${cityName}. 35 ans d'expérience, évaluation gratuite, expertise locale fine. Rapport complet en 48 h.`,
     canonical: cityUrl,
     jsonld: cityJsonld,
     bodyClass: cp.leadForm ? 'has-call-bar' : '',
@@ -3756,7 +3756,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
       </form>
 
       <div class="ev-alt">Vous préférez parler tout de suite ? ${obscuredPhone({ prefix: 'Appelez Alain au ', label: '514 972-4207' })}</div>
-      <div class="ev-proof"><span><strong>33 ans</strong> sur la Rive-Nord</span><span><strong>3 000+</strong> transactions</span><span>Blainville, Sainte-Thérèse, Rosemère, Lorraine</span></div>
+      <div class="ev-proof"><span><strong>35 ans</strong> sur la Rive-Nord</span><span><strong>3 000+</strong> transactions</span><span>Blainville, Sainte-Thérèse, Rosemère, Lorraine</span></div>
       ${evalPaper('mobile')}
     </div>
     ${evalPaper()}
@@ -3780,7 +3780,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
       <h2>Je prépare chaque évaluation moi-même.</h2>
       <p class="ab-text">Pas d'estimation automatique tirée d'une base de données. Je regarde les maisons vendues dans votre rue et votre secteur ces derniers mois, celles encore à vendre, et ce qui distingue la vôtre.</p>
       <ul>
-        <li><strong>33 ans de métier</strong> et plus de 3 000 transactions sur la Rive-Nord</li>
+        <li><strong>35 ans de métier</strong> et plus de 3 000 transactions sur la Rive-Nord</li>
         <li><strong>Un seul interlocuteur</strong> : c'est moi qui vous rappelle et moi qui signe l'évaluation</li>
         <li><strong>Sans pression</strong> : vous pouvez la demander pour une vente dans un an, un refinancement ou une succession</li>
       </ul>
@@ -3914,7 +3914,7 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
 
 // --- VENDRE / ACHETER / INVESTISSEUR ---
 const SUBPAGES = [
-  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 33 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas mystérieux — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la <strong>rigueur d'exécution</strong> à chaque étape.</p>
+  ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 35 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas mystérieux — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la <strong>rigueur d'exécution</strong> à chaque étape.</p>
 
 <div class="stat-row">
 <div class="stat-mini"><div class="n">28 j</div><div class="l">délai médian — mes inscriptions 2024-2025</div></div>
@@ -4131,7 +4131,7 @@ const SUBPAGES = [
 <p>Depuis juin 2022, le contrat de courtage achat (formulaire OACIQ) prévoit une rétribution due par l'acheteur. En pratique, cette rétribution est <strong>habituellement couverte en tout ou en partie par le partage de la rétribution offert par le courtier inscripteur du vendeur</strong>. Les modalités exactes sont précisées dans le contrat de courtage achat que nous signons ensemble. Concrètement, voici ce que je fais pour vous :</p>
 <ul>
 <li>Pré-sélection sur vos vrais critères (pas juste prix + nb chambres)</li>
-<li>Visites accompagnées : 33 ans d'expérience pour repérer les drapeaux rouges</li>
+<li>Visites accompagnées : 35 ans d'expérience pour repérer les drapeaux rouges</li>
 <li>Référencement aux meilleurs courtiers hypothécaires, inspecteurs, notaires</li>
 <li>Rédaction et négociation de votre promesse d'achat — un courtier expérimenté peut faire une différence importante sur le prix final et les conditions accordées</li>
 <li>Coordination jusqu'à la remise des clés</li>
@@ -4497,7 +4497,7 @@ writePage('guides/index.html', contentPage({
 const GUIDE_CONTENT = {
   'guide-du-vendeur-2026': {
     lead: '42 pages pour vendre votre propriété au meilleur prix, dans le meilleur délai — sans laisser d\'argent sur la table.',
-    body: `<p>Ce guide est l'aboutissement de 33 ans de pratique sur la Rive-Nord. Il rassemble les méthodes que j'utilise concrètement avec chaque client vendeur.</p>
+    body: `<p>Ce guide est l'aboutissement de 35 ans de pratique sur la Rive-Nord. Il rassemble les méthodes que j'utilise concrètement avec chaque client vendeur.</p>
 <h2>Ce que vous y trouverez</h2>
 <ul>
 <li>La méthode de positionnement de prix en 3 fourchettes</li>
@@ -4567,7 +4567,7 @@ writePage('marche-immobilier/index.html', contentPage({
   desc:'Statistiques du marché immobilier Rive-Nord — Blainville, Sainte-Thérèse, rapport mensuel. Données APCIQ Q1 2026.',
   canonical:'https://alainbrunelle.com/marche-immobilier/',
   heroImg:'/photos/P21_5407-Edit.jpg',
-  body:`<p class="lead">Trois lectures complémentaires : les chiffres par ville, le baromètre mensuel APCIQ et mon analyse de courtier ancrée sur 33 ans de transactions Rive-Nord.</p>
+  body:`<p class="lead">Trois lectures complémentaires : les chiffres par ville, le baromètre mensuel APCIQ et mon analyse de courtier ancrée sur 35 ans de transactions Rive-Nord.</p>
 
 <div class="stat-row" style="margin:2rem 0">
   <div class="stat-mini"><div class="n">Q1 2026</div><div class="l">Données les plus récentes</div></div>
@@ -4804,7 +4804,7 @@ const articleJsonld = JSON.stringify({
 
 writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   title: `${featuredArticle.title} | Alain Brunelle`,
-  description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 33 ans, 3 000+ transactions.`,
+  description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 35 ans, 3 000+ transactions.`,
   canonical: `https://alainbrunelle.com/blog/${featuredArticle.slug}/`,
   jsonld: articleJsonld,
   extraHead: `<style>
@@ -4892,7 +4892,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   </figure>
 
   <div class="a-body">
-    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 33 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
+    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 35 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
 
     <div class="a-summary">
       <div class="card"><div class="n">582 k$</div><div class="l">Prix médian 2026 (unifamiliale)</div></div>
@@ -4980,7 +4980,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
 
     <p class="muted" style="font-size:.85rem;font-style:italic">Mes statistiques de performance (délai médian, ratio vendu/demandé) sont disponibles sur demande, appuyées par mes données de transactions 2024-2025.</p>
 
-    <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 33 ans à Sainte-Thérèse</cite></div>
+    <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 35 ans à Sainte-Thérèse</cite></div>
 
     <h2>5. Ce que je surveille en ce moment — avril 2026</h2>
     <p>La saisonnalité de Sainte-Thérèse est sous-estimée. Contrairement à Blainville, le pic de vente est <strong>début mai</strong>, pas fin avril. Raison principale : le Vieux-Village attire beaucoup d'acheteurs de Laval et Montréal qui visitent après la semaine de relâche de Pâques.</p>
@@ -4997,7 +4997,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
 
     <h2>6. FAQ — Sainte-Thérèse en 2026</h2>
     <h3>Comment choisir son courtier immobilier à Sainte-Thérèse ?</h3>
-    <p>La question n'est pas <em>qui est le meilleur</em> dans l'absolu, mais <em>qui est le bon courtier immobilier pour votre propriété et votre quartier précis</em>. Les critères qui comptent : nombre de transactions dans <strong>votre secteur</strong> (pas dans toute la ville), délai médian sur les inscriptions récentes, ratio prix vendu/demandé, et qualité de la stratégie de mise en marché. Mes chiffres : 33 ans à Sainte-Thérèse, 3 000+ transactions, Top 5 % RE/MAX Québec depuis 20 ans, ratio 99,2 %, délai médian 28 j.</p>
+    <p>La question n'est pas <em>qui est le meilleur</em> dans l'absolu, mais <em>qui est le bon courtier immobilier pour votre propriété et votre quartier précis</em>. Les critères qui comptent : nombre de transactions dans <strong>votre secteur</strong> (pas dans toute la ville), délai médian sur les inscriptions récentes, ratio prix vendu/demandé, et qualité de la stratégie de mise en marché. Mes chiffres : 35 ans à Sainte-Thérèse, 3 000+ transactions, Top 5 % RE/MAX Québec depuis 20 ans, ratio 99,2 %, délai médian 28 j.</p>
 
     <h3>Quel est le prix moyen d'une maison à Sainte-Thérèse ?</h3>
     <p>582 000 $ en prix médian unifamiliale 2026. Mais <strong>la médiane ne vend rien</strong> : ce qui vend, c'est le prix juste de votre rue, avec votre année de construction, vos rénovations. Écart possible : ± 80 000 $ selon le secteur.</p>
@@ -5530,7 +5530,7 @@ const BLOG_CONTENT = {
   <div><strong>Une opportunité actuelle :</strong> les condos neufs Vieux-Village sont temporairement abondants (3 projets livrés depuis 2022). C'est la fenêtre pour entrer dans le secteur à un prix raisonnable avant que l'inventaire condo ne se résorbe (estimation : 12-18 mois). <a href="/courtier-immobilier/sainte-therese/">Voir les inscriptions actives</a>.</div>
 </div>
 
-<p>Pour visiter le Vieux-Village avec quelqu'un qui y vit professionnellement depuis 33 ans, <a href="/rendez-vous/">prenez 20 minutes avec moi</a>.</p>`
+<p>Pour visiter le Vieux-Village avec quelqu'un qui y vit professionnellement depuis 35 ans, <a href="/rendez-vous/">prenez 20 minutes avec moi</a>.</p>`
   }
 };
 const BLOG_TAG_MAP = Object.fromEntries(BLOG_POSTS.map(([s,t,img,tag])=>[s,{tag,img}]));
@@ -5555,19 +5555,19 @@ writePage('a-propos/index.html', layout({
   description:'Alain Brunelle, courtier immobilier à Sainte-Thérèse et Blainville depuis 1992. Plus de 3 000 transactions, Top 5 % RE/MAX Québec depuis 20 ans. Approche analytique, livraison rigoureuse.',
   canonical:'https://alainbrunelle.com/a-propos/',
   body:`
-<section class="page-head container"><div class="eyebrow">À propos · Courtier immobilier depuis 1992</div><h1>Alain Brunelle, courtier immobilier de la Rive-Nord depuis 33 ans.</h1><p class="lead">3 000+ transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse, Blainville, Rosemère, Lorraine.</p></section>
+<section class="page-head container"><div class="eyebrow">À propos · Courtier immobilier depuis 1992</div><h1>Alain Brunelle, courtier immobilier de la Rive-Nord depuis 35 ans.</h1><p class="lead">3 000+ transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse, Blainville, Rosemère, Lorraine.</p></section>
 
 <section class="container"><div class="about-grid">
   <div class="about-photo"><img src="/photos/alain/Creationsdoz-00336_pp.jpg" alt="Alain Brunelle, courtier immobilier RE/MAX CRYSTAL"></div>
   <div>
     <p style="font-size:1.15rem;color:var(--ink);line-height:1.65;font-weight:500">Depuis 1992, j'accompagne les familles, les premiers acheteurs et les investisseurs de Sainte-Thérèse, Blainville, Rosemère et Lorraine à travers la décision financière la plus importante de leur vie.</p>
-    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">33 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a son prix juste</strong>, et chaque client mérite une stratégie sur mesure, appuyée par des chiffres. Mon travail consiste à transformer les données du marché — historique de vente, saisonnalité, comparables — en une décision claire que vous comprenez et que vous portez avec confiance.</p>
+    <p style="color:var(--ink-2);line-height:1.75;margin-top:1.2rem">35 ans sur le terrain m'ont appris une chose simple : <strong>chaque propriété a son prix juste</strong>, et chaque client mérite une stratégie sur mesure, appuyée par des chiffres. Mon travail consiste à transformer les données du marché — historique de vente, saisonnalité, comparables — en une décision claire que vous comprenez et que vous portez avec confiance.</p>
     <p style="color:var(--ink-2);line-height:1.75;margin-top:1rem">Mon territoire principal : Sainte-Thérèse, Blainville, Rosemère et Lorraine. Mon réseau d'acheteurs actifs couvre l'ensemble de la Rive-Nord. Mon rôle, comme courtier immobilier RE/MAX CRYSTAL, c'est d'être le point de pivot entre vos objectifs et la réalité du marché — avec transparence totale à chaque étape.</p>
   </div>
 </div></section>
 
 <section class="section-dark"><div class="container">
-  <div class="sec-head"><div><div class="eye">En chiffres · 2026</div><h2>Ce que 33 ans à courtier sur la Rive-Nord donnent comme chiffres.</h2></div></div>
+  <div class="sec-head"><div><div class="eye">En chiffres · 2026</div><h2>Ce que 35 ans à courtier sur la Rive-Nord donnent comme chiffres.</h2></div></div>
   <div class="stats-grid">
     <div class="stat"><div class="n">3 000+</div><div class="l">Transactions conclues depuis 1992</div></div>
     <div class="stat"><div class="n">Top 5 %</div><div class="l">RE/MAX Québec · 20 années consécutives</div></div>
@@ -5588,7 +5588,7 @@ writePage('a-propos/index.html', layout({
     </ul>
 
     <h2>Mon parcours</h2>
-    <p>Formation en administration, certifications continues OACIQ, et 33 ans de pratique active à courtier dans le même secteur. J'ai vu le marché de la Rive-Nord à travers les hausses, les corrections, la flambée COVID et le rééquilibrage récent. Chaque cycle a renforcé la même leçon : <em>la connaissance fine du marché local bat les généralités à tous les coups</em>.</p>
+    <p>Formation en administration, certifications continues OACIQ, et 35 ans de pratique active à courtier dans le même secteur. J'ai vu le marché de la Rive-Nord à travers les hausses, les corrections, la flambée COVID et le rééquilibrage récent. Chaque cycle a renforcé la même leçon : <em>la connaissance fine du marché local bat les généralités à tous les coups</em>.</p>
 
     <h2>Ce qui m'anime</h2>
     <p>Voir une famille accéder à sa première maison après deux ans d'épargne. Vendre la maison d'un parent décédé avec respect et fluidité. Aider un investisseur à structurer sa quatrième acquisition. Chaque transaction est une histoire — et c'est ce mélange d'humain et de méthode qui rend ce métier passionnant.</p>
@@ -5916,7 +5916,7 @@ writePage('contact/index.html', layout({
 }));
 
 writePage('temoignages/index.html', contentPage({
-  eyebrow:'Témoignages clients',h1:'33 ans à courtier, des milliers d\'histoires.',
+  eyebrow:'Témoignages clients',h1:'35 ans à courtier, des milliers d\'histoires.',
   lead:'Quelques voix de clients qui ont vendu, acheté ou investi avec moi sur la Rive-Nord. Les noms sont anonymisés à la demande des clients ; les avis vérifiés se trouvent sur Google.',
   title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
   canonical:'https://alainbrunelle.com/temoignages/',
@@ -6087,7 +6087,7 @@ writePage('performance/index.html', layout({
   description:'Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord — délai médian, ratio prix vendu/demandé, transactions totales depuis 1992.',
   canonical:'https://alainbrunelle.com/performance/',
   body:`
-<section class="page-head container"><div class="eyebrow">Performance · Transactions 2026</div><h1>Performance de vente — Alain Brunelle, courtier immobilier.</h1><p class="lead">Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord. 33 ans de transactions à mesurer.</p></section>
+<section class="page-head container"><div class="eyebrow">Performance · Transactions 2026</div><h1>Performance de vente — Alain Brunelle, courtier immobilier.</h1><p class="lead">Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord. 35 ans de transactions à mesurer.</p></section>
 <section class="container">
   <div class="blue-block">
     <div class="stats-grid">
