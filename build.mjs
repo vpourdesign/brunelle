@@ -1244,13 +1244,13 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 /* Paragraph row under hero */
 /* HERO ACCUEIL (2026-10-23) : le nom en très grand, photo fondue dans le blanc, 2 actions */
 .hx{position:relative;overflow:hidden;background:var(--bg);padding:0}
-.hx-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);min-height:min(84vh,760px)}
-.hx-text{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(2.5rem,6vw,5rem);padding-left:max(var(--pad),calc((100vw - var(--container))/2 + var(--pad)));padding-right:clamp(1.5rem,3.5vw,3.5rem)}
+.hx-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);min-height:min(84vh,760px)}
+.hx-text{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(2.5rem,6vw,5rem);padding-left:max(var(--pad),calc((100vw - var(--container))/2 + var(--pad)));padding-right:clamp(2.5rem,5vw,5.5rem);container-type:inline-size}
 .hx-kicker{display:flex;align-items:center;gap:.55rem;margin:0;font-size:.95rem;font-weight:500;color:var(--ink-2)}
 .hx-kicker img{height:20px;width:auto}
 .hx h1{margin:clamp(1rem,2vw,1.6rem) 0 0;color:var(--ink);letter-spacing:-.045em}
-.hx-name{display:block;font-size:clamp(3.1rem,6.4vw,6.6rem);font-weight:600;line-height:.9;white-space:nowrap}
-.hx-role{display:block;margin-top:.12em;font-size:clamp(2.1rem,4.6vw,4.4rem);font-weight:300;line-height:1;letter-spacing:-.035em;color:var(--ink-2)}
+.hx-name{display:block;font-size:min(6.6rem,calc(100cqi / 6.4));font-weight:600;line-height:.9;white-space:nowrap}
+.hx-role{display:block;margin-top:.12em;font-size:min(4.4rem,calc(100cqi / 8.4));white-space:nowrap;font-weight:300;line-height:1;letter-spacing:-.035em;color:var(--ink-2)}
 .hx-sub{margin:clamp(1.4rem,2.6vw,2.2rem) 0 0;max-width:22ch;font-size:clamp(1.6rem,2.7vw,2.5rem);font-weight:400;line-height:1.18;letter-spacing:-.025em;color:var(--ink)}
 .hx-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(1.8rem,3.2vw,2.8rem)}
 .hx-btn{display:inline-flex;align-items:center;gap:.65rem;min-height:62px;padding:0 1.7rem;border-radius:999px;font-size:1.06rem;font-weight:600;text-decoration:none;transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease)}
@@ -1270,7 +1270,6 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .hx-badge{position:absolute;left:clamp(1rem,3vw,2.5rem);bottom:clamp(1.5rem,4vw,3rem);display:grid;gap:.15rem;background:#fff;border-radius:16px;padding:.9rem 1.15rem;box-shadow:0 2px 6px rgba(11,22,40,.08),0 20px 40px -18px rgba(11,22,40,.35);font-size:.85rem;color:var(--muted)}
 .hx-badge strong{color:var(--ink);font-size:1rem;font-weight:600}
 .hx-stars{color:#f5a623;letter-spacing:.12em;font-size:.85rem}
-@media(max-width:1100px) and (min-width:861px){.hx-name{white-space:normal}}
 @media(max-width:860px){
   .hx-grid{grid-template-columns:1fr;min-height:0}
   .hx-photo{order:-1;height:clamp(250px,68vw,440px);min-height:0}
@@ -2092,7 +2091,7 @@ const homeBody = `
     </div>
     <figure class="hx-photo">
       <img src="/photos/alain/hero-alain-1800.jpg" srcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" sizes="(max-width: 860px) 100vw, 55vw" width="1800" height="1200" alt="Alain Brunelle, courtier immobilier à Blainville et Sainte-Thérèse" fetchpriority="high">
-      <figcaption class="hx-badge"><span class="hx-stars" aria-hidden="true">★★★★★</span><strong>5,0 sur Google</strong><span>3 000+ transactions depuis 1992</span></figcaption>
+      <figcaption class="hx-badge"><span class="hx-stars" aria-hidden="true">★★★★★</span><strong>4,9 sur Google</strong><span>46 avis · 3 000+ transactions</span></figcaption>
     </figure>
   </div>
 </section>
@@ -2101,8 +2100,8 @@ const homeBody = `
   <div class="container proof-grid">
     <div class="proof-item">
       <div class="proof-stars" aria-hidden="true">★★★★★</div>
-      <div class="proof-v">5,0 / 5</div>
-      <div class="proof-l">Avis Google vérifiés</div>
+      <div class="proof-v">4,9 / 5</div>
+      <div class="proof-l">46 avis Google vérifiés</div>
     </div>
     <div class="proof-item">
       <svg class="proof-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h2a2 2 0 0 1 0 4h-2M7 5H5a2 2 0 0 0 0 4h2"/></svg>
@@ -2130,9 +2129,9 @@ const homeBody = `
         <svg class="g-logo" width="22" height="22" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
         <div>
           <div class="reviews-title">Avis Google vérifiés</div>
-          <div class="reviews-stars" aria-label="5 étoiles sur 5">
+          <div class="reviews-stars" aria-label="Note de 4,9 sur 5, 46 avis">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            <span class="reviews-rating">5,0</span>
+            <span class="reviews-rating">4,9 · 46 avis</span>
           </div>
         </div>
       </div>
