@@ -1113,9 +1113,14 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .nav-eval:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .nav-eval .ne-short{display:none}
 .nav-m-extra{display:none}
-@media(min-width:1181px){.nav-eval{margin-right:-.75rem}}
-@media(max-width:1240px){.nav-item{padding:.55rem .65rem;font-size:.92rem}.nav{gap:1rem}}
-@media(max-width:1180px) and (min-width:981px){.nav-cta{display:none}.nav{grid-template-columns:auto 1fr auto auto;gap:.8rem}.nav-links{flex-wrap:nowrap;gap:0}.nav-item{padding:.5rem .55rem;font-size:.9rem;white-space:nowrap}.nav .brand-logo{height:50px}.nav .brand-remax{height:38px}}
+/* Menu toujours sur une ligne : on resserre avant que les liens ne passent à la ligne */
+.nav-links{flex-wrap:nowrap}
+.nav-item{white-space:nowrap}
+@media(min-width:1320px){.nav-eval{margin-right:-.75rem}}
+@media(max-width:1179px) and (min-width:981px){.nav-eval .ne-long{display:none}.nav-eval .ne-short{display:inline}}
+@media(max-width:1439px) and (min-width:981px){.nav{gap:1rem}.nav-links{gap:0}.nav-item{padding:.5rem .65rem;font-size:.92rem}.nav .brand-logo{height:54px}.nav .brand-remax{height:40px}}
+@media(max-width:1099px) and (min-width:981px){.nav{gap:.6rem;padding-inline:1rem}.nav-item{padding:.45rem .38rem !important;font-size:.88rem !important}.nav .brand-logo{height:42px !important}.nav .brand-remax{height:32px !important}.nav-eval{padding:.65rem 1rem;font-size:.86rem}}
+@media(max-width:1319px) and (min-width:981px){.nav-cta{display:none}.nav{grid-template-columns:auto 1fr auto auto;gap:.8rem}.nav-item{padding:.5rem .55rem;font-size:.9rem}.nav .brand-logo{height:50px}.nav .brand-remax{height:38px}}
 
 /* RE/MAX agency compliance bar — conforme normes RE/MAX Québec */
 .agency-bar{background:var(--surface);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink-2);position:relative;z-index:40}
