@@ -12,8 +12,10 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 // Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
-window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
+try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Les 7 étapes pour vendre sa maison à Sainte-Thérèse sans stress | Alain Brunelle</title>
@@ -27,9 +29,8 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=cbfcf61182">
+<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/blog/7-etapes-vendre-sainte-therese/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/blog/7-etapes-vendre-sainte-therese/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/blog/7-etapes-vendre-sainte-therese/">
@@ -81,7 +82,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
             <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pixel Meta et remarketing Google : mesurent l'efficacité de nos publicités. Activés seulement avec votre accord.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
@@ -113,7 +114,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       anaTitle:'Audience measurement', optTag:'Optional',
       anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
       mktTitle:'Marketing',
-      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      mktDesc:'Meta pixel and Google remarketing: measure how well our ads work. Enabled only with your consent.',
       saveBtn:'Save my choices'
     };
     root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
@@ -123,6 +124,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
+    try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{

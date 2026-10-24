@@ -12,8 +12,10 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 // Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
-window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
+try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Real estate broker in Sainte-Thérèse, RE/MAX agent | Alain Brunelle</title>
@@ -27,9 +29,8 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=cbfcf61182">
+<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/#courtier","name":"Alain Brunelle","url":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":{"@id":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/#ville"},"parentOrganization":{"@type":"RealEstateAgent","name":"RE/MAX CRYSTAL"}},{"@type":"Place","@id":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/#ville","name":"Sainte-Thérèse","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"}},{"@type":"FAQPage","@id":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/#faq","url":"https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/","inLanguage":"en-CA","mainEntity":[{"@type":"Question","name":"What does a house cost in Sainte-Thérèse in 2026?","acceptedAnswer":{"@type":"Answer","text":"The median price of a single-family house was $710,000 in Q3 2026, according to Centris. Over the last twelve months, it is $615,400. For a condo, the twelve-month median price is $366,250."}},{"@type":"Question","name":"How long does it take to sell a house in Sainte-Thérèse?","acceptedAnswer":{"@type":"Answer","text":"28 days on average in Q3 2026, and 26 days over the last twelve months. A well-priced house often sells faster. An overpriced house stays on the market much longer, especially now that buyers have more choice."}},{"@type":"Question","name":"How much is the welcome tax in Sainte-Thérèse?","acceptedAnswer":{"@type":"Answer","text":"Under the City's 2026 schedule, the transfer duty is 0.5% up to $62,900, 1% from $62,901 to $315,000, 1.5% from $315,001 to $500,000 and 3% above $500,000. For a house bought at $710,000, that comes to about $11,910. It is calculated on the higher of two amounts: the price paid or the adjusted municipal assessment. The full schedule is on the City of Sainte-Thérèse website."}},{"@type":"Question","name":"Can you commute to Montréal by train from Sainte-Thérèse?","acceptedAnswer":{"@type":"Answer","text":"Yes. Sainte-Thérèse station is on the exo Saint-Jérôme line, which reaches downtown Montréal in about an hour. Outside peak hours, some trains stop before downtown, so check the exo schedule for your departure time. Highways 15 and 640 are a few minutes away."}},{"@type":"Question","name":"Is this a good time to sell in Sainte-Thérèse?","acceptedAnswer":{"@type":"Answer","text":"Prices rose 15% year over year in Q3, which favours sellers. On the other hand, there are almost twice as many houses for sale as a year ago, so competition is stronger. To find out what that means for your house, I will prepare a free valuation based on sales in your area."}}]}]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/courtier-immobilier/sainte-therese/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/courtier-immobilier/sainte-therese/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/courtier-immobilier/sainte-therese/">
@@ -81,7 +82,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
             <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pixel Meta et remarketing Google : mesurent l'efficacité de nos publicités. Activés seulement avec votre accord.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
@@ -113,7 +114,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       anaTitle:'Audience measurement', optTag:'Optional',
       anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
       mktTitle:'Marketing',
-      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      mktDesc:'Meta pixel and Google remarketing: measure how well our ads work. Enabled only with your consent.',
       saveBtn:'Save my choices'
     };
     root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
@@ -123,6 +124,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
+    try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -341,7 +343,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <p>When I prepare a valuation in Sainte-Thérèse, I look at recent sales on your street and nearby, the age and condition of the house, then comparable houses still for sale. The city's median price gives a rough idea, but two houses of the same age can sell for very different prices from one area to another.</p>
       <h2>Why work with me in Sainte-Thérèse</h2>
       <ul><li>My office is in Sainte-Thérèse, at 228 boulevard du Curé-Labelle (RE/MAX CRYSTAL).</li>
-<li>33 years in the business and more than 3,000 transactions on the North Shore.</li>
+<li>35 years in the business and more than 3,000 transactions on the North Shore.</li>
 <li>Many of my clients come back for a second or third transaction, sometimes 20 years later. Their Google reviews say it better than I can.</li>
 <li>When you write to me through the site, I call you back myself within 24 hours.</li></ul>
       <h2>Houses and condos: what sells</h2>

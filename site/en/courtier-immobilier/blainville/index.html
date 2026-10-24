@@ -12,24 +12,25 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 // Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
-window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
+try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Real estate broker in Blainville, RE/MAX agent | Alain Brunelle</title>
-<meta name="description" content="Alain Brunelle, real estate broker in Blainville for 33 years (RE/MAX CRYSTAL). Free home valuation in 48 hours, a call back from Alain within 24 hours.">
+<meta name="description" content="Alain Brunelle, real estate broker in Blainville for 35 years (RE/MAX CRYSTAL). Free home valuation in 48 hours, a call back from Alain within 24 hours.">
 <link rel="canonical" href="https://alainbrunelle.com/en/courtier-immobilier/blainville/">
 <meta property="og:title" content="Real estate broker in Blainville, RE/MAX agent | Alain Brunelle">
-<meta property="og:description" content="Alain Brunelle, real estate broker in Blainville for 33 years (RE/MAX CRYSTAL). Free home valuation in 48 hours, a call back from Alain within 24 hours.">
+<meta property="og:description" content="Alain Brunelle, real estate broker in Blainville for 35 years (RE/MAX CRYSTAL). Free home valuation in 48 hours, a call back from Alain within 24 hours.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=cbfcf61182">
+<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://alainbrunelle.com/en/courtier-immobilier/blainville/#courtier","name":"Alain Brunelle","url":"https://alainbrunelle.com/en/courtier-immobilier/blainville/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":{"@id":"https://alainbrunelle.com/en/courtier-immobilier/blainville/#ville"},"parentOrganization":{"@type":"RealEstateAgent","name":"RE/MAX CRYSTAL"}},{"@type":"Place","@id":"https://alainbrunelle.com/en/courtier-immobilier/blainville/#ville","name":"Blainville","address":{"@type":"PostalAddress","addressLocality":"Blainville","addressRegion":"QC","addressCountry":"CA"}},{"@type":"FAQPage","@id":"https://alainbrunelle.com/en/courtier-immobilier/blainville/#faq","url":"https://alainbrunelle.com/en/courtier-immobilier/blainville/","inLanguage":"en-CA","mainEntity":[{"@type":"Question","name":"What is the average home price in Blainville in 2026?","acceptedAnswer":{"@type":"Answer","text":"Median single-family price Q1 2026: 715 000 $, according to Centris. Depending on the neighbourhood, the age and the condition of the house, the actual price can be far from this median: that is why the valuation starts from sales made near you."}},{"@type":"Question","name":"How long does selling a property in Blainville take?","acceptedAnswer":{"@type":"Answer","text":"Q1 2026 median timeline: 32 days on single-family homes, 60 days on condos. A house listed at the right price from the start usually sells faster than one whose price has to be cut along the way."}},{"@type":"Question","name":"Real estate broker or real estate agent in Blainville: what is the difference?","acceptedAnswer":{"@type":"Answer","text":"None in practice. In Quebec, the official title is “real estate broker”, issued by the OACIQ. “Real estate agent” is the everyday term for the same profession. I am a residential and commercial real estate broker with RE/MAX CRYSTAL."}},{"@type":"Question","name":"How do I get a free valuation of my house in Blainville?","acceptedAnswer":{"@type":"Answer","text":"Fill in the form at the top of the page (name, phone, address) or call me at 514 972-4207. I call you back within 24 hours and give you a written valuation within 48 hours, with no obligation."}}]}]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/courtier-immobilier/blainville/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/courtier-immobilier/blainville/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/courtier-immobilier/blainville/">
@@ -81,7 +82,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
             <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pixel Meta et remarketing Google : mesurent l'efficacité de nos publicités. Activés seulement avec votre accord.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
@@ -113,7 +114,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       anaTitle:'Audience measurement', optTag:'Optional',
       anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
       mktTitle:'Marketing',
-      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      mktDesc:'Meta pixel and Google remarketing: measure how well our ads work. Enabled only with your consent.',
       saveBtn:'Save my choices'
     };
     root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
@@ -123,6 +124,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
+    try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -249,9 +251,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     <div>
       <div class="eyebrow">Real estate broker · Blainville</div>
       <h1>Real estate broker in Blainville: Alain Brunelle, your RE/MAX agent.</h1>
-      <p class="lead">I have been selling houses in Blainville for 33 years, from Fontainebleau to Chante-Bois. For your property, I start from the sales made near you and give you a written valuation within 48 hours. I call you back myself.</p>
+      <p class="lead">I have been selling houses in Blainville for 35 years, from Fontainebleau to Chante-Bois. For your property, I start from the sales made near you and give you a written valuation within 48 hours. I call you back myself.</p>
       <a class="ph-obs call-btn " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">Call Alain: <span class="ph-obs-txt">514 972-4207</span></a>
-      <div class="cl-proof"><span><strong>33 years</strong> in Blainville and Sainte-Thérèse</span><span><strong>3 000+</strong> transactions on the North Shore</span><span><strong>Call back within 24 h</strong>, from Alain himself</span></div>
+      <div class="cl-proof"><span><strong>35 years</strong> in Blainville and Sainte-Thérèse</span><span><strong>3 000+</strong> transactions on the North Shore</span><span><strong>Call back within 24 h</strong>, from Alain himself</span></div>
     </div>
     <form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-blainville');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
     <input type="hidden" name="_subject" value="Évaluation gratuite Blainville (page courtier)">
@@ -280,7 +282,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       <h2>You deal with the broker from start to finish, not with a team.</h2>
       <p class="ab-text">I have been selling houses on the North Shore since 1992. When you call, I answer; when you fill in the form, I call you back myself.</p>
       <ul><li><strong>Fine-grained knowledge of the 9 neighbourhoods</strong> : Fontainebleau, Chambéry, Chante-Bois, Plan-Bouchard, Jardins-de-Blainville, Côte-Saint-Louis, Alençon, Renaissance, Blainvillier</li>
-<li><strong>33 years of active listings and transactions in Blainville</strong> : I know what sells, at what price, in how long, and why</li>
+<li><strong>35 years of active listings and transactions in Blainville</strong> : I know what sells, at what price, in how long, and why</li>
 <li><strong>Complete marketing included</strong> : 4K HDR photo, drone video, 2D floor plan, 360° virtual tour</li>
 <li><strong>RE/MAX CRYSTAL team</strong> : a network of brokers, stagers, photographers and partner notaries</li></ul>
       <p class="ab-sign"><strong>Alain Brunelle</strong>Residential and commercial real estate broker, RE/MAX CRYSTAL</p>
@@ -316,7 +318,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     <article class="prose reveal">
       <h2>The Blainville real estate market in 2026</h2>
       <p>Blainville in 2026 is in a phase of <strong>rebalancing</strong>. Single-family inventory jumped 29%, handing negotiating power back to buyers. The median single-family price slips modestly (−4%, to $715K), while condos (+3%) and plexes (+10%) stay firmly bullish. Reading a market like that takes precision: not a blanket average, but a read by neighbourhood and by property type.</p>
-<p>Like <strong>real estate broker in Blainville</strong> for 33 years, I've positioned every listing by cross-referencing transactions from the past 12 months within 500 m, comparable active inventory and the seasonal trends of the target neighbourhood. Up-to-date APCIQ and Centris data, a rigorous method.</p>
+<p>Like <strong>real estate broker in Blainville</strong> for 35 years, I've positioned every listing by cross-referencing transactions from the past 12 months within 500 m, comparable active inventory and the seasonal trends of the target neighbourhood. Up-to-date APCIQ and Centris data, a rigorous method.</p>
       
       <h2>Most active property types in Blainville</h2>
       <p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>

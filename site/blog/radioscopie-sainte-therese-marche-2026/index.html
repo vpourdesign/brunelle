@@ -12,24 +12,25 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 // Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
-window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
+try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier | Alain Brunelle</title>
-<meta name="description" content="Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 33 ans, 3 000+ transactions.">
+<meta name="description" content="Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 35 ans, 3 000+ transactions.">
 <link rel="canonical" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/">
 <meta property="og:title" content="Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier | Alain Brunelle">
-<meta property="og:description" content="Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 33 ans, 3 000+ transactions.">
+<meta property="og:description" content="Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 35 ans, 3 000+ transactions.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=cbfcf61182">
+<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
 <style>
     .a-hero{position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:clamp(420px,55vw,640px);margin-bottom:3rem}
     .a-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -98,7 +99,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
     .a-footer-meta .who{font-weight:500}
     .a-footer-meta .who-sub{font-size:.88rem;color:var(--muted);margin-top:.2rem}
   </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier","author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://alainbrunelle.com/a-propos/"},"image":"https://alainbrunelle.com/photos/stetherese1.jpg","datePublished":"2026-04-23","dateModified":"2026-10-23","publisher":{"@type":"Organization","name":"Alain Brunelle — RE/MAX CRYSTAL"},"mainEntityOfPage":"https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Radioscopie de Sainte-Thérèse : ce que 2 000 transactions m'ont appris sur votre quartier","author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://alainbrunelle.com/a-propos/"},"image":"https://alainbrunelle.com/photos/stetherese1.jpg","datePublished":"2026-04-23","dateModified":"2026-10-24","publisher":{"@type":"Organization","name":"Alain Brunelle — RE/MAX CRYSTAL"},"mainEntityOfPage":"https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/blog/radioscopie-sainte-therese-marche-2026/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/blog/radioscopie-sainte-therese-marche-2026/">
 </head>
 <body class="">
@@ -148,7 +149,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
             <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pixel Meta et remarketing Google : mesurent l'efficacité de nos publicités. Activés seulement avec votre accord.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
@@ -180,7 +181,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       anaTitle:'Audience measurement', optTag:'Optional',
       anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
       mktTitle:'Marketing',
-      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      mktDesc:'Meta pixel and Google remarketing: measure how well our ads work. Enabled only with your consent.',
       saveBtn:'Save my choices'
     };
     root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
@@ -190,6 +191,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
+    try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -326,7 +328,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   </figure>
 
   <div class="a-body">
-    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 33 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
+    <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 35 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
 
     <div class="a-summary">
       <div class="card"><div class="n">582 k$</div><div class="l">Prix médian 2026 (unifamiliale)</div></div>
@@ -414,7 +416,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 
     <p class="muted" style="font-size:.85rem;font-style:italic">Mes statistiques de performance (délai médian, ratio vendu/demandé) sont disponibles sur demande, appuyées par mes données de transactions 2024-2025.</p>
 
-    <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 33 ans à Sainte-Thérèse</cite></div>
+    <div class="pullquote">« Un courtier moyen vous donne un prix. Un courtier immobilier qui connaît votre rue vous donne les trois scénarios — et le "pourquoi" de chacun. »<cite>— Alain Brunelle, 35 ans à Sainte-Thérèse</cite></div>
 
     <h2>5. Ce que je surveille en ce moment — avril 2026</h2>
     <p>La saisonnalité de Sainte-Thérèse est sous-estimée. Contrairement à Blainville, le pic de vente est <strong>début mai</strong>, pas fin avril. Raison principale : le Vieux-Village attire beaucoup d'acheteurs de Laval et Montréal qui visitent après la semaine de relâche de Pâques.</p>
@@ -431,7 +433,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 
     <h2>6. FAQ — Sainte-Thérèse en 2026</h2>
     <h3>Comment choisir son courtier immobilier à Sainte-Thérèse ?</h3>
-    <p>La question n'est pas <em>qui est le meilleur</em> dans l'absolu, mais <em>qui est le bon courtier immobilier pour votre propriété et votre quartier précis</em>. Les critères qui comptent : nombre de transactions dans <strong>votre secteur</strong> (pas dans toute la ville), délai médian sur les inscriptions récentes, ratio prix vendu/demandé, et qualité de la stratégie de mise en marché. Mes chiffres : 33 ans à Sainte-Thérèse, 3 000+ transactions, Top 5 % RE/MAX Québec depuis 20 ans, ratio 99,2 %, délai médian 28 j.</p>
+    <p>La question n'est pas <em>qui est le meilleur</em> dans l'absolu, mais <em>qui est le bon courtier immobilier pour votre propriété et votre quartier précis</em>. Les critères qui comptent : nombre de transactions dans <strong>votre secteur</strong> (pas dans toute la ville), délai médian sur les inscriptions récentes, ratio prix vendu/demandé, et qualité de la stratégie de mise en marché. Mes chiffres : 35 ans à Sainte-Thérèse, 3 000+ transactions, Top 5 % RE/MAX Québec depuis 20 ans, ratio 99,2 %, délai médian 28 j.</p>
 
     <h3>Quel est le prix moyen d'une maison à Sainte-Thérèse ?</h3>
     <p>582 000 $ en prix médian unifamiliale 2026. Mais <strong>la médiane ne vend rien</strong> : ce qui vend, c'est le prix juste de votre rue, avec votre année de construction, vos rénovations. Écart possible : ± 80 000 $ selon le secteur.</p>

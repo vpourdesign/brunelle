@@ -12,8 +12,10 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 // Source du visiteur (gardée pour la session) : jointe aux formulaires Formspree pour qu'Alain voie d'où vient chaque demande
 (function(){try{var p=new URLSearchParams(location.search),s=sessionStorage,g=p.get('gclid')||p.get('gbraid')||p.get('wbraid'),u=p.get('utm_source'),r=document.referrer,h='';try{h=r?new URL(r).hostname:'';}catch(e){}if(g){s.setItem('ab_gclid',g);s.setItem('ab_src','Google Ads'+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''));}else if(!s.getItem('ab_src')){s.setItem('ab_src',u?u+(p.get('utm_campaign')?' / '+p.get('utm_campaign'):''):(h&&h!==location.hostname?(/google\./.test(h)?'Google (recherche organique)':h):'Direct'));}if(!s.getItem('ab_land'))s.setItem('ab_land',location.pathname);}catch(e){}})();
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
-window.abLead=function(name){if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href')});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
+try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Alain Brunelle — Sainte-Thérèse & Blainville real estate broker | RE/MAX CRYSTAL</title>
@@ -27,10 +29,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="apple-touch-icon" href="/brand_assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/photos/P21_5407-Edit.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=cbfcf61182">
-
+<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="preload" as="image" href="/photos/alain/hero-alain-1800.jpg" imagesrcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" imagesizes="(max-width: 860px) 100vw, 55vw" fetchpriority="high">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Alain Brunelle","url":"https://alainbrunelle.com/en/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":["Sainte-Thérèse","Blainville","Saint-Eustache","Rosemère","Boisbriand","Mirabel"]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/">
 </head>
@@ -81,7 +82,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
             <div><strong data-cb-i18n="mktTitle">Marketing</strong><span class="cb-cat-tag" data-cb-i18n="optTag">Optionnel</span></div>
             <label class="cb-switch"><input type="checkbox" data-cb-cat="marketing"><span></span></label>
           </div>
-          <p data-cb-i18n="mktDesc">Pour de futures campagnes (remarketing Google, pixel Meta). Aucun témoin marketing n'est actif pour le moment.</p>
+          <p data-cb-i18n="mktDesc">Pixel Meta et remarketing Google : mesurent l'efficacité de nos publicités. Activés seulement avec votre accord.</p>
         </div>
       </div>
       <footer class="cb-modal-foot">
@@ -113,7 +114,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       anaTitle:'Audience measurement', optTag:'Optional',
       anaDesc:'Google Analytics (anonymized). Helps us understand which pages are useful so we can improve the site. No advertising data.',
       mktTitle:'Marketing',
-      mktDesc:'For future campaigns (Google remarketing, Meta pixel). No marketing cookies are active at this time.',
+      mktDesc:'Meta pixel and Google remarketing: measure how well our ads work. Enabled only with your consent.',
       saveBtn:'Save my choices'
     };
     root.querySelectorAll('[data-cb-i18n]').forEach(el=>{
@@ -123,6 +124,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){return null;}}
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
+    try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -243,26 +245,22 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 </div>
 <main>
 
-<section class="hero container">
-  <div class="hero-grid">
-    <div class="hero-photo reveal">
-      <span class="p-tag">Alain Brunelle · Real estate broker · RE/MAX CRYSTAL</span>
-      <img src="/photos/P21_5407-Edit.jpg" alt="Alain Brunelle, real estate broker in Sainte-Thérèse, Blainville, Rosemère and Lorraine" fetchpriority="high">
-      <p class="p-caption">3,000+ transactions guided on the North Shore since 1992.</p>
+<section class="hx" aria-labelledby="hx-title">
+  <div class="hx-grid">
+    <div class="hx-text">
+      <p class="hx-kicker"><img src="/brand_assets/digital_ballon.png" alt="" width="18" height="20">RE/MAX CRYSTAL, Sainte-Thérèse</p>
+      <h1 id="hx-title"><span class="hx-name">Alain Brunelle,</span><span class="hx-role">real estate broker</span></h1>
+      <h2 class="hx-sub">35 years of experience serving you in Blainville and <span class="nw">Sainte-Thérèse</span>.</h2>
+      <div class="hx-actions">
+        <a class="hx-btn hx-write" href="/en/rendez-vous/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Write to me</a>
+        <a class="ph-obs hx-btn hx-call" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.2-2.1 1.4a11 11 0 0 0 6.9 6.9l1.4-2.1L21 15l-.5 2.4A2.5 2.5 0 0 1 18 19.5 15.5 15.5 0 0 1 4.5 6a2.5 2.5 0 0 1 2.1-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="hx-call-k">Call me</span><span class="ph-obs-txt">514 972-4207</span></a>
+      </div>
+      <p class="hx-reassure">I answer myself, and I call you back within 24 hours. No pressure, no obligation.</p>
     </div>
-    <div class="hero-card reveal">
-      <div class="eyebrow">Real estate broker · North Shore</div>
-      <h1>The <em>real estate broker</em> of reference in Blainville and Sainte-Thérèse.</h1>
-      <div class="hero-cities"><span>Sainte-Thérèse</span><span>Blainville</span><span>Rosemère</span><span>Lorraine</span></div>
-      <p class="cities">33 years of local transactions · No one knows the local market better.</p>
-    </div>
-    <a class="hero-cta reveal" href="/en/rendez-vous/">
-      <div><strong>Prendre rendez-vous avec moi</strong><small>No pressure, no commitment</small></div>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-  <div class="hero-lead">
-    <h2>As a North Shore real estate broker, I make my decisions with you, numbers in hand.</h2>
+    <figure class="hx-photo">
+      <img src="/photos/alain/hero-alain-1800.jpg" srcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" sizes="(max-width: 860px) 100vw, 55vw" width="1800" height="1200" alt="Alain Brunelle, real estate broker in Blainville and Sainte-Thérèse" fetchpriority="high">
+      <figcaption class="hx-badge"><span class="hx-stars" aria-hidden="true">★★★★★</span><strong>4.9 on Google</strong><span>46 reviews · 3,000+ transactions</span></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -270,8 +268,8 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   <div class="container proof-grid">
     <div class="proof-item">
       <div class="proof-stars" aria-hidden="true">★★★★★</div>
-      <div class="proof-v">5,0 / 5</div>
-      <div class="proof-l">Verified Google reviews</div>
+      <div class="proof-v">4.9 / 5</div>
+      <div class="proof-l">46 verified Google reviews</div>
     </div>
     <div class="proof-item">
       <svg class="proof-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h2a2 2 0 0 1 0 4h-2M7 5H5a2 2 0 0 0 0 4h2"/></svg>
@@ -299,9 +297,9 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
         <svg class="g-logo" width="22" height="22" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 18.9 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.6 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C41.4 35.1 44 30 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
         <div>
           <div class="reviews-title">Verified Google reviews</div>
-          <div class="reviews-stars" aria-label="5 stars out of 5">
+          <div class="reviews-stars" aria-label="Rated 4.9 out of 5, 46 reviews">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            <span class="reviews-rating">5,0</span>
+            <span class="reviews-rating">4.9 · 46 reviews</span>
           </div>
         </div>
       </div>
@@ -584,7 +582,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 
 <section class="section-dark">
   <div class="container">
-    <div class="sec-head reveal"><div><div class="eye">By the numbers · 2026</div><h2>33 years measuring the market — the numbers that prove it.</h2></div></div>
+    <div class="sec-head reveal"><div><div class="eye">By the numbers · 2026</div><h2>35 years measuring the market — the numbers that prove it.</h2></div></div>
     <div class="stats-grid reveal">
       <div class="stat"><div class="n">3 000+</div><div class="l">Transactions closed since 1992</div></div>
       <div class="stat"><div class="n">Top 5%</div><div class="l">RE/MAX Québec · 20 consecutive years</div></div>
@@ -595,7 +593,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <section class="section-light">
 <div class="container">
   <div class="sec-head reveal">
-    <div><div class="eye">33 years of experience · North Shore</div><h2>The market explained without compromise.</h2></div>
+    <div><div class="eye">35 years of experience · North Shore</div><h2>The market explained without compromise.</h2></div>
   </div>
   <div class="vid-grid reveal">
     
