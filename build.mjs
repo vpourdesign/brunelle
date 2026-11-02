@@ -3580,13 +3580,8 @@ const evalPaper = (extraCls = '') => `<figure class="ev-paper ${extraCls}" aria-
   <figcaption>Exemple d'évaluation. Les chiffres sont masqués.</figcaption>
 </figure>`;
 
-writePage('vendre/evaluation-gratuite/index.html', layout({
-  title: 'Évaluation gratuite de votre maison en 48 h | Alain Brunelle',
-  description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet une évaluation écrite en 48 h.",
-  canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/',
-  bodyClass: 'has-call-bar',
-  jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
-  extraHead: `<style>
+// CSS, formulaire et script communs aux pages d'évaluation (générale + landing pages Google Ads par ville).
+const EVAL_CSS = `
     .ev-hero{position:relative;overflow:hidden;background:var(--surface);padding-block:clamp(2rem,5vw,4.5rem) clamp(2.5rem,6vw,5rem)}
     .ev-hero::after{content:"";position:absolute;top:0;bottom:0;right:0;width:31%;background:var(--blue);z-index:0}
     .ev-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,5rem);align-items:start}
@@ -3711,20 +3706,14 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
       .ev-submit{margin-top:.8rem;padding:1rem}
     }
     @media(max-width:340px){.ev-two{grid-template-columns:1fr}}
-  </style>`,
-  body: `
-<section class="ev-hero">
-  <div class="container ev-grid">
-    <div>
-      <div class="ev-kicker">Évaluation gratuite, sans engagement</div>
-      <h1>Combien vaut votre maison&nbsp;?</h1>
-      <p class="ev-lead">Laissez votre adresse. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, basée sur les ventes faites près de chez vous.</p>
+  `;
 
-      <form class="ev-form" id="evaluation" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+// addrPlaceholder : exemple d'adresse dans le premier champ.
+const evalForm = ({ addrPlaceholder = 'ex. 245 rue de Chambéry' } = {}) => `<form class="ev-form" id="evaluation" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
         <div class="ev-step1">
           <div class="ev-addr">
             <label for="ev-addr">Adresse de la propriété</label>
-            <input type="text" id="ev-addr" name="adresse" placeholder="ex. 245 rue de Chambéry" autocomplete="off" required>
+            <input type="text" id="ev-addr" name="adresse" placeholder="${addrPlaceholder}" autocomplete="off" required>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
             <div class="ev-sug" id="ev-sug" role="listbox"></div>
           </div>
@@ -3753,7 +3742,127 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
             <button type="button" class="ev-skip" id="ev-skip">Non merci, on en parlera au téléphone</button>
           </div>
         </div>
-      </form>
+      </form>`;
+
+// formName alimente generate_lead (GA4) ; place s'ajoute au sujet des courriels Formspree (ex. ' Blainville').
+const evalScript = ({ formName = 'evaluation', place = '' } = {}) => `<script>
+(function(){
+  var form=document.getElementById('evaluation');
+  var addr=document.getElementById('ev-addr'), nameI=document.getElementById('ev-name'), phone=document.getElementById('ev-phone');
+  var err=document.getElementById('ev-err'), btn=document.getElementById('ev-submit');
+  var live=document.querySelectorAll('[data-live=addr]');
+  var lead={};
+
+  // L'aperçu de l'avis se remplit avec l'adresse tapée
+  function paint(){
+    var v=addr.value.trim();
+    live.forEach(function(el){el.textContent=v||'Votre adresse ici';el.classList.toggle('empty',!v);});
+  }
+  addr.addEventListener('input',paint); paint();
+
+  function digits(s){return (s||'').replace(/[^0-9]/g,'');}
+  function fail(msg,el){err.textContent=msg;err.classList.add('on');if(el)el.focus();}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    err.classList.remove('on');
+    if(addr.value.trim().length<6)return fail("Indiquez l'adresse de la propriété (numéro et rue).",addr);
+    if(nameI.value.trim().length<2)return fail('Indiquez votre nom.',nameI);
+    if(digits(phone.value).length<10)return fail('Indiquez un numéro de téléphone à 10 chiffres.',phone);
+    lead={Adresse:addr.value.trim(),Nom:nameI.value.trim(),'Téléphone':phone.value.trim()};
+    var fd=new FormData();
+    fd.append('_subject',"Demande d'évaluation${place} : "+lead.Adresse);
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    if(window.abAttr)abAttr(fd);
+    btn.disabled=true;var old=btn.textContent;btn.textContent='Envoi…';
+    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
+      if(!r.ok)throw 0;
+      if(window.abLead)abLead('${formName}');
+      var first=lead.Nom.split(' ')[0];
+      document.getElementById('ev-done-title').textContent='Merci '+first+'. Je vous rappelle dans les 24 h.';
+      form.querySelector('.ev-step1').hidden=true;
+      var done=document.getElementById('ev-done');done.hidden=false;done.focus({preventScroll:true});
+    }).catch(function(){
+      btn.disabled=false;btn.textContent=old;
+      fail("L'envoi n'a pas fonctionné. Réessayez, ou appelez Alain au 514 972-4207.");
+    });
+  });
+
+  // Précisions facultatives (2e envoi, rattaché à la même demande)
+  var picks={};
+  document.querySelectorAll('.ev-chips').forEach(function(g){
+    g.addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      picks[g.dataset.group]=b.textContent;
+    });
+  });
+  function closeMore(msg){
+    var m=document.getElementById('ev-more');
+    m.innerHTML='<p style="margin:0;color:var(--ink-2)">'+msg+'</p>';
+  }
+  document.getElementById('ev-skip').addEventListener('click',function(){closeMore("Parfait. On en parle au téléphone.");});
+  document.getElementById('ev-more-send').addEventListener('click',function(){
+    var email=document.getElementById('ev-email').value.trim();
+    if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
+    var fd=new FormData();
+    fd.append('_subject','Précisions pour l\\'évaluation${place} : '+(lead.Adresse||''));
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
+    if(email)fd.append('Courriel',email);
+    if(window.abAttr)abAttr(fd);
+    var b=this;b.disabled=true;b.textContent='Envoi…';
+    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
+      if(!r.ok)throw 0;
+      closeMore('Merci, c\\'est noté. Votre évaluation sera plus précise.');
+    }).catch(function(){b.disabled=false;b.textContent='Envoyer ces précisions';});
+  });
+
+  // Suggestions d'adresses (Photon / OpenStreetMap, sans clé)
+  var box=document.getElementById('ev-sug'), sug=[], idx=-1, t;
+  function render(){
+    if(!sug.length){box.classList.remove('open');return;}
+    box.innerHTML=sug.map(function(s,i){return '<div role="option" data-i="'+i+'"'+(i===idx?' class="active"':'')+'>'+s.label+(s.sec?'<small>'+s.sec+'</small>':'')+'</div>';}).join('');
+    box.classList.add('open');
+  }
+  function fetchSug(q){
+    if(q.length<3){sug=[];render();return;}
+    fetch('https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=5&lat=45.67&lon=-73.88&bbox=-75.5,45.4,-73.4,46.5').then(function(r){return r.json();}).then(function(d){
+      var num=(q.match(/^[0-9]+[A-Za-z]?/)||[''])[0];
+      sug=(d.features||[]).filter(function(f){return f.properties.country==='Canada';}).map(function(f){var p=f.properties;return {label:[p.housenumber||num,p.street||p.name].filter(Boolean).join(' '),sec:[p.city||p.town||p.village,p.state].filter(Boolean).join(', ')};}).filter(function(s){return s.label;});
+      idx=-1;render();
+    }).catch(function(){sug=[];render();});
+  }
+  function pick(i){var s=sug[i];addr.value=s.label+(s.sec?', '+s.sec:'');sug=[];render();paint();nameI.focus();}
+  addr.addEventListener('input',function(){clearTimeout(t);t=setTimeout(function(){fetchSug(addr.value.trim());},250);});
+  addr.addEventListener('keydown',function(e){
+    if(!sug.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();idx=Math.min(idx+1,sug.length-1);render();}
+    else if(e.key==='ArrowUp'){e.preventDefault();idx=Math.max(idx-1,0);render();}
+    else if(e.key==='Enter'&&idx>=0){e.preventDefault();pick(idx);}
+    else if(e.key==='Escape'){sug=[];render();}
+  });
+  box.addEventListener('mousedown',function(e){var it=e.target.closest('[data-i]');if(it){e.preventDefault();pick(+it.dataset.i);}});
+  document.addEventListener('click',function(e){if(e.target!==addr)box.classList.remove('open');});
+})();
+</script>`;
+
+writePage('vendre/evaluation-gratuite/index.html', layout({
+  title: 'Évaluation gratuite de votre maison en 48 h | Alain Brunelle',
+  description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet une évaluation écrite en 48 h.",
+  canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/',
+  bodyClass: 'has-call-bar',
+  jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
+  extraHead: `<style>${EVAL_CSS}</style>`,
+  body: `
+<section class="ev-hero">
+  <div class="container ev-grid">
+    <div>
+      <div class="ev-kicker">Évaluation gratuite, sans engagement</div>
+      <h1>Combien vaut votre maison&nbsp;?</h1>
+      <p class="ev-lead">Laissez votre adresse. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, basée sur les ventes faites près de chez vous.</p>
+
+      ${evalForm()}
 
       <div class="ev-alt">Vous préférez parler tout de suite ? ${obscuredPhone({ prefix: 'Appelez Alain au ', label: '514 972-4207' })}</div>
       <div class="ev-proof"><span><strong>35 ans</strong> sur la Rive-Nord</span><span><strong>3 000+</strong> transactions</span><span>Blainville, Sainte-Thérèse, Rosemère, Lorraine</span></div>
@@ -3808,107 +3917,177 @@ writePage('vendre/evaluation-gratuite/index.html', layout({
 <section class="container"><div class="cta-band"><h2>Votre adresse suffit pour commencer.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander mon évaluation gratuite</a>${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div></div></section>
 <nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>
 
-<script>
-(function(){
-  var form=document.getElementById('evaluation');
-  var addr=document.getElementById('ev-addr'), nameI=document.getElementById('ev-name'), phone=document.getElementById('ev-phone');
-  var err=document.getElementById('ev-err'), btn=document.getElementById('ev-submit');
-  var live=document.querySelectorAll('[data-live=addr]');
-  var lead={};
+${evalScript()}
+`
+}));
 
-  // L'aperçu de l'avis se remplit avec l'adresse tapée
-  function paint(){
-    var v=addr.value.trim();
-    live.forEach(function(el){el.textContent=v||'Votre adresse ici';el.classList.toggle('empty',!v);});
-  }
-  addr.addEventListener('input',paint); paint();
+// --- ÉVALUATION GRATUITE · BLAINVILLE (landing page Google Ads) ---
+// Créée le 2026-11-02 pour les 3 groupes de la campagne Blainville (Courtier, Vendre, Évaluation) :
+// « expérience sur la page de destination » inférieure à la moyenne sur tous les mots-clés (QS 2 à 5).
+// Même formulaire, même Formspree et même conversion Ads que /vendre/evaluation-gratuite/ (formName distinct).
+// Hors index (noindex, absente du sitemap et de /en/) pour ne pas concurrencer /courtier-immobilier/blainville/.
+// Marché : Centris (APCIQ), unifamiliale, 3e trimestre 2026, relevé le 2026-11-02. Condo : cumul des 4 derniers trimestres.
+const BLV_MARKET = { price:'835 000 $', priceYoy:'+11 %', delay:'34 jours', sales:'148', salesYoy:'+8 %', invent:'174', inventYoy:'+10 %', condo:'432 425 $',
+  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville' };
+const BLV_SECTEURS = CITIES.find(([s]) => s === 'blainville')[2];
+// Pages sans version anglaise (generateEnglish les saute, hreflang compris).
+const NO_EN_PAGES = new Set(['vendre/evaluation-gratuite/blainville/index.html']);
 
-  function digits(s){return (s||'').replace(/[^0-9]/g,'');}
-  function fail(msg,el){err.textContent=msg;err.classList.add('on');if(el)el.focus();}
+writePage('vendre/evaluation-gratuite/blainville/index.html', layout({
+  title: 'Évaluation gratuite maison Blainville en 48 h | Alain Brunelle',
+  description: `Combien vaut votre maison à Blainville ? Alain Brunelle, courtier immobilier RE/MAX CRYSTAL depuis 35 ans, vous rappelle en 24 h. Évaluation écrite en 48 h, gratuite et sans engagement.`,
+  canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/blainville/',
+  bodyClass: 'has-call-bar',
+  extraHead: `<meta name="robots" content="noindex, follow">
+<style>${EVAL_CSS}
+    .blv-rating{display:inline-flex;flex-wrap:wrap;align-items:center;gap:.25rem .5rem;margin-bottom:1rem;font-size:.92rem;color:var(--ink-2);text-decoration:none;border-radius:4px}
+    .blv-rating .stars{color:#f5a623;letter-spacing:.08em}
+    .blv-rating strong{color:var(--ink);font-weight:600;transition:color .25s var(--ease)}
+    .blv-rating:hover strong{color:var(--blue)}
+    .blv-rating:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+    .blv-hero h1{max-width:18ch}
+    .blv-hero .ev-proof strong{font-variant-numeric:tabular-nums}
 
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    err.classList.remove('on');
-    if(addr.value.trim().length<6)return fail("Indiquez l'adresse de la propriété (numéro et rue).",addr);
-    if(nameI.value.trim().length<2)return fail('Indiquez votre nom.',nameI);
-    if(digits(phone.value).length<10)return fail('Indiquez un numéro de téléphone à 10 chiffres.',phone);
-    lead={Adresse:addr.value.trim(),Nom:nameI.value.trim(),'Téléphone':phone.value.trim()};
-    var fd=new FormData();
-    fd.append('_subject',"Demande d'évaluation : "+lead.Adresse);
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
-    if(window.abAttr)abAttr(fd);
-    btn.disabled=true;var old=btn.textContent;btn.textContent='Envoi…';
-    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
-      if(!r.ok)throw 0;
-      if(window.abLead)abLead('evaluation');
-      var first=lead.Nom.split(' ')[0];
-      document.getElementById('ev-done-title').textContent='Merci '+first+'. Je vous rappelle dans les 24 h.';
-      form.querySelector('.ev-step1').hidden=true;
-      var done=document.getElementById('ev-done');done.hidden=false;done.focus({preventScroll:true});
-    }).catch(function(){
-      btn.disabled=false;btn.textContent=old;
-      fail("L'envoi n'a pas fonctionné. Réessayez, ou appelez Alain au 514 972-4207.");
-    });
-  });
+    .blv-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1rem,3vw,2.5rem);margin-top:clamp(1.5rem,3vw,2.5rem)}
+    .blv-stat{border-top:2px solid var(--line);padding-top:1rem}
+    .blv-stat .n{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue);font-variant-numeric:tabular-nums}
+    .blv-stat .l{margin-top:.4rem;font-size:.95rem;font-weight:600;color:var(--ink)}
+    .blv-stat .d{margin-top:.2rem;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+    .blv-text{max-width:64ch;margin:1rem 0 0;color:var(--ink-2);line-height:1.7}
+    .blv-src{margin-top:1.2rem;font-size:.8rem;color:var(--muted)}
+    .blv-src a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+    .blv-secteurs{margin-top:clamp(1.8rem,3.5vw,2.6rem)}
+    .blv-secteurs h3{font-size:clamp(1.1rem,1.6vw,1.3rem)}
+    .blv-secteurs ul{list-style:none;padding:0;margin:.8rem 0 0;display:flex;flex-wrap:wrap;gap:.45rem}
+    .blv-secteurs li{padding:.45rem .9rem;font-size:.92rem;color:var(--ink-2);background:#fff;border:1px solid #c9d2e1;border-radius:999px}
 
-  // Précisions facultatives (2e envoi, rattaché à la même demande)
-  var picks={};
-  document.querySelectorAll('.ev-chips').forEach(function(g){
-    g.addEventListener('click',function(e){
-      var b=e.target.closest('button');if(!b)return;
-      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
-      picks[g.dataset.group]=b.textContent;
-    });
-  });
-  function closeMore(msg){
-    var m=document.getElementById('ev-more');
-    m.innerHTML='<p style="margin:0;color:var(--ink-2)">'+msg+'</p>';
-  }
-  document.getElementById('ev-skip').addEventListener('click',function(){closeMore("Parfait. On en parle au téléphone.");});
-  document.getElementById('ev-more-send').addEventListener('click',function(){
-    var email=document.getElementById('ev-email').value.trim();
-    if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
-    var fd=new FormData();
-    fd.append('_subject','Précisions pour l\\'évaluation : '+(lead.Adresse||''));
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
-    Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
-    if(email)fd.append('Courriel',email);
-    if(window.abAttr)abAttr(fd);
-    var b=this;b.disabled=true;b.textContent='Envoi…';
-    fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
-      if(!r.ok)throw 0;
-      closeMore('Merci, c\\'est noté. Votre évaluation sera plus précise.');
-    }).catch(function(){b.disabled=false;b.textContent='Envoyer ces précisions';});
-  });
+    .blv-sell{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-top:clamp(1.2rem,2.5vw,2rem)}
+    .blv-sell > div{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(1.3rem,2.6vw,1.8rem)}
+    .blv-sell h3{margin:0 0 .45rem;font-size:clamp(1.1rem,1.5vw,1.25rem)}
+    .blv-sell p{margin:0;color:var(--ink-2);line-height:1.6}
 
-  // Suggestions d'adresses (Photon / OpenStreetMap, sans clé)
-  var box=document.getElementById('ev-sug'), sug=[], idx=-1, t;
-  function render(){
-    if(!sug.length){box.classList.remove('open');return;}
-    box.innerHTML=sug.map(function(s,i){return '<div role="option" data-i="'+i+'"'+(i===idx?' class="active"':'')+'>'+s.label+(s.sec?'<small>'+s.sec+'</small>':'')+'</div>';}).join('');
-    box.classList.add('open');
-  }
-  function fetchSug(q){
-    if(q.length<3){sug=[];render();return;}
-    fetch('https://photon.komoot.io/api?q='+encodeURIComponent(q)+'&lang=fr&limit=5&lat=45.67&lon=-73.88&bbox=-75.5,45.4,-73.4,46.5').then(function(r){return r.json();}).then(function(d){
-      var num=(q.match(/^[0-9]+[A-Za-z]?/)||[''])[0];
-      sug=(d.features||[]).filter(function(f){return f.properties.country==='Canada';}).map(function(f){var p=f.properties;return {label:[p.housenumber||num,p.street||p.name].filter(Boolean).join(' '),sec:[p.city||p.town||p.village,p.state].filter(Boolean).join(', ')};}).filter(function(s){return s.label;});
-      idx=-1;render();
-    }).catch(function(){sug=[];render();});
-  }
-  function pick(i){var s=sug[i];addr.value=s.label+(s.sec?', '+s.sec:'');sug=[];render();paint();nameI.focus();}
-  addr.addEventListener('input',function(){clearTimeout(t);t=setTimeout(function(){fetchSug(addr.value.trim());},250);});
-  addr.addEventListener('keydown',function(e){
-    if(!sug.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();idx=Math.min(idx+1,sug.length-1);render();}
-    else if(e.key==='ArrowUp'){e.preventDefault();idx=Math.max(idx-1,0);render();}
-    else if(e.key==='Enter'&&idx>=0){e.preventDefault();pick(idx);}
-    else if(e.key==='Escape'){sug=[];render();}
-  });
-  box.addEventListener('mousedown',function(e){var it=e.target.closest('[data-i]');if(it){e.preventDefault();pick(+it.dataset.i);}});
-  document.addEventListener('click',function(e){if(e.target!==addr)box.classList.remove('open');});
-})();
-</script>
+    @media(max-width:760px){
+      .blv-stats{grid-template-columns:1fr 1fr;gap:1.6rem 1rem}
+      .blv-sell{grid-template-columns:1fr}
+      .blv-hero h1{max-width:none}
+    }
+    @media(max-width:600px){
+      .blv-rating{margin-bottom:.45rem;font-size:.85rem}
+    }
+  </style>`,
+  body: `
+<section class="ev-hero blv-hero">
+  <div class="container ev-grid">
+    <div>
+      <a class="blv-rating" href="#avis"><span class="stars" aria-hidden="true">★★★★★</span><strong>4,9 sur Google</strong><span>46 avis</span></a>
+      <h1>Combien vaut votre maison à Blainville&nbsp;?</h1>
+      <p class="ev-lead">Je suis Alain Brunelle, courtier immobilier à Blainville depuis 35 ans. Laissez votre adresse : je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h.</p>
+
+      ${evalForm({ addrPlaceholder: 'Numéro et rue, Blainville' })}
+
+      <div class="ev-alt">Vous préférez parler tout de suite ? ${obscuredPhone({ prefix: 'Appelez Alain au ', label: '514 972-4207' })}</div>
+      <div class="ev-proof"><span><strong>Gratuit</strong> et sans engagement</span><span><strong>3 000+</strong> transactions</span><span>RE/MAX CRYSTAL</span></div>
+      ${evalPaper('mobile')}
+    </div>
+    ${evalPaper()}
+  </div>
+</section>
+
+<section class="proof-bar" aria-label="Preuves de crédibilité">
+  <div class="container proof-grid">
+    <div class="proof-item"><div class="proof-stars" aria-hidden="true">★★★★★</div><div class="proof-v">4,9 / 5</div><div class="proof-l">46 avis Google</div></div>
+    <div class="proof-item"><div class="proof-v">35 ans</div><div class="proof-l">d'expérience sur la Rive-Nord</div></div>
+    <div class="proof-item"><div class="proof-v">3 000+</div><div class="proof-l">transactions</div></div>
+    <div class="proof-item"><div class="proof-v">Top 5 %</div><div class="proof-l">RE/MAX Québec · 20 ans</div></div>
+  </div>
+</section>
+
+<section class="container">
+  <h2 style="max-width:22ch">Trois étapes, et vous n'avez qu'à faire la première.</h2>
+  <ol class="ev-steps" style="padding:0">
+    <li><div class="when">Aujourd'hui, 30 secondes</div><h3>Vous laissez votre adresse</h3><p>Adresse, nom, téléphone. Pas de compte à créer, pas de questionnaire de dix pages.</p></li>
+    <li><div class="when">Dans les 24 h</div><h3>Je vous appelle</h3><p>Une dizaine de minutes pour parler de la maison : rénovations, sous-sol, terrain, ce qui ne se voit pas sur une photo.</p></li>
+    <li><div class="when">Dans les 48 h</div><h3>Vous recevez l'évaluation écrite</h3><p>La fourchette de prix, les ventes comparables de votre secteur de Blainville et mes recommandations avant une mise en vente. Elle est à vous, sans engagement.</p></li>
+  </ol>
+  <p class="ev-oaciq">Cette évaluation gratuite est un avis de valeur préparé par un courtier immobilier. Elle ne constitue pas une évaluation au sens de la <em>Loi sur les évaluateurs agréés</em>. Pour une expertise reconnue par une institution financière ou un tribunal, consultez un <a href="https://oeaq.qc.ca/" target="_blank" rel="noopener">évaluateur agréé de l'OEAQ</a>.</p>
+</section>
+
+<section class="container">
+  <div class="eyebrow">Marché unifamilial · Blainville · 3e trimestre 2026</div>
+  <h2 style="max-width:24ch">Ce qui s'est vendu à Blainville cet été.</h2>
+  <div class="blv-stats">
+    <div class="blv-stat"><div class="n">${BLV_MARKET.price}</div><div class="l">Prix médian</div><div class="d">${BLV_MARKET.priceYoy} en un an</div></div>
+    <div class="blv-stat"><div class="n">${BLV_MARKET.delay}</div><div class="l">Délai moyen de vente</div><div class="d">5 jours de plus qu'il y a un an</div></div>
+    <div class="blv-stat"><div class="n">${BLV_MARKET.sales}</div><div class="l">Maisons vendues</div><div class="d">${BLV_MARKET.salesYoy} en un an</div></div>
+    <div class="blv-stat"><div class="n">${BLV_MARKET.invent}</div><div class="l">Maisons à vendre</div><div class="d">${BLV_MARKET.inventYoy} en un an</div></div>
+  </div>
+  <p class="blv-text">La médiane, c'est la maison du milieu : la moitié s'est vendue plus cher, l'autre moitié moins cher. La vôtre peut s'en éloigner beaucoup selon le secteur, l'âge, le terrain et les rénovations. C'est pourquoi l'évaluation part des ventes faites dans votre rue et votre secteur, pas d'une moyenne de ville.</p>
+  <p class="blv-src">Source : <a href="${BLV_MARKET.sourceUrl}" target="_blank" rel="noopener">Centris (APCIQ)</a>, maisons unifamiliales, juillet à septembre 2026.</p>
+  <div class="blv-secteurs">
+    <h3>Je couvre tous les secteurs de Blainville</h3>
+    <ul>${BLV_SECTEURS.map(n => `<li>${n}</li>`).join('')}</ul>
+  </div>
+</section>
+
+<section class="alain-band">
+  <div class="container ab-grid">
+    <figure><img src="/photos/alain/Creationsdoz-00584_Final.jpg" alt="Alain Brunelle, courtier immobilier, préparant une évaluation à son ordinateur" loading="lazy" style="object-position:50% 40%"></figure>
+    <div>
+      <h2>Votre courtier immobilier à Blainville prépare l'évaluation lui-même.</h2>
+      <p class="ab-text">Pas d'estimation automatique tirée d'une base de données. Je regarde les maisons vendues dans votre rue et votre secteur ces derniers mois, celles encore à vendre, et ce qui distingue la vôtre.</p>
+      <ul>
+        <li><strong>35 ans de métier</strong> et plus de 3 000 transactions sur la Rive-Nord</li>
+        <li><strong>Un seul interlocuteur</strong> : c'est moi qui vous rappelle et moi qui signe l'évaluation</li>
+        <li><strong>Sans pression</strong> : vous pouvez la demander pour une vente dans un an, un refinancement ou une succession</li>
+      </ul>
+      <p class="ab-sign"><strong>Alain Brunelle</strong>Courtier immobilier résidentiel et commercial, RE/MAX CRYSTAL</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2 style="max-width:24ch">Si vous décidez de vendre votre maison à Blainville.</h2>
+  <div class="blv-sell">
+    <div><h3>Le prix, expliqué chiffre par chiffre</h3><p>Avant la pancarte, on regarde ensemble les ventes comparables qui justifient le prix demandé.</p></div>
+    <div><h3>Mise en marché complète incluse</h3><p>Photos HDR, vidéo drone, plan d'étage et visite virtuelle 360°, sans frais supplémentaires.</p></div>
+    <div><h3>Chaque offre analysée avec vous</h3><p>Prix, conditions, délais, dépôt : je vous explique ce que chaque offre veut dire avant que vous décidiez.</p></div>
+    <div><h3>Jusqu'à la signature chez le notaire</h3><p>Je coordonne l'inspection et le suivi de la promesse d'achat, et je suis présent à la signature.</p></div>
+  </div>
+</section>
+
+<section class="container" id="avis" style="scroll-margin-top:110px">
+  <h2>4,9 sur Google, 46 avis.</h2>
+  <div class="ev-quotes">
+    <blockquote><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><p>« Nous avons vendu notre maison en seulement 10 jours avec M. Alain Brunelle, il connait super bien Ste-Thérèse et il est toujours présent pour répondre à toutes nos questions, excellent service. »</p><footer>François Lewis, avis Google, octobre 2026</footer></blockquote>
+    <blockquote><div class="stars" aria-label="5 étoiles sur 5">★★★★★</div><p>« Honnêtement, je ne vois pas avec quel autre courtier vous pourriez faire affaires si vous demeurez dans Ste-Thérèse en haut !!! C'est le meilleur ! »</p><footer>Christian Savoie, avis Google</footer></blockquote>
+  </div>
+  <p style="margin-top:1.2rem"><a href="https://share.google/NTRzJq4dwAhYvneS9" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500">Lire les 46 avis sur Google</a></p>
+</section>
+
+<section class="container">
+  <div class="ev-faq">
+    <h2>Questions fréquentes</h2>
+    <h3>Est-ce vraiment gratuit ?</h3>
+    <p>Oui. L'évaluation est gratuite et ne vous engage à rien. Vous n'avez pas à signer de contrat de courtage pour la recevoir.</p>
+    <h3>Est-ce que je dois vendre avec vous après ?</h3>
+    <p>Non. Beaucoup de gens la demandent pour planifier une vente dans un an ou deux, pour un refinancement ou une succession. Vous en faites ce que vous voulez.</p>
+    <h3>Combien vaut une maison à Blainville en 2026 ?</h3>
+    <p>Au 3e trimestre 2026, le prix médian d'une maison unifamiliale à Blainville était de ${BLV_MARKET.price}, ${BLV_MARKET.priceYoy} en un an, selon Centris. Pour un condo, la médiane des 12 derniers mois est de ${BLV_MARKET.condo}. Ces chiffres mélangent toutes les propriétés de la ville : la valeur de la vôtre se mesure avec les ventes de votre secteur.</p>
+    <h3>Courtier immobilier ou agent immobilier : quelle différence ?</h3>
+    <p>Aucune dans les faits. Au Québec, le titre officiel est « courtier immobilier », délivré par l'OACIQ. « Agent immobilier » est le mot courant pour désigner le même métier.</p>
+    <h3>Quelle différence avec une évaluation par un évaluateur agréé ?</h3>
+    <p>L'évaluation d'un courtier (on parle d'un avis de valeur) se base sur les ventes comparables récentes et sur le marché actuel. Elle ne constitue pas une évaluation au sens de la Loi sur les évaluateurs agréés. Pour une expertise exigée par une institution financière ou un tribunal, il faut un évaluateur agréé membre de l'OEAQ.</p>
+    <h3>Ma maison n'est pas à Blainville.</h3>
+    <p>Je couvre aussi Sainte-Thérèse, Rosemère, Lorraine, Boisbriand et les villes voisines de la Rive-Nord. Le formulaire fonctionne pour toutes ces adresses.</p>
+  </div>
+</section>
+
+<section class="container"><div class="cta-band"><h2>Votre adresse à Blainville suffit pour commencer.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander mon évaluation gratuite</a>${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div></div></section>
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>
+
+<script>// Pas de version anglaise : le bouton EN mène à l'évaluation générale en anglais (après le script du gabarit).
+document.addEventListener('DOMContentLoaded',function(){var en='/en/vendre/evaluation-gratuite/';var s=document.getElementById('langSwitch');if(s)s.setAttribute('href',en);document.querySelectorAll('[data-lang-mirror]').forEach(function(m){m.setAttribute('href',en);});});</script>
+${evalScript({ formName: 'evaluation-blainville', place: ' Blainville' })}
 `
 }));
 
@@ -6278,6 +6457,7 @@ console.log(`Generated ${allUrls.length} pages → ${SITE}`);
   let n=0;
   for(const fp of frFiles){
     const rel=path.relative(SITE,fp).split(path.sep).join('/');
+    if(NO_EN_PAGES.has(rel)) continue;
     const p=relToPath(rel);
     let fr=fs.readFileSync(fp,'utf8');
     if(!fr.includes('hreflang="fr-CA"')) fr=fr.replace('</head>', hreflang(p)+'\n</head>');
