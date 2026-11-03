@@ -1612,6 +1612,8 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .prose table td{padding:.85rem 1rem;border-bottom:1px solid var(--line);background:#fff;font-size:.93rem}
 .prose table tr:last-child td{border-bottom:0}
 .prose table tr:nth-child(even) td{background:var(--surface)}
+.table-scroll{overflow-x:auto;margin:1.5rem 0}
+.table-scroll table{margin:0}
 
 /* Step cards (numbered) */
 .steps{display:grid;gap:1.1rem;margin:2rem 0;counter-reset:s}
@@ -1664,6 +1666,7 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .break span{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:500}
 
 .two-col{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.two-col>*{min-width:0}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
 /* Neighborhood cards */
@@ -2931,14 +2934,17 @@ const CITIES = [
   ['lorraine','Lorraine',[]]
 ];
 
-// Stats officielles Q1 2026 par ville — segment unifamiliale, source : APCIQ par Centris®
+// Stats officielles par ville, segment unifamiliale, source : APCIQ par Centris®. Centris donne un délai MOYEN.
 // Récupérées de centris.ca/fr/outils/statistiques-immobilieres/laurentides/{ville}
 const CITY_STATS = {
-  'blainville':     { price:'715 000 $', delay:'32 j', yoy:'−4 %',    invent:'179', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville' },
+  // Blainville : 3e trimestre 2026, relevé le 2026-11-03.
+  'blainville':     { price:'835 000 $', delay:'34 j', yoy:'+11 %',   invent:'174', period:'3e trimestre 2026', delayLabel:'Délai moyen de vente', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville' },
   // Sainte-Thérèse : 3e trimestre 2026, relevé le 2026-10-15 (Centris affiche un délai MOYEN, pas médian)
   'sainte-therese': { price:'710 000 $', delay:'28 j', yoy:'+15 %',   invent:'33',  period:'3e trimestre 2026', delayLabel:'Délai moyen de vente', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese' },
-  'rosemere':       { price:'830 888 $', delay:'48 j', yoy:'+13 %',   invent:'41',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/rosemere' },
-  'lorraine':       { price:'770 750 $', delay:'62 j', yoy:'+13 %',   invent:'27',  sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/lorraine' }
+  // Rosemère et Lorraine : pas de médiane au 3e trimestre 2026 (trop peu de ventes, Centris affiche « ** »),
+  // donc cumul des 4 derniers trimestres (oct. 2025 à sept. 2026), relevé le 2026-11-03.
+  'rosemere':       { price:'877 722 $', delay:'40 j', yoy:'+10 %',   invent:'45',  period:'12 derniers mois', periodAt:'sur les 12 derniers mois', delayLabel:'Délai moyen de vente', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/rosemere' },
+  'lorraine':       { price:'773 937 $', delay:'43 j', yoy:'0 %',     invent:'25',  period:'12 derniers mois', periodAt:'sur les 12 derniers mois', delayLabel:'Délai moyen de vente', sourceUrl:'https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/lorraine' }
 };
 
 for (const [slugC, cityName, neighs] of CITIES) {
@@ -2948,7 +2954,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
     'sainte-therese': {
       // Réécrit le 2026-10-15 : chiffres Centris du 3e trimestre 2026, barème officiel de la Ville,
       // aucun chiffre par secteur (aucune source publique ne les donne).
-      title: `Courtier immobilier Sainte-Thérèse, agent RE/MAX | Alain Brunelle`,
+      title: `Courtier immobilier Sainte-Thérèse, RE/MAX CRYSTAL | Alain Brunelle`,
       description: `Bureau au 228, boul. du Curé-Labelle. Maisons vendues à 710 000 $ (médiane) cet été à Sainte-Thérèse : voyez mes ventes et demandez l'évaluation de la vôtre.`,
       h1: `Courtier immobilier à Sainte-Thérèse : Alain Brunelle, RE/MAX CRYSTAL.`,
       lead: `Mon bureau est au 228, boulevard du Curé-Labelle, en plein Sainte-Thérèse. Pour fixer le prix de votre maison, je pars des ventes faites près de chez vous dans les derniers mois.`,
@@ -2992,9 +2998,9 @@ for (const [slugC, cityName, neighs] of CITIES) {
     'blainville': {
       // 2026-10-21 : page d'atterrissage du groupe Google Ads « Courtier Blainville » (QS 3, expérience
       // sur la page sous la moyenne). Formulaire 3 champs + appel dans le premier écran, barre d'appel mobile.
-      title: `Courtier immobilier Blainville, agent RE/MAX | Alain Brunelle`,
+      title: `Courtier immobilier Blainville, RE/MAX CRYSTAL | Alain Brunelle`,
       description: `Alain Brunelle, courtier immobilier à Blainville depuis 35 ans (RE/MAX CRYSTAL). Évaluation gratuite de votre maison en 48 h, rappel par Alain dans les 24 h.`,
-      h1: `Courtier immobilier à Blainville : Alain Brunelle, votre agent immobilier RE/MAX.`,
+      h1: `Courtier immobilier à Blainville : Alain Brunelle, RE/MAX CRYSTAL.`,
       leadForm: 'evaluation-blainville',
       heroPhoto: ['/photos/blainville/sentier_boise_plan_bouchard_blainville.jpg', 'Sentier boisé sur pilotis dans Plan-Bouchard, à Blainville'],
       places: [
@@ -3023,17 +3029,15 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Équipe RE/MAX CRYSTAL</strong> : réseau de courtiers, stagers, photographes et notaires partenaires</li>`,
       types: `<p>L'unifamiliale en cottage (typologie 1990-2010) reste le moteur de Blainville, particulièrement dans Fontainebleau et Chambéry. Le condo neuf gagne du terrain près du REM et des secteurs commerciaux. Le plex pour investissement locatif est en croissance rapide (+10 % en 12 mois).</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Blainville en 2026 ?</h3>
-<p>Prix médian unifamilial Q1 2026 : <strong>715 000 $</strong>, selon Centris. Selon le quartier, l'âge et l'état de la maison, le prix réel peut s'éloigner beaucoup de cette médiane : c'est pourquoi l'évaluation part des ventes faites près de chez vous.</p>
+<p>Prix médian unifamilial au 3e trimestre 2026 : <strong>835 000 $</strong>, 11 % de plus qu'il y a un an, selon Centris. Selon le quartier, l'âge et l'état de la maison, le prix réel peut s'éloigner beaucoup de cette médiane : c'est pourquoi l'évaluation part des ventes faites près de chez vous.</p>
 <h3>Combien de temps prend la vente d'une propriété à Blainville ?</h3>
-<p>Délai médian Q1 2026 : <strong>32 jours</strong> sur l'unifamilial, 60 jours sur le condo. Une maison affichée au bon prix dès le départ part en général plus vite qu'une maison qu'on doit baisser en cours de route.</p>
-<h3>Courtier immobilier ou agent immobilier à Blainville : quelle différence ?</h3>
-<p>Aucune dans les faits. Au Québec, le titre officiel est « courtier immobilier », délivré par l'OACIQ. « Agent immobilier » est le mot courant pour désigner le même métier. Je suis courtier immobilier résidentiel et commercial chez RE/MAX CRYSTAL.</p>
+<p>Délai moyen au 3e trimestre 2026 : <strong>34 jours</strong> pour une maison unifamiliale. Pour un condo, la moyenne des 12 derniers mois est de 49 jours. Une maison affichée au bon prix dès le départ part en général plus vite qu'une maison qu'on doit baisser en cours de route.</p>
 <h3>Comment obtenir une évaluation gratuite de ma maison à Blainville ?</h3>
 <p>Remplissez le formulaire en haut de la page (nom, téléphone, adresse) ou appelez-moi au 514 972-4207. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, sans engagement.</p>`
     },
     'rosemere': {
       lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 35 ans à lire ce marché spécifique.`,
-      market: `<p>Rosemère se distingue du reste de la Rive-Nord par son <strong>profil acheteur exigeant</strong> : familles établies, professionnels, retraités haut de gamme. La rareté foncière sur la Grande-Côte et dans Bois-Franc maintient les prix médians au-dessus de 685 k$, avec des pointes au-delà de 1,5 M$ pour les propriétés riveraines de la rivière des Mille-Îles.</p>
+      market: `<p>Rosemère se distingue du reste de la Rive-Nord par son <strong>profil acheteur exigeant</strong> : familles établies, professionnels, retraités haut de gamme. La rareté foncière sur la Grande-Côte et dans Bois-Franc maintient le prix médian d'une maison près de 880 000 $ sur les 12 derniers mois (Centris), avec des pointes au-delà de 1,5 M$ pour les propriétés riveraines de la rivière des Mille-Îles.</p>
 <p>Comme <strong>courtier immobilier à Rosemère</strong> depuis 35 ans, je connais les particularités de ce marché : ce qui se vend rapidement (terrains de 15 000 PC+, propriétés rénovées clé en main, condos haut de gamme), et ce qui demande plus de patience (propriétés à rafraîchir, prix au-dessus de 1,3 M$).</p>`,
       reasons: `<li><strong>Spécialisation sur le segment haut de gamme</strong> de la Rive-Nord (Grande-Côte, riverains, propriétés &gt;1 M$)</li>
 <li><strong>35 ans à courtier dans le secteur</strong> — je connais l'historique de vente des principales propriétés et le profil typique des acheteurs Rosemère</li>
@@ -3041,7 +3045,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Discrétion totale</strong> : option de pré-diffusion privée avant Centris pour les propriétés sensibles à la confidentialité</li>`,
       types: `<p>L'unifamiliale sur grand terrain (15 000 PC+) reste le cœur du marché Rosemère, particulièrement dans Bois-Franc et Domaine-du-Parc. Les propriétés riveraines sur la Grande-Côte forment un segment distinct (1,2-2 M$). Le condo haut de gamme près de l'autoroute 640 est en croissance.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Rosemère en 2026 ?</h3>
-<p>Prix médian unifamilial Q1 2026 : <strong>830 888 $</strong> (+13 % a/a). Fourchette typique : 700 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
+<p>Prix médian unifamilial sur les 12 derniers mois : <strong>877 722 $</strong>, 10 % de plus qu'un an plus tôt, selon Centris. Fourchette typique : 700 000 $ (cottage standard) à 1,5 M$+ (riverain, Bois-Franc haut de gamme).</p>
 <h3>Combien de temps prend la vente d'une propriété à Rosemère ?</h3>
 <p>Délai médian sur mes inscriptions : 32 jours. Pour les propriétés au-dessus de 1,2 M$, prévoir 60-90 jours — le segment haut de gamme demande plus de patience et un acheteur très ciblé.</p>`
     },
@@ -3055,9 +3059,9 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <li><strong>Équipe RE/MAX CRYSTAL</strong> et réseau d'acheteurs actifs sur la Rive-Nord</li>`,
       types: `<p>L'unifamiliale 1980-2000 sur terrain paysager domine. Les bungalows rénovés attirent les retraités. Le marché des constructions récentes est limité par la rareté foncière.</p>`,
       faq: `<h3>Quel est le prix moyen d'une maison à Lorraine en 2026 ?</h3>
-<p>Prix médian unifamilial Q1 2026 : <strong>770 750 $</strong> (+13 % a/a). Lorraine est un marché niché mais en croissance soutenue.</p>
+<p>Prix médian unifamilial sur les 12 derniers mois : <strong>773 937 $</strong>, stable par rapport à l'année précédente, selon Centris. Lorraine est un marché niché, avec une centaine de ventes de maisons par année.</p>
 <h3>Combien de temps prend la vente d'une propriété à Lorraine ?</h3>
-<p>Délai médian : 35-45 jours. Lorraine est un marché de fidélité acheteur — les visites sont moins nombreuses mais plus qualifiées, ce qui se traduit souvent par moins d'offres mais une négociation plus directe.</p>`
+<p>Délai moyen sur les 12 derniers mois : 43 jours, selon Centris. Lorraine est un marché de fidélité acheteur — les visites sont moins nombreuses mais plus qualifiées, ce qui se traduit souvent par moins d'offres mais une négociation plus directe.</p>`
     }
   };
   const cp = CITY_COPY[slugC] || CITY_COPY['blainville'];
@@ -3281,7 +3285,7 @@ ${cityProps.length ? `
 </section>`;
       writePage(`quartiers/${slugC}/${nslug(n)}/index.html`, layout({
         title: `${n.includes(cityName) ? n : `${n}, ${cityName}`} : vendre ou acheter une maison | Alain Brunelle`,
-        description: `${n.includes(cityName) ? n : `Le secteur ${n} à ${cityName}`} : ce qui s'y trouve, le marché de la ville au ${cs.period || 'Q1 2026'} et comment j'évalue une maison du secteur.`,
+        description: `${n.includes(cityName) ? n : `Le secteur ${n} à ${cityName}`} : ce qui s'y trouve, le marché de la ville ${cs.periodAt || `au ${cs.period || 'Q1 2026'}`} et comment j'évalue une maison du secteur.`,
         canonical: `https://alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
         body: ncBody
       }));
@@ -3301,10 +3305,10 @@ ${cityProps.length ? `
 
 <section class="container">
   <div class="stat-row">
-    <div class="stat-mini"><div class="n">685 k$</div><div class="l">Prix médian (12 mois)</div></div>
-    <div class="stat-mini"><div class="n">+4,8 %</div><div class="l">Progression a/a</div></div>
-    <div class="stat-mini"><div class="n">31 j</div><div class="l">Délai médian de vente</div></div>
-    <div class="stat-mini"><div class="n">94 %</div><div class="l">Taux d'absorption</div></div>
+    <div class="stat-mini"><div class="n">${cs.price}</div><div class="l">Prix médian d'une maison à ${cityName}, ${cs.period}</div></div>
+    <div class="stat-mini"><div class="n">${cs.yoy}</div><div class="l">Par rapport à il y a un an</div></div>
+    <div class="stat-mini"><div class="n">${cs.delay}</div><div class="l">${cs.delayLabel} à ${cityName}</div></div>
+    <div class="stat-mini"><div class="n">${cs.invent}</div><div class="l">Maisons à vendre à ${cityName}</div></div>
   </div>
 </section>
 
@@ -4073,8 +4077,6 @@ writePage('vendre/evaluation-gratuite/blainville/index.html', layout({
     <p>Non. Beaucoup de gens la demandent pour planifier une vente dans un an ou deux, pour un refinancement ou une succession. Vous en faites ce que vous voulez.</p>
     <h3>Combien vaut une maison à Blainville en 2026 ?</h3>
     <p>Au 3e trimestre 2026, le prix médian d'une maison unifamiliale à Blainville était de ${BLV_MARKET.price}, ${BLV_MARKET.priceYoy} en un an, selon Centris. Pour un condo, la médiane des 12 derniers mois est de ${BLV_MARKET.condo}. Ces chiffres mélangent toutes les propriétés de la ville : la valeur de la vôtre se mesure avec les ventes de votre secteur.</p>
-    <h3>Courtier immobilier ou agent immobilier : quelle différence ?</h3>
-    <p>Aucune dans les faits. Au Québec, le titre officiel est « courtier immobilier », délivré par l'OACIQ. « Agent immobilier » est le mot courant pour désigner le même métier.</p>
     <h3>Quelle différence avec une évaluation par un évaluateur agréé ?</h3>
     <p>L'évaluation d'un courtier (on parle d'un avis de valeur) se base sur les ventes comparables récentes et sur le marché actuel. Elle ne constitue pas une évaluation au sens de la Loi sur les évaluateurs agréés. Pour une expertise exigée par une institution financière ou un tribunal, il faut un évaluateur agréé membre de l'OEAQ.</p>
     <h3>Ma maison n'est pas à Blainville.</h3>
@@ -4740,16 +4742,20 @@ for (const [s,t] of GUIDES) {
   }));
 }
 
+// Pages « Marché immobilier » refaites le 2026-11-03 avec les données Centris (APCIQ) du 3e trimestre 2026,
+// relevées sur les fiches Centris des 4 villes. Seuls les chiffres Centris restent : l'analyse Q1 citait
+// des chiffres sans source (unités neuves, offres multiples, taux), retirés.
+// Rosemère et Lorraine : pas de médiane trimestrielle (trop peu de ventes), donc cumul des 4 derniers trimestres.
 writePage('marche-immobilier/index.html', contentPage({
   eyebrow:'Marché immobilier Rive-Nord',h1:'Rapports de marché',lead:'Statistiques APCIQ par Centris® + mon analyse locale, mis à jour à chaque trimestre.',
   title:'Marché immobilier Rive-Nord 2026 | Alain Brunelle',
-  desc:'Statistiques du marché immobilier Rive-Nord — Blainville, Sainte-Thérèse, rapport mensuel. Données APCIQ Q1 2026.',
+  desc:'Statistiques du marché immobilier Rive-Nord : Blainville, Sainte-Thérèse, Rosemère, Lorraine. Données Centris (APCIQ) du 3e trimestre 2026.',
   canonical:'https://alainbrunelle.com/marche-immobilier/',
   heroImg:'/photos/P21_5407-Edit.jpg',
-  body:`<p class="lead">Trois lectures complémentaires : les chiffres par ville, le baromètre mensuel APCIQ et mon analyse de courtier ancrée sur 35 ans de transactions Rive-Nord.</p>
+  body:`<p class="lead">Trois lectures complémentaires : les chiffres de Blainville, ceux de Sainte-Thérèse, et les 4 villes côte à côte.</p>
 
 <div class="stat-row" style="margin:2rem 0">
-  <div class="stat-mini"><div class="n">Q1 2026</div><div class="l">Données les plus récentes</div></div>
+  <div class="stat-mini"><div class="n">3e trim. 2026</div><div class="l">Données les plus récentes</div></div>
   <div class="stat-mini"><div class="n">APCIQ</div><div class="l">Source officielle (Centris®)</div></div>
   <div class="stat-mini"><div class="n">4 villes</div><div class="l">Blainville · Ste-Thérèse · Rosemère · Lorraine</div></div>
 </div>
@@ -4757,20 +4763,20 @@ writePage('marche-immobilier/index.html', contentPage({
 <h2>Choisir votre rapport</h2>
 <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem">
   <a class="callout" href="/marche-immobilier/statistiques-blainville/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:var(--blue)">Statistiques Blainville →</strong><br><span style="color:var(--ink-2)">Prix médian 715 000 $, délai 32 j, inventaire +29 %. Le marché unifamilial corrige légèrement (−4 %), le condo monte (+3 %).</span></div>
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Statistiques Blainville →</strong><br><span style="color:var(--ink-2)">Maison unifamiliale à 835 000 $ de médiane (+11 %), 148 ventes (+8 %), 34 jours en moyenne sur le marché.</span></div>
   </a>
   <a class="callout success" href="/marche-immobilier/statistiques-sainte-therese/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:#0f8c5b">Statistiques Sainte-Thérèse →</strong><br><span style="color:var(--ink-2)">Délais raccourcis de moitié (23 j), condo +9 %, plex +17 %. Le marché le plus chaud des Laurentides Sud en Q1 2026.</span></div>
+    <div><strong style="font-size:1.15rem;color:#0f8c5b">Statistiques Sainte-Thérèse →</strong><br><span style="color:var(--ink-2)">Maison unifamiliale à 710 000 $ de médiane (+15 %), 28 jours en moyenne, plex en hausse de 14 % sur 12 mois.</span></div>
   </a>
   <a class="callout" href="/marche-immobilier/rapport-mensuel/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:var(--blue)">Lecture du marché — Printemps 2026 →</strong><br><span style="color:var(--ink-2)">Le baromètre APCIQ Q1 2026 + mes observations terrain : ce que je vois bouger entre deux publications trimestrielles.</span></div>
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Lecture du marché : automne 2026 →</strong><br><span style="color:var(--ink-2)">Les 4 villes côte à côte au 3e trimestre 2026, et ce que les chiffres veulent dire si vous vendez ou achetez.</span></div>
   </a>
 </div>
 
 <h2>D'où viennent ces chiffres</h2>
-<p>Les données proviennent de l'<strong>APCIQ</strong> (Association professionnelle des courtiers immobiliers du Québec), publiées via <strong>Centris®</strong>. Je les croise avec ma propre base de transactions et inscriptions pour produire une analyse qui va au-delà de la moyenne — par secteur, par segment, par type de propriété.</p>
+<p>Les données proviennent de l'<strong>APCIQ</strong> (Association professionnelle des courtiers immobiliers du Québec), publiées via <strong>Centris®</strong>. Les variations comparent chaque trimestre au même trimestre de l'année précédente. Quand une ville compte trop peu de ventes, Centris ne publie pas de médiane trimestrielle : j'utilise alors celle des 12 derniers mois et je l'indique.</p>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Dernière mise à jour : Q1 2026. Prochaine publication : Q2 2026 attendue mi-juillet.</p>`
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Dernière mise à jour : 3e trimestre 2026, relevé le 3 novembre 2026. Prochaine publication : 4e trimestre 2026, attendue vers la mi-janvier.</p>`
 }));
 const MARCHE_HERO = {
   'statistiques-blainville':     '/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg',
@@ -4779,176 +4785,158 @@ const MARCHE_HERO = {
 };
 const MARCHE_PAGES = {
   'statistiques-blainville': {
-    title: 'Statistiques Blainville — Q1 2026',
-    lead: 'Le marché de Blainville en Q1 2026 — données APCIQ par Centris® et mon analyse de courtier local.',
-    desc: 'Statistiques immobilières Blainville Q1 2026 : prix médian 715 000 $, délai 32 j, inventaire +29 %. Source APCIQ.',
+    title: 'Statistiques immobilières Blainville : 3e trimestre 2026',
+    lead: 'Le marché de Blainville au 3e trimestre 2026 (juillet à septembre), selon les données Centris (APCIQ).',
+    desc: 'Statistiques immobilières Blainville, 3e trimestre 2026 : maison unifamiliale à 835 000 $ (médiane, +11 %), 148 ventes, 34 jours en moyenne. Source Centris (APCIQ).',
     body: `<div class="stat-row">
-  <div class="stat-mini"><div class="n">715 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">32 j</div><div class="l">Délai médian de vente (−10 j)</div></div>
-  <div class="stat-mini"><div class="n">204</div><div class="l">Ventes totales Q1 (−5 %)</div></div>
-  <div class="stat-mini"><div class="n">248</div><div class="l">Inscriptions actives (+29 %)</div></div>
+  <div class="stat-mini"><div class="n">835 000 $</div><div class="l">Prix médian unifamilial (+11 %)</div></div>
+  <div class="stat-mini"><div class="n">34 j</div><div class="l">Délai moyen de vente, unifamiliale (+5 j)</div></div>
+  <div class="stat-mini"><div class="n">185</div><div class="l">Ventes, toutes catégories (−4 %)</div></div>
+  <div class="stat-mini"><div class="n">232</div><div class="l">Propriétés à vendre (+8 %)</div></div>
 </div>
 
-<h2>Le marché en Q1 2026</h2>
-<p>Blainville est en phase de <strong>rééquilibrage</strong>. L'unifamilial corrige modestement (−4 %) pendant que l'inventaire explose (+29 %) — un cocktail qui ramène du pouvoir de négociation aux acheteurs. À l'inverse, le condo et le plex restent fermement haussiers.</p>
+<h2>Le marché au 3e trimestre 2026</h2>
+<p>La maison unifamiliale se vend plus cher qu'il y a un an : <strong>835 000 $ de médiane</strong>, 11 % de plus, avec 148 ventes (+8 %). L'offre suit : 174 maisons à vendre, 10 % de plus qu'à l'été 2025, et elles restent en moyenne 34 jours sur le marché, 5 de plus. Toutes catégories confondues, les ventes reculent légèrement (185, −4 %).</p>
 
-<table>
-  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+<div class="table-scroll"><table>
+  <thead><tr><th>Segment</th><th>Prix médian</th><th>Variation sur un an</th><th>Ventes</th><th>Délai moyen</th></tr></thead>
   <tbody>
-    <tr><td>Unifamiliale</td><td>715 000 $</td><td style="color:#c8364a">−4 %</td><td>155 (+4 %)</td><td>32 j (−10 j)</td></tr>
-    <tr><td>Copropriété</td><td>432 500 $</td><td style="color:#0f8c5b">+3 %</td><td>42 (−16 %)</td><td>60 j (+11 j)</td></tr>
-    <tr><td>Plex 2-5 log.</td><td>786 125 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+10 %</td><td>—</td><td>—</td></tr>
+    <tr><td>Unifamiliale</td><td>835&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+11&nbsp;%</td><td>148&nbsp;(+8&nbsp;%)</td><td>34&nbsp;j&nbsp;(+5&nbsp;j)</td></tr>
+    <tr><td>Copropriété <small>(12 derniers mois)</small></td><td>432&nbsp;425&nbsp;$</td><td>+1&nbsp;%</td><td>159&nbsp;(−10&nbsp;%)</td><td>49&nbsp;j&nbsp;(+8&nbsp;j)</td></tr>
+    <tr><td>Plex 2-5 log. <small>(12 derniers mois)</small></td><td>821&nbsp;562&nbsp;$</td><td style="color:#0f8c5b">+10&nbsp;%</td><td>44&nbsp;(−15&nbsp;%)</td><td>12&nbsp;j&nbsp;(−29&nbsp;j)</td></tr>
   </tbody>
-</table>
+</table></div>
+<p class="muted" style="font-size:.85rem">Condo et plex : 28 et 9 ventes ce trimestre, trop peu pour que Centris publie une médiane trimestrielle. Les chiffres ci-dessus portent sur les 12 derniers mois.</p>
 
-<h2>Ce que ça veut dire — par profil</h2>
+<h2>Ce que ça veut dire, selon votre projet</h2>
 <div class="compare">
   <div class="compare-col good">
     <h3>Si vous achetez</h3>
     <ul>
-      <li>Plus de choix : 179 unifamiliales actives (vs 134 il y a un an)</li>
-      <li>Marge de négociation revenue sur les unifamiliales &gt;750 k$</li>
-      <li>Délais raccourcis = vendeurs plus motivés à négocier rapidement</li>
+      <li>Plus de choix qu'il y a un an : 174 maisons à vendre (+10 %)</li>
+      <li>Les maisons restent un peu plus longtemps sur le marché (34 jours en moyenne) : plus de temps pour visiter et comparer</li>
+      <li>Le prix médian a monté de 11 % : faites ajuster votre préapprobation hypothécaire</li>
     </ul>
   </div>
-  <div class="compare-col bad">
+  <div class="compare-col good">
     <h3>Si vous vendez</h3>
     <ul>
-      <li>Compétition accrue : il faut un positionnement de prix précis</li>
-      <li>La préparation (home staging, photo, vidéo) fait la différence</li>
-      <li>Évitez le segment 700-800 k$ sans stratégie de prix claire</li>
+      <li>Les prix ont monté, mais la concurrence aussi : 10 % plus de maisons à vendre</li>
+      <li>Le prix demandé doit s'appuyer sur les ventes de votre secteur, pas sur la médiane de la ville</li>
+      <li>La préparation (photos, vidéo, petits travaux) aide à se démarquer quand l'offre augmente</li>
     </ul>
   </div>
 </div>
 
-<div class="callout warn">
-  <div><strong>Le segment condo demande plus de patience</strong><br>Délai médian condo : 60 jours (+11 j vs l'an dernier). Les ventes ralentissent (−16 %) malgré la hausse de prix. Si vous vendez un condo, prévoyez 60-75 jours et un effort marketing accru.</div>
+<div class="callout">
+  <div><strong>La médiane ne dit pas ce que vaut votre maison.</strong><br>Elle mélange toutes les maisons de Blainville, de Fontainebleau au Blainvillier. Pour connaître la valeur de la vôtre, je pars des ventes faites dans votre rue et votre secteur. <a href="/vendre/evaluation-gratuite/">Demander mon évaluation gratuite →</a></div>
 </div>
 
-<h2>Mon analyse de courtier</h2>
-<p>Trois forces structurelles à Blainville en 2026 :</p>
-<div class="steps">
-  <div class="step"><div><strong>Stabilisation des taux hypothécaires</strong> autour de 5 % — la pression baissière sur la demande s'estompe. Les acheteurs reviennent, mais avec discipline.</div></div>
-  <div class="step"><div><strong>Rareté foncière</strong> dans les secteurs établis (Fontainebleau, Chambéry, Chante-Bois) — pression haussière maintenue sur les unifamiliales avec lot &gt;700 m².</div></div>
-  <div class="step"><div><strong>Nouvelle phase de Chambéry</strong> et construction sur Notre-Dame Nord — ajout d'environ 180 unités neuves sur 18 mois. C'est ce qui explique le bond d'inventaire.</div></div>
-</div>
-
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Blainville. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris®, statistiques du 3e trimestre 2026 pour Blainville, relevées le 3 novembre 2026. Les variations comparent au 3e trimestre 2025. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
   },
   'statistiques-sainte-therese': {
-    title: 'Statistiques Sainte-Thérèse — Q1 2026',
-    lead: 'Sainte-Thérèse est le marché le plus chaud des Laurentides Sud en Q1 2026. Voici pourquoi.',
-    desc: 'Statistiques immobilières Sainte-Thérèse Q1 2026 : délai 23 j, condo +9 %, plex +17 %. Source APCIQ.',
+    title: 'Statistiques immobilières Sainte-Thérèse : 3e trimestre 2026',
+    lead: 'Le marché de Sainte-Thérèse au 3e trimestre 2026 (juillet à septembre), selon les données Centris (APCIQ).',
+    desc: 'Statistiques immobilières Sainte-Thérèse, 3e trimestre 2026 : maison unifamiliale à 710 000 $ (médiane, +15 %), 28 jours en moyenne, plex +14 % sur 12 mois. Source Centris (APCIQ).',
     body: `<div class="stat-row">
-  <div class="stat-mini"><div class="n">579 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">23 j</div><div class="l">Délai médian de vente (−24 j)</div></div>
-  <div class="stat-mini"><div class="n">102</div><div class="l">Ventes totales Q1 (+8 %)</div></div>
-  <div class="stat-mini"><div class="n">+17 %</div><div class="l">Prix médian plex sur 4 trim.</div></div>
+  <div class="stat-mini"><div class="n">710 000 $</div><div class="l">Prix médian unifamilial (+15 %)</div></div>
+  <div class="stat-mini"><div class="n">28 j</div><div class="l">Délai moyen de vente, unifamiliale (+2 j)</div></div>
+  <div class="stat-mini"><div class="n">70</div><div class="l">Ventes, toutes catégories (−9 %)</div></div>
+  <div class="stat-mini"><div class="n">89</div><div class="l">Propriétés à vendre (+28 %)</div></div>
 </div>
 
-<h2>Le marché en Q1 2026</h2>
-<p>Sainte-Thérèse est en <strong>plein boom</strong>. Les délais ont fondu de moitié (23 j vs 47 j il y a un an), les condos s'envolent (+9 %), et les plex deviennent l'actif vedette des Laurentides Sud (+17 % sur 12 mois). Le prix unifamilial est stable mais l'activité ne ment pas : ce marché est nettement vendeur.</p>
+<h2>Le marché au 3e trimestre 2026</h2>
+<p>La maison unifamiliale se vend plus cher et plus souvent qu'il y a un an : <strong>710 000 $ de médiane</strong> (+15 %), 35 ventes (+16 %) et 28 jours en moyenne sur le marché. L'offre augmente vite : 33 maisons à vendre, 83 % de plus qu'à l'été 2025. Toutes catégories confondues, les ventes reculent de 9 % (70).</p>
 
-<table>
-  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+<div class="table-scroll"><table>
+  <thead><tr><th>Segment</th><th>Prix médian</th><th>Variation sur un an</th><th>Ventes</th><th>Délai moyen</th></tr></thead>
   <tbody>
-    <tr><td>Unifamiliale</td><td>579 000 $</td><td>0 %</td><td>41 (+5 %)</td><td>23 j (−24 j)</td></tr>
-    <tr><td>Copropriété</td><td>385 000 $</td><td style="color:#0f8c5b">+9 %</td><td>43 (+19 %)</td><td>25 j (−19 j)</td></tr>
-    <tr><td>Plex 2-5 log.</td><td>758 312 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+17 %</td><td>18</td><td>—</td></tr>
+    <tr><td>Unifamiliale</td><td>710&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+15&nbsp;%</td><td>35&nbsp;(+16&nbsp;%)</td><td>28&nbsp;j&nbsp;(+2&nbsp;j)</td></tr>
+    <tr><td>Copropriété <small>(12 derniers mois)</small></td><td>366&nbsp;250&nbsp;$</td><td>0&nbsp;%</td><td>129&nbsp;(−21&nbsp;%)</td><td>33&nbsp;j&nbsp;(−5&nbsp;j)</td></tr>
+    <tr><td>Plex 2-5 log. <small>(12 derniers mois)</small></td><td>800&nbsp;612&nbsp;$</td><td style="color:#0f8c5b">+14&nbsp;%</td><td>72&nbsp;(+30&nbsp;%)</td><td>33&nbsp;j&nbsp;(−4&nbsp;j)</td></tr>
   </tbody>
-</table>
+</table></div>
+<p class="muted" style="font-size:.85rem">Condo et plex : 23 et 12 ventes ce trimestre, trop peu pour que Centris publie une médiane trimestrielle. Les chiffres ci-dessus portent sur les 12 derniers mois.</p>
 
 <div class="callout success">
-  <div><strong>L'effondrement des délais raconte tout</strong><br>23 jours pour vendre une unifamiliale, 25 jours pour un condo. Il y a un an : 47 et 44 jours. C'est l'indicateur le plus fiable d'un marché en surchauffe — la demande absorbe l'offre dès qu'elle apparaît.</div>
+  <div><strong>Le plex, segment le plus actif</strong><br>72 ventes sur 12 mois (+30 %) et un prix médian de 800 612 $ (+14 %). C'est la catégorie qui progresse le plus à Sainte-Thérèse.</div>
 </div>
 
-<h2>Sainte-Thérèse vs Blainville — le contraste</h2>
+<h2>Sainte-Thérèse et Blainville, côte à côte</h2>
 <div class="compare">
   <div class="compare-col good">
     <h3>Sainte-Thérèse</h3>
     <ul>
-      <li>Délai unifamilial : <strong>23 jours</strong></li>
-      <li>Condo : <strong>+9 %</strong> et délai 25 j</li>
-      <li>Ventes : <strong>+8 %</strong></li>
-      <li>Marché clairement vendeur</li>
+      <li>Maison unifamiliale : <strong>710 000 $</strong> (+15 %)</li>
+      <li>Délai moyen : <strong>28 jours</strong></li>
+      <li>Ventes de maisons : <strong>+16 %</strong></li>
+      <li>Maisons à vendre : <strong>33</strong> (+83 %)</li>
     </ul>
   </div>
-  <div class="compare-col bad">
+  <div class="compare-col good">
     <h3>Blainville</h3>
     <ul>
-      <li>Délai unifamilial : <strong>32 jours</strong></li>
-      <li>Unifamilial : <strong>−4 %</strong></li>
-      <li>Ventes : <strong>−5 %</strong></li>
-      <li>Marché en rééquilibrage</li>
+      <li>Maison unifamiliale : <strong>835 000 $</strong> (+11 %)</li>
+      <li>Délai moyen : <strong>34 jours</strong></li>
+      <li>Ventes de maisons : <strong>+8 %</strong></li>
+      <li>Maisons à vendre : <strong>174</strong> (+10 %)</li>
     </ul>
   </div>
 </div>
 
-<h2>Ce que ça veut dire — par profil</h2>
+<h2>Ce que ça veut dire, selon votre projet</h2>
 <div class="steps">
-  <div class="step"><div><strong>Si vous vendez à Sainte-Thérèse :</strong> la fenêtre est exceptionnelle. Stratégie de mise en marché agressive avec préparation soignée = vente sous 30 jours, souvent en multiples offres.</div></div>
-  <div class="step"><div><strong>Si vous achetez à Sainte-Thérèse :</strong> il faut être prêt à bouger vite. Dossier hypothécaire pré-approuvé, visite dans les 48 h, offre stratégique avec marge limitée à la baisse.</div></div>
-  <div class="step"><div><strong>Si vous investissez :</strong> le segment plex est en train de surperformer Blainville. +17 % sur 12 mois et 18 transactions en Q1 — c'est de la liquidité réelle.</div></div>
+  <div class="step"><div><strong>Si vous vendez à Sainte-Thérèse :</strong> les prix ont monté de 15 % en un an et les maisons partent en 28 jours en moyenne. Mais l'offre a presque doublé : le bon prix dès le départ compte plus qu'avant.</div></div>
+  <div class="step"><div><strong>Si vous achetez à Sainte-Thérèse :</strong> vous avez plus de choix qu'il y a un an, mais les maisons partent vite. Ayez votre préapprobation hypothécaire avant de visiter.</div></div>
+  <div class="step"><div><strong>Si vous investissez :</strong> le plex est le segment le plus actif, avec 72 ventes en 12 mois (+30 %) et une médiane de 800 612 $ (+14 %).</div></div>
 </div>
 
 <p>Pour une analyse <strong>par secteur</strong> (Vieux-Village, Sainte-Thérèse-en-Haut, Sainte-Thérèse-en-Bas), voir mon article complet : <a href="/blog/radioscopie-sainte-therese-marche-2026/">Radioscopie de Sainte-Thérèse</a>.</p>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Sainte-Thérèse. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris®, statistiques du 3e trimestre 2026 pour Sainte-Thérèse, relevées le 3 novembre 2026. Les variations comparent au 3e trimestre 2025. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p>`
   },
   'rapport-mensuel': {
-    title: 'Lecture du marché — Printemps 2026',
-    lead: 'Ma lecture du marché Rive-Nord pour la saison en cours — données APCIQ Q1 2026 croisées avec mes observations terrain.',
-    desc: 'Lecture du marché immobilier Rive-Nord printemps 2026 par Alain Brunelle — données APCIQ + analyse de courtier.',
+    title: 'Lecture du marché : automne 2026',
+    lead: 'Les 4 villes de la Rive-Nord côte à côte au 3e trimestre 2026, selon les données Centris (APCIQ).',
+    desc: 'Lecture du marché immobilier Rive-Nord, automne 2026 : Blainville, Sainte-Thérèse, Rosemère et Lorraine au 3e trimestre 2026. Données Centris (APCIQ).',
     body: `<div class="stat-row">
-  <div class="stat-mini"><div class="n">+8 %</div><div class="l">Ventes Rive-Nord Q1 (vs Q1 2025)</div></div>
-  <div class="stat-mini"><div class="n">+12 %</div><div class="l">Nouvelles inscriptions</div></div>
-  <div class="stat-mini"><div class="n">33 j</div><div class="l">Délai médian (stable)</div></div>
-  <div class="stat-mini"><div class="n">22 %</div><div class="l">Multiples offres (vs 31 % l'an dernier)</div></div>
+  <div class="stat-mini"><div class="n">835 000 $</div><div class="l">Maison à Blainville (+11 %)</div></div>
+  <div class="stat-mini"><div class="n">710 000 $</div><div class="l">Maison à Sainte-Thérèse (+15 %)</div></div>
+  <div class="stat-mini"><div class="n">877 722 $</div><div class="l">Maison à Rosemère, 12 mois (+10 %)</div></div>
+  <div class="stat-mini"><div class="n">773 937 $</div><div class="l">Maison à Lorraine, 12 mois (stable)</div></div>
 </div>
 
-<h2>Le contexte macro — APCIQ Q1 2026</h2>
-<p>Selon le <strong>Baromètre résidentiel APCIQ</strong>, le marché québécois s'est stabilisé au premier trimestre 2026 après deux années de turbulences. Le mot d'ordre du Baromètre : <em>« Les ventes résidentielles se stabilisent au premier trimestre 2026, mais les prix demeurent sous pression. »</em></p>
+<h2>Les 4 villes au 3e trimestre 2026</h2>
+<div class="table-scroll"><table>
+  <thead><tr><th>Ville</th><th>Prix médian unifamilial</th><th>Variation sur un an</th><th>Ventes de maisons</th><th>Délai moyen</th></tr></thead>
+  <tbody>
+    <tr><td>Blainville</td><td>835&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+11&nbsp;%</td><td>148&nbsp;(+8&nbsp;%)</td><td>34&nbsp;j</td></tr>
+    <tr><td>Sainte-Thérèse</td><td>710&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+15&nbsp;%</td><td>35&nbsp;(+16&nbsp;%)</td><td>28&nbsp;j</td></tr>
+    <tr><td>Rosemère <small>(12 derniers mois)</small></td><td>877&nbsp;722&nbsp;$</td><td style="color:#0f8c5b">+10&nbsp;%</td><td>141&nbsp;(−17&nbsp;%)</td><td>40&nbsp;j</td></tr>
+    <tr><td>Lorraine <small>(12 derniers mois)</small></td><td>773&nbsp;937&nbsp;$</td><td>0&nbsp;%</td><td>106&nbsp;(−18&nbsp;%)</td><td>43&nbsp;j</td></tr>
+  </tbody>
+</table></div>
+<p class="muted" style="font-size:.85rem">Rosemère et Lorraine : 26 et 21 ventes de maisons cet été, trop peu pour que Centris publie une médiane trimestrielle. Les chiffres de ces deux villes portent sur les 12 derniers mois.</p>
 
-<p>Pour la <strong>Rive-Nord</strong> (couronne nord de la RMR de Montréal), la lecture est plus nuancée :</p>
-<ul>
-  <li><strong>Sainte-Thérèse</strong> est en surchauffe (délais 23 j, condo +9 %)</li>
-  <li><strong>Blainville</strong> rééquilibre (unifamilial −4 %, inventaire +29 %)</li>
-  <li>Les <strong>plex 2-5 logements</strong> sont l'actif vedette partout (+10 à +17 %)</li>
-</ul>
-
-<h2>Ce que disent les chiffres du printemps</h2>
+<h2>Ce que disent les chiffres de l'été</h2>
 <div class="steps">
-  <div class="step"><div><strong>Activité saisonnière conforme.</strong> +8 % de ventes sur la Rive-Nord, +12 % d'inscriptions. Le rythme est sain, sans excès, et confirme la sortie progressive du cycle baissier de 2024.</div></div>
-  <div class="step"><div><strong>Multiples offres en recul.</strong> 22 % des transactions, contre 31 % il y a un an. Le marché redevient lisible pour les acheteurs préparés — on peut à nouveau négocier sans panique.</div></div>
-  <div class="step"><div><strong>Délai médian stable à 33 j.</strong> Mais cache de grands écarts : Sainte-Thérèse à 23 j, Blainville unifamilial à 32 j, condos Blainville à 60 j. La ville moyenne n'existe pas — chaque segment a son rythme.</div></div>
+  <div class="step"><div><strong>Les prix montent dans les deux plus grandes villes.</strong> +11 % à Blainville et +15 % à Sainte-Thérèse pour la maison unifamiliale, par rapport à l'été 2025.</div></div>
+  <div class="step"><div><strong>L'offre augmente aussi.</strong> Blainville compte 174 maisons à vendre (+10 %) et Sainte-Thérèse 33 (+83 %). Les acheteurs ont plus de choix qu'il y a un an.</div></div>
+  <div class="step"><div><strong>Chaque ville a son rythme.</strong> 28 jours en moyenne pour vendre une maison à Sainte-Thérèse, 34 à Blainville, 40 à Rosemère et 43 à Lorraine. La ville moyenne n'existe pas : chaque secteur a sa propre dynamique.</div></div>
 </div>
 
-<h2>Ce que je surveille cette saison</h2>
 <div class="callout">
-  <div><strong>Pic saisonnier vendeur.</strong> La fenêtre optimale s'ouvre fin avril. Pic mi-mai à Sainte-Thérèse, début juin à Blainville. Si vous comptez vendre en 2026, c'est maintenant que ça se joue — l'été ralentit toujours.</div>
+  <div><strong>Vous pensez vendre ?</strong> Les chiffres de ville donnent une tendance. La valeur de votre maison, elle, se mesure avec les ventes de votre rue et de votre secteur. <a href="/vendre/evaluation-gratuite/">Demander mon évaluation gratuite →</a></div>
 </div>
-
-<div class="callout warn">
-  <div><strong>Décisions de la Banque du Canada.</strong> Chaque réunion sur les taux directeurs a un effet quasi immédiat sur la demande d'achat. Une baisse = retour des primo-accédants. Statu quo = poursuite du rééquilibrage à Blainville.</div>
-</div>
-
-<div class="callout success">
-  <div><strong>Opportunité plex.</strong> Le segment plex 4 logements à Sainte-Thérèse est sous-évalué de 5-8 % par rapport à Blainville équivalent. Pour un investisseur cash-flow, la fenêtre actuelle est intéressante. <a href="/rendez-vous/">Parlons-en →</a></div>
-</div>
-
-<h2>Signaux d'alerte</h2>
-<p>Les ventes en deçà de <strong>400 000 $</strong> ralentissent — c'est l'effet du stress test hypothécaire sur les primo-accédants. Si vous vendez dans ce segment, prévoyez un délai de 45-60 jours et un positionnement de prix sans agressivité.</p>
-
-<p>Le segment <strong>condo Blainville</strong> reste sous pression (délai 60 j, ventes −16 %) malgré une hausse de prix de +3 %. C'est le signe d'un marché à deux vitesses où seules les unités bien positionnées trouvent preneur rapidement.</p>
 
 <h2>Pour aller plus loin</h2>
 <ul>
-  <li><a href="/marche-immobilier/statistiques-blainville/">Détail Blainville Q1 2026</a></li>
-  <li><a href="/marche-immobilier/statistiques-sainte-therese/">Détail Sainte-Thérèse Q1 2026</a></li>
+  <li><a href="/marche-immobilier/statistiques-blainville/">Détail Blainville, 3e trimestre 2026</a></li>
+  <li><a href="/marche-immobilier/statistiques-sainte-therese/">Détail Sainte-Thérèse, 3e trimestre 2026</a></li>
   <li><a href="https://apciq.ca/" target="_blank" rel="noopener">Baromètre résidentiel APCIQ (officiel)</a></li>
 </ul>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Lecture mise à jour à chaque trimestre — prochaine révision dès la publication des données Q2 2026 par l'APCIQ (mi-juillet). Sources : APCIQ par Centris®, mes inscriptions et transactions actives.</p>`
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Lecture mise à jour à chaque trimestre. Prochaine révision à la publication des données du 4e trimestre 2026, attendue vers la mi-janvier. Source : APCIQ par Centris®, relevé le 3 novembre 2026.</p>`
   }
 };
 for (const [s, p] of Object.entries(MARCHE_PAGES)) {
@@ -5074,9 +5062,9 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     <p class="a-lead">À Sainte-Thérèse, la différence entre vendre vite et vendre bien tient à <strong>trois chiffres que personne ne vous donne</strong> — sauf un <strong>courtier immobilier local</strong> qui a 35 ans de transactions dans le secteur. Ce guide interactif met ces chiffres sur la table, rue par rue, secteur par secteur, avec les outils pour les interroger.</p>
 
     <div class="a-summary">
-      <div class="card"><div class="n">582 k$</div><div class="l">Prix médian 2026 (unifamiliale)</div></div>
-      <div class="card"><div class="n">+5,2 %</div><div class="l">Progression YoY</div></div>
-      <div class="card"><div class="n">31 j</div><div class="l">Délai médian de vente</div></div>
+      <div class="card"><div class="n">710 k$</div><div class="l">Prix médian unifamilial, 3e trimestre 2026</div></div>
+      <div class="card"><div class="n">+15 %</div><div class="l">Par rapport à il y a un an</div></div>
+      <div class="card"><div class="n">28 j</div><div class="l">Délai moyen de vente</div></div>
       <div class="card"><div class="n">99,1 %</div><div class="l">Ratio vendu / demandé</div></div>
     </div>
 
@@ -5185,7 +5173,7 @@ writePage(`blog/${featuredArticle.slug}/index.html`, layout({
     <p>Sainte-Thérèse offre un cachet Vieux-Village introuvable à Blainville, avec un ticket d'entrée inférieur de 12 %. Blainville offre des lots plus grands et des écoles mieux notées statistiquement. Pour les familles avec enfants jeunes, Blainville. Pour les acheteurs plus jeunes ou urbains, Sainte-Thérèse.</p>
 
     <h3>Combien de temps pour vendre à Sainte-Thérèse ?</h3>
-    <p>Médiane secteur : 31 jours. Sur mes listings spécifiquement : <strong>24 jours</strong> en moyenne 2026. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
+    <p>Délai moyen à Sainte-Thérèse au 3e trimestre 2026 : 28 jours pour une maison unifamiliale, selon Centris. Sur mes listings spécifiquement : <strong>24 jours</strong> en moyenne 2026. La différence vient du positionnement initial et de la qualité de la mise en marché.</p>
 
     <div class="a-footer-meta">
       <img src="/photos/alain/Creationsdoz-00647_Final.jpg" alt="Alain Brunelle">
@@ -5543,7 +5531,7 @@ const BLOG_CONTENT = {
     body: `<p class="lead">Le <a href="/vendre/etapes-pour-vendre/">processus global en 7 étapes</a> s'applique partout, mais Sainte-Thérèse a sa propre dynamique. Voici les particularités à intégrer pour réussir votre vente dans <strong>ce marché précis</strong>.</p>
 
 <div class="stat-row">
-  <div class="stat-mini"><div class="n">23 j</div><div class="l">Délai médian unifamilial Q1 2026</div></div>
+  <div class="stat-mini"><div class="n">28 j</div><div class="l">Délai moyen unifamilial, 3e trimestre 2026</div></div>
   <div class="stat-mini"><div class="n">+12 %</div><div class="l">Prix Vieux-Village vs médian global</div></div>
   <div class="stat-mini"><div class="n">22 %</div><div class="l">Acheteurs anglophones</div></div>
   <div class="stat-mini"><div class="n">40 %</div><div class="l">Ventes conclues en pré-mise en marché</div></div>
