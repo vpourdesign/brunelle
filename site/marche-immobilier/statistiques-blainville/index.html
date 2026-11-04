@@ -14,15 +14,22 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
-<title>Statistiques Blainville — Q1 2026 | Alain Brunelle</title>
-<meta name="description" content="Statistiques immobilières Blainville Q1 2026 : prix médian 715 000 $, délai 32 j, inventaire +29 %. Source APCIQ.">
+<title>Statistiques immobilières Blainville : 3e trimestre 2026 | Alain Brunelle</title>
+<meta name="description" content="Statistiques immobilières Blainville, 3e trimestre 2026 : maison unifamiliale à 835 000 $ (médiane, +11 %), 148 ventes, 34 jours en moyenne. Source Centris (APCIQ).">
 <link rel="canonical" href="https://alainbrunelle.com/marche-immobilier/statistiques-blainville/">
-<meta property="og:title" content="Statistiques Blainville — Q1 2026 | Alain Brunelle">
-<meta property="og:description" content="Statistiques immobilières Blainville Q1 2026 : prix médian 715 000 $, délai 32 j, inventaire +29 %. Source APCIQ.">
+<meta property="og:title" content="Statistiques immobilières Blainville : 3e trimestre 2026 | Alain Brunelle">
+<meta property="og:description" content="Statistiques immobilières Blainville, 3e trimestre 2026 : maison unifamiliale à 835 000 $ (médiane, +11 %), 148 ventes, 34 jours en moyenne. Source Centris (APCIQ).">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/marche-immobilier/statistiques-blainville/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/marche-immobilier/statistiques-blainville/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/marche-immobilier/statistiques-blainville/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -248,65 +256,58 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <section class="page-head container"><div class="page-head-grid">
         <div>
           <div class="eyebrow">Marché immobilier</div>
-          <h1>Statistiques Blainville — Q1 2026</h1>
-          <p class="lead">Le marché de Blainville en Q1 2026 — données APCIQ par Centris® et mon analyse de courtier local.</p>
+          <h1>Statistiques immobilières Blainville : 3e trimestre 2026</h1>
+          <p class="lead">Le marché de Blainville au 3e trimestre 2026 (juillet à septembre), selon les données Centris (APCIQ).</p>
         </div>
-        <figure class="ph-hero"><img src="/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg" alt="Statistiques Blainville — Q1 2026" loading="eager"></figure>
+        <figure class="ph-hero"><img src="/photos/blainville/actu_vue_aerienne_blainville-f3ef398517358b5388e48bface3ee20d.jpg" alt="Statistiques immobilières Blainville : 3e trimestre 2026" loading="eager"></figure>
       </div></section>
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose"><div class="stat-row">
-  <div class="stat-mini"><div class="n">715 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">32 j</div><div class="l">Délai médian de vente (−10 j)</div></div>
-  <div class="stat-mini"><div class="n">204</div><div class="l">Ventes totales Q1 (−5 %)</div></div>
-  <div class="stat-mini"><div class="n">248</div><div class="l">Inscriptions actives (+29 %)</div></div>
+  <div class="stat-mini"><div class="n">835 000 $</div><div class="l">Prix médian unifamilial (+11 %)</div></div>
+  <div class="stat-mini"><div class="n">34 j</div><div class="l">Délai moyen de vente, unifamiliale (+5 j)</div></div>
+  <div class="stat-mini"><div class="n">185</div><div class="l">Ventes, toutes catégories (−4 %)</div></div>
+  <div class="stat-mini"><div class="n">232</div><div class="l">Propriétés à vendre (+8 %)</div></div>
 </div>
 
-<h2>Le marché en Q1 2026</h2>
-<p>Blainville est en phase de <strong>rééquilibrage</strong>. L'unifamilial corrige modestement (−4 %) pendant que l'inventaire explose (+29 %) — un cocktail qui ramène du pouvoir de négociation aux acheteurs. À l'inverse, le condo et le plex restent fermement haussiers.</p>
+<h2>Le marché au 3e trimestre 2026</h2>
+<p>La maison unifamiliale se vend plus cher qu'il y a un an : <strong>835 000 $ de médiane</strong>, 11 % de plus, avec 148 ventes (+8 %). L'offre suit : 174 maisons à vendre, 10 % de plus qu'à l'été 2025, et elles restent en moyenne 34 jours sur le marché, 5 de plus. Toutes catégories confondues, les ventes reculent légèrement (185, −4 %).</p>
 
-<table>
-  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+<div class="table-scroll"><table>
+  <thead><tr><th>Segment</th><th>Prix médian</th><th>Variation sur un an</th><th>Ventes</th><th>Délai moyen</th></tr></thead>
   <tbody>
-    <tr><td>Unifamiliale</td><td>715 000 $</td><td style="color:#c8364a">−4 %</td><td>155 (+4 %)</td><td>32 j (−10 j)</td></tr>
-    <tr><td>Copropriété</td><td>432 500 $</td><td style="color:#0f8c5b">+3 %</td><td>42 (−16 %)</td><td>60 j (+11 j)</td></tr>
-    <tr><td>Plex 2-5 log.</td><td>786 125 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+10 %</td><td>—</td><td>—</td></tr>
+    <tr><td>Unifamiliale</td><td>835&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+11&nbsp;%</td><td>148&nbsp;(+8&nbsp;%)</td><td>34&nbsp;j&nbsp;(+5&nbsp;j)</td></tr>
+    <tr><td>Copropriété <small>(12 derniers mois)</small></td><td>432&nbsp;425&nbsp;$</td><td>+1&nbsp;%</td><td>159&nbsp;(−10&nbsp;%)</td><td>49&nbsp;j&nbsp;(+8&nbsp;j)</td></tr>
+    <tr><td>Plex 2-5 log. <small>(12 derniers mois)</small></td><td>821&nbsp;562&nbsp;$</td><td style="color:#0f8c5b">+10&nbsp;%</td><td>44&nbsp;(−15&nbsp;%)</td><td>12&nbsp;j&nbsp;(−29&nbsp;j)</td></tr>
   </tbody>
-</table>
+</table></div>
+<p class="muted" style="font-size:.85rem">Condo et plex : 28 et 9 ventes ce trimestre, trop peu pour que Centris publie une médiane trimestrielle. Les chiffres ci-dessus portent sur les 12 derniers mois.</p>
 
-<h2>Ce que ça veut dire — par profil</h2>
+<h2>Ce que ça veut dire, selon votre projet</h2>
 <div class="compare">
   <div class="compare-col good">
     <h3>Si vous achetez</h3>
     <ul>
-      <li>Plus de choix : 179 unifamiliales actives (vs 134 il y a un an)</li>
-      <li>Marge de négociation revenue sur les unifamiliales &gt;750 k$</li>
-      <li>Délais raccourcis = vendeurs plus motivés à négocier rapidement</li>
+      <li>Plus de choix qu'il y a un an : 174 maisons à vendre (+10 %)</li>
+      <li>Les maisons restent un peu plus longtemps sur le marché (34 jours en moyenne) : plus de temps pour visiter et comparer</li>
+      <li>Le prix médian a monté de 11 % : faites ajuster votre préapprobation hypothécaire</li>
     </ul>
   </div>
-  <div class="compare-col bad">
+  <div class="compare-col good">
     <h3>Si vous vendez</h3>
     <ul>
-      <li>Compétition accrue : il faut un positionnement de prix précis</li>
-      <li>La préparation (home staging, photo, vidéo) fait la différence</li>
-      <li>Évitez le segment 700-800 k$ sans stratégie de prix claire</li>
+      <li>Les prix ont monté, mais la concurrence aussi : 10 % plus de maisons à vendre</li>
+      <li>Le prix demandé doit s'appuyer sur les ventes de votre secteur, pas sur la médiane de la ville</li>
+      <li>La préparation (photos, vidéo, petits travaux) aide à se démarquer quand l'offre augmente</li>
     </ul>
   </div>
 </div>
 
-<div class="callout warn">
-  <div><strong>Le segment condo demande plus de patience</strong><br>Délai médian condo : 60 jours (+11 j vs l'an dernier). Les ventes ralentissent (−16 %) malgré la hausse de prix. Si vous vendez un condo, prévoyez 60-75 jours et un effort marketing accru.</div>
+<div class="callout">
+  <div><strong>La médiane ne dit pas ce que vaut votre maison.</strong><br>Elle mélange toutes les maisons de Blainville, de Fontainebleau au Blainvillier. Pour connaître la valeur de la vôtre, je pars des ventes faites dans votre rue et votre secteur. <a href="/vendre/evaluation-gratuite/">Demander mon évaluation gratuite →</a></div>
 </div>
 
-<h2>Mon analyse de courtier</h2>
-<p>Trois forces structurelles à Blainville en 2026 :</p>
-<div class="steps">
-  <div class="step"><div><strong>Stabilisation des taux hypothécaires</strong> autour de 5 % — la pression baissière sur la demande s'estompe. Les acheteurs reviennent, mais avec discipline.</div></div>
-  <div class="step"><div><strong>Rareté foncière</strong> dans les secteurs établis (Fontainebleau, Chambéry, Chante-Bois) — pression haussière maintenue sur les unifamiliales avec lot &gt;700 m².</div></div>
-  <div class="step"><div><strong>Nouvelle phase de Chambéry</strong> et construction sur Notre-Dame Nord — ajout d'environ 180 unités neuves sur 18 mois. C'est ce qui explique le bond d'inventaire.</div></div>
-</div>
-
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Blainville. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p></article>
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris®, statistiques du 3e trimestre 2026 pour Blainville, relevées le 3 novembre 2026. Les variations comparent au 3e trimestre 2025. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/blainville" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p></article>
     <aside style="position:sticky;top:100px">
       <div class="blue-block soft" style="padding:1.8rem">
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Évaluation gratuite</div>

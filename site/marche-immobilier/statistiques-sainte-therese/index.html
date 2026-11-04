@@ -14,15 +14,22 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
-<title>Statistiques Sainte-Thérèse — Q1 2026 | Alain Brunelle</title>
-<meta name="description" content="Statistiques immobilières Sainte-Thérèse Q1 2026 : délai 23 j, condo +9 %, plex +17 %. Source APCIQ.">
+<title>Statistiques immobilières Sainte-Thérèse : 3e trimestre 2026 | Alain Brunelle</title>
+<meta name="description" content="Statistiques immobilières Sainte-Thérèse, 3e trimestre 2026 : maison unifamiliale à 710 000 $ (médiane, +15 %), 28 jours en moyenne, plex +14 % sur 12 mois. Source Centris (APCIQ).">
 <link rel="canonical" href="https://alainbrunelle.com/marche-immobilier/statistiques-sainte-therese/">
-<meta property="og:title" content="Statistiques Sainte-Thérèse — Q1 2026 | Alain Brunelle">
-<meta property="og:description" content="Statistiques immobilières Sainte-Thérèse Q1 2026 : délai 23 j, condo +9 %, plex +17 %. Source APCIQ.">
+<meta property="og:title" content="Statistiques immobilières Sainte-Thérèse : 3e trimestre 2026 | Alain Brunelle">
+<meta property="og:description" content="Statistiques immobilières Sainte-Thérèse, 3e trimestre 2026 : maison unifamiliale à 710 000 $ (médiane, +15 %), 28 jours en moyenne, plex +14 % sur 12 mois. Source Centris (APCIQ).">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/marche-immobilier/statistiques-sainte-therese/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/marche-immobilier/statistiques-sainte-therese/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/marche-immobilier/statistiques-sainte-therese/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -248,68 +256,69 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <section class="page-head container"><div class="page-head-grid">
         <div>
           <div class="eyebrow">Marché immobilier</div>
-          <h1>Statistiques Sainte-Thérèse — Q1 2026</h1>
-          <p class="lead">Sainte-Thérèse est le marché le plus chaud des Laurentides Sud en Q1 2026. Voici pourquoi.</p>
+          <h1>Statistiques immobilières Sainte-Thérèse : 3e trimestre 2026</h1>
+          <p class="lead">Le marché de Sainte-Thérèse au 3e trimestre 2026 (juillet à septembre), selon les données Centris (APCIQ).</p>
         </div>
-        <figure class="ph-hero"><img src="/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg" alt="Statistiques Sainte-Thérèse — Q1 2026" loading="eager"></figure>
+        <figure class="ph-hero"><img src="/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg" alt="Statistiques immobilières Sainte-Thérèse : 3e trimestre 2026" loading="eager"></figure>
       </div></section>
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose"><div class="stat-row">
-  <div class="stat-mini"><div class="n">579 000 $</div><div class="l">Prix médian unifamilial Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">23 j</div><div class="l">Délai médian de vente (−24 j)</div></div>
-  <div class="stat-mini"><div class="n">102</div><div class="l">Ventes totales Q1 (+8 %)</div></div>
-  <div class="stat-mini"><div class="n">+17 %</div><div class="l">Prix médian plex sur 4 trim.</div></div>
+  <div class="stat-mini"><div class="n">710 000 $</div><div class="l">Prix médian unifamilial (+15 %)</div></div>
+  <div class="stat-mini"><div class="n">28 j</div><div class="l">Délai moyen de vente, unifamiliale (+2 j)</div></div>
+  <div class="stat-mini"><div class="n">70</div><div class="l">Ventes, toutes catégories (−9 %)</div></div>
+  <div class="stat-mini"><div class="n">89</div><div class="l">Propriétés à vendre (+28 %)</div></div>
 </div>
 
-<h2>Le marché en Q1 2026</h2>
-<p>Sainte-Thérèse est en <strong>plein boom</strong>. Les délais ont fondu de moitié (23 j vs 47 j il y a un an), les condos s'envolent (+9 %), et les plex deviennent l'actif vedette des Laurentides Sud (+17 % sur 12 mois). Le prix unifamilial est stable mais l'activité ne ment pas : ce marché est nettement vendeur.</p>
+<h2>Le marché au 3e trimestre 2026</h2>
+<p>La maison unifamiliale se vend plus cher et plus souvent qu'il y a un an : <strong>710 000 $ de médiane</strong> (+15 %), 35 ventes (+16 %) et 28 jours en moyenne sur le marché. L'offre augmente vite : 33 maisons à vendre, 83 % de plus qu'à l'été 2025. Toutes catégories confondues, les ventes reculent de 9 % (70).</p>
 
-<table>
-  <thead><tr><th>Segment</th><th>Prix médian Q1</th><th>Variation a/a</th><th>Ventes Q1</th><th>Délai médian</th></tr></thead>
+<div class="table-scroll"><table>
+  <thead><tr><th>Segment</th><th>Prix médian</th><th>Variation sur un an</th><th>Ventes</th><th>Délai moyen</th></tr></thead>
   <tbody>
-    <tr><td>Unifamiliale</td><td>579 000 $</td><td>0 %</td><td>41 (+5 %)</td><td>23 j (−24 j)</td></tr>
-    <tr><td>Copropriété</td><td>385 000 $</td><td style="color:#0f8c5b">+9 %</td><td>43 (+19 %)</td><td>25 j (−19 j)</td></tr>
-    <tr><td>Plex 2-5 log.</td><td>758 312 $ <small>(4 trim.)</small></td><td style="color:#0f8c5b">+17 %</td><td>18</td><td>—</td></tr>
+    <tr><td>Unifamiliale</td><td>710&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+15&nbsp;%</td><td>35&nbsp;(+16&nbsp;%)</td><td>28&nbsp;j&nbsp;(+2&nbsp;j)</td></tr>
+    <tr><td>Copropriété <small>(12 derniers mois)</small></td><td>366&nbsp;250&nbsp;$</td><td>0&nbsp;%</td><td>129&nbsp;(−21&nbsp;%)</td><td>33&nbsp;j&nbsp;(−5&nbsp;j)</td></tr>
+    <tr><td>Plex 2-5 log. <small>(12 derniers mois)</small></td><td>800&nbsp;612&nbsp;$</td><td style="color:#0f8c5b">+14&nbsp;%</td><td>72&nbsp;(+30&nbsp;%)</td><td>33&nbsp;j&nbsp;(−4&nbsp;j)</td></tr>
   </tbody>
-</table>
+</table></div>
+<p class="muted" style="font-size:.85rem">Condo et plex : 23 et 12 ventes ce trimestre, trop peu pour que Centris publie une médiane trimestrielle. Les chiffres ci-dessus portent sur les 12 derniers mois.</p>
 
 <div class="callout success">
-  <div><strong>L'effondrement des délais raconte tout</strong><br>23 jours pour vendre une unifamiliale, 25 jours pour un condo. Il y a un an : 47 et 44 jours. C'est l'indicateur le plus fiable d'un marché en surchauffe — la demande absorbe l'offre dès qu'elle apparaît.</div>
+  <div><strong>Le plex, segment le plus actif</strong><br>72 ventes sur 12 mois (+30 %) et un prix médian de 800 612 $ (+14 %). C'est la catégorie qui progresse le plus à Sainte-Thérèse.</div>
 </div>
 
-<h2>Sainte-Thérèse vs Blainville — le contraste</h2>
+<h2>Sainte-Thérèse et Blainville, côte à côte</h2>
 <div class="compare">
   <div class="compare-col good">
     <h3>Sainte-Thérèse</h3>
     <ul>
-      <li>Délai unifamilial : <strong>23 jours</strong></li>
-      <li>Condo : <strong>+9 %</strong> et délai 25 j</li>
-      <li>Ventes : <strong>+8 %</strong></li>
-      <li>Marché clairement vendeur</li>
+      <li>Maison unifamiliale : <strong>710 000 $</strong> (+15 %)</li>
+      <li>Délai moyen : <strong>28 jours</strong></li>
+      <li>Ventes de maisons : <strong>+16 %</strong></li>
+      <li>Maisons à vendre : <strong>33</strong> (+83 %)</li>
     </ul>
   </div>
-  <div class="compare-col bad">
+  <div class="compare-col good">
     <h3>Blainville</h3>
     <ul>
-      <li>Délai unifamilial : <strong>32 jours</strong></li>
-      <li>Unifamilial : <strong>−4 %</strong></li>
-      <li>Ventes : <strong>−5 %</strong></li>
-      <li>Marché en rééquilibrage</li>
+      <li>Maison unifamiliale : <strong>835 000 $</strong> (+11 %)</li>
+      <li>Délai moyen : <strong>34 jours</strong></li>
+      <li>Ventes de maisons : <strong>+8 %</strong></li>
+      <li>Maisons à vendre : <strong>174</strong> (+10 %)</li>
     </ul>
   </div>
 </div>
 
-<h2>Ce que ça veut dire — par profil</h2>
+<h2>Ce que ça veut dire, selon votre projet</h2>
 <div class="steps">
-  <div class="step"><div><strong>Si vous vendez à Sainte-Thérèse :</strong> la fenêtre est exceptionnelle. Stratégie de mise en marché agressive avec préparation soignée = vente sous 30 jours, souvent en multiples offres.</div></div>
-  <div class="step"><div><strong>Si vous achetez à Sainte-Thérèse :</strong> il faut être prêt à bouger vite. Dossier hypothécaire pré-approuvé, visite dans les 48 h, offre stratégique avec marge limitée à la baisse.</div></div>
-  <div class="step"><div><strong>Si vous investissez :</strong> le segment plex est en train de surperformer Blainville. +17 % sur 12 mois et 18 transactions en Q1 — c'est de la liquidité réelle.</div></div>
+  <div class="step"><div><strong>Si vous vendez à Sainte-Thérèse :</strong> les prix ont monté de 15 % en un an et les maisons partent en 28 jours en moyenne. Mais l'offre a presque doublé : le bon prix dès le départ compte plus qu'avant.</div></div>
+  <div class="step"><div><strong>Si vous achetez à Sainte-Thérèse :</strong> vous avez plus de choix qu'il y a un an, mais les maisons partent vite. Ayez votre préapprobation hypothécaire avant de visiter.</div></div>
+  <div class="step"><div><strong>Si vous investissez :</strong> le plex est le segment le plus actif, avec 72 ventes en 12 mois (+30 %) et une médiane de 800 612 $ (+14 %).</div></div>
 </div>
 
 <p>Pour une analyse <strong>par secteur</strong> (Vieux-Village, Sainte-Thérèse-en-Haut, Sainte-Thérèse-en-Bas), voir mon article complet : <a href="/blog/radioscopie-sainte-therese-marche-2026/">Radioscopie de Sainte-Thérèse</a>.</p>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris® — statistiques officielles Q1 2026 pour Sainte-Thérèse. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p></article>
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source : APCIQ par Centris®, statistiques du 3e trimestre 2026 pour Sainte-Thérèse, relevées le 3 novembre 2026. Les variations comparent au 3e trimestre 2025. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">Voir la fiche Centris complète</a>.</p></article>
     <aside style="position:sticky;top:100px">
       <div class="blue-block soft" style="padding:1.8rem">
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Évaluation gratuite</div>

@@ -14,8 +14,15 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Bois-Franc, Rosemère — prices, schools and homes for sale | Alain Brunelle</title>
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/quartiers/rosemere/bois-franc/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/quartiers/rosemere/bois-franc/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/quartiers/rosemere/bois-franc/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -258,10 +266,10 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 
 <section class="container">
   <div class="stat-row">
-    <div class="stat-mini"><div class="n">685 k$</div><div class="l">Median price (12 months)</div></div>
-    <div class="stat-mini"><div class="n">+4,8 %</div><div class="l">YoY growth</div></div>
-    <div class="stat-mini"><div class="n">31 j</div><div class="l">Median time to sell</div></div>
-    <div class="stat-mini"><div class="n">94 %</div><div class="l">Absorption rate</div></div>
+    <div class="stat-mini"><div class="n">877 722 $</div><div class="l">Median house price in Rosemère, last 12 months</div></div>
+    <div class="stat-mini"><div class="n">+10 %</div><div class="l">Compared with a year ago</div></div>
+    <div class="stat-mini"><div class="n">40 j</div><div class="l">Average selling time in Rosemère</div></div>
+    <div class="stat-mini"><div class="n">45</div><div class="l">Houses for sale in Rosemère</div></div>
   </div>
 </section>
 

@@ -620,6 +620,8 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .prose table td{padding:.85rem 1rem;border-bottom:1px solid var(--line);background:#fff;font-size:.93rem}
 .prose table tr:last-child td{border-bottom:0}
 .prose table tr:nth-child(even) td{background:var(--surface)}
+.table-scroll{overflow-x:auto;margin:1.5rem 0}
+.table-scroll table{margin:0}
 
 /* Step cards (numbered) */
 .steps{display:grid;gap:1.1rem;margin:2rem 0;counter-reset:s}
@@ -672,6 +674,7 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .break span{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:500}
 
 .two-col{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.two-col>*{min-width:0}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 
 /* Neighborhood cards */

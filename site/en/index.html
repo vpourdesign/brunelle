@@ -14,8 +14,15 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>Alain Brunelle — Sainte-Thérèse & Blainville real estate broker | RE/MAX CRYSTAL</title>
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 <link rel="preload" as="image" href="/photos/alain/hero-alain-1800.jpg" imagesrcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" imagesizes="(max-width: 860px) 100vw, 55vw" fetchpriority="high">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Alain Brunelle","url":"https://alainbrunelle.com/en/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":["Sainte-Thérèse","Blainville","Saint-Eustache","Rosemère","Boisbriand","Mirabel"]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -427,18 +435,6 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
         <span>📷 48</span>
       </div>
     </div>
-  </a><a class="pcard" href="/en/nos-proprietes/19558636-10-rue-des-violettes-blainville/" data-prop="maison unifamiliale blainville">
-    <div class="ph"><span class="badge">Single-family home</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA4A77EFD1480D57D11&t=pi&f=I" alt="10 Rue des Violettes, Blainville"></div>
-    <div class="body">
-      <div class="loc">Blainville · MLS 19558636</div>
-      <div class="addr">10 Rue des Violettes</div>
-      <div class="price">899 900 $</div>
-      <div class="meta">
-        <span>📅 1998</span>
-        <span>📐 8956 PC</span>
-        <span>📷 39</span>
-      </div>
-    </div>
   </a><a class="pcard" href="/en/nos-proprietes/21147996-2745-rue-des-francs-bourgeois-boisbriand/" data-prop="maison de ville boisbriand">
     <div class="ph"><span class="badge">Townhouse</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA1B36BCD1C491E7D10&t=pi&f=I" alt="2745 Rue des Francs-Bourgeois, Boisbriand"></div>
     <div class="body">
@@ -449,6 +445,18 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
         <span>📅 2014</span>
         
         <span>📷 53</span>
+      </div>
+    </div>
+  </a><a class="pcard" href="/en/nos-proprietes/23471082-1005-rue-des-francs-bourgeois-app-307-saint-eustache/" data-prop="condo saint-eustache">
+    <div class="ph"><span class="badge">Condo</span><img loading="lazy" src="https://mediaserver.centris.ca/media.ashx?id=ADDE24EDA281EC9D1AA4258D1B&t=pi&f=I" alt="1005 Rue des Francs-Bourgeois, app. 307, Saint-Eustache"></div>
+    <div class="body">
+      <div class="loc">Saint-Eustache · MLS 23471082</div>
+      <div class="addr">1005 Rue des Francs-Bourgeois, app. 307</div>
+      <div class="price">339 900 $</div>
+      <div class="meta">
+        <span>📅 2011</span>
+        
+        <span>📷 33</span>
       </div>
     </div>
   </a>

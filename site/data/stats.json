@@ -1,16 +1,14 @@
 {
-  "total": 4,
-  "avgPrice": 682175,
-  "totalValue": 2728700,
+  "total": 3,
+  "avgPrice": 609600,
+  "totalValue": 1828800,
   "byCity": {
     "Sainte-Thérèse": 1,
-    "Blainville": 1,
     "Boisbriand": 1,
     "Saint-Eustache": 1
   },
   "byType": {
     "Propriété": 1,
-    "Maison unifamiliale": 1,
     "Maison de ville": 1,
     "Condo": 1
   },
@@ -18,7 +16,7 @@
     "<300k": 0,
     "300-500k": 1,
     "500-800k": 1,
-    "800k-1.5M": 2,
+    "800k-1.5M": 1,
     ">1.5M": 0
   }
 }

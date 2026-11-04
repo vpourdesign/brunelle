@@ -14,15 +14,22 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
 <title>North Shore real estate market 2026 | Alain Brunelle</title>
-<meta name="description" content="North Shore real estate market statistics — Blainville, Sainte-Thérèse, monthly report. APCIQ Q1 2026 data.">
+<meta name="description" content="North Shore real estate market statistics: Blainville, Sainte-Thérèse, Rosemère, Lorraine. Centris (APCIQ) data for Q3 2026.">
 <link rel="canonical" href="https://alainbrunelle.com/en/marche-immobilier/">
 <meta property="og:title" content="North Shore real estate market 2026 | Alain Brunelle">
-<meta property="og:description" content="North Shore real estate market statistics — Blainville, Sainte-Thérèse, monthly report. APCIQ Q1 2026 data.">
+<meta property="og:description" content="North Shore real estate market statistics: Blainville, Sainte-Thérèse, Rosemère, Lorraine. Centris (APCIQ) data for Q3 2026.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/marche-immobilier/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/marche-immobilier/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/marche-immobilier/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -255,10 +263,10 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
       </div></section>
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
-    <article class="prose"><p class="lead">Three complementary reads: the numbers by city, the monthly APCIQ barometer and my broker's analysis grounded in 35 years of North Shore transactions.</p>
+    <article class="prose"><p class="lead">Three complementary reads: the Blainville numbers, the Sainte-Thérèse numbers, and the 4 cities side by side.</p>
 
 <div class="stat-row" style="margin:2rem 0">
-  <div class="stat-mini"><div class="n">Q1 2026</div><div class="l">Most recent data</div></div>
+  <div class="stat-mini"><div class="n">Q3 2026</div><div class="l">Most recent data</div></div>
   <div class="stat-mini"><div class="n">APCIQ</div><div class="l">Official source (Centris®)</div></div>
   <div class="stat-mini"><div class="n">4 cities</div><div class="l">Blainville · Ste-Thérèse · Rosemère · Lorraine</div></div>
 </div>
@@ -266,20 +274,20 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <h2>Choose your report</h2>
 <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem">
   <a class="callout" href="/en/marche-immobilier/statistiques-blainville/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:var(--blue)">Blainville statistics →</strong><br><span style="color:var(--ink-2)">Median price $715,000, 32-day timeline, inventory +29%. The single-family market corrects slightly (−4%), the condo rises (+3%).</span></div>
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Blainville statistics →</strong><br><span style="color:var(--ink-2)">Single-family homes at a $835,000 median (+11%), 148 sales (+8%), 34 days on the market on average.</span></div>
   </a>
   <a class="callout success" href="/en/marche-immobilier/statistiques-sainte-therese/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:#0f8c5b">Sainte-Thérèse statistics →</strong><br><span style="color:var(--ink-2)">Timelines halved (23 days), condo +9%, plex +17%. The hottest market in the southern Laurentians in Q1 2026.</span></div>
+    <div><strong style="font-size:1.15rem;color:#0f8c5b">Sainte-Thérèse statistics →</strong><br><span style="color:var(--ink-2)">Single-family homes at a $710,000 median (+15%), 28 days on average, plexes up 14% over 12 months.</span></div>
   </a>
   <a class="callout" href="/en/marche-immobilier/rapport-mensuel/" style="text-decoration:none;color:inherit">
-    <div><strong style="font-size:1.15rem;color:var(--blue)">Market read — Spring 2026 →</strong><br><span style="color:var(--ink-2)">The APCIQ Barometer Q1 2026 + my field observations: what I see moving between two quarterly releases.</span></div>
+    <div><strong style="font-size:1.15rem;color:var(--blue)">Market reading: fall 2026 →</strong><br><span style="color:var(--ink-2)">The 4 cities side by side in Q3 2026, and what the numbers mean if you are selling or buying.</span></div>
   </a>
 </div>
 
 <h2>Where these numbers come from</h2>
-<p>The data comes from the<strong>APCIQ</strong> (Quebec Professional Association of Real Estate Brokers), published via <strong>Centris®</strong>. I cross-reference them with my own database of transactions and listings to produce an analysis that goes beyond the average — by district, by segment, by property type.</p>
+<p>The data comes from the<strong>APCIQ</strong> (Quebec Professional Association of Real Estate Brokers), published via <strong>Centris®</strong>. Changes compare each quarter with the same quarter of the previous year. When a city has too few sales, Centris does not publish a quarterly median: I then use the 12-month median and say so.</p>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Last updated: Q1 2026. Next release: Q2 2026 expected mid-July.</p></article>
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Last update: Q3 2026, collected on November 3, 2026. Next release: Q4 2026, expected around mid-January.</p></article>
     <aside style="position:sticky;top:100px">
       <div class="blue-block soft" style="padding:1.8rem">
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Free valuation</div>

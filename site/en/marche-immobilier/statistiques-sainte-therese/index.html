@@ -14,15 +14,22 @@ gtag('js',new Date());gtag('config','G-F5DLZC93S3',{anonymize_ip:true});gtag('co
 window.abAttr=function(fd){try{var s=sessionStorage;fd.append('Source',s.getItem('ab_src')||'Direct');fd.append('Page d’arrivée',s.getItem('ab_land')||'');var g=s.getItem('ab_gclid');if(g)fd.append('gclid',g);}catch(e){}return fd;};
 window.abPixel=function(){var id='1004700639313320';if(!id||window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');};
 try{var cm=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');if(cm&&cm.marketing)abPixel();}catch(e){}
-window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
-document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+window.abLead=function(name){if(window.fbq)fbq('track','Lead',{content_name:name});try{if(window.posthog)posthog.capture('lead',{form_name:name});}catch(e){}if(typeof gtag!=='function')return;gtag('event','generate_lead',{form_name:name});gtag('event','conversion',{send_to:'AW-18408093710/vxBwCJ-XsKMdEI7w1MlE'});};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(a&&window.fbq)fbq('track','Contact');if(a&&window.posthog)posthog.capture('phone_click',{link_url:a.getAttribute('href')});if(a&&typeof gtag==='function'){gtag('event','phone_click',{link_url:a.getAttribute('href'),link_location:a.closest('.hx')?'accueil-hero':location.pathname});gtag('event','conversion',{send_to:'AW-18408093710/2mGtCKmesKMdEI7w1MlE'});}},true);
+</script>
+<!-- PostHog (Loi 25 : mémoire seulement + aucun enregistrement de session tant que « analytique » n'est pas accepté) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="rh ah uh hh ph init Uh Wh Nh qh Jh Ku Hh Zh Fh sd rd od ad ld ud capture getExtension Vh pr Bh zh calculateEventProperties dd register register_once register_for_session unregister unregister_for_session md Lh fd getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync yd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset bd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty pd Xh createPersonProfile setInternalOrTestUser gd bh mh opt_in_capturing opt_out_capturing yh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Kh debug Yu Fs getPageViewId captureTraceFeedback captureTraceMetric Ah".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+(function(){var ok=false;try{var c=JSON.parse(localStorage.getItem('cb_consent_v1')||'null');ok=!!(c&&c.analytics);}catch(e){}
+posthog.init('phc_pzmZG6WuQSdAFPVc6vuCwCtSX5DH7LEtcuSqVBNeWi7z',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only',persistence:ok?'localStorage+cookie':'memory',disable_session_recording:!ok});})();
+window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_config({persistence:on?'localStorage+cookie':'memory'});if(on)posthog.startSessionRecording();else posthog.stopSessionRecording();}catch(e){}};
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5DLZC93S3"></script>
-<title>Sainte-Thérèse statistics — Q1 2026 | Alain Brunelle</title>
-<meta name="description" content="Sainte-Thérèse real estate statistics Q1 2026: 23-day timeline, condo +9%, plex +17%. Source APCIQ.">
+<title>Sainte-Thérèse real estate statistics: Q3 2026 | Alain Brunelle</title>
+<meta name="description" content="Sainte-Thérèse real estate statistics, Q3 2026: single-family homes at $710,000 (median, +15%), 28 days on average, plexes +14% over 12 months. Source: Centris (APCIQ).">
 <link rel="canonical" href="https://alainbrunelle.com/en/marche-immobilier/statistiques-sainte-therese/">
-<meta property="og:title" content="Sainte-Thérèse statistics — Q1 2026 | Alain Brunelle">
-<meta property="og:description" content="Sainte-Thérèse real estate statistics Q1 2026: 23-day timeline, condo +9%, plex +17%. Source APCIQ.">
+<meta property="og:title" content="Sainte-Thérèse real estate statistics: Q3 2026 | Alain Brunelle">
+<meta property="og:description" content="Sainte-Thérèse real estate statistics, Q3 2026: single-family homes at $710,000 (median, +15%), 28 days on average, plexes +14% over 12 months. Source: Centris (APCIQ).">
 <meta property="og:type" content="website">
 <link rel="icon" href="/brand_assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/favicon-32.png">
@@ -30,7 +37,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24492b98ad">
+<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/marche-immobilier/statistiques-sainte-therese/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/marche-immobilier/statistiques-sainte-therese/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/marche-immobilier/statistiques-sainte-therese/">
@@ -125,6 +132,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
   function safeSet(c){try{localStorage.setItem(KEY,JSON.stringify(c));return true;}catch(e){return false;}}
   function applyConsent(c){
     try{if(c.marketing&&window.abPixel)abPixel();}catch(e){}
+    try{if(window.abPostHogConsent)abPostHogConsent(!!c.analytics);}catch(e){}
     try{
       if(typeof gtag==='function'){
         gtag('consent','update',{
@@ -248,68 +256,69 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 <section class="page-head container"><div class="page-head-grid">
         <div>
           <div class="eyebrow">Real estate market</div>
-          <h1>Sainte-Thérèse statistics — Q1 2026</h1>
-          <p class="lead">Sainte-Thérèse is the hottest market in the southern Laurentians in Q1 2026. Here's why.</p>
+          <h1>Sainte-Thérèse real estate statistics: Q3 2026</h1>
+          <p class="lead">The Sainte-Thérèse market in Q3 2026 (July to September), according to Centris (APCIQ) data.</p>
         </div>
-        <figure class="ph-hero"><img src="/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg" alt="Sainte-Thérèse statistics — Q1 2026" loading="eager"></figure>
+        <figure class="ph-hero"><img src="/photos/stetherese/Village-VST-d34f2a1762ebdc1f8a3c032e4f48b60e.jpg" alt="Sainte-Thérèse real estate statistics: Q3 2026" loading="eager"></figure>
       </div></section>
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose"><div class="stat-row">
-  <div class="stat-mini"><div class="n">579 000 $</div><div class="l">Median single-family price Q1 2026</div></div>
-  <div class="stat-mini"><div class="n">23 j</div><div class="l">Median time to sell (−24 days)</div></div>
-  <div class="stat-mini"><div class="n">102</div><div class="l">Total Q1 sales (+8%)</div></div>
-  <div class="stat-mini"><div class="n">+17 %</div><div class="l">Median plex price over 4 quarters</div></div>
+  <div class="stat-mini"><div class="n">710 000 $</div><div class="l">Median single-family price (+15%)</div></div>
+  <div class="stat-mini"><div class="n">28 j</div><div class="l">Average selling time, single-family (+2 days)</div></div>
+  <div class="stat-mini"><div class="n">70</div><div class="l">Sales, all categories (−9%)</div></div>
+  <div class="stat-mini"><div class="n">89</div><div class="l">Properties for sale (+28%)</div></div>
 </div>
 
-<h2>The market in Q1 2026</h2>
-<p>Sainte-Thérèse is in <strong>full boom</strong>. Timelines have halved (23 days vs 47 a year ago), condos are soaring (+9%), and plexes are becoming the star asset of the southern Laurentians (+17% over 12 months). The single-family price is stable but the activity doesn't lie: this market clearly favours sellers.</p>
+<h2>The market in Q3 2026</h2>
+<p>Single-family homes are selling for more, and more often, than a year ago: <strong>$710,000 median</strong> (+15%), 35 sales (+16%) and 28 days on the market on average. Supply is rising fast: 33 houses for sale, 83% more than in summer 2025. Across all categories, sales are down 9% (70).</p>
 
-<table>
-  <thead><tr><th>Segment</th><th>Median price Q1</th><th>YoY change</th><th>Q1 sales</th><th>Median timeline</th></tr></thead>
+<div class="table-scroll"><table>
+  <thead><tr><th>Segment</th><th>Median price</th><th>Change over one year</th><th>Sales</th><th>Average selling time</th></tr></thead>
   <tbody>
-    <tr><td>Single-family home</td><td>579 000 $</td><td>0 %</td><td>41 (+5 %)</td><td>23 j (−24 j)</td></tr>
-    <tr><td>Co-ownership</td><td>385 000 $</td><td style="color:#0f8c5b">+9 %</td><td>43 (+19 %)</td><td>25 j (−19 j)</td></tr>
-    <tr><td>Plex 2-5 units</td><td>758 312 $ <small>(4 quarters)</small></td><td style="color:#0f8c5b">+17 %</td><td>18</td><td>—</td></tr>
+    <tr><td>Single-family home</td><td>710&nbsp;000&nbsp;$</td><td style="color:#0f8c5b">+15&nbsp;%</td><td>35&nbsp;(+16&nbsp;%)</td><td>28&nbsp;j&nbsp;(+2&nbsp;j)</td></tr>
+    <tr><td>Co-ownership <small>(last 12 months)</small></td><td>366&nbsp;250&nbsp;$</td><td>0&nbsp;%</td><td>129&nbsp;(−21&nbsp;%)</td><td>33&nbsp;j&nbsp;(−5&nbsp;j)</td></tr>
+    <tr><td>Plex 2-5 units <small>(last 12 months)</small></td><td>800&nbsp;612&nbsp;$</td><td style="color:#0f8c5b">+14&nbsp;%</td><td>72&nbsp;(+30&nbsp;%)</td><td>33&nbsp;j&nbsp;(−4&nbsp;j)</td></tr>
   </tbody>
-</table>
+</table></div>
+<p class="muted" style="font-size:.85rem">Condos and plexes: 23 and 12 sales this quarter, too few for Centris to publish a quarterly median. The figures above cover the last 12 months.</p>
 
 <div class="callout success">
-  <div><strong>The collapse of timelines tells the whole story</strong><br>23 days to sell a single-family home, 25 days for a condo. A year ago: 47 and 44 days. It's the most reliable indicator of an overheating market — demand absorbs supply as soon as it appears.</div>
+  <div><strong>Plexes, the most active segment</strong><br>72 sales over 12 months (+30%) and a median price of $800,612 (+14%). It is the fastest-growing category in Sainte-Thérèse.</div>
 </div>
 
-<h2>Sainte-Thérèse vs Blainville — the contrast</h2>
+<h2>Sainte-Thérèse and Blainville, side by side</h2>
 <div class="compare">
   <div class="compare-col good">
     <h3>Sainte-Thérèse</h3>
     <ul>
-      <li>Single-family timeline: <strong>23 days</strong></li>
-      <li>Condo: <strong>+9 %</strong> and a 25-day timeline</li>
-      <li>Sales: <strong>+8 %</strong></li>
-      <li>Clearly a seller's market</li>
+      <li>Single-family home: <strong>710 000 $</strong> (+15 %)</li>
+      <li>Average selling time: <strong>28 days</strong></li>
+      <li>House sales: <strong>+16 %</strong></li>
+      <li>Houses for sale: <strong>33</strong> (+83 %)</li>
     </ul>
   </div>
-  <div class="compare-col bad">
+  <div class="compare-col good">
     <h3>Blainville</h3>
     <ul>
-      <li>Single-family timeline: <strong>32 days</strong></li>
-      <li>Single-family: <strong>−4 %</strong></li>
-      <li>Sales: <strong>−5 %</strong></li>
-      <li>A rebalancing market</li>
+      <li>Single-family home: <strong>835 000 $</strong> (+11 %)</li>
+      <li>Average selling time: <strong>34 days</strong></li>
+      <li>House sales: <strong>+8 %</strong></li>
+      <li>Houses for sale: <strong>174</strong> (+10 %)</li>
     </ul>
   </div>
 </div>
 
-<h2>What it means — by profile</h2>
+<h2>What it means for your plans</h2>
 <div class="steps">
-  <div class="step"><div><strong>If you're selling in Sainte-Thérèse:</strong> the window is exceptional. An aggressive marketing strategy with careful preparation = a sale in under 30 days, often in multiple offers.</div></div>
-  <div class="step"><div><strong>If you're buying in Sainte-Thérèse:</strong> you have to be ready to move fast. A pre-approved mortgage file, a showing within 48 h, a strategic offer with limited room to come down.</div></div>
-  <div class="step"><div><strong>If you're investing:</strong> the plex segment is outperforming Blainville. +17% over 12 months and 18 transactions in Q1 — that's real liquidity.</div></div>
+  <div class="step"><div><strong>If you're selling in Sainte-Thérèse:</strong> prices are up 15% in one year and houses sell in 28 days on average. But supply has almost doubled: the right price from the start matters more than before.</div></div>
+  <div class="step"><div><strong>If you're buying in Sainte-Thérèse:</strong> you have more choice than a year ago, but houses sell fast. Get your mortgage pre-approval before visiting.</div></div>
+  <div class="step"><div><strong>If you're investing:</strong> plexes are the most active segment, with 72 sales in 12 months (+30%) and a median of $800,612 (+14%).</div></div>
 </div>
 
 <p>For an analysis <strong>by district</strong> (Vieux-Village, Sainte-Thérèse-en-Haut, Sainte-Thérèse-en-Bas), see my full article: <a href="/en/blog/radioscopie-sainte-therese-marche-2026/">X-ray of Sainte-Thérèse</a>.</p>
 
-<p class="muted" style="font-size:.85rem;margin-top:2rem">Source: APCIQ via Centris® — official Q1 2026 statistics for Sainte-Thérèse. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">See the full Centris listing</a>.</p></article>
+<p class="muted" style="font-size:.85rem;margin-top:2rem">Source: APCIQ via Centris®, Q3 2026 statistics for Sainte-Thérèse, collected on November 3, 2026. Changes compare with Q3 2025. <a href="https://www.centris.ca/fr/outils/statistiques-immobilieres/laurentides/sainte-therese" target="_blank" rel="noopener">See the full Centris listing</a>.</p></article>
     <aside style="position:sticky;top:100px">
       <div class="blue-block soft" style="padding:1.8rem">
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Free valuation</div>
