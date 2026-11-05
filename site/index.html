@@ -375,6 +375,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
     </div>
   </div>
   <form class="contact-form" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('contact_accueil');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alain.brunelle@remax-quebec.com.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
     <input type="hidden" name="_subject" value="Message contact (accueil) — alainbrunelle.com">
     <div class="f-fields">
       <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>

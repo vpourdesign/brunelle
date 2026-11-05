@@ -264,6 +264,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
       <div class="cl-proof"><span><strong>35 years</strong> in Blainville and Sainte-Thérèse</span><span><strong>3 000+</strong> transactions on the North Shore</span><span><strong>Call back within 24 h</strong>, from Alain himself</span></div>
     </div>
     <form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-blainville');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
     <input type="hidden" name="_subject" value="Évaluation gratuite Blainville (page courtier)">
     <div class="f-fields">
       <div class="cl-eye">Free valuation · Blainville</div>

@@ -386,6 +386,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
       <p class="ev-lead">Leave your address. I call you back within 24 hours and give you a written valuation within 48 hours, based on sales near you.</p>
 
       <form class="ev-form" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" novalidate>
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
         <div class="ev-step1">
           <div class="ev-addr">
             <label for="ev-addr">Property address</label>
@@ -571,7 +572,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
     lead={Adresse:addr.value.trim(),Nom:nameI.value.trim(),'Téléphone':phone.value.trim()};
     var fd=new FormData();
     fd.append('_subject',"Demande d'évaluation : "+lead.Adresse);
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});var hp=form.querySelector('[name=_gotcha]');if(hp)fd.append('_gotcha',hp.value);
     if(window.abAttr)abAttr(fd);
     btn.disabled=true;var old=btn.textContent;btn.textContent='Envoi…';
     fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
@@ -606,7 +607,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
     if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
     var fd=new FormData();
     fd.append('_subject','Précisions pour l\'évaluation : '+(lead.Adresse||''));
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});var hp=form.querySelector('[name=_gotcha]');if(hp)fd.append('_gotcha',hp.value);
     Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
     if(email)fd.append('Email',email);
     if(window.abAttr)abAttr(fd);
