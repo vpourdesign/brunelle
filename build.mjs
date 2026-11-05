@@ -48,6 +48,9 @@ function obscuredPhone(opts = {}) {
 const META_PIXEL_ID = process.env.META_PIXEL_ID || '1004700639313320';
 
 const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/xlgyblyk';
+// Honeypot anti-spam : champ invisible que seuls les robots remplissent. Formspree jette en silence
+// toute soumission où _gotcha n'est pas vide (réponse 200, aucun courriel). Vide pour les humains : aucun effet sur les envois.
+const HONEYPOT = `<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>`;
 
 // Formulaire de contact standard (page /rendez-vous/ + accueil) : même endpoint Formspree que le reste du site.
 // formName alimente l'événement GA4 generate_lead ; subject permet de savoir d'où vient le message.
@@ -63,6 +66,7 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
     </div>
   </div>
   <form class="contact-form" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('${formName}');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou écrivez à alain.brunelle@remax-quebec.com.');}})(event);return false;">
+    ${HONEYPOT}
     <input type="hidden" name="_subject" value="${subject}">
     <div class="f-fields">
       <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>
@@ -86,6 +90,7 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
 // Même endpoint et même mesure que les autres formulaires (abAttr = source du lead, abLead = conversion Ads).
 function cityLeadForm({ cityName, formName, id = 'evaluation', heading = true }) {
   return `<form class="contact-form city-lead" id="${id}" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('${formName}');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    ${HONEYPOT}
     <input type="hidden" name="_subject" value="Évaluation gratuite ${cityName} (page courtier)">
     <div class="f-fields">
       ${heading ? `<div class="cl-eye">Évaluation gratuite · ${cityName}</div>
@@ -2647,6 +2652,7 @@ function detailPage(p) {
         <h2 id="pi-title">Cette propriété vous intéresse?</h2>
         <p class="pi-sub">Alain vous répond personnellement en moins de 24 h ouvrables.</p>
         <form class="pi-form" id="pi-form" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+    ${HONEYPOT}
           <input type="hidden" name="_subject" value="Demande de propriété — alainbrunelle.com">
           <input type="hidden" name="subject" data-slot="subject" value="Nouveau lead">
           <input type="hidden" name="property_address" data-slot="hAddress" value="">
@@ -3722,6 +3728,7 @@ const EVAL_CSS = `
 
 // addrPlaceholder : exemple d'adresse dans le premier champ.
 const evalForm = ({ addrPlaceholder = 'ex. 245 rue de Chambéry' } = {}) => `<form class="ev-form" id="evaluation" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+    ${HONEYPOT}
         <div class="ev-step1">
           <div class="ev-addr">
             <label for="ev-addr">Adresse de la propriété</label>
@@ -3784,7 +3791,7 @@ const evalScript = ({ formName = 'evaluation', place = '' } = {}) => `<script>
     lead={Adresse:addr.value.trim(),Nom:nameI.value.trim(),'Téléphone':phone.value.trim()};
     var fd=new FormData();
     fd.append('_subject',"Demande d'évaluation${place} : "+lead.Adresse);
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});var hp=form.querySelector('[name=_gotcha]');if(hp)fd.append('_gotcha',hp.value);
     if(window.abAttr)abAttr(fd);
     btn.disabled=true;var old=btn.textContent;btn.textContent='Envoi…';
     fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:fd}).then(function(r){
@@ -3819,7 +3826,7 @@ const evalScript = ({ formName = 'evaluation', place = '' } = {}) => `<script>
     if(!Object.keys(picks).length&&!email){closeMore("Parfait. On en parle au téléphone.");return;}
     var fd=new FormData();
     fd.append('_subject','Précisions pour l\\'évaluation${place} : '+(lead.Adresse||''));
-    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});
+    Object.keys(lead).forEach(function(k){fd.append(k,lead[k]);});var hp=form.querySelector('[name=_gotcha]');if(hp)fd.append('_gotcha',hp.value);
     Object.keys(picks).forEach(function(k){fd.append(k,picks[k]);});
     if(email)fd.append('Courriel',email);
     if(window.abAttr)abAttr(fd);
@@ -6198,6 +6205,7 @@ writePage('rendez-vous/index.html', layout({
     </div>
 
     <form class="contact-form rv-form" id="ecrire" action="${FORMSPREE_ENDPOINT}" method="POST" novalidate>
+    ${HONEYPOT}
       <input type="hidden" name="_subject" value="Message contact — alainbrunelle.com">
       <div class="f-fields">
         <div>
