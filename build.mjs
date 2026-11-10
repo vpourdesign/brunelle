@@ -88,17 +88,17 @@ function contactFormBlock({ formName = 'contact', subject = 'Message contact —
 }
 // Formulaire court d'évaluation (3 champs) pour les pages ville qui reçoivent du trafic Google Ads.
 // Même endpoint et même mesure que les autres formulaires (abAttr = source du lead, abLead = conversion Ads).
-function cityLeadForm({ cityName, formName, id = 'evaluation', heading = true }) {
+function cityLeadForm({ cityName = '', formName, id = 'evaluation', heading = true, addrExample = 'ex. rue de Chambéry, Blainville', subject }) {
   return `<form class="contact-form city-lead" id="${id}" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('${formName}');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
     ${HONEYPOT}
-    <input type="hidden" name="_subject" value="Évaluation gratuite ${cityName} (page courtier)">
+    <input type="hidden" name="_subject" value="${subject || `Évaluation gratuite ${cityName} (page courtier)`}">
     <div class="f-fields">
-      ${heading ? `<div class="cl-eye">Évaluation gratuite · ${cityName}</div>
-      <h2 class="cl-title">Combien vaut votre maison à ${cityName}&nbsp;?</h2>
+      ${heading ? `<div class="cl-eye">${cityName ? `Évaluation gratuite · ${cityName}` : 'Évaluation gratuite'}</div>
+      <h2 class="cl-title">${cityName ? `Combien vaut votre maison à ${cityName}&nbsp;?` : 'Combien vaut votre maison&nbsp;?'}</h2>
       <p class="cl-sub">Mon analyse écrite en 48 h, à partir des ventes près de chez vous. Sans engagement.</p>` : ''}
       <label>Nom<input type="text" name="name" autocomplete="name" required></label>
       <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
-      <label>Adresse de la propriété<input type="text" name="adresse" autocomplete="street-address" placeholder="ex. rue de Chambéry, Blainville" required></label>
+      <label>Adresse de la propriété<input type="text" name="adresse" autocomplete="street-address" placeholder="${addrExample}" required></label>
       <button type="submit" class="f-submit">Recevoir mon évaluation gratuite →</button>
       <p class="f-note">Je vous rappelle moi-même dans les 24 h. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
     </div>
@@ -686,6 +686,13 @@ const NAV = [
 ];
 
 function layout({ title, description, canonical, body, extraHead='', bodyClass='', jsonld='' }) {
+  // Barre d'appel mobile sur toutes les pages. Les pages qui ont leur propre barre la gardent;
+  // si la page contient un formulaire #evaluation, le bouton y mène, sinon il mène à la page d'évaluation.
+  if (!/class="call-bar"/.test(body)) {
+    body += `
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="${/id="evaluation"/.test(body) ? '#evaluation' : '/vendre/evaluation-gratuite/'}">Évaluation gratuite</a></nav>`;
+  }
+  if (!/\bhas-call-bar\b/.test(bodyClass)) bodyClass = `${bodyClass} has-call-bar`.trim();
   return `<!DOCTYPE html>
 <html lang="fr-CA">
 <head>
@@ -1577,6 +1584,9 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .city-lead-grid{display:grid;grid-template-columns:1fr minmax(320px,.78fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
 .city-lead{scroll-margin-top:110px;background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
 .city-lead .f-fields{display:grid;gap:.9rem}
+.prose-lead{margin:2rem 0 2.4rem;color:var(--ink)}
+.prose .prose-lead .cl-title{margin-top:0}
+.prose .prose-lead p{margin:0}
 .city-lead .f-submit{justify-self:stretch;text-align:center}
 .cl-eye{color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem}
 .cl-title{font-size:clamp(1.35rem,2.2vw,1.7rem);line-height:1.15;margin:0}
@@ -2843,7 +2853,13 @@ if (fs.existsSync(propertiesDir)) {
 for (const p of allProperties) writePage(`nos-proprietes/${p.slug}/index.html`, detailPage(p));
 
 // --- GENERIC CONTENT PAGE BUILDER ---
-function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg, sideBlock, ctaTitle }) {
+function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg, sideBlock, ctaTitle, leadForm }) {
+  // leadForm : formulaire d'évaluation 3 champs placé juste après le premier paragraphe de l'article.
+  if (leadForm) {
+    const i = body.indexOf('</p>');
+    const form = `\n<div class="prose-lead">${cityLeadForm(leadForm)}</div>\n`;
+    body = i === -1 ? form + body : body.slice(0, i + 4) + form + body.slice(i + 4);
+  }
   const headInner = heroImg
     ? `<div class="page-head-grid">
         <div>
@@ -2860,7 +2876,7 @@ function contentPage({ eyebrow, h1, lead, body, title, desc, canonical, heroImg,
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Évaluation gratuite</div>
         <h3 style="margin:.7rem 0 1rem;font-size:1.05rem;font-weight:500">Connaître la valeur de votre propriété ?</h3>
         <p style="color:var(--ink-2);font-size:.92rem;margin-bottom:1.4rem;line-height:1.55">Rapport comparatif complet en 48 h, fondé sur les ventes récentes du même quartier.</p>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Demander l'évaluation</a>
+        <a class="btn" href="${leadForm ? '#evaluation' : '/vendre/evaluation-gratuite/'}" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Demander l'évaluation</a>
       </div>
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
@@ -2971,6 +2987,11 @@ for (const [slugC, cityName, neighs] of CITIES) {
       title: `Courtier immobilier Sainte-Thérèse, RE/MAX CRYSTAL | Alain Brunelle`,
       description: `Bureau au 228, boul. du Curé-Labelle. Maisons vendues à 710 000 $ (médiane) cet été à Sainte-Thérèse : voyez mes ventes et demandez l'évaluation de la vôtre.`,
       h1: `Courtier immobilier à Sainte-Thérèse : Alain Brunelle, RE/MAX CRYSTAL.`,
+      // 2026-11-10 : même gabarit que Blainville (formulaire 3 champs au premier écran, appel, barre mobile).
+      leadForm: 'evaluation-sainte-therese',
+      addrExample: 'ex. rue Blainville Est, Sainte-Thérèse',
+      heroPhoto: ['/photos/stetherese/Horloge_entete-bf8e7db1792a5a844cfb09ac8d031852.jpg', "Horloge Sainte-Thérèse et clocher de l'église, centre-ville"],
+      proof: [`<strong>Bureau à Sainte-Thérèse</strong>, 228, boul. du Curé-Labelle`, `<strong>3 000+</strong> transactions sur la Rive-Nord`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
       lead: `Mon bureau est au 228, boulevard du Curé-Labelle, en plein Sainte-Thérèse. Pour fixer le prix de votre maison, je pars des ventes faites près de chez vous dans les derniers mois.`,
       statsTitle: `Ce qui s'est vendu à Sainte-Thérèse cet été.`,
       headings: {
@@ -2978,7 +2999,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
         types: `Maisons et condos : ce qui se vend`,
         faq: `Questions fréquentes sur l'immobilier à Sainte-Thérèse`,
         cta: `Vous vendez ou achetez à Sainte-Thérèse ? Parlons-en.`,
-        ctaBtn: `Écrivez-moi`
+        ctaBtn: `Demander l'évaluation`
       },
       market: `<p>Entre juillet et septembre 2026, 35 maisons unifamiliales ont été vendues à Sainte-Thérèse, au prix médian de 710 000 $. C'est 15 % de plus qu'à la même période l'an dernier. Sur les douze derniers mois, le prix médian est de 615 400 $ : le 3e trimestre a donc été nettement plus fort que le reste de l'année.</p>
 <p>L'offre a aussi changé. Il y avait 33 maisons à vendre au 3e trimestre, contre environ 18 un an plus tôt. Les acheteurs ont plus de choix, et une maison affichée trop cher reste plus longtemps en vente. Pour l'instant, les maisons se vendent en 28 jours en moyenne.</p>
@@ -3050,6 +3071,12 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>Remplissez le formulaire en haut de la page (nom, téléphone, adresse) ou appelez-moi au 514 972-4207. Je vous rappelle dans les 24 h et je vous remets une évaluation écrite en 48 h, sans engagement.</p>`
     },
     'rosemere': {
+      // 2026-11-10 : formulaire 3 champs au premier écran, appel, barre mobile.
+      leadForm: 'evaluation-rosemere',
+      addrExample: 'ex. chemin de la Grande-Côte, Rosemère',
+      heroPhoto: ['/photos/rosemere/rosemere1.jpg', 'Rosemère'],
+      proof: [`<strong>35 ans</strong> sur la Rive-Nord`, `<strong>3 000+</strong> transactions`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
+      headings: { cta: `Vous vendez à Rosemère ? Commencez par l'évaluation gratuite.` },
       lead: `Rosemère est l'un des marchés les plus haut de gamme de la Rive-Nord : Grande-Côte, Bois-Franc, Domaine-du-Parc. Demande constante, inventaire serré, exigences acheteurs élevées. 35 ans à lire ce marché spécifique.`,
       market: `<p>Rosemère se distingue du reste de la Rive-Nord par son <strong>profil acheteur exigeant</strong> : familles établies, professionnels, retraités haut de gamme. La rareté foncière sur la Grande-Côte et dans Bois-Franc maintient le prix médian d'une maison près de 880 000 $ sur les 12 derniers mois (Centris), avec des pointes au-delà de 1,5 M$ pour les propriétés riveraines de la rivière des Mille-Îles.</p>
 <p>Comme <strong>courtier immobilier à Rosemère</strong> depuis 35 ans, je connais les particularités de ce marché : ce qui se vend rapidement (terrains de 15 000 PC+, propriétés rénovées clé en main, condos haut de gamme), et ce qui demande plus de patience (propriétés à rafraîchir, prix au-dessus de 1,3 M$).</p>`,
@@ -3064,6 +3091,12 @@ for (const [slugC, cityName, neighs] of CITIES) {
 <p>Délai médian sur mes inscriptions : 32 jours. Pour les propriétés au-dessus de 1,2 M$, prévoir 60-90 jours — le segment haut de gamme demande plus de patience et un acheteur très ciblé.</p>`
     },
     'lorraine': {
+      // 2026-11-10 : formulaire 3 champs au premier écran, appel, barre mobile.
+      leadForm: 'evaluation-lorraine',
+      addrExample: 'ex. boulevard De Gaulle, Lorraine',
+      heroPhoto: ['/photos/lorraine/lorraine1.jpg', 'Lorraine'],
+      proof: [`<strong>35 ans</strong> sur la Rive-Nord`, `<strong>3 000+</strong> transactions`, `<strong>Rappel en 24 h</strong>, par Alain lui-même`],
+      headings: { cta: `Vous vendez à Lorraine ? Commencez par l'évaluation gratuite.` },
       lead: `Lorraine est unique sur la Rive-Nord : urbanisme à thème médiéval, ville-jardin, rues nommées d'après des cités françaises. Marché niché, acheteurs spécifiques. 35 ans à comprendre ce qui s'y vend.`,
       market: `<p>Lorraine attire les acheteurs qui cherchent un cadre de vie distinct du quadrillage classique de banlieue : rues sinueuses, arbres matures, architecture cohérente. Le marché y est plus tranquille mais plus stable que dans les villes voisines — moins de pression vendeur, plus de fidélité acheteur.</p>
 <p>Comme <strong>courtier immobilier à Lorraine</strong>, ma méthode tient compte de la spécificité du territoire : un cottage des années 1980 dans Lorraine se compare à un autre cottage des années 1980 dans Lorraine, pas à une construction récente de Blainville. C'est cette précision qui évite les positionnements de prix erratiques.</p>`,
@@ -3113,7 +3146,7 @@ for (const [slugC, cityName, neighs] of CITIES) {
   const cityHero = CITY_HERO[slugC];
   const cityHead = `
       <div class="eyebrow">Courtier immobilier · ${cityName}</div>
-      <h1>${cp.h1 || `Courtier immobilier à ${cityName} — Alain Brunelle, RE/MAX CRYSTAL.`}</h1>
+      <h1>${cp.h1 || `Courtier immobilier à ${cityName} : Alain Brunelle, RE/MAX CRYSTAL.`}</h1>
       <p class="lead">${cp.lead}</p>`;
   const callBtn = (cls = '') => obscuredPhone({ cls: `call-btn ${cls}`, prefix: 'Appeler Alain : ', label: '514 972-4207' });
   const body = `
@@ -3124,7 +3157,7 @@ ${cp.leadForm ? `<section class="city-hero">${cp.heroPhoto ? `
       ${callBtn()}
       ${cp.proof ? `<div class="cl-proof">${cp.proof.map(x => `<span>${x}</span>`).join('')}</div>` : ''}
     </div>
-    ${cityLeadForm({ cityName, formName: cp.leadForm })}
+    ${cityLeadForm({ cityName, formName: cp.leadForm, addrExample: cp.addrExample })}
   </div>
 </section>${cp.portrait ? `
 <section class="alain-band">
@@ -3167,7 +3200,7 @@ ${cityBlock}
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2>${cp.leadForm ? `<div class="cta-actions"><a class="btn" href="${cp.headings?.ctaHref || '/rendez-vous/'}">${cp.headings?.ctaBtn}</a>${callBtn()}</div>` : `<a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a>`}</div></section>${cp.leadForm ? `
+<section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2>${cp.leadForm ? `<div class="cta-actions"><a class="btn" href="${cp.headings?.ctaHref || '#evaluation'}">${cp.headings?.ctaBtn || "Demander l'évaluation"}</a>${callBtn()}</div>` : `<a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a>`}</div></section>${cp.leadForm ? `
 <nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>` : ''}`;
 
   const cityUrl = `https://alainbrunelle.com/courtier-immobilier/${slugC}/`;
@@ -4109,6 +4142,11 @@ ${evalScript({ formName: 'evaluation-blainville', place: ' Blainville' })}
 }));
 
 // --- VENDRE / ACHETER / INVESTISSEUR ---
+// Pages de contenu qui affichent le formulaire d'évaluation 3 champs en haut d'article (clé = chemin de la page).
+const CONTENT_LEAD_FORMS = {
+  'vendre/etapes-pour-vendre': { formName: 'evaluation-etapes', addrExample: 'ex. 245 rue de Chambéry, Blainville', subject: 'Évaluation gratuite (page Les 7 étapes pour vendre)' },
+  'blog/combien-vaut-ma-maison-blainville': { cityName: 'Blainville', formName: 'evaluation-article-blainville', subject: 'Évaluation gratuite Blainville (article Combien vaut ma maison)' }
+};
 const SUBPAGES = [
   ['vendre/etapes-pour-vendre','Les 7 étapes pour vendre sa maison','Processus vendeur','De la mise en marché à l\'acte notarié — chaque étape démystifiée par 35 ans d\'expérience.','Les 7 étapes pour vendre sa maison au Québec | Alain Brunelle','Vendre sa maison au Québec en 7 étapes claires : évaluation, préparation, mise en marché, visites, offres, notaire. Conseils du meilleur courtier de la Rive-Nord.',`<p>Vendre une propriété, ce n'est pas mystérieux — c'est un processus en sept étapes parfaitement balisées. La différence entre un courtier ordinaire et un courtier qui livre, c'est la <strong>rigueur d'exécution</strong> à chaque étape.</p>
 
@@ -4521,6 +4559,7 @@ for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
     eyebrow: eye, h1, lead, title, desc,
     canonical: `https://alainbrunelle.com/${p}/`,
     heroImg: SUBPAGE_HERO[p],
+    leadForm: CONTENT_LEAD_FORMS[p],
     body
   }));
 }
@@ -5727,6 +5766,7 @@ for (const [s,t] of BLOG_POSTS) {
     desc:c.lead || t,
     canonical:`https://alainbrunelle.com/blog/${s}/`,
     heroImg: meta.img,
+    leadForm: CONTENT_LEAD_FORMS[`blog/${s}`],
     body: c.body
   }));
 }
