@@ -1585,6 +1585,14 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .city-lead{scroll-margin-top:110px;background:#fff;border:1px solid #d5ddea;border-radius:var(--radius-lg);padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 1px 2px rgba(11,22,40,.05),0 18px 40px -22px rgba(11,22,40,.28)}
 .city-lead .f-fields{display:grid;gap:.9rem}
 .prose-lead{margin:2rem 0 2.4rem;color:var(--ink)}
+.prop-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.4rem}
+.prop-actions .call-btn{margin-top:0}
+.prop-lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.2rem,3vw,2.5rem);align-items:start}
+.prop-lead-grid.solo{grid-template-columns:minmax(0,640px)}
+.prop-seller{padding:clamp(1.4rem,3vw,2.2rem);display:grid;gap:.9rem;justify-items:start}
+.prop-seller p{margin:0;color:var(--ink-2);line-height:1.6}
+.prop-seller .call-btn{margin-top:.4rem}
+@media(max-width:860px){.prop-lead-grid{grid-template-columns:1fr}}
 .prose .prose-lead .cl-title{margin-top:0}
 .prose .prose-lead p{margin:0}
 .city-lead .f-submit{justify-self:stretch;text-align:center}
@@ -2116,7 +2124,7 @@ const homeBody = `
       <h1 id="hx-title"><span class="hx-name">Alain Brunelle,</span><span class="hx-role">courtier immobilier</span></h1>
       <h2 class="hx-sub">35 ans d'expérience à votre service à Blainville et à <span class="nw">Sainte-Thérèse</span>.</h2>
       <div class="hx-actions">
-        <a class="hx-btn hx-write" href="/rendez-vous/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Écrivez-moi</a>
+        <a class="hx-btn hx-write" href="/vendre/evaluation-gratuite/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Évaluation gratuite</a>
         ${obscuredPhone({ cls: 'hx-btn hx-call', prefix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.2-2.1 1.4a11 11 0 0 0 6.9 6.9l1.4-2.1L21 15l-.5 2.4A2.5 2.5 0 0 1 18 19.5 15.5 15.5 0 0 1 4.5 6a2.5 2.5 0 0 1 2.1-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span class="hx-call-k">Appelez-moi</span>', label: '514 972-4207' })}
       </div>
       <p class="hx-reassure">C'est moi qui réponds, et je vous rappelle en moins de 24 h. Sans pression, sans engagement.</p>
@@ -2486,6 +2494,35 @@ function similarProperties(p){ return properties.filter(x=>x.mls!==p.mls && x.ci
 
 // Fiches reliées à leur page ville (Sainte-Thérèse seulement pour l'instant)
 const CITY_PAGE_LINK = { 'Sainte-Thérèse': '/courtier-immobilier/sainte-therese/' };
+// Où mène « Demander l'évaluation » depuis une fiche, selon la ville de la propriété.
+const CITY_EVAL_LINK = {
+  'Blainville': '/vendre/evaluation-gratuite/blainville/',
+  'Sainte-Thérèse': '/courtier-immobilier/sainte-therese/#evaluation',
+  'Rosemère': '/courtier-immobilier/rosemere/#evaluation',
+  'Lorraine': '/courtier-immobilier/lorraine/#evaluation'
+};
+// Demande de visite (2 champs) sur les fiches actives. Même envoi et même mesure que les autres formulaires.
+function visitForm(p) {
+  return `<form class="contact-form city-lead" id="visite" action="${FORMSPREE_ENDPOINT}" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('visite-propriete');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    ${HONEYPOT}
+    <input type="hidden" name="_subject" value="Demande de visite : ${p.street}, ${p.city} (MLS ${p.mls})">
+    <input type="hidden" name="propriete" value="${p.street}, ${p.city} (MLS ${p.mls})">
+    <div class="f-fields">
+      <div class="cl-eye">MLS ${p.mls}</div>
+      <h2 class="cl-title">Visiter cette propriété</h2>
+      <p class="cl-sub">Laissez votre nom et votre numéro. Je vous rappelle pour fixer un moment.</p>
+      <label>Nom<input type="text" name="name" autocomplete="name" required></label>
+      <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <button type="submit" class="f-submit">Demander une visite →</button>
+      <p class="f-note">Je vous rappelle moi-même dans les 24 h. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Demande reçue.</h3>
+      <p>Merci. Je vous rappelle personnellement dans les 24 h pour fixer la visite.</p>
+    </div>
+  </form>`;
+}
 function remaxIframeDetailPage(p) {
   const shareUrl = `https://alainbrunelle.com/nos-proprietes/${p.slug}/`;
   const iframeUrl = buildRemaxIframeUrl(p, shareUrl);
@@ -2499,7 +2536,8 @@ function remaxIframeDetailPage(p) {
 <section class="page-head container" style="border-bottom:0;padding-block-end:1rem">
   <div class="eyebrow">MLS ${p.mls} · Fiche RE/MAX officielle</div>
   <h1>${p.typeLabel} à vendre — ${p.street}, ${p.city}</h1>
-  <p class="lead">Fiche complète, photos et coordonnées du courtier. Vous pouvez aussi <a href="/rendez-vous/" style="border-bottom:1px solid currentColor">prendre rendez-vous avec moi</a> pour discuter de cette propriété.</p>
+  <p class="lead">Fiche complète, photos et coordonnées du courtier.${p.sold ? '' : ' Pour la voir, écrivez-moi ou appelez-moi : je vous rappelle moi-même.'}</p>
+  <div class="prop-actions">${p.sold ? '' : `<a class="call-btn solid" href="#visite">Demander une visite</a>`}${obscuredPhone({ cls: 'call-btn', prefix: 'Appeler Alain : ', label: '514 972-4207' })}</div>
   ${CITY_PAGE_LINK[p.city] ? `<div class="city-link-box" style="margin-top:1.5rem"><p>Vous regardez à ${p.city} ? Voyez le marché de la ville, ses secteurs et mes ventes récentes.</p><a href="${CITY_PAGE_LINK[p.city]}">Immobilier à ${p.city} →</a></div>` : ''}
 </section>
 <section class="container" style="padding-top:0;padding-block-start:0">
@@ -2507,6 +2545,18 @@ function remaxIframeDetailPage(p) {
     <iframe id="remaxFrame" class="remax-frame" scrolling="no" src="${iframeUrl}" width="100%" height="3000" style="border:0;width:100%;display:block" title="Fiche détaillée RE/MAX — ${p.street}, ${p.city}"></iframe>
   </div>
 </section>
+<section class="container">
+  <div class="prop-lead-grid${p.sold ? ' solo' : ''}">
+    ${p.sold ? '' : visitForm(p)}
+    <div class="blue-block soft prop-seller">
+      <div class="cl-eye">Évaluation gratuite</div>
+      <h2 class="cl-title">Vous avez une maison dans ce secteur&nbsp;?</h2>
+      <p>Je vous remets une évaluation écrite en 48 h, à partir des ventes faites près de chez vous. Sans engagement.</p>
+      <a class="call-btn solid" href="${CITY_EVAL_LINK[p.city] || '/vendre/evaluation-gratuite/'}">Demander l'évaluation</a>
+    </div>
+  </div>
+</section>${p.sold ? '' : `
+<nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#visite">Demander une visite</a></nav>`}
 <script>
 (function(){
   function receiveMessage(msg){
