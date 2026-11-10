@@ -742,7 +742,6 @@ ${jsonld ? `<script type="application/ld+json">${jsonld}</script>` : ''}
   <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
     <div class="cb-banner-inner">
       <div class="cb-text">
-        <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
           <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
           <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
@@ -1176,7 +1175,19 @@ section{padding-block:clamp(2.25rem,6vw,6rem)}
 .cb-btn-primary:hover{background:var(--blue-2);transform:translateY(-1px);box-shadow:0 8px 20px -4px rgba(0,61,165,.4)}
 .cb-btn:focus-visible{outline:0;box-shadow:0 0 0 4px var(--blue-soft)}
 @media(max-width:760px){.cb-banner-inner{flex-direction:column;align-items:stretch;gap:1.1rem}.cb-actions{justify-content:stretch}.cb-actions .cb-btn{flex:1}}
-@media(max-width:480px){.cb-actions{flex-direction:column-reverse}.cb-actions .cb-btn{width:100%}}
+/* Mobile : bandeau compact pour ne pas cacher le formulaire ni son bouton d'envoi. Refuser et accepter côte à côte, même taille. */
+@media(max-width:480px){
+  .cb-banner{left:.5rem;right:.5rem;bottom:.5rem;padding:.75rem .85rem .45rem;border-radius:16px}
+  .cb-banner-inner{gap:.6rem}
+  .cb-text{min-width:0}
+  .cb-text h2{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .cb-text p{font-size:.78rem;line-height:1.4}
+  .cb-actions{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+  .cb-actions .cb-btn{width:100%;padding:.6rem .5rem;font-size:.86rem}
+  .cb-actions [data-cb="refuse"]{order:1;color:var(--ink);border-color:var(--ink-2)}
+  .cb-actions [data-cb="accept"]{order:2}
+  .cb-actions [data-cb="customize"]{order:3;grid-column:1/-1;border-color:transparent;padding:.25rem;font-size:.78rem;text-decoration:underline;text-underline-offset:2px}
+}
 
 /* Modal préférences */
 .cb-modal{position:fixed;inset:0;z-index:9991;display:grid;place-items:center;padding:1rem;pointer-events:auto}
