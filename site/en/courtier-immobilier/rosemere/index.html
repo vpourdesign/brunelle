@@ -37,18 +37,17 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
+<link rel="stylesheet" href="/assets/site.css?v=651d220913">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/#courtier","name":"Alain Brunelle","url":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":{"@id":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/#ville"},"parentOrganization":{"@type":"RealEstateAgent","name":"RE/MAX CRYSTAL"}},{"@type":"Place","@id":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/#ville","name":"Rosemère","address":{"@type":"PostalAddress","addressLocality":"Rosemère","addressRegion":"QC","addressCountry":"CA"}},{"@type":"FAQPage","@id":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/#faq","url":"https://alainbrunelle.com/en/courtier-immobilier/rosemere/","inLanguage":"en-CA","mainEntity":[{"@type":"Question","name":"What is the average home price in Rosemère in 2026?","acceptedAnswer":{"@type":"Answer","text":"Median single-family price over the last 12 months: 877 722 $, 10% higher than a year earlier, according to Centris. Typical range: $700,000 (standard cottage) to $1.5M+ (waterfront, high-end Bois-Franc)."}},{"@type":"Question","name":"How long does selling a property in Rosemère take?","acceptedAnswer":{"@type":"Answer","text":"Median timeline on my listings: 32 days. For properties above $1.2M, plan for 60-90 days — the high-end segment requires more patience and a very targeted buyer."}}]}]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/courtier-immobilier/rosemere/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/courtier-immobilier/rosemere/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/courtier-immobilier/rosemere/">
 </head>
-<body class="">
+<body class="has-call-bar">
 <!-- Bandeau cookies — conformité Loi 25 (Québec) -->
 <div id="cb-root" hidden>
   <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
     <div class="cb-banner-inner">
       <div class="cb-text">
-        <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
           <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
           <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
@@ -253,10 +252,36 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 </div>
 <main>
 
-<section class="page-head container">
+<section class="city-hero">
+  <figure class="ch-bg"><img src="/photos/rosemere/rosemere1.jpg" alt="Rosemère" fetchpriority="high"></figure>
+  <div class="container city-lead-grid">
+    <div>
       <div class="eyebrow">Real estate broker · Rosemère</div>
-      <h1>Real estate broker in Rosemère — Alain Brunelle, RE/MAX CRYSTAL.</h1>
+      <h1>Real estate broker in Rosemère: Alain Brunelle, RE/MAX CRYSTAL.</h1>
       <p class="lead">Rosemère is one of the most upscale markets on the North Shore: Grande-Côte, Bois-Franc, Domaine-du-Parc. Constant demand, tight inventory, high buyer expectations. 35 years reading this specific market.</p>
+      <a class="ph-obs call-btn " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">Call Alain: <span class="ph-obs-txt">514 972-4207</span></a>
+      <div class="cl-proof"><span><strong>35 years</strong> on the North Shore</span><span><strong>3 000+</strong> transactions</span><span><strong>Call back within 24 h</strong>, from Alain himself</span></div>
+    </div>
+    <form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-rosemere');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
+    <input type="hidden" name="_subject" value="Évaluation gratuite Rosemère (page courtier)">
+    <div class="f-fields">
+      <div class="cl-eye">Free valuation · Rosemère</div>
+      <h2 class="cl-title">How much is your house in Rosemère worth?</h2>
+      <p class="cl-sub">My written analysis within 48 hours, based on sales near you. No obligation.</p>
+      <label>Name<input type="text" name="name" autocomplete="name" required></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Property address<input type="text" name="adresse" autocomplete="street-address" placeholder="e.g. chemin de la Grande-Côte, Rosemère" required></label>
+      <button type="submit" class="f-submit">Get my free valuation →</button>
+      <p class="f-note">I call you back myself within 24 hours. Your information is used only to reply to you. <a href="/en/politique-confidentialite/">Privacy policy</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Request received.</h3>
+      <p>Thank you. I will call you back personally within 24 hours to go over your property.</p>
+    </div>
+  </form>
+  </div>
 </section>
 
     <section class="container">
@@ -305,12 +330,14 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
         <div class="eye" style="color:var(--blue-2)">Rosemère evaluation</div>
         <h3 style="margin:.7rem 0 1rem">What is your property worth in Rosemère?</h3>
-        <a class="btn" href="/en/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Request the evaluation</a>
+        <a class="btn" href="#evaluation" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Request the evaluation</a>
+        <a class="ph-obs call-btn solid" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow" style="display:flex;justify-content:center;margin-top:.8rem">Call: <span class="ph-obs-txt">514 972-4207</span></a>
       </div>
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>Selling or buying in Rosemère — let's talk.</h2><a class="btn" href="/en/rendez-vous/">Prendre rendez-vous avec moi</a></div></section>
+<section class="container"><div class="cta-band"><h2>Selling in Rosemère? Start with the free valuation.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Request the evaluation</a><a class="ph-obs call-btn " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">Call Alain: <span class="ph-obs-txt">514 972-4207</span></a></div></div></section>
+<nav class="call-bar" aria-label="Reach Alain"><a class="ph-obs cb-call" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="QXBwZWxlciBBbGFpbg==" href="#" rel="nofollow"><span class="ph-obs-txt">Call Alain</span></a><a class="cb-eval" href="#evaluation">Free valuation</a></nav>
 </main>
 <footer class="footer">
   <div class="container">

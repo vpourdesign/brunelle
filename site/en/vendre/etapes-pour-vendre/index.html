@@ -37,18 +37,17 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
+<link rel="stylesheet" href="/assets/site.css?v=651d220913">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/vendre/etapes-pour-vendre/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/vendre/etapes-pour-vendre/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/vendre/etapes-pour-vendre/">
 </head>
-<body class="">
+<body class="has-call-bar">
 <!-- Bandeau cookies — conformité Loi 25 (Québec) -->
 <div id="cb-root" hidden>
   <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
     <div class="cb-banner-inner">
       <div class="cb-text">
-        <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
           <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
           <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/en/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
@@ -264,6 +263,26 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose"><p>Selling a property isn't mysterious — it's a process of seven perfectly mapped-out steps. The difference between an ordinary broker and a broker who delivers is the <strong>rigour of execution</strong> at every step.</p>
+<div class="prose-lead"><form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-etapes');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
+    <input type="hidden" name="_subject" value="Évaluation gratuite (page Les 7 étapes pour vendre)">
+    <div class="f-fields">
+      <div class="cl-eye">Free valuation</div>
+      <h2 class="cl-title">How much is your house worth?</h2>
+      <p class="cl-sub">My written analysis within 48 hours, based on sales near you. No obligation.</p>
+      <label>Name<input type="text" name="name" autocomplete="name" required></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Property address<input type="text" name="adresse" autocomplete="street-address" placeholder="e.g. 245 rue de Chambéry, Blainville" required></label>
+      <button type="submit" class="f-submit">Get my free valuation →</button>
+      <p class="f-note">I call you back myself within 24 hours. Your information is used only to reply to you. <a href="/en/politique-confidentialite/">Privacy policy</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Request received.</h3>
+      <p>Thank you. I will call you back personally within 24 hours to go over your property.</p>
+    </div>
+  </form></div>
+
 
 <div class="stat-row">
 <div class="stat-mini"><div class="n">28 j</div><div class="l">median timeline — my 2024-2025 listings</div></div>
@@ -341,7 +360,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Free valuation</div>
         <h3 style="margin:.7rem 0 1rem;font-size:1.05rem;font-weight:500">Want to know your property's value?</h3>
         <p style="color:var(--ink-2);font-size:.92rem;margin-bottom:1.4rem;line-height:1.55">Full comparative report within 48 h, based on recent sales in the same neighbourhood.</p>
-        <a class="btn" href="/en/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Request the evaluation</a>
+        <a class="btn" href="#evaluation" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Request the evaluation</a>
       </div>
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Let's talk about it</div>
@@ -356,6 +375,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
     <a class="btn" href="/en/rendez-vous/">Book an appointment</a>
   </div>
 </section>
+<nav class="call-bar" aria-label="Reach Alain"><a class="ph-obs cb-call" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="QXBwZWxlciBBbGFpbg==" href="#" rel="nofollow"><span class="ph-obs-txt">Call Alain</span></a><a class="cb-eval" href="#evaluation">Free valuation</a></nav>
 </main>
 <footer class="footer">
   <div class="container">

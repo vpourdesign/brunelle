@@ -37,18 +37,17 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
+<link rel="stylesheet" href="/assets/site.css?v=651d220913">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RealEstateAgent","@id":"https://alainbrunelle.com/courtier-immobilier/lorraine/#courtier","name":"Alain Brunelle","url":"https://alainbrunelle.com/courtier-immobilier/lorraine/","image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg","telephone":"+1-450-430-4207","priceRange":"$$","address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},"areaServed":{"@id":"https://alainbrunelle.com/courtier-immobilier/lorraine/#ville"},"parentOrganization":{"@type":"RealEstateAgent","name":"RE/MAX CRYSTAL"}},{"@type":"Place","@id":"https://alainbrunelle.com/courtier-immobilier/lorraine/#ville","name":"Lorraine","address":{"@type":"PostalAddress","addressLocality":"Lorraine","addressRegion":"QC","addressCountry":"CA"}},{"@type":"FAQPage","@id":"https://alainbrunelle.com/courtier-immobilier/lorraine/#faq","url":"https://alainbrunelle.com/courtier-immobilier/lorraine/","inLanguage":"fr-CA","mainEntity":[{"@type":"Question","name":"Quel est le prix moyen d'une maison à Lorraine en 2026 ?","acceptedAnswer":{"@type":"Answer","text":"Prix médian unifamilial sur les 12 derniers mois : 773 937 $, stable par rapport à l'année précédente, selon Centris. Lorraine est un marché niché, avec une centaine de ventes de maisons par année."}},{"@type":"Question","name":"Combien de temps prend la vente d'une propriété à Lorraine ?","acceptedAnswer":{"@type":"Answer","text":"Délai moyen sur les 12 derniers mois : 43 jours, selon Centris. Lorraine est un marché de fidélité acheteur — les visites sont moins nombreuses mais plus qualifiées, ce qui se traduit souvent par moins d'offres mais une négociation plus directe."}}]}]}</script>
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/courtier-immobilier/lorraine/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/courtier-immobilier/lorraine/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/courtier-immobilier/lorraine/">
 </head>
-<body class="">
+<body class="has-call-bar">
 <!-- Bandeau cookies — conformité Loi 25 (Québec) -->
 <div id="cb-root" hidden>
   <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
     <div class="cb-banner-inner">
       <div class="cb-text">
-        <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
           <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
           <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
@@ -253,10 +252,36 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 </div>
 <main>
 
-<section class="page-head container">
+<section class="city-hero">
+  <figure class="ch-bg"><img src="/photos/lorraine/lorraine1.jpg" alt="Lorraine" fetchpriority="high"></figure>
+  <div class="container city-lead-grid">
+    <div>
       <div class="eyebrow">Courtier immobilier · Lorraine</div>
-      <h1>Courtier immobilier à Lorraine — Alain Brunelle, RE/MAX CRYSTAL.</h1>
+      <h1>Courtier immobilier à Lorraine : Alain Brunelle, RE/MAX CRYSTAL.</h1>
       <p class="lead">Lorraine est unique sur la Rive-Nord : urbanisme à thème médiéval, ville-jardin, rues nommées d'après des cités françaises. Marché niché, acheteurs spécifiques. 35 ans à comprendre ce qui s'y vend.</p>
+      <a class="ph-obs call-btn " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">Appeler Alain : <span class="ph-obs-txt">514 972-4207</span></a>
+      <div class="cl-proof"><span><strong>35 ans</strong> sur la Rive-Nord</span><span><strong>3 000+</strong> transactions</span><span><strong>Rappel en 24 h</strong>, par Alain lui-même</span></div>
+    </div>
+    <form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-lorraine');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
+    <input type="hidden" name="_subject" value="Évaluation gratuite Lorraine (page courtier)">
+    <div class="f-fields">
+      <div class="cl-eye">Évaluation gratuite · Lorraine</div>
+      <h2 class="cl-title">Combien vaut votre maison à Lorraine&nbsp;?</h2>
+      <p class="cl-sub">Mon analyse écrite en 48 h, à partir des ventes près de chez vous. Sans engagement.</p>
+      <label>Nom<input type="text" name="name" autocomplete="name" required></label>
+      <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Adresse de la propriété<input type="text" name="adresse" autocomplete="street-address" placeholder="ex. boulevard De Gaulle, Lorraine" required></label>
+      <button type="submit" class="f-submit">Recevoir mon évaluation gratuite →</button>
+      <p class="f-note">Je vous rappelle moi-même dans les 24 h. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Demande reçue.</h3>
+      <p>Merci. Je vous rappelle personnellement dans les 24 h pour préciser votre propriété.</p>
+    </div>
+  </form>
+  </div>
 </section>
 
     <section class="container">
@@ -298,12 +323,14 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
       <div class="blue-block soft" style="padding:2rem;position:sticky;top:100px">
         <div class="eye" style="color:var(--blue-2)">Évaluation Lorraine</div>
         <h3 style="margin:.7rem 0 1rem">Combien vaut votre propriété à Lorraine ?</h3>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>
+        <a class="btn" href="#evaluation" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:1rem;border-radius:var(--radius);font-weight:500">Demander l'évaluation</a>
+        <a class="ph-obs call-btn solid" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow" style="display:flex;justify-content:center;margin-top:.8rem">Appeler : <span class="ph-obs-txt">514 972-4207</span></a>
       </div>
     </aside>
   </div>
 </section>
-<section class="container"><div class="cta-band"><h2>Vendre ou acheter à Lorraine — parlons-en.</h2><a class="btn" href="/rendez-vous/">Prendre rendez-vous avec moi</a></div></section>
+<section class="container"><div class="cta-band"><h2>Vous vendez à Lorraine ? Commencez par l'évaluation gratuite.</h2><div class="cta-actions"><a class="btn" href="#evaluation">Demander l'évaluation</a><a class="ph-obs call-btn " data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="NTE0IDk3Mi00MjA3" href="#" rel="nofollow">Appeler Alain : <span class="ph-obs-txt">514 972-4207</span></a></div></div></section>
+<nav class="call-bar" aria-label="Joindre Alain"><a class="ph-obs cb-call" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="QXBwZWxlciBBbGFpbg==" href="#" rel="nofollow"><span class="ph-obs-txt">Appeler Alain</span></a><a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>
 </main>
 <footer class="footer">
   <div class="container">

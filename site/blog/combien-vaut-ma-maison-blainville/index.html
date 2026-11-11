@@ -37,18 +37,17 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=2f9593199f">
+<link rel="stylesheet" href="/assets/site.css?v=651d220913">
 
 
 <link rel="alternate" hreflang="fr-CA" href="https://alainbrunelle.com/blog/combien-vaut-ma-maison-blainville/"><link rel="alternate" hreflang="en-CA" href="https://alainbrunelle.com/en/blog/combien-vaut-ma-maison-blainville/"><link rel="alternate" hreflang="x-default" href="https://alainbrunelle.com/blog/combien-vaut-ma-maison-blainville/">
 </head>
-<body class="">
+<body class="has-call-bar">
 <!-- Bandeau cookies — conformité Loi 25 (Québec) -->
 <div id="cb-root" hidden>
   <div class="cb-banner" role="dialog" aria-modal="false" aria-labelledby="cb-title" aria-describedby="cb-desc">
     <div class="cb-banner-inner">
       <div class="cb-text">
-        <div class="cb-icon" aria-hidden="true">🍪</div>
         <div>
           <h2 id="cb-title" data-cb-i18n="title">Votre vie privée nous importe</h2>
           <p id="cb-desc" data-cb-i18n="desc">Nous utilisons des témoins (« cookies ») pour faire fonctionner le site et, avec votre accord, pour mesurer son audience. Conforme à la <a href="/politique-confidentialite/" data-cb-i18n-link="privacy">Loi 25</a>.</p>
@@ -264,6 +263,26 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
 <section class="container" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="two-col">
     <article class="prose"><p class="lead">« Combien vaut ma maison ? » C'est la question la plus simple à poser et la plus difficile à répondre correctement. Voici la méthode que j'utilise chaque jour, à expliquer en 4 couches — pondérées différemment selon votre cas.</p>
+<div class="prose-lead"><form class="contact-form city-lead" id="evaluation" action="https://formspree.io/f/xlgyblyk" method="POST" onsubmit="(async(e)=>{e.preventDefault();const f=e.target;const btn=f.querySelector('.f-submit');const old=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';try{const r=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:(window.abAttr||(x=>x))(new FormData(f))});if(!r.ok)throw 0;f.querySelector('.f-ok').hidden=false;f.querySelector('.f-fields').hidden=true;if(window.abLead)abLead('evaluation-article-blainville');}catch(_){btn.disabled=false;btn.textContent=old;alert('Une erreur réseau est survenue. Réessayez ou appelez Alain au 514 972-4207.');}})(event);return false;">
+    <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Ne pas remplir<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" value=""></label></div>
+    <input type="hidden" name="_subject" value="Évaluation gratuite Blainville (article Combien vaut ma maison)">
+    <div class="f-fields">
+      <div class="cl-eye">Évaluation gratuite · Blainville</div>
+      <h2 class="cl-title">Combien vaut votre maison à Blainville&nbsp;?</h2>
+      <p class="cl-sub">Mon analyse écrite en 48 h, à partir des ventes près de chez vous. Sans engagement.</p>
+      <label>Nom<input type="text" name="name" autocomplete="name" required></label>
+      <label>Téléphone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Adresse de la propriété<input type="text" name="adresse" autocomplete="street-address" placeholder="ex. rue de Chambéry, Blainville" required></label>
+      <button type="submit" class="f-submit">Recevoir mon évaluation gratuite →</button>
+      <p class="f-note">Je vous rappelle moi-même dans les 24 h. Vos renseignements servent uniquement à vous répondre. <a href="/politique-confidentialite/">Politique de confidentialité</a></p>
+    </div>
+    <div class="f-ok" hidden>
+      <div class="f-ok-icon">✓</div>
+      <h3>Demande reçue.</h3>
+      <p>Merci. Je vous rappelle personnellement dans les 24 h pour préciser votre propriété.</p>
+    </div>
+  </form></div>
+
 
 <div class="stat-row">
   <div class="stat-mini"><div class="n">60 %</div><div class="l">Couche 1 — Comparables récents</div></div>
@@ -295,7 +314,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
         <div class="eye" style="color:var(--blue-2);text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:500">Évaluation gratuite</div>
         <h3 style="margin:.7rem 0 1rem;font-size:1.05rem;font-weight:500">Connaître la valeur de votre propriété ?</h3>
         <p style="color:var(--ink-2);font-size:.92rem;margin-bottom:1.4rem;line-height:1.55">Rapport comparatif complet en 48 h, fondé sur les ventes récentes du même quartier.</p>
-        <a class="btn" href="/vendre/evaluation-gratuite/" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Demander l'évaluation</a>
+        <a class="btn" href="#evaluation" style="display:block;background:var(--ink);color:#fff;text-align:center;padding:.95rem;border-radius:999px;font-weight:500;font-size:.92rem">Demander l'évaluation</a>
       </div>
       <div style="margin-top:1rem;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:18px">
         <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin-bottom:.6rem">Parlons-en</div>
@@ -310,6 +329,7 @@ window.abPostHogConsent=function(on){try{if(!window.posthog)return;posthog.set_c
     <a class="btn" href="/rendez-vous/">Prendre rendez-vous</a>
   </div>
 </section>
+<nav class="call-bar" aria-label="Joindre Alain"><a class="ph-obs cb-call" data-ph-h="dGVsOjUxNDk3MjQyMDc=" data-ph-t="QXBwZWxlciBBbGFpbg==" href="#" rel="nofollow"><span class="ph-obs-txt">Appeler Alain</span></a><a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>
 </main>
 <footer class="footer">
   <div class="container">
