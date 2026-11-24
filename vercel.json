@@ -209,6 +209,51 @@
       "source": "/nos-proprietes/20474937-154-boul-rene-a-robert-sainte-therese/",
       "destination": "/courtier-immobilier/sainte-therese/",
       "permanent": true
+    },
+    {
+      "source": "/en/buying/",
+      "destination": "/en/acheter/etapes-pour-acheter/",
+      "permanent": true
+    },
+    {
+      "source": "/en/privacy-policy/",
+      "destination": "/en/politique-confidentialite/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/outils/calculatrice-taxe-mutation/",
+      "destination": "/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/inscription-mon-remax.rmx",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/inscription-mon-remax.rmx/",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/nos-/",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/nos-",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/loader.js",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/loader.js/",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }
