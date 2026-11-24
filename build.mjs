@@ -2120,8 +2120,8 @@ const videos = [
 
 const homeJsonld = JSON.stringify({
   "@context":"https://schema.org","@type":"RealEstateAgent",
-  "name":"Alain Brunelle","url":"https://alainbrunelle.com",
-  "image":"https://alainbrunelle.com/photos/P21_5407-Edit.jpg",
+  "name":"Alain Brunelle","url":"https://www.alainbrunelle.com",
+  "image":"https://www.alainbrunelle.com/photos/P21_5407-Edit.jpg",
   "telephone":"+1-450-430-4207","priceRange":"$$",
   "address":{"@type":"PostalAddress","addressLocality":"Sainte-Thérèse","addressRegion":"QC","addressCountry":"CA"},
   "areaServed":["Sainte-Thérèse","Blainville","Saint-Eustache","Rosemère","Boisbriand","Mirabel"]
@@ -2475,7 +2475,7 @@ function propertyCard(p) {
 writePage('index.html', layout({
   title: 'Alain Brunelle — Courtier immobilier Sainte-Thérèse & Blainville | RE/MAX CRYSTAL',
   description: 'Alain Brunelle, courtier immobilier leader à Sainte-Thérèse et Blainville. Approche analytique, 2000+ transactions, évaluation gratuite et stratégie de mise en marché sur mesure.',
-  canonical: 'https://alainbrunelle.com/',
+  canonical: 'https://www.alainbrunelle.com/',
   extraHead: '<link rel="preload" as="image" href="/photos/alain/hero-alain-1800.jpg" imagesrcset="/photos/alain/hero-alain-900.jpg 900w, /photos/alain/hero-alain-1800.jpg 1800w" imagesizes="(max-width: 860px) 100vw, 55vw" fetchpriority="high">',
   body: homeBody,
   jsonld: homeJsonld
@@ -2496,7 +2496,7 @@ const listBody = `
 writePage('nos-proprietes/index.html', layout({
   title: `Nos propriétés à vendre — Alain Brunelle | Rive-Nord`,
   description: `${properties.length} propriétés Centris mises à jour quotidiennement à Sainte-Thérèse, Blainville et Rive-Nord. Filtrez par ville ou type et consultez les fiches complètes.`,
-  canonical: 'https://alainbrunelle.com/nos-proprietes/',
+  canonical: 'https://www.alainbrunelle.com/nos-proprietes/',
   body: listBody
 }));
 
@@ -2535,7 +2535,7 @@ function visitForm(p) {
   </form>`;
 }
 function remaxIframeDetailPage(p) {
-  const shareUrl = `https://alainbrunelle.com/nos-proprietes/${p.slug}/`;
+  const shareUrl = `https://www.alainbrunelle.com/nos-proprietes/${p.slug}/`;
   const iframeUrl = buildRemaxIframeUrl(p, shareUrl);
   const jsonld = JSON.stringify({
     "@context":"https://schema.org","@type":"RealEstateListing",
@@ -2584,7 +2584,7 @@ function remaxIframeDetailPage(p) {
   return layout({
     title: `${p.typeLabel} à vendre — ${p.street}, ${p.city} · ${fmtPrice(p.price)} | Alain Brunelle`,
     description: `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. Fiche RE/MAX officielle, photos et visite avec Alain Brunelle.`,
-    canonical: `https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
+    canonical: `https://www.alainbrunelle.com/nos-proprietes/${p.slug}/`,
     body,
     jsonld
   });
@@ -2615,7 +2615,7 @@ function detailPage(p) {
     "name": p.sold
       ? `Vendu — ${p.street}, ${p.city}`
       : `${p.typeLabel} à vendre — ${p.street}, ${p.city}`,
-    "url":`https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
+    "url":`https://www.alainbrunelle.com/nos-proprietes/${p.slug}/`,
     "image":photos.map(x=>x.url),
     ...(p.sold
       ? { "availability": "https://schema.org/SoldOut" }
@@ -2693,7 +2693,7 @@ function detailPage(p) {
              data-property-address="${p.street}, ${p.city}"
              data-property-price="${fmtPrice(p.price)}"
              data-property-mls="${p.mls}"
-             data-property-url="https://alainbrunelle.com/nos-proprietes/${p.slug}/">
+             data-property-url="https://www.alainbrunelle.com/nos-proprietes/${p.slug}/">
              Cette propriété m'intéresse →
            </button>
            ${p.isCoBroker && p.primaryBroker ? `
@@ -2758,7 +2758,7 @@ function detailPage(p) {
     description: p.sold
       ? `Propriété vendue au ${p.street}, ${p.city} par Alain Brunelle, courtier immobilier RE/MAX CRYSTAL. Voyez les propriétés similaires actives sur la Rive-Nord.`
       : `${p.typeLabel} à vendre au ${p.street}, ${p.city}. ${fmtPrice(p.price)}. MLS ${p.mls}. ${p.photos.length} photos, fiche complète et visite avec Alain Brunelle.`,
-    canonical: `https://alainbrunelle.com/nos-proprietes/${p.slug}/`,
+    canonical: `https://www.alainbrunelle.com/nos-proprietes/${p.slug}/`,
     body,
     jsonld,
     extraHead: PROPERTY_INQUIRY_CSS + PROPERTY_INQUIRY_JS
@@ -3264,14 +3264,14 @@ ${cityBlock}
 <section class="container"><div class="cta-band"><h2>${cp.headings?.cta || `Vendre ou acheter à ${cityName} — parlons-en.`}</h2>${cp.leadForm ? `<div class="cta-actions"><a class="btn" href="${cp.headings?.ctaHref || '#evaluation'}">${cp.headings?.ctaBtn || "Demander l'évaluation"}</a>${callBtn()}</div>` : `<a class="btn" href="/rendez-vous/">${cp.headings?.ctaBtn || 'Prendre rendez-vous avec moi'}</a>`}</div></section>${cp.leadForm ? `
 <nav class="call-bar" aria-label="Joindre Alain">${obscuredPhone({ cls: 'cb-call', display: 'Appeler Alain', label: 'Appeler Alain' })}<a class="cb-eval" href="#evaluation">Évaluation gratuite</a></nav>` : ''}`;
 
-  const cityUrl = `https://alainbrunelle.com/courtier-immobilier/${slugC}/`;
+  const cityUrl = `https://www.alainbrunelle.com/courtier-immobilier/${slugC}/`;
   const cityJsonld = ldScript({
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "RealEstateAgent", "@id": `${cityUrl}#courtier`,
         "name": "Alain Brunelle", "url": cityUrl,
-        "image": "https://alainbrunelle.com/photos/P21_5407-Edit.jpg",
+        "image": "https://www.alainbrunelle.com/photos/P21_5407-Edit.jpg",
         "telephone": "+1-450-430-4207", "priceRange": "$$",
         "address": { "@type":"PostalAddress", "addressLocality":"Sainte-Thérèse", "addressRegion":"QC", "addressCountry":"CA" },
         "areaServed": { "@id": `${cityUrl}#ville` },
@@ -3394,7 +3394,7 @@ ${cityProps.length ? `
       writePage(`quartiers/${slugC}/${nslug(n)}/index.html`, layout({
         title: `${n.includes(cityName) ? n : `${n}, ${cityName}`} : vendre ou acheter une maison | Alain Brunelle`,
         description: `${n.includes(cityName) ? n : `Le secteur ${n} à ${cityName}`} : ce qui s'y trouve, le marché de la ville ${cs.periodAt || `au ${cs.period || 'Q1 2026'}`} et comment j'évalue une maison du secteur.`,
-        canonical: `https://alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
+        canonical: `https://www.alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
         body: ncBody
       }));
       continue;
@@ -3491,7 +3491,7 @@ ${cityProps.length ? `
     writePage(`quartiers/${slugC}/${nslug(n)}/index.html`, layout({
       title: `${n}, ${cityName} — prix, écoles et maisons à vendre | Alain Brunelle`,
       description: `Portrait du quartier ${n} à ${cityName} : prix médians, écoles, parcs, profil acheteur. Évaluation rue-par-rue par Alain Brunelle, courtier immobilier.`,
-      canonical: `https://alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
+      canonical: `https://www.alainbrunelle.com/quartiers/${slugC}/${nslug(n)}/`,
       body: qBody
     }));
   }
@@ -3636,7 +3636,7 @@ for (const [s,title,lead,body] of TYPES) {
     lead,
     title:`${title} à vendre Sainte-Thérèse Blainville | Alain Brunelle`,
     desc:`${title} à vendre à Sainte-Thérèse, Blainville, Rosemère, Lorraine. Conseils d'expert et inscriptions Centris à jour.`,
-    canonical:`https://alainbrunelle.com/types-de-propriete/${s}/`,
+    canonical:`https://www.alainbrunelle.com/types-de-propriete/${s}/`,
     body: body + `\n<h2>Propriétés actives</h2>\n<p>Consultez la <a href="/nos-proprietes/">liste complète des propriétés disponibles</a>, mise à jour quotidiennement depuis Centris.</p>`
   }));
 }
@@ -3963,9 +3963,9 @@ const evalScript = ({ formName = 'evaluation', place = '' } = {}) => `<script>
 writePage('vendre/evaluation-gratuite/index.html', layout({
   title: 'Évaluation gratuite de votre maison en 48 h | Alain Brunelle',
   description: "Combien vaut votre maison à Blainville, Sainte-Thérèse, Rosemère ou Lorraine ? Laissez votre adresse : Alain Brunelle vous rappelle dans les 24 h et vous remet une évaluation écrite en 48 h.",
-  canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/',
+  canonical: 'https://www.alainbrunelle.com/vendre/evaluation-gratuite/',
   bodyClass: 'has-call-bar',
-  jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
+  jsonld: ldScript({ "@context":"https://schema.org", "@type":"FAQPage", "inLanguage":"fr-CA", "url":"https://www.alainbrunelle.com/vendre/evaluation-gratuite/", "mainEntity": faqEntities(EVAL_FAQ) }),
   extraHead: `<style>${EVAL_CSS}</style>`,
   body: `
 <section class="ev-hero">
@@ -4049,7 +4049,7 @@ const NO_EN_PAGES = new Set(['vendre/evaluation-gratuite/blainville/index.html']
 writePage('vendre/evaluation-gratuite/blainville/index.html', layout({
   title: 'Évaluation gratuite maison Blainville en 48 h | Alain Brunelle',
   description: `Combien vaut votre maison à Blainville ? Alain Brunelle, courtier immobilier RE/MAX CRYSTAL depuis 35 ans, vous rappelle en 24 h. Évaluation écrite en 48 h, gratuite et sans engagement.`,
-  canonical: 'https://alainbrunelle.com/vendre/evaluation-gratuite/blainville/',
+  canonical: 'https://www.alainbrunelle.com/vendre/evaluation-gratuite/blainville/',
   bodyClass: 'has-call-bar',
   extraHead: `<meta name="robots" content="noindex, follow">
 <style>${EVAL_CSS}
@@ -4618,7 +4618,7 @@ const SUBPAGE_HERO = {
 for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
   writePage(`${p}/index.html`, contentPage({
     eyebrow: eye, h1, lead, title, desc,
-    canonical: `https://alainbrunelle.com/${p}/`,
+    canonical: `https://www.alainbrunelle.com/${p}/`,
     heroImg: SUBPAGE_HERO[p],
     leadForm: CONTENT_LEAD_FORMS[p],
     body
@@ -4629,7 +4629,7 @@ for (const [p, h1, eye, lead, title, desc, body] of SUBPAGES) {
 writePage('acheter/calculatrices/index.html', layout({
   title: 'Calculatrices hypothécaires — paiement et capacité | Alain Brunelle',
   description: 'Deux calculatrices gratuites : paiement hypothécaire mensuel et capacité d\'emprunt (ABD/ATD). Outils à titre indicatif.',
-  canonical: 'https://alainbrunelle.com/acheter/calculatrices/',
+  canonical: 'https://www.alainbrunelle.com/acheter/calculatrices/',
   body: `
 <section class="page-head container">
   <div class="eyebrow">Outils gratuits</div>
@@ -4787,7 +4787,7 @@ const GUIDES = [
 writePage('guides/index.html', contentPage({
   eyebrow:'Guides PDF',h1:'Guides téléchargeables',lead:'4 guides PDF gratuits pour chaque étape — vendeur, premier acheteur, investisseur, déménagement.',
   title:'Guides immobiliers PDF | Alain Brunelle',desc:'Guides PDF téléchargeables.',
-  canonical:'https://alainbrunelle.com/guides/',
+  canonical:'https://www.alainbrunelle.com/guides/',
   body: `<ul>${GUIDES.map(([s,t])=>`<li><a href="/guides/${s}/">${t}</a></li>`).join('')}</ul>`
 }));
 const GUIDE_CONTENT = {
@@ -4852,7 +4852,7 @@ for (const [s,t] of GUIDES) {
     eyebrow:'Guide PDF · Gratuit',h1:t,lead:content.lead,
     title:`${t} — PDF gratuit | Alain Brunelle`,
     desc:`${t} — guide PDF gratuit pour comprendre l'immobilier Rive-Nord par Alain Brunelle.`,
-    canonical:`https://alainbrunelle.com/guides/${s}/`,
+    canonical:`https://www.alainbrunelle.com/guides/${s}/`,
     body:content.body + `<div style="background:#e6ecf7;border-radius:14px;padding:1.5rem;margin-top:2rem"><p style="margin-bottom:1rem;color:#003DA5;font-weight:500">Téléchargez le guide gratuitement en échange de votre courriel.</p><form style="display:flex;gap:.5rem;flex-wrap:wrap"><input type="email" placeholder="votre@courriel.com" style="flex:1;min-width:200px;padding:.85rem 1rem;border:1px solid #cdd6e6;border-radius:12px;font-family:inherit"><button type="button" style="background:#003DA5;color:#fff;border:0;padding:.85rem 1.4rem;border-radius:12px;font-family:inherit;font-weight:500;cursor:pointer">Recevoir le PDF</button></form><p style="font-size:.78rem;color:#6a7891;margin-top:.8rem">Aucun spam. Désabonnement en 1 clic.</p></div>`
   }));
 }
@@ -4865,7 +4865,7 @@ writePage('marche-immobilier/index.html', contentPage({
   eyebrow:'Marché immobilier Rive-Nord',h1:'Rapports de marché',lead:'Statistiques APCIQ par Centris® + mon analyse locale, mis à jour à chaque trimestre.',
   title:'Marché immobilier Rive-Nord 2026 | Alain Brunelle',
   desc:'Statistiques du marché immobilier Rive-Nord : Blainville, Sainte-Thérèse, Rosemère, Lorraine. Données Centris (APCIQ) du 3e trimestre 2026.',
-  canonical:'https://alainbrunelle.com/marche-immobilier/',
+  canonical:'https://www.alainbrunelle.com/marche-immobilier/',
   heroImg:'/photos/P21_5407-Edit.jpg',
   body:`<p class="lead">Trois lectures complémentaires : les chiffres de Blainville, ceux de Sainte-Thérèse, et les 4 villes côte à côte.</p>
 
@@ -5061,7 +5061,7 @@ for (const [s, p] of Object.entries(MARCHE_PAGES)) {
     lead: p.lead,
     title: `${p.title} | Alain Brunelle`,
     desc: p.desc,
-    canonical: `https://alainbrunelle.com/marche-immobilier/${s}/`,
+    canonical: `https://www.alainbrunelle.com/marche-immobilier/${s}/`,
     heroImg: MARCHE_HERO[s],
     body: p.body
   }));
@@ -5077,17 +5077,17 @@ const featuredArticle = {
 const articleJsonld = JSON.stringify({
   "@context":"https://schema.org","@type":"Article",
   "headline":featuredArticle.title,
-  "author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://alainbrunelle.com/a-propos/"},
-  "image":"https://alainbrunelle.com/photos/stetherese1.jpg",
+  "author":{"@type":"Person","name":"Alain Brunelle","jobTitle":"Courtier immobilier résidentiel","url":"https://www.alainbrunelle.com/a-propos/"},
+  "image":"https://www.alainbrunelle.com/photos/stetherese1.jpg",
   "datePublished":"2026-04-23","dateModified":new Date().toISOString().slice(0,10),
   "publisher":{"@type":"Organization","name":"Alain Brunelle — RE/MAX CRYSTAL"},
-  "mainEntityOfPage":`https://alainbrunelle.com/blog/${featuredArticle.slug}/`
+  "mainEntityOfPage":`https://www.alainbrunelle.com/blog/${featuredArticle.slug}/`
 });
 
 writePage(`blog/${featuredArticle.slug}/index.html`, layout({
   title: `${featuredArticle.title} | Alain Brunelle`,
   description: `Un courtier immobilier qui connaît Sainte-Thérèse rue par rue décode le marché 2026 : prix par secteur, comparatif Vieux-Village / Sainte-Thérèse-en-Haut / Sainte-Thérèse-en-Bas, outils de calcul. 35 ans, 3 000+ transactions.`,
-  canonical: `https://alainbrunelle.com/blog/${featuredArticle.slug}/`,
+  canonical: `https://www.alainbrunelle.com/blog/${featuredArticle.slug}/`,
   jsonld: articleJsonld,
   extraHead: `<style>
     .a-hero{position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:clamp(420px,55vw,640px);margin-bottom:3rem}
@@ -5417,7 +5417,7 @@ const fmtDate = d => { const [y,m,day]=d.split('-'); return `${day} ${['janv','f
 writePage('blog/index.html', layout({
   title:'Blog immobilier Rive-Nord | Alain Brunelle',
   description:'Analyses de marché, guides et outils interactifs pour vendeurs, acheteurs et investisseurs de la Rive-Nord.',
-  canonical:'https://alainbrunelle.com/blog/',
+  canonical:'https://www.alainbrunelle.com/blog/',
   body:`
 <section class="blog-hero">
   <div class="container">
@@ -5825,7 +5825,7 @@ for (const [s,t] of BLOG_POSTS) {
     lead: c.lead,
     title:`${t} | Alain Brunelle`,
     desc:c.lead || t,
-    canonical:`https://alainbrunelle.com/blog/${s}/`,
+    canonical:`https://www.alainbrunelle.com/blog/${s}/`,
     heroImg: meta.img,
     leadForm: CONTENT_LEAD_FORMS[`blog/${s}`],
     body: c.body
@@ -5836,7 +5836,7 @@ for (const [s,t] of BLOG_POSTS) {
 writePage('a-propos/index.html', layout({
   title:'À propos — Alain Brunelle, courtier immobilier Rive-Nord',
   description:'Alain Brunelle, courtier immobilier à Sainte-Thérèse et Blainville depuis 1992. Plus de 3 000 transactions, Top 5 % RE/MAX Québec depuis 20 ans. Approche analytique, livraison rigoureuse.',
-  canonical:'https://alainbrunelle.com/a-propos/',
+  canonical:'https://www.alainbrunelle.com/a-propos/',
   body:`
 <section class="page-head container"><div class="eyebrow">À propos · Courtier immobilier depuis 1992</div><h1>Alain Brunelle, courtier immobilier de la Rive-Nord depuis 35 ans.</h1><p class="lead">3 000+ transactions · Top 5 % RE/MAX Québec depuis 20 ans · Sainte-Thérèse, Blainville, Rosemère, Lorraine.</p></section>
 
@@ -5902,11 +5902,11 @@ writePage('politique-confidentialite/index.html', contentPage({
   lead:'Comment RE/MAX CRYSTAL et Alain Brunelle, courtier immobilier, gèrent et protègent vos renseignements personnels.',
   title:'Politique de confidentialité | Alain Brunelle — RE/MAX CRYSTAL',
   desc:'Politique de confidentialité de RE/MAX CRYSTAL — collecte, utilisation, conservation et protection des renseignements personnels.',
-  canonical:'https://alainbrunelle.com/politique-confidentialite/',
+  canonical:'https://www.alainbrunelle.com/politique-confidentialite/',
   body:`<p class="muted" style="font-size:.85rem;font-style:italic">Dernière mise à jour : 23 octobre 2023</p>
 
 <h2>Introduction</h2>
-<p>Cette politique décrit comment RE/MAX CRYSTAL (« l'Agence ») gère et protège les informations personnelles de ses clients à travers les contacts directs avec ses représentants et son site web <a href="https://alainbrunelle.com">alainbrunelle.com</a>.</p>
+<p>Cette politique décrit comment RE/MAX CRYSTAL (« l'Agence ») gère et protège les informations personnelles de ses clients à travers les contacts directs avec ses représentants et son site web <a href="https://www.alainbrunelle.com">alainbrunelle.com</a>.</p>
 <p>La politique vise à informer les clients sur la collecte, l'utilisation, la communication et la conservation de leurs données personnelles.</p>
 
 <h2>1. Par quels moyens l'Agence recueille-t-elle des renseignements personnels ?</h2>
@@ -6088,7 +6088,7 @@ writePage('conditions-utilisation/index.html', contentPage({
   lead:'Règles d\'accès et d\'utilisation du site web d\'Alain Brunelle, courtier immobilier — RE/MAX CRYSTAL.',
   title:'Conditions d\'utilisation | Alain Brunelle — RE/MAX CRYSTAL',
   desc:'Conditions d\'utilisation du site alainbrunelle.com : licence, propriété intellectuelle, comportements interdits, limitation de responsabilité.',
-  canonical:'https://alainbrunelle.com/conditions-utilisation/',
+  canonical:'https://www.alainbrunelle.com/conditions-utilisation/',
   body:`<h2>1. Acceptation des conditions</h2>
 <p>Ce contrat lie l'utilisateur à Alain Brunelle (« le Courtier ») et réglemente l'accès au site web. <em>« En accédant au Site Web, vous acceptez d'être lié par les Conditions alors en vigueur »</em> et confirmez votre capacité juridique. L'accès est refusé si vous n'acceptez pas les présentes Conditions.</p>
 
@@ -6170,7 +6170,7 @@ Courriel : <a href="mailto:alain.brunelle@remax-quebec.com">alain.brunelle@remax
 writePage('contact/index.html', layout({
   title:'Contact — Alain Brunelle, courtier immobilier',
   description:'Contactez Alain Brunelle : 450.430.5555 · alain.brunelle@remax-quebec.com · RE/MAX CRYSTAL Sainte-Thérèse.',
-  canonical:'https://alainbrunelle.com/contact/',
+  canonical:'https://www.alainbrunelle.com/contact/',
   body:`
 <section class="page-head container">
   <div class="page-head-grid">
@@ -6202,7 +6202,7 @@ writePage('temoignages/index.html', contentPage({
   eyebrow:'Témoignages clients',h1:'35 ans à courtier, des milliers d\'histoires.',
   lead:'Quelques voix de clients qui ont vendu, acheté ou investi avec moi sur la Rive-Nord. Les noms sont anonymisés à la demande des clients ; les avis vérifiés se trouvent sur Google.',
   title:'Témoignages clients | Alain Brunelle Courtier Rive-Nord',desc:'Témoignages de clients ayant vendu ou acheté avec Alain Brunelle à Sainte-Thérèse, Blainville, Rosemère, Lorraine.',
-  canonical:'https://alainbrunelle.com/temoignages/',
+  canonical:'https://www.alainbrunelle.com/temoignages/',
   body:`<div class="callout" style="margin-bottom:2rem"><div><strong>À propos de ces témoignages.</strong> Tous les extraits ci-dessous proviennent de clients réels. Les noms sont remplacés par un identifiant secteur/profil pour respecter leur vie privée. Pour des avis avec noms complets et photos, consultez <a href="https://g.page/r/CWReusNbS1LV" target="_blank" rel="noopener">la fiche Google Business</a>.</div></div>
 
 <blockquote style="border-left:3px solid #003DA5;padding:1rem 0 1rem 1.5rem;margin:1.5rem 0;font-style:italic;color:#2a3a54;font-size:1.1rem;line-height:1.5">
@@ -6240,7 +6240,7 @@ writePage('temoignages/index.html', contentPage({
 writePage('rendez-vous/index.html', layout({
   title:'Écrire à Alain Brunelle | Courtier immobilier RE/MAX CRYSTAL',
   description:'Écrivez à Alain Brunelle, courtier immobilier à Blainville, Sainte-Thérèse, Rosemère et Lorraine. Il vous répond lui-même, en général dans les 24 h.',
-  canonical:'https://alainbrunelle.com/rendez-vous/',
+  canonical:'https://www.alainbrunelle.com/rendez-vous/',
   extraHead:`<style>
     .rv{background:var(--surface);padding-block:clamp(1.5rem,4vw,4rem) clamp(2.5rem,5vw,5rem)}
     .rv-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,5vw,5rem);align-items:start}
@@ -6369,7 +6369,7 @@ writePage('rendez-vous/index.html', layout({
 writePage('performance/index.html', layout({
   title:'Performance de vente | Alain Brunelle, courtier immobilier',
   description:'Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord — délai médian, ratio prix vendu/demandé, transactions totales depuis 1992.',
-  canonical:'https://alainbrunelle.com/performance/',
+  canonical:'https://www.alainbrunelle.com/performance/',
   body:`
 <section class="page-head container"><div class="eyebrow">Performance · Transactions 2026</div><h1>Performance de vente — Alain Brunelle, courtier immobilier.</h1><p class="lead">Les chiffres réels de mes inscriptions vs la moyenne du marché Rive-Nord. 35 ans de transactions à mesurer.</p></section>
 <section class="container">
@@ -6404,6 +6404,7 @@ writePage('404.html', layout({
 
 const allUrls = [
   '/', '/nos-proprietes/', '/a-propos/', '/contact/', '/temoignages/', '/rendez-vous/', '/guides/', '/marche-immobilier/', '/blog/',
+  '/vendre/evaluation-gratuite/',
   ...CITIES.flatMap(([s,_,ns]) => [`/courtier-immobilier/${s}/`, ...ns.map(n=>`/quartiers/${s}/${nslug(n)}/`)]),
   ...TYPES.map(([s])=>`/types-de-propriete/${s}/`),
   ...SUBPAGES.map(([p])=>`/${p}/`),
@@ -6414,10 +6415,10 @@ const allUrls = [
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map(u=>`<url><loc>https://alainbrunelle.com${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
+${allUrls.map(u=>`<url><loc>https://www.alainbrunelle.com${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
 </urlset>`;
 writePage('sitemap.xml', sitemap);
-writePage('robots.txt', `User-agent: *\nAllow: /\nDisallow: /performance/\nSitemap: https://alainbrunelle.com/sitemap.xml\n`);
+writePage('robots.txt', `User-agent: *\nAllow: /\nDisallow: /performance/\nSitemap: https://www.alainbrunelle.com/sitemap.xml\n`);
 
 console.log(`Generated ${allUrls.length} pages → ${SITE}`);
 
@@ -6428,7 +6429,7 @@ console.log(`Generated ${allUrls.length} pages → ${SITE}`);
 //  chaînes de texte et on préfixe les liens internes par /en.
 // ============================================================
 (function generateEnglish(){
-  const BASE='https://alainbrunelle.com';
+  const BASE='https://www.alainbrunelle.com';
   let DICT={};
   try{
     const dir=path.join(ROOT,'i18n');
@@ -6581,7 +6582,7 @@ console.log(`Generated ${allUrls.length} pages → ${SITE}`);
   try{
     const sp=path.join(SITE,'sitemap.xml');
     let sm=fs.readFileSync(sp,'utf8');
-    const locs=[...sm.matchAll(/<loc>https:\/\/alainbrunelle\.com([^<]*)<\/loc>/g)].map(m=>m[1]).filter(u=>!u.startsWith('/en'));
+    const locs=[...sm.matchAll(/<loc>https:\/\/www\.alainbrunelle\.com([^<]*)<\/loc>/g)].map(m=>m[1]).filter(u=>!u.startsWith('/en'));
     const enXml=locs.map(u=>`<url><loc>${BASE}${u==='/'?'/en/':'/en'+u}</loc><changefreq>weekly</changefreq></url>`).join('\n');
     if(enXml) sm=sm.replace('</urlset>', enXml+'\n</urlset>');
     fs.writeFileSync(sp,sm);

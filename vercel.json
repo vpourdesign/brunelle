@@ -8,45 +8,207 @@
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/photos/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/videos/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ],
   "redirects": [
-    { "source": "/contact", "destination": "/rendez-vous/", "permanent": true },
-    { "source": "/vendre/commission-courtier", "destination": "/vendre/evaluation-gratuite/", "permanent": true },
-    { "source": "/en/vendre/commission-courtier", "destination": "/en/vendre/evaluation-gratuite/", "permanent": true },
-
-    { "source": "/fr/temoignages", "destination": "/temoignages/", "permanent": true },
-    { "source": "/fr/achat-vente", "destination": "/", "permanent": true },
-    { "source": "/fr/outils", "destination": "/acheter/calculatrices/", "permanent": true },
-    { "source": "/fr/outils/calculatrice-hypothecaire", "destination": "/acheter/calculatrices/", "permanent": true },
-    { "source": "/fr/politique-confidentialite", "destination": "/politique-confidentialite/", "permanent": true },
-    { "source": "/fr/conditions-d-utilisation", "destination": "/conditions-utilisation/", "permanent": true },
-    { "source": "/fr/mes-proprietes", "destination": "/nos-proprietes/", "permanent": true },
-    { "source": "/fr/index", "destination": "/", "permanent": true },
-    { "source": "/fr/articles", "destination": "/blog/", "permanent": true },
-    { "source": "/fr/articles/:path*", "destination": "/blog/", "permanent": true },
-    { "source": "/fr/nos-proprietes/:path*", "destination": "/nos-proprietes/", "permanent": true },
-    { "source": "/fr", "destination": "/", "permanent": true },
-
-    { "source": "/en/temoignages", "destination": "/en/temoignages/", "permanent": true },
-    { "source": "/en/achat-vente", "destination": "/en/", "permanent": true },
-    { "source": "/en/outils", "destination": "/en/acheter/calculatrices/", "permanent": true },
-    { "source": "/en/outils/calculatrice-hypothecaire", "destination": "/en/acheter/calculatrices/", "permanent": true },
-    { "source": "/en/politique-confidentialite", "destination": "/en/politique-confidentialite/", "permanent": true },
-    { "source": "/en/conditions-d-utilisation", "destination": "/en/conditions-utilisation/", "permanent": true },
-    { "source": "/en/mes-proprietes", "destination": "/en/nos-proprietes/", "permanent": true },
-    { "source": "/en/index", "destination": "/en/", "permanent": true },
-    { "source": "/en/articles", "destination": "/en/blog/", "permanent": true },
-    { "source": "/en/articles/:path*", "destination": "/en/blog/", "permanent": true },
-    { "source": "/en/nos-proprietes/:path*", "destination": "/en/nos-proprietes/", "permanent": true }
+    {
+      "source": "/vendre/commission-courtier/",
+      "destination": "/vendre/evaluation-gratuite/",
+      "permanent": true
+    },
+    {
+      "source": "/en/vendre/commission-courtier/",
+      "destination": "/en/vendre/evaluation-gratuite/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/index/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/temoignages/",
+      "destination": "/temoignages/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/achat-vente/",
+      "destination": "/acheter/etapes-pour-acheter/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/outils/",
+      "destination": "/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/outils/calculatrice-hypothecaire/",
+      "destination": "/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/outils/evaluation-immobiliere/",
+      "destination": "/vendre/evaluation-gratuite/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/outils/alerte-immobiliere/",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/politique-confidentialite/",
+      "destination": "/politique-confidentialite/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/conditions-d-utilisation/",
+      "destination": "/conditions-utilisation/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/mes-proprietes/",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/articles/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/articles/:path*/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/nos-proprietes/:path*/",
+      "destination": "/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/en/index/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/achat-vente/",
+      "destination": "/en/acheter/etapes-pour-acheter/",
+      "permanent": true
+    },
+    {
+      "source": "/en/selling/",
+      "destination": "/en/vendre/etapes-pour-vendre/",
+      "permanent": true
+    },
+    {
+      "source": "/en/testimonials/",
+      "destination": "/en/temoignages/",
+      "permanent": true
+    },
+    {
+      "source": "/en/terms-of-use/",
+      "destination": "/en/conditions-utilisation/",
+      "permanent": true
+    },
+    {
+      "source": "/en/outils/",
+      "destination": "/en/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/en/outils/calculatrice-hypothecaire/",
+      "destination": "/en/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/en/tools/property-assessment/",
+      "destination": "/en/vendre/evaluation-gratuite/",
+      "permanent": true
+    },
+    {
+      "source": "/en/tools/real-estate-alert/",
+      "destination": "/en/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/en/tools/mortgage-payment/",
+      "destination": "/en/acheter/calculatrices/",
+      "permanent": true
+    },
+    {
+      "source": "/en/conditions-d-utilisation/",
+      "destination": "/en/conditions-utilisation/",
+      "permanent": true
+    },
+    {
+      "source": "/en/mes-proprietes/",
+      "destination": "/en/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/en/articles/",
+      "destination": "/en/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/en/articles/:path*/",
+      "destination": "/en/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/en/our-properties/:path*/",
+      "destination": "/en/nos-proprietes/",
+      "permanent": true
+    },
+    {
+      "source": "/nos-proprietes/21784930-856-rue-bergeron-sainte-therese/",
+      "destination": "/courtier-immobilier/sainte-therese/",
+      "permanent": true
+    },
+    {
+      "source": "/nos-proprietes/11097983-912-rue-louis-maron-sainte-therese/",
+      "destination": "/courtier-immobilier/sainte-therese/",
+      "permanent": true
+    },
+    {
+      "source": "/nos-proprietes/21937115-791-rue-de-seve-sainte-therese/",
+      "destination": "/courtier-immobilier/sainte-therese/",
+      "permanent": true
+    },
+    {
+      "source": "/nos-proprietes/20474937-154-boul-rene-a-robert-sainte-therese/",
+      "destination": "/courtier-immobilier/sainte-therese/",
+      "permanent": true
+    }
   ]
 }
