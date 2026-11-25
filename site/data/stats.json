@@ -1,17 +1,18 @@
 {
-  "total": 1,
-  "avgPrice": 839000,
-  "totalValue": 839000,
+  "total": 2,
+  "avgPrice": 731950,
+  "totalValue": 1463900,
   "byCity": {
-    "Sainte-Thérèse": 1
+    "Sainte-Thérèse": 2
   },
   "byType": {
-    "Propriété": 1
+    "Propriété": 1,
+    "Maison de ville": 1
   },
   "priceRanges": {
     "<300k": 0,
     "300-500k": 0,
-    "500-800k": 0,
+    "500-800k": 1,
     "800k-1.5M": 1,
     ">1.5M": 0
   }

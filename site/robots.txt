@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /performance/
-Sitemap: https://alainbrunelle.com/sitemap.xml
+Sitemap: https://www.alainbrunelle.com/sitemap.xml
