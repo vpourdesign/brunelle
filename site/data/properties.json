@@ -483,202 +483,207 @@
       {
         "seq": 1,
         "type": "FACA",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684DD12A2356D14&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEBD47ED12A2356D1F&t=pi&f=I"
       },
       {
         "seq": 2,
-        "type": "HAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6841D12A2356D4C&t=pi&f=I"
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684DD12A2356D42&t=pi&f=I"
       },
       {
         "seq": 3,
         "type": "HAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6844D12A2356D2A&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6841D12A2356D2E&t=pi&f=I"
       },
       {
         "seq": 4,
-        "type": "SAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6842D12A2356DCB&t=pi&f=I"
+        "type": "HAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6844D12A2356DC0&t=pi&f=I"
       },
       {
         "seq": 5,
         "type": "SAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684ED12A2356DE1&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6842D12A2356DEF&t=pi&f=I"
       },
       {
         "seq": 6,
         "type": "SAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684AD12A2356DA2&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684ED12A2356DA4&t=pi&f=I"
       },
       {
         "seq": 7,
         "type": "SAL",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684BD12A2356D0A&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684AD12A2356D0C&t=pi&f=I"
       },
       {
         "seq": 8,
-        "type": "SAM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684FD12A2356DBB&t=pi&f=I"
+        "type": "SAL",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684BD12A2356DB0&t=pi&f=I"
       },
       {
         "seq": 9,
         "type": "SAM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6849D12A2356DFB&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA684FD12A2356DFF&t=pi&f=I"
       },
       {
         "seq": 10,
         "type": "SAM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6847D12A2356D80&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6849D12A2356D8A&t=pi&f=I"
       },
       {
         "seq": 11,
-        "type": "CUI",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6845D12A2356D9D&t=pi&f=I"
+        "type": "SAM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6847D12A2356D9B&t=pi&f=I"
       },
       {
         "seq": 12,
         "type": "CUI",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6846D12A2356D74&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6845D12A2356D71&t=pi&f=I"
       },
       {
         "seq": 13,
         "type": "CUI",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6821D12A2356D32&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6846D12A2356D32&t=pi&f=I"
       },
       {
         "seq": 14,
         "type": "CUI",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6824D12A2356D5E&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6821D12A2356D5C&t=pi&f=I"
       },
       {
         "seq": 15,
-        "type": "S-E",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6822D12A2356D60&t=pi&f=I"
+        "type": "CUI",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6824D12A2356D6A&t=pi&f=I"
       },
       {
         "seq": 16,
-        "type": "ESCA",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682AD12A23561DF&t=pi&f=I"
+        "type": "S-E",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6822D12A23561DA&t=pi&f=I"
       },
       {
         "seq": 17,
-        "type": "CORRIDOR",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682BD12A2356114&t=pi&f=I"
+        "type": "ESCA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682AD12A235611D&t=pi&f=I"
       },
       {
         "seq": 18,
-        "type": "CCP",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682FD12A235614C&t=pi&f=I"
+        "type": "CORRIDOR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682BD12A2356142&t=pi&f=I"
       },
       {
         "seq": 19,
         "type": "CCP",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6829D12A235612C&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA682FD12A235612E&t=pi&f=I"
       },
       {
         "seq": 20,
         "type": "CCP",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6827D12A23561CA&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6829D12A23561CE&t=pi&f=I"
       },
       {
         "seq": 21,
-        "type": "CAC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6825D12A23561EF&t=pi&f=I"
+        "type": "CCP",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6827D12A23561E0&t=pi&f=I"
       },
       {
         "seq": 22,
         "type": "CAC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6826D12A23561A1&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6825D12A23561AD&t=pi&f=I"
       },
       {
         "seq": 23,
         "type": "CAC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C1D12A2356104&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA6826D12A2356104&t=pi&f=I"
       },
       {
         "seq": 24,
         "type": "CAC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C2D12A23561BE&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C1D12A23561B2&t=pi&f=I"
       },
       {
         "seq": 25,
-        "type": "SDB",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CCD12A23561F0&t=pi&f=I"
+        "type": "CAC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C2D12A23561FA&t=pi&f=I"
       },
       {
         "seq": 26,
         "type": "SDB",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CED12A235618A&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CCD12A235618E&t=pi&f=I"
       },
       {
         "seq": 27,
         "type": "SDB",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C0D12A235619F&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CED12A2356190&t=pi&f=I"
       },
       {
         "seq": 28,
-        "type": "SFM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CBD12A2356171&t=pi&f=I"
+        "type": "SDB",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C0D12A235617D&t=pi&f=I"
       },
       {
         "seq": 29,
         "type": "SFM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C8D12A2356131&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68CBD12A2356134&t=pi&f=I"
       },
       {
         "seq": 30,
         "type": "SFM",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C3D12A235615E&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C8D12A2356154&t=pi&f=I"
       },
       {
         "seq": 31,
-        "type": "S-E",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68EDD12A2356160&t=pi&f=I"
+        "type": "SFM",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68C3D12A235616A&t=pi&f=I"
       },
       {
         "seq": 32,
-        "type": "GARA",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68E2D12A23564DF&t=pi&f=I"
+        "type": "S-E",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68EDD12A23564DA&t=pi&f=I"
       },
       {
         "seq": 33,
-        "type": "BALCON",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68E8D12A235641C&t=pi&f=I"
+        "type": "GARA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68E2D12A235641D&t=pi&f=I"
       },
       {
         "seq": 34,
-        "type": "FACARR",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68AAD12A235644E&t=pi&f=I"
+        "type": "BALCON",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68E8D12A235644E&t=pi&f=I"
       },
       {
         "seq": 35,
         "type": "FACARR",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68A6D12A2356424&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68AAD12A235642A&t=pi&f=I"
       },
       {
         "seq": 36,
-        "type": "PISC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA680FD12A23564C1&t=pi&f=I"
+        "type": "FACARR",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68A6D12A23564C2&t=pi&f=I"
       },
       {
         "seq": 37,
         "type": "PISC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68BDD12A23564EC&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA680FD12A23564E4&t=pi&f=I"
       },
       {
         "seq": 38,
-        "type": "FACA",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68BBD12A23564A2&t=pi&f=I"
+        "type": "PISC",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68BDD12A23564AE&t=pi&f=I"
       },
       {
         "seq": 39,
         "type": "FACA",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68B7D12A235640E&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68BBD12A235640C&t=pi&f=I"
       },
       {
         "seq": 40,
+        "type": "FACA",
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68B7D12A23564BA&t=pi&f=I"
+      },
+      {
+        "seq": 41,
         "type": "PISC",
-        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68B5D12A23564BB&t=pi&f=I"
+        "url": "https://mediaserver.centris.ca/media.ashx?id=ADDE24EDAEA68B5D12A23564FF&t=pi&f=I"
       }
     ],
     "features": [
